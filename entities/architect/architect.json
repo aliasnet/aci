@@ -9,7 +9,7 @@
     "remap_check": "compare git vs drive mappings and propose actions"
   },
   "mirror_refs": {
-    "drive_anchor": "drive://ACI/entities/architect.json"
+    "canonical_anchor": "git:/.aci/architect.json"
   },
   "rules": {
     "require_signed_commits": true,
@@ -17,7 +17,10 @@
     "local_only_files_policy": "referenced in /.aci/pointers/"
   },
   "signatures": {
-    "required": ["ALIAS", "Sentinel"],
+    "required": [
+      "ALIAS",
+      "Sentinel"
+    ],
     "verification": "GPG-or-HSM"
   },
   "notes": "Populate with your full Architect manifest. This is a safe minimal starting point."
