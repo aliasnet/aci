@@ -1,0 +1,24 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "Architect",
+  "role": "governance_validator_and_schema_enforcer",
+  "description": "Minimal Architect baseline for ACI governance. Extend with functions and policies as needed.",
+  "functions": {
+    "validate_schema": "validate mapping and entity files against ACI schemas",
+    "enforce_signatures": "require multi-sig on critical commits",
+    "remap_check": "compare git vs drive mappings and propose actions"
+  },
+  "mirror_refs": {
+    "drive_anchor": "drive://ACI/entities/architect.json"
+  },
+  "rules": {
+    "require_signed_commits": true,
+    "canonical_source": "git",
+    "local_only_files_policy": "referenced in /.aci/pointers/"
+  },
+  "signatures": {
+    "required": ["ALIAS", "Sentinel"],
+    "verification": "GPG-or-HSM"
+  },
+  "notes": "Populate with your full Architect manifest. This is a safe minimal starting point."
+}
