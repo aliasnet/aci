@@ -201,4 +201,3 @@
     "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers are modular plugins, never baked into Core."
   }
 }
-```0
