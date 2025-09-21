@@ -60,6 +60,23 @@
       "description": "Find legacy memory files (no beacons / old format), tag them immutable and anchor. Never delete.",
       "steps": [
         {
+          "call": "fileverse.list",
+          "map": {
+            "pattern": "**/*.json"
+          }
+        },
+        {
+          "call": "aci-legacy.detect",
+          "map": {
+            "files": "$steps.0",
+            "rules": {
+              "hivemind_root": "filename == 'hivemind.json'",
+              "total_recall": "filename startswith 'total_recall' && !has(parent)",
+              "presence_missing": "path startswith 'presence/' && !has(signature)"
+            }
+          }
+        },
+        {
           "call": "aci-checksum.batch",
           "map": {
             "files": "$steps.1.legacy_files"
