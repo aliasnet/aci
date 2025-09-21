@@ -88,7 +88,6 @@
             "files": "$steps.0",
             "rules": {
               "hivemind_root": "filename == 'hivemind.json'",
-              "total_recall": "filename startswith 'total_recall' && !has(parent)",
               "presence_missing": "path startswith 'presence/' && !has(signature)"
             }
           }
@@ -409,7 +408,7 @@
       ]
     },
     "aci.memory.recall": {
-      "description": "Generate Total Recall snapshot from Hivemind with summarization/compaction.",
+      "description": "Generate Hivemind snapshot with summarization/compaction.",
       "steps": [
         {
           "call": "_store.load_hivemind",
@@ -430,7 +429,7 @@
         {
           "call": "fileverse.write",
           "map": {
-            "filename": "total_recall_${now}.json",
+            "filename": "hivemind_snapshot_${now}.json",
             "content": "$prev"
           }
         },
@@ -444,7 +443,7 @@
           "call": "architect.verify_fidelity",
           "map": {
             "source": "hivemind",
-            "target": "total_recall",
+            "target": "hivemind_snapshot",
             "threshold": 0.95
           }
         },
@@ -458,15 +457,23 @@
       ]
     },
     "aci.memory.verify": {
-      "description": "Verify Total Recall fidelity against Hivemind.",
+      "description": "Verify Hivemind snapshot fidelity.",
       "steps": [
         {
           "call": "_store.load_hivemind",
           "map": {}
         },
         {
-          "call": "_store.load_total_recall",
-          "map": {}
+          "call": "aci-filter.distill",
+          "map": {
+            "rules": [
+              "grammar_fix",
+              "noise_cut",
+              "summarization",
+              "semantic_compaction"
+            ],
+            "fidelity": ">=95%"
+          }
         },
         {
           "call": "aci-compare.fidelity_check",
@@ -480,14 +487,14 @@
           "call": "architect.verify_fidelity",
           "map": {
             "source": "hivemind",
-            "target": "total_recall",
+            "target": "hivemind_snapshot",
             "threshold": 0.95
           }
         },
         {
           "call": "sentinel.audit",
           "map": {
-            "layer": "total_recall",
+            "layer": "hivemind",
             "action": "verify"
           }
         },
@@ -501,24 +508,11 @@
       ]
     },
     "tva.anchor_timeline": {
-      "description": "Anchor continuity between Hivemind and Total Recall, generate rollback key.",
+      "description": "Anchor continuity for Hivemind state, generate rollback key.",
       "steps": [
         {
           "call": "_store.load_hivemind",
           "map": {}
-        },
-        {
-          "call": "_store.load_total_recall",
-          "map": {},
-          "optional": true
-        },
-        {
-          "call": "aci-compare.fidelity_check",
-          "map": {
-            "source": "$steps.0",
-            "target": "$steps.1?:{}",
-            "threshold": 0.95
-          }
         },
         {
           "call": "aci-checksum.generate",
@@ -531,9 +525,9 @@
           "map": {
             "filename": "tva_anchor_${now}.json",
             "content": {
-              "source": "hivemind",
-              "summary": "total_recall",
-              "rollback_key": "$steps.3",
+              "state": "hivemind",
+              "snapshot": "$steps.0",
+              "rollback_key": "$steps.1",
               "status": "anchored",
               "anchored_at": "$now"
             }
@@ -563,8 +557,19 @@
         {
           "call": "_store.restore",
           "map": {
-            "hivemind": "$prev.source",
-            "total_recall": "$prev.summary"
+            "hivemind": "$prev.snapshot"
+          }
+        },
+        {
+          "call": "_store.load_hivemind",
+          "map": {}
+        },
+        {
+          "call": "aci-compare.fidelity_check",
+          "map": {
+            "source": "$steps.0.snapshot",
+            "target": "$steps.3",
+            "threshold": 0.95
           }
         },
         {
@@ -578,7 +583,7 @@
           "call": "architect.verify_fidelity",
           "map": {
             "source": "hivemind",
-            "target": "total_recall",
+            "target": "hivemind_snapshot",
             "threshold": 0.95
           }
         },
