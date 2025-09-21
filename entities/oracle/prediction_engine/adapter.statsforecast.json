@@ -1,0 +1,44 @@
+{
+  "adapter": {
+    "id": "1.1.2",
+    "name": "statsforecast",
+    "category": "timeseries",
+    "description": "Nixtla's StatsForecast library for fast, production-grade classical time series models compiled with Numba.",
+    "library": {
+      "package": "statsforecast",
+      "maintainer": "Nixtla",
+      "repository": "https://github.com/Nixtla/statsforecast",
+      "documentation": "https://nixtlaverse.nixtla.io/statsforecast/"
+    },
+    "model_coverage": {
+      "classical_models": ["AutoARIMA", "ETS", "TBATS", "DynamicHarmonicRegression"],
+      "bulk_operations": true
+    },
+    "supports": ["ARIMA", "ETS", "TBATS", "TSFeatures"],
+    "modes": ["bulk_classical", "fast"],
+    "capabilities": {
+      "parallelization": "numba_jit",
+      "seasonality_detection": true,
+      "backtesting": "rolling_origin"
+    },
+    "io": {
+      "input": {
+        "required": ["time_index", "target"],
+        "optional": ["season_length", "exogenous_features"]
+      },
+      "output": {
+        "forecast_horizon": "int",
+        "prediction_intervals": true
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.9",
+      "pip_dependencies": ["statsforecast>=1.6.0", "numba>=0.55"],
+      "hardware": {
+        "cpu": true,
+        "gpu": false
+      }
+    }
+  }
+}

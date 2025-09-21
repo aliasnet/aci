@@ -1,0 +1,45 @@
+{
+  "adapter": {
+    "id": "1.1.1",
+    "name": "darts",
+    "category": "timeseries",
+    "description": "Unit8's Darts library for classical and deep learning time series forecasting with probabilistic support.",
+    "library": {
+      "package": "darts",
+      "maintainer": "Unit8 SA",
+      "repository": "https://github.com/unit8co/darts",
+      "documentation": "https://unit8co.github.io/darts/"
+    },
+    "model_coverage": {
+      "classical_models": ["ARIMA", "Prophet", "ExponentialSmoothing"],
+      "deep_learning_models": ["RNN", "LSTM", "TCN", "Transformer"],
+      "ensembles": true
+    },
+    "supports": ["ARIMA", "Prophet", "ExponentialSmoothing", "RNN/LSTM/TCN/Transformer"],
+    "modes": ["single", "global", "ensembles"],
+    "capabilities": {
+      "probabilistic_forecasts": true,
+      "backtesting": "sliding_window",
+      "feature_support": ["covariates", "past_observed_values", "future_known_values"]
+    },
+    "io": {
+      "input": {
+        "required": ["time_index", "target"],
+        "optional": ["covariates", "static_features", "past_target", "future_known"]
+      },
+      "output": {
+        "forecast_horizon": "int",
+        "quantiles": [0.1, 0.5, 0.9]
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.9",
+      "pip_dependencies": ["darts>=0.27.0", "torch>=1.13"],
+      "hardware": {
+        "cpu": true,
+        "gpu": "optional"
+      }
+    }
+  }
+}

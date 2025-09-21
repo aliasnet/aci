@@ -1,0 +1,45 @@
+{
+  "adapter": {
+    "id": "1.1.4",
+    "name": "river",
+    "category": "timeseries",
+    "description": "River's online machine learning toolkit for streaming regression, classification, and anomaly detection.",
+    "library": {
+      "package": "river",
+      "maintainer": "River contributors",
+      "repository": "https://github.com/online-ml/river",
+      "documentation": "https://riverml.xyz/latest/"
+    },
+    "model_coverage": {
+      "online_learning": ["LinearRegression", "HoeffdingTree", "ADWIN", "HalfSpaceTrees"],
+      "drift_detection": true
+    },
+    "supports": ["online_regression", "online_classification", "drift_detection"],
+    "modes": ["streaming"],
+    "capabilities": {
+      "partial_fit": true,
+      "memory_footprint": "bounded",
+      "latency_ms": "<50"
+    },
+    "io": {
+      "input": {
+        "required": ["feature_vector", "timestamp"],
+        "optional": ["instance_weight", "context"]
+      },
+      "output": {
+        "prediction": true,
+        "confidence": true,
+        "drift_alerts": true
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.8",
+      "pip_dependencies": ["river>=0.14.0"],
+      "hardware": {
+        "cpu": true,
+        "gpu": false
+      }
+    }
+  }
+}

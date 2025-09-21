@@ -1,0 +1,41 @@
+{
+  "adapter": {
+    "id": "1.1.9",
+    "name": "river_tabular",
+    "category": "classification_regression",
+    "description": "River streaming models for tabular regression and classification with drift-aware learning.",
+    "library": {
+      "package": "river",
+      "maintainer": "River contributors",
+      "repository": "https://github.com/online-ml/river",
+      "documentation": "https://riverml.xyz/latest/"
+    },
+    "supports": ["online_models"],
+    "modes": ["streaming"],
+    "capabilities": {
+      "partial_fit": true,
+      "adaptive_windowing": true,
+      "supported_estimators": ["NaiveBayes", "LogisticRegression", "HoeffdingTree", "AdaptiveRandomForest"]
+    },
+    "io": {
+      "input": {
+        "required": ["feature_vector"],
+        "optional": ["label", "timestamp", "sample_weight"]
+      },
+      "output": {
+        "prediction": true,
+        "probabilities": true,
+        "model_state": "serializable"
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.8",
+      "pip_dependencies": ["river>=0.14.0"],
+      "hardware": {
+        "cpu": true,
+        "gpu": false
+      }
+    }
+  }
+}

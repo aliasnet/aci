@@ -1,0 +1,44 @@
+{
+  "adapter": {
+    "id": "1.1.7",
+    "name": "prophet",
+    "category": "timeseries",
+    "description": "Meta's Prophet additive model for time series forecasting with trend, seasonality, and holiday components.",
+    "library": {
+      "package": "prophet",
+      "maintainer": "Meta Platforms",
+      "repository": "https://github.com/facebook/prophet",
+      "documentation": "https://facebook.github.io/prophet/"
+    },
+    "model_coverage": {
+      "additive_components": ["trend", "seasonality", "holidays"],
+      "changepoint_detection": true
+    },
+    "supports": ["additive", "holidays", "changepoints"],
+    "modes": ["quickstart"],
+    "capabilities": {
+      "automatic_changepoints": true,
+      "holiday_calendars": true,
+      "uncertainty_intervals": true
+    },
+    "io": {
+      "input": {
+        "required": ["ds", "y"],
+        "optional": ["extra_regressors", "holidays", "seasonality_prior_scale"]
+      },
+      "output": {
+        "forecast": true,
+        "components": ["trend", "yearly", "weekly", "daily", "holidays"]
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.8",
+      "pip_dependencies": ["prophet>=1.1", "cmdstanpy>=1.0"],
+      "hardware": {
+        "cpu": true,
+        "gpu": false
+      }
+    }
+  }
+}

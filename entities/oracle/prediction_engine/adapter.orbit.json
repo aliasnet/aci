@@ -1,0 +1,44 @@
+{
+  "adapter": {
+    "id": "1.1.6",
+    "name": "orbit",
+    "category": "timeseries",
+    "description": "Uber's Orbit Bayesian time series framework for LGT, DLT, and KTR models with full posterior inference.",
+    "library": {
+      "package": "orbit-ml",
+      "maintainer": "Uber Technologies",
+      "repository": "https://github.com/uber/orbit",
+      "documentation": "https://orbit-ml.readthedocs.io/en/latest/"
+    },
+    "model_coverage": {
+      "bayesian_structural_models": ["LGT", "DLT", "KTR"],
+      "inference": "mcmc"
+    },
+    "supports": ["BSTS", "LGT/DLT"],
+    "modes": ["bayesian"],
+    "capabilities": {
+      "uncertainty_intervals": true,
+      "anomaly_detection": true,
+      "seasonality_support": ["daily", "weekly", "yearly"]
+    },
+    "io": {
+      "input": {
+        "required": ["time_index", "target"],
+        "optional": ["regressors", "seasonality", "holiday_effects"]
+      },
+      "output": {
+        "posterior_samples": true,
+        "credible_intervals": true
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.8",
+      "pip_dependencies": ["orbit-ml>=1.1.4", "cmdstanpy>=1.1"],
+      "hardware": {
+        "cpu": true,
+        "gpu": false
+      }
+    }
+  }
+}

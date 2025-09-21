@@ -1,0 +1,44 @@
+{
+  "adapter": {
+    "id": "1.1.5",
+    "name": "greykite",
+    "category": "timeseries",
+    "description": "LinkedIn's Greykite (Silverkite) library for interpretable, feature-rich time series forecasting.",
+    "library": {
+      "package": "greykite",
+      "maintainer": "LinkedIn",
+      "repository": "https://github.com/linkedin/greykite",
+      "documentation": "https://linkedin.github.io/greykite/"
+    },
+    "model_coverage": {
+      "interpretable_models": ["Silverkite"],
+      "feature_engineering": ["seasonality", "event_effects", "regressor_autoselection"]
+    },
+    "supports": ["Silverkite"],
+    "modes": ["interpretable"],
+    "capabilities": {
+      "automatic_changepoints": true,
+      "event_library": true,
+      "explainability": ["feature_importance", "component_decomposition"]
+    },
+    "io": {
+      "input": {
+        "required": ["time_index", "target"],
+        "optional": ["covariates", "event_calendars", "holiday_overrides"]
+      },
+      "output": {
+        "forecast": true,
+        "decomposition": true
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.8",
+      "pip_dependencies": ["greykite>=1.0.0"],
+      "hardware": {
+        "cpu": true,
+        "gpu": false
+      }
+    }
+  }
+}

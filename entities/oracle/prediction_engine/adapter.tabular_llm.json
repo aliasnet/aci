@@ -1,0 +1,37 @@
+{
+  "adapter": {
+    "id": "1.1.8",
+    "name": "tabular_llm",
+    "category": "classification_regression",
+    "description": "LLM-native reasoning pipeline for lightweight tabular datasets focusing on narrative analysis and feature hints.",
+    "library": {
+      "package": null,
+      "maintainer": "Oracle Predictive Engine",
+      "repository": null,
+      "documentation": null
+    },
+    "supports": ["explain_first", "feature_hints"],
+    "modes": ["analysis_only"],
+    "capabilities": {
+      "schema_inference": true,
+      "prompt_strategies": ["chain_of_thought", "tabular_summary"],
+      "output_modes": ["narrative", "feature_importance_estimate"]
+    },
+    "io": {
+      "input": {
+        "required": ["columnar_samples"],
+        "optional": ["data_dictionary", "target_column", "analysis_goal"]
+      },
+      "output": {
+        "analysis": true,
+        "hypothesis": true,
+        "recommended_models": ["tree_based", "linear", "boosting"]
+      }
+    },
+    "runtime": {
+      "environment": "llm_native",
+      "execution": "in_context_reasoning",
+      "external_dependencies": []
+    }
+  }
+}

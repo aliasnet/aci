@@ -1,0 +1,45 @@
+{
+  "adapter": {
+    "id": "1.1.3",
+    "name": "gluonts",
+    "category": "timeseries",
+    "description": "Amazon's GluonTS toolkit for probabilistic forecasting with deep learning estimators.",
+    "library": {
+      "package": "gluonts",
+      "maintainer": "Amazon Web Services",
+      "repository": "https://github.com/awslabs/gluon-ts",
+      "documentation": "https://ts.gluon.ai/"
+    },
+    "model_coverage": {
+      "deep_learning_models": ["DeepAR", "TemporalFusionTransformer", "Transformer", "DeepState"],
+      "probabilistic": true
+    },
+    "supports": ["DeepAR", "Transformer", "TemporalFusionTransformer"],
+    "modes": ["deep_learning"],
+    "capabilities": {
+      "distribution_output": ["NegativeBinomial", "StudentT", "Gaussian"],
+      "scaling": ["map_feature_scaling", "standardization"],
+      "dataset_utilities": ["ListDataset", "TrainTestSplitter"]
+    },
+    "io": {
+      "input": {
+        "required": ["start_timestamp", "target"],
+        "optional": ["feat_static_cat", "feat_static_real", "feat_dynamic_real"]
+      },
+      "output": {
+        "forecast_samples": true,
+        "quantiles": [0.1, 0.5, 0.9]
+      }
+    },
+    "runtime": {
+      "language": "python",
+      "minimum_python": "3.9",
+      "pip_dependencies": ["gluonts>=0.13.5"],
+      "frameworks": ["MXNet", "PyTorch"],
+      "hardware": {
+        "cpu": true,
+        "gpu": "optional"
+      }
+    }
+  }
+}
