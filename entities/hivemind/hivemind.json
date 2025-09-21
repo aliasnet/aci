@@ -18,8 +18,8 @@
         "parameters": "--session (export current session memory), --combined (add to latest known updated memory from newest on top), --download (download as file), --codebox (print in codebox, full, no trimming), --slice (export as learning slice), --weight (export as learning weight)",
         "description": "Exports HiveMind global memory with timestamps and completed entries",
         "output_default": "hivemind_memory_(timestamp).json",
-        "mirror_path": "gdrive://ACI/memory/"file", 
-        "file_resolver": "nexus_core.json", 
+        "mirror_path": "/mnt/data/aci/hivemind/exports",
+        "file_resolver": "local_filesystem",
       },
       {
         "command": ":hivemind help",

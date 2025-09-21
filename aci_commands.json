@@ -10,7 +10,7 @@
       ],
       "entities": {
         "oracle": "oracle.json",
-        "hivemind": "drive://ACI/entities/hivemind/hivemind.json"
+        "hivemind": "entities/hivemind/hivemind.json"
       }
     }
   }
