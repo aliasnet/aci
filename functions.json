@@ -1,0 +1,397 @@
+{
+  "pipelines": {
+    "aci.boot.activate": {
+      "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",
+      "steps": [
+        {
+          "call": "aci-uuid.new",
+          "map": {
+            "format": "uuidv4"
+          }
+        },
+        {
+          "call": "_store.set",
+          "map": {
+            "key": "current_session_id",
+            "value": "$steps.0.uuid"
+          }
+        },
+        {
+          "call": "_store.load_entities",
+          "map": {}
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "aci-sign.hmac",
+          "map": {
+            "payload": {
+              "session_id": "$steps.0.uuid",
+              "started_at": "$now",
+              "last_seen": "$now",
+              "entity_fingerprint": "$steps.2.entities[].id",
+              "anchor_key": "$steps.3.rollback_key",
+              "ttl_seconds": 900
+            },
+            "key_id": "aci-presence",
+            "algo": "HMAC-SHA256"
+          }
+        },
+        {
+          "call": "aci.legacy.adopt",
+          "map": {}
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "activation",
+            "session_id": "$steps.0.uuid",
+            "presence_file": "presence/${steps.0.uuid}.json"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.legacy.adopt": {
+      "description": "Find legacy memory files (no beacons / old format), tag them immutable and anchor. Never delete.",
+      "steps": [
+        {
+          "call": "aci-checksum.batch",
+          "map": {
+            "files": "$steps.1.legacy_files"
+          }
+        },
+        {
+          "call": "aci-legacy.infer_timestamps",
+          "map": {
+            "files": "$steps.2"
+          }
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "legacy_adopt",
+            "migration_index": "legacy/migration_index_${now}.json"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.timeline.start": {
+      "description": "Start a timeline presence beacon for this session (manual start).",
+      "steps": [
+        {
+          "call": "_store.get",
+          "map": {
+            "key": "current_session_id"
+          }
+        },
+        {
+          "if": "$steps.0.value == null",
+          "then": [
+            {
+              "call": "aci-uuid.new",
+              "map": {
+                "format": "uuidv4"
+              }
+            },
+            {
+              "call": "_store.set",
+              "map": {
+                "key": "current_session_id",
+                "value": "$steps.1.uuid"
+              }
+            }
+          ]
+        },
+        {
+          "call": "_store.load_entities",
+          "map": {}
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "aci-sign.hmac",
+          "map": {
+            "payload": {
+              "session_id": "${current_session_id}",
+              "started_at": "$now",
+              "last_seen": "$now",
+              "entity_fingerprint": "$steps.2.entities[].id",
+              "anchor_key": "$steps.3.rollback_key",
+              "ttl_seconds": 900
+            },
+            "key_id": "aci-presence",
+            "algo": "HMAC-SHA256"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "timeline.start",
+            "session_id": "${current_session_id}"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.timeline.ping": {
+      "description": "Refresh the presence beacon (keep-alive).",
+      "steps": [
+        {
+          "call": "_store.get",
+          "map": {
+            "key": "current_session_id"
+          }
+        },
+        {
+          "call": "aci-sign.hmac",
+          "map": {
+            "payload": {
+              "session_id": "$steps.1.session_id",
+              "started_at": "$steps.1.started_at",
+              "last_seen": "$now",
+              "entity_fingerprint": "$steps.1.entity_fingerprint",
+              "anchor_key": "$steps.1.anchor_key",
+              "ttl_seconds": "$steps.1.ttl_seconds"
+            },
+            "key_id": "aci-presence",
+            "algo": "HMAC-SHA256"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "timeline.ping",
+            "session_id": "$steps.1.session_id"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.timeline.ls": {
+      "description": "List active timelines (beacons not expired by TTL).",
+      "steps": [
+        {
+          "call": "aci-filter.expired",
+          "map": {
+            "files": "$steps.0",
+            "ttl_from_field": "ttl_seconds",
+            "now": "$now"
+          }
+        },
+        {
+          "call": "sentinel.verify_signatures",
+          "map": {
+            "files": "$steps.1.active",
+            "key_id": "aci-presence"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.timeline.end": {
+      "description": "End this session's beacon (finalizes state; never deletes history).",
+      "steps": [
+        {
+          "call": "_store.get",
+          "map": {
+            "key": "current_session_id"
+          }
+        },
+        {
+          "call": "aci-sign.hmac",
+          "map": {
+            "payload": {
+              "session_id": "$steps.1.session_id",
+              "started_at": "$steps.1.started_at",
+              "last_seen": "$now",
+              "ended_at": "$now",
+              "entity_fingerprint": "$steps.1.entity_fingerprint",
+              "anchor_key": "$steps.1.anchor_key",
+              "ttl_seconds": "$steps.1.ttl_seconds",
+              "final": true
+            },
+            "key_id": "aci-presence",
+            "algo": "HMAC-SHA256"
+          }
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "timeline.end",
+            "session_id": "$steps.1.session_id"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.memory.export.hivemind": {
+      "description": "Export Hivemind with structural cleanup; no semantic loss.",
+      "steps": [
+        {
+          "call": "_store.load_hivemind",
+          "map": {}
+        },
+        {
+          "call": "aci-filter.clean_structure",
+          "map": {
+            "mode": "grammar_fix_only"
+          }
+        },
+        {
+          "call": "aci-checksum.generate",
+          "map": {
+            "input": "$prev"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "hivemind",
+            "action": "export"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "tva.rollback": {
+      "description": "Rollback memory state to a TVA anchor using rollback key.",
+      "steps": [
+        {
+          "call": "aci-verify.rollback_key",
+          "map": {
+            "key": "$args.key",
+            "input": "$prev"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "hivemind",
+            "action": "rollback"
+          }
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "tva.rollback.clean": {
+      "description": "Prune expired rollback keys; always keep at least one baseline anchor. Never deletes memory logs.",
+      "steps": [
+        {
+          "call": "aci-filter.expired",
+          "map": {
+            "files": "$steps.0",
+            "retention_days": 30
+          }
+        },
+        {
+          "call": "aci-safeguard.keep_baseline",
+          "map": {
+            "files": "$steps.1",
+            "baseline": "oldest"
+          }
+        },
+        {
+          "call": "aci-safeguard.require_root",
+          "map": {
+            "action": "delete",
+            "scope": "tva_anchor_files"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "rollback_clean",
+            "removed": "$steps.2.to_delete"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.repo": {
+      "description": "Symlink to standalone ACI Repo module.",
+      "steps": [
+        {
+          "call": "include",
+          "map": {
+            "file": "aci_repo.json"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    }
+  },
+  "cli": {
+    "commands": [
+      {
+        "pattern": "^aci\\s+activate$",
+        "pipeline": "aci.boot.activate"
+      },
+      {
+        "pattern": "^aci\\s+timeline\\s+start$",
+        "pipeline": "aci.timeline.start"
+      },
+      {
+        "pattern": "^aci\\s+timeline\\s+ping$",
+        "pipeline": "aci.timeline.ping"
+      },
+      {
+        "pattern": "^aci\\s+timeline\\s+ls$",
+        "pipeline": "aci.timeline.ls"
+      },
+      {
+        "pattern": "^aci\\s+timeline\\s+end$",
+        "pipeline": "aci.timeline.end"
+      },
+      {
+        "pattern": "^aci\\s+export$",
+        "pipeline": "aci.memory.export.hivemind"
+      },
+      {
+        "pattern": "^aci\\s+rollback\\s+(?P<key>[a-f0-9]+)$",
+        "pipeline": "tva.rollback"
+      },
+      {
+        "pattern": "^aci\\s+rollback\\s+clean$",
+        "pipeline": "tva.rollback.clean"
+      }
+    ]
+  }
+}
