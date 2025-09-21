@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "binder": {
+    "description": "Binder for Oracle module — links runtime with library assets.",
+     } 
+      "library": {
+        "sefirot": "sefiton.json",
+        "tarot_rws": "tarot_rws.json",
+        "tarot_expansions": "tarot_expansions.json",
+        "runes_futhark": "runes_futhark.json",
+        "astro_tables": "astro_tables.json"
+      }
+    },
+    "rules": {
+      "library_files_are_static": true,
+      "memory_entries_are_append_only": false,
+      "updates_require_root_signature": [
+        "ALIAS",
+        "Sentinel",
+        "TVA"
+      ],
+      "integrity_check": "Hibemind anchors each commit",
+      "resolution_order": "memory (latest, verified) → library → runtime (local/partial)"
+    },
+    "runtime": {
+      "oracle.json": "git",
+      "oracle_library.json": "git",
+      "journal.json": "git"
+    }
+  }
+}
