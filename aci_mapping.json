@@ -6,7 +6,6 @@
     "drive://ACI/entities/architect.json": "git:/.aci/architect.json",
     "drive://ACI/prime_directive.txt": "local:prime_directive.txt",
     "drive://ACI/hivemind.json": "git:/memory/hivemind.json",
-    "drive://ACI/total_recall.json": "git:/memory/total_recall.json",
     "drive://ACI/entities/local_only_config.json": "local:entities/local_only_config.json"
   },
   "rules": {
