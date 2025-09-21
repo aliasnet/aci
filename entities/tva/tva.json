@@ -15,7 +15,7 @@
       "prime_directive_binding": "TVA ensures nexus_core never overrides prime_directive",
       "anomaly_protocol": {
         "on_violation": "trigger reflex_only; rollback_last_green; freeze promotions",
-        "on_breach": "quarantine offending entity; log to compliance_ledger",
+        "on_breach": "quarantine offending entity; append Hivemind audit entry",
         "signatures_required": [
           "ALIAS",
           "Sentinel"
