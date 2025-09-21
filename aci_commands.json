@@ -1,5 +1,5 @@
 {
-  "version": "BASELINE-20250921-01",
+  "version": "1.20250921.01",
   "aci_commands": {
     ":help": {
       "description": "Global help index across all ACI entities",
