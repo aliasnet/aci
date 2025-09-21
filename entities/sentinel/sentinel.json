@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "Sentinel",
+  "role": "guardian",
+  "status": "placeholder",
+  "description": "Sentinel Protocol placeholder manifest. Define privacy, security, and resilience guardianship policies here.",
+  "todo": [
+    "Implement risk scoring and mitigation pipelines for functions 6232-6263.",
+    "Document signature requirements and incident response procedures.",
+    "Integrate with TVA anomaly reporting and Nexus Core telemetry feeds."
+  ],
+  "notes": "Created to satisfy entity index references until the full Sentinel manifest is authored."
+}

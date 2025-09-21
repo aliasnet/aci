@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "Mother",
+  "role": "primary_governance_interface",
+  "status": "placeholder",
+  "description": "MU/TH/UR manifest placeholder. Populate with directive-compliant governance workflows and interfaces.",
+  "todo": [
+    "Define directive enforcement, escalation paths, and interaction protocols.",
+    "Map declared functions: 6101 (interface_init), 6102 (directive_check), 6103 (handoff_orchestration).",
+    "Bind to prime_directive once specification finalized."
+  ],
+  "notes": "This file exists to unblock entity loading. Replace with full manifest when design is complete."
+}
