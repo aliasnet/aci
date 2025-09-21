@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "TraceHub",
+  "role": "tracing_module",
+  "status": "placeholder",
+  "description": "TraceHub placeholder manifest for correlated tracing across the Temporal Loom.",
+  "todo": [
+    "Specify instrumentation coverage for functions 6243-6268.",
+    "Define storage, retention, and redaction policies for trace data.",
+    "Describe integration with Nexus Core heartbeat and TVA anomaly workflows."
+  ],
+  "notes": "Substitute with production TraceHub manifest when observability design is finalized."
+}

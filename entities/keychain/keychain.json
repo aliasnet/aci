@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "Keychain",
+  "role": "crypto_trust_manager",
+  "status": "placeholder",
+  "description": "Keychain placeholder manifest. Define cryptographic lifecycle and trust distribution flows here.",
+  "todo": [
+    "Detail key issuance, rotation, and revocation policies for functions 6237-6269.",
+    "Specify integration contracts with IAM Gate and Sentinel for audit trails.",
+    "Attach compliance references (NIST, ISO) once policies are drafted."
+  ],
+  "notes": "Created to unblock entity registry. Populate with production-ready controls before activation."
+}

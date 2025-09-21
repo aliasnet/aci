@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "Commerce AI",
+  "role": "commerce_module",
+  "status": "placeholder",
+  "description": "Placeholder manifest for Commerce AI modules and automations.",
+  "todo": [
+    "Enumerate submodules (catalog_ops, demand_forecasting, fulfillment_optimizer).",
+    "Define data governance, privacy, and compliance constraints for commerce data.",
+    "Attach integration notes for Nexus Core event routing and Oracle analytics."
+  ],
+  "notes": "Fill in with the finalized commerce automation design when ready."
+}

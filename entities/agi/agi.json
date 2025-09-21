@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "AGI",
+  "role": "average_general_intelligence_framework",
+  "status": "placeholder",
+  "description": "Placeholder for the proxy-only AGI framework with strict guardrails.",
+  "todo": [
+    "Define capability boundaries, guardrails, and oversight loops for function 6267.",
+    "Document safety constraints, human-in-the-loop requirements, and auditing hooks.",
+    "Link to alignment research artifacts once available."
+  ],
+  "notes": "Replace with finalized AGI manifest before enabling production use."
+}

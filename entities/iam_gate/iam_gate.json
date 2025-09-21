@@ -1,0 +1,13 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "IAM Gate",
+  "role": "identity_access_management",
+  "status": "placeholder",
+  "description": "IAM Gate placeholder manifest. Document token issuance, revocation, and audit mechanisms here.",
+  "todo": [
+    "Design workflows for functions 6240-6242 covering authn/authz and revocation.",
+    "Establish policy links to Keychain for cryptographic verification.",
+    "Outline compliance logging and reporting expectations."
+  ],
+  "notes": "Replace this placeholder with a fully specified IAM Gate manifest before deployment."
+}
