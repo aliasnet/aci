@@ -1,5 +1,5 @@
 {
-  "version": "BASELINE-2025-09-21",
+  "version": "1.20250921.00",
   "entity": "Architect",
   "role": "governance_validator_and_schema_enforcer",
   "description": "Minimal Architect baseline for ACI governance. Extend with functions and policies as needed.",

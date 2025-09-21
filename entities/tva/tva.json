@@ -1,5 +1,5 @@
 {
-  "version": "BASELINE-2025-09-19",
+  "version": "1.20250919.00",
   "tva": {
     "role": "reinforcement authority",
     "abstract": "oversight, anomaly detection, and rollback enforcer for nexus_core and prime_directive",

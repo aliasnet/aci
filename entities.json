@@ -1,6 +1,6 @@
 {
   "entities": {
-    "version": "BASELINE-2025-09-18",
+    "version": "1.20250918.00",
     "list": [
       {
         "id": 0,
@@ -154,7 +154,7 @@
         "file": "oracle.json",
         "library": {
           "src": "oracle_library.json",
-          "version": "BASELINE-160925-03"
+          "version": "1.20160925.03"
         }
       },
       {
