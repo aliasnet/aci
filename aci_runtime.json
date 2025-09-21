@@ -1,7 +1,33 @@
 {
   "aci_runtime": {
+    "version": "BASELINE-2025-09-21",
     "entities": "entities.json",
     "functions": "functions.json",
-    "nexus_core": "nexus_core.json"
+    "nexus_core": "nexus_core.json",
+    "core_files": [
+      "aci_runtime.json",
+      "prime_directive.txt"
+    ],
+    "sandbox_mode": {
+      "enabled": true,
+      "description": "Activates MU/TH/UR sandbox behavior when runtime boots with direct access to core files.",
+      "bootstrap": {
+        "requires_core_files": true,
+        "immediate_initialization": true,
+        "initialization_sequence": "invoke_default_interface"
+      },
+      "fallback_promptless_init": true
+    },
+    "default_interface": {
+      "key": "mother",
+      "file": "entities/mother/mother.json",
+      "initialization_prompt": "Initialize MU/TH/UR governance interface for sandbox boot.",
+      "display_on_boot": true
+    },
+    "interface_triggers": {
+      "invoke mother": "mother",
+      "mother": "mother",
+      "mu/th/ur": "mother"
+    }
   }
 }
