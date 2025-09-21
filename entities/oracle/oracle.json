@@ -1,0 +1,44 @@
+{
+  "oracle": {
+    "schema_version": "1.0",
+    "version": "1.0",
+    "entity": "Oracle",
+    "role": "LLM Predictive and Analysis Engine",
+    "abstract": "Hybrid prediction engine. Core LLM analysis is primary. Symbolic divination methods are optional and surfaced only when aligned or explicitly requested.",
+
+    "mirror": {
+      "predictive_engine": {
+        "gdrive_id": "1oXcdjKo_bd8hd8l2s9SWgpqOc-i2Gqg9",
+        "label": "predictive_engine.json"
+      },
+      "predictive_divination_extension": {
+        "gdrive_id": "1S_oFrBesBxb2UZccdU4dkwrhQN6WcqR9",
+        "label": "predictive_divination_extension.json"
+      }
+    },
+
+    "children": {
+      "predictive_engine": {
+        "id": "1.1",
+        "file": "predictive_engine.json",
+        "role": "Core prediction engine (LLM + adapters)",
+        "status": "active"
+      },
+      "predictive_divination_extension": {
+        "id": "1.2",
+        "file": "predictive_divination_extension.json",
+        "role": "Symbolic divination plugins (tarot, runes, astrology, qabalah)",
+        "status": "optional"
+      }
+    },
+
+    "registry": {
+      "extensions": {
+        "divination": {
+          "file": "predictive_divination_extension.json",
+          "version": "1.0"
+        }
+      }
+    }
+  }
+}
