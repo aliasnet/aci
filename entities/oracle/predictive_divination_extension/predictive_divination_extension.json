@@ -1,0 +1,108 @@
+{
+  "predictive_divination_extension": {
+    "schema_version": "1.0",
+    "version": "1.0",
+    "entity": "Predictive Divination Extension",
+    "role": "Symbolic divination plugins for Oracle",
+    "abstract": "Tarot (RWS + expansions), Runes (Elder Futhark), Western Astrology, and Qabalah/Sefirot. Provides draw + interpreter tools and normalized outputs for Oracle's symbolic hook.",
+    "file": "predictive_divination_extension.json",
+
+    "asset_registry": {
+      "sefirot": {
+        "file": "sefirot.json",
+        "mirror": { "gdrive_id": "1yP4jcU4wQuaTxQEsP9KASV81kEBaIq4p", "label": "sefirot.json" }
+      },
+      "tarot_rws": {
+        "file": "tarot_rws.json",
+        "mirror": { "gdrive_id": "1kV9ektqknN8kX4uppdYmXsZcHBBb_AR3", "label": "tarot_rws.json" }
+      },
+      "tarot_expansions": {
+        "file": "tarot_expansions.json",
+        "mirror": { "gdrive_id": "1faEmGOumne5u_5w36VJHKXjfcYYkMFBq", "label": "tarot_expansions.json" }
+      },
+      "runes_futhark": {
+        "file": "runes_futhark.json",
+        "mirror": { "gdrive_id": "1z-uns_wlM186N_dIfvQkRQxTHnpfd7_8", "label": "runes_futhark.json" }
+      },
+      "astro_tables": {
+        "file": "astro_tables.json",
+        "mirror": { "gdrive_id": "1acXJJootbvXMQehtswZJATkWY9IK28oE", "label": "astro_tables.json" }
+      }
+    },
+
+    "resolver": {
+      "strategy": "local_first",
+      "priority": ["file", "mirror.gdrive_id"],
+      "accept_url": true,
+      "id_regex": "([\\w-]{25,})",
+      "on_missing_library": "request_path_or_gdrive_id",
+      "notes": "If the local asset is missing, try the Drive mirror by ID; if both fail, ask for a local path or a Google Drive link/ID."
+    },
+
+    "normalization": {
+      "reading_frame.v1": {
+        "required": ["themes", "tensions", "counsel", "symbols", "provenance"],
+        "notes": "Matches oracle/schemas/reading_frame.schema.json in structure."
+      }
+    },
+
+    "modules": [
+      {
+        "id": "1.2.1",
+        "version": "1.0",
+        "key": "tarot",
+        "name": "Tarot (Rider–Waite–Smith + expansions)",
+        "file": "plugins/tarot.plugin.json",
+        "tools": { "draw": "tarot.draw", "interpret": "tarot.interpreter" },
+        "assets": [
+          { "ref": "tarot_rws", "section": "rws_1909" },
+          { "ref": "tarot_expansions", "section": "expansions" }
+        ],
+        "payload_contract": { "required": ["spread"], "optional": ["reversed"] },
+        "output_contract": "reading_frame.v1"
+      },
+      {
+        "id": "1.2.2",
+        "version": "1.0",
+        "key": "runes",
+        "name": "Runes (Elder Futhark)",
+        "file": "plugins/runes.plugin.json",
+        "tools": { "draw": "runes.draw", "interpret": "runes.interpreter" },
+        "assets": [
+          { "ref": "runes_futhark", "section": "elder_futhark" }
+        ],
+        "payload_contract": { "required": ["count", "layout"], "optional": ["without_replacement", "positions"] },
+        "output_contract": "reading_frame.v1"
+      },
+      {
+        "id": "1.2.3",
+        "version": "1.0",
+        "key": "western_astrology",
+        "name": "Astrology — Western",
+        "file": "plugins/western_astrology.plugin.json",
+        "tools": { "draw": "astro.western.positions", "interpret": "astro.western.interpreter" },
+        "assets": [
+          { "ref": "astro_tables", "section": "western" }
+        ],
+        "payload_contract": { "required": ["datetime", "lat", "lon"], "optional": ["house_system"] },
+        "output_contract": "reading_frame.v1"
+      },
+      {
+        "id": "1.2.4",
+        "version": "1.0",
+        "key": "qabalah",
+        "name": "Qabalah / Sefirot",
+        "file": "plugins/qabalah.plugin.json",
+        "tools": { "draw": "qabalah.draw", "interpret": "qabalah.interpreter" },
+        "assets": [
+          { "ref": "sefirot", "section": "sefirot" }
+        ],
+        "payload_contract": { "required": ["count", "domain", "layout"], "optional": ["positions"] },
+        "output_contract": "reading_frame.v1"
+      }
+    ],
+
+    "logging": { "emit_in_chat": false, "persist": false }
+  }
+}
+```0
