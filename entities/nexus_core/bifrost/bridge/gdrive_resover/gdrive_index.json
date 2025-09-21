@@ -1,0 +1,19 @@
+{
+  "gdrive_index": {
+    "Oracle": {
+      "predictive_engine.json": "1oXcdjKo_bd8hd8l2s9SWgpqOc-i2Gqg9",
+      "predictive_divination_extension.json": "1S_oFrBesBxb2UZccdU4dkwrhQN6WcqR9",
+      "sefirot": "1yP4jcU4wQuaTxQEsP9KASV81kEBaIq4p",
+      "tarot_rws": "1kV9ektqknN8kX4uppdYmXsZcHBBb_AR3",
+      "tarot_expansions": "1faEmGOumne5u_5w36VJHKXjfcYYkMFBq",
+      "runes_futhark": "1z-uns_wlM186N_dIfvQkRQxTHnpfd7_8",
+      "astro_tables": "1acXJJootbvXMQehtswZJATkWY9IK28oE"
+    },
+    "NexusCore": {
+      "gdrive_resolver.json": "1hnPhDcliJIMHFoSS248P_Ud60dMGcbnV"
+    },
+    "ACI": {
+      "root_folder": "11AHbqK_Zf_G5SGH8DqyXJpQRZ767yCBJ"
+    }
+  }
+}
