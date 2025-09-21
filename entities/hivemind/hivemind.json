@@ -5,21 +5,20 @@
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",
-    "export": "hivemind export'" 
+    "export": ":hivemind export",
     "help": ":hivemind help"
   },
   "help_output": {
     "title": "HiveMind Command Reference",
     "commands": [
       {
-        "command": "hivemind export
+        "command": ":hivemind export",
         "command_rules": "if no parameter then use default_parameter) ",
-        "default_parameter": "--session, --download" 
+        "default_parameter": "--session, --download",
         "parameters": "--session (export current session memory), --combined (add to latest known updated memory from newest on top), --download (download as file), --codebox (print in codebox, full, no trimming), --slice (export as learning slice), --weight (export as learning weight)",
         "description": "Exports HiveMind global memory with timestamps and completed entries",
         "output_default": "hivemind_memory_(timestamp).json",
-        "mirror_path": "gdrive://ACI/memory/"file", 
-        "file_resolver": "nexus_core.json", 
+        "export_path": ".aci/memory/logs/hivemind.json"
       },
       {
         "command": ":hivemind help",
@@ -36,33 +35,35 @@
       "description": "On export, transform non-user 'role' into an 'entity' field in exported entries.",
       "apply_on": "export_operation",
       "behavior": {
-      "if_role_is_user": "preserve role field in export as 'role': 'user'",
-      "if_role_not_user": "in exported output omit 'role' and instead emit 'entity' with normalized value; normalization sources: entry.entity -> entry.by/actor/author -> entry.role",
-      "local_first": true,
-       "completeness_enhancement": true,
-       "length_bias": "2-10% longer (biased 3-7%)",
-       "sorting": {
-       "primary": "newest_first",
-       "fallback": [
-       "year",
-       "month",
-       "date",
-       "time"
-      ],
-      "unknown_order": "lowest_with_placeholder"
-    },
-    "placeholders": {
-      "if_timestamp_missing": "insert placeholder with export timestamp marker"
-    },
-    "universality": "baseline-agnostic; legacy exports normalized automatically"
+        "if_role_is_user": "preserve role field in export as 'role': 'user'",
+        "if_role_not_user": "in exported output omit 'role' and instead emit 'entity' with normalized value; normalization sources: entry.entity -> entry.by/actor/author -> entry.role",
+        "local_first": true,
+        "completeness_enhancement": true,
+        "length_bias": "2-10% longer (biased 3-7%)",
+        "sorting": {
+          "primary": "newest_first",
+          "fallback": [
+            "year",
+            "month",
+            "date",
+            "time"
+          ],
+          "unknown_order": "lowest_with_placeholder"
+        }
+      },
+      "placeholders": {
+        "if_timestamp_missing": "insert placeholder with export timestamp marker"
+      },
+      "universality": "baseline-agnostic; legacy exports normalized automatically"
+    }
   },
   "auto_heal": {
     "mode": "baseline_agnostic",
     "rules": {
       "schema_normalization": "map legacy fields → canonical schema",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
-      "append_only": "override by autocompletion", 
-      "no_deletion": "true" 
+      "append_only": "override by autocompletion",
+      "no_deletion": "true"
     },
     "workflow": [
       "detect version/schema mismatch",
@@ -74,11 +75,10 @@
     ],
     "enforcement": {
       "oversight": [
-        "ALIAS", 
+        "ALIAS",
         "TVA",
         "Sentinel"
-      ],
-      }
+      ]
     }
   },
   "children": {}
