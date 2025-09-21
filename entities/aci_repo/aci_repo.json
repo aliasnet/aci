@@ -1,0 +1,147 @@
+{
+  "version": "BASELINE-2025-09-21",
+  "entity": "ACI Repo",
+  "pipelines": {
+    "aci.repo.search": {
+      "description": "Search the ACI package repository for modules matching the provided query.",
+      "steps": [
+        {
+          "call": "aci-repo.search",
+          "map": {
+            "query": "$args.query",
+            "filters": "$args.filters",
+            "limit": "$args.limit"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "aci_repo",
+            "action": "search",
+            "query": "$args.query"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.repo.search.improve": {
+      "description": "Search the repository and emit focused improvement recommendations for the requested entity.",
+      "steps": [
+        {
+          "call": "aci-repo.search",
+          "map": {
+            "query": "$args.entity",
+            "filters": [
+              "category:entity"
+            ],
+            "limit": 25
+          }
+        },
+        {
+          "call": "aci-repo.suggest_improvements",
+          "map": {
+            "entity": "$args.entity",
+            "results": "$prev"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "aci_repo",
+            "action": "search.improve",
+            "entity": "$args.entity"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.repo.install": {
+      "description": "Install or activate an ACI package into the current workspace.",
+      "steps": [
+        {
+          "call": "aci-repo.install",
+          "map": {
+            "package": "$args.package",
+            "version": "$args.version",
+            "options": "$args.options"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "aci_repo",
+            "action": "install",
+            "package": "$args.package",
+            "version": "$args.version"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.repo.remove": {
+      "description": "Remove a previously installed ACI package while preserving rollback data.",
+      "steps": [
+        {
+          "call": "aci-repo.remove",
+          "map": {
+            "package": "$args.package",
+            "options": "$args.options"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "aci_repo",
+            "action": "remove",
+            "package": "$args.package"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.repo.update": {
+      "description": "Update installed ACI packages, optionally targeting a specific module.",
+      "steps": [
+        {
+          "call": "aci-repo.update",
+          "map": {
+            "package": "$args.package",
+            "mode": "$args.mode"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "aci_repo",
+            "action": "update",
+            "package": "$args.package",
+            "mode": "$args.mode"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.repo.help": {
+      "description": "Display usage guidance for the ACI repository subsystem.",
+      "steps": [
+        {
+          "call": "aci-repo.help_index",
+          "map": {}
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    }
+  }
+}
