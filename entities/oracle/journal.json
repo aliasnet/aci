@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "journal": {
+    "meta": {
+      "entity": "Oracle Journal",
+      "role": "divination_log",
+      "notes": "Stores Oracle reading history; schema prepared for future implementation"
+    },
+    "schema": {
+      "entry": {
+        "id": "unique identifier for reading",
+        "timestamp": "ISO-8601 datetime",
+        "method": "divination method used (tarot, runes, qabalah, kabbalah, dual_mode, astrology, etc.)",
+        "query": "user's question or intent",
+        "draw": "symbols selected (cards, runes, sefirot, etc.)",
+        "interpretation": "themes resolved",
+        "oracle_notes": "binder-synthesized narrative notes",
+        "signatures": [
+          "ALIAS",
+          "Sentinel",
+          "TVA"
+        ]
+      }
+    },
+    "entries": []
+  }
+}
