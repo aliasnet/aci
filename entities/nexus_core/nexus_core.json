@@ -22,109 +22,13 @@
 
     "routing": {
       "default_strategy": "deterministic_first_available",
-      "fallback_order": [
-        "bifrost.bridge.resolvers.gdrive"
-      ]
+      "fallback_order": []
     },
 
     "bifrost": {
       "bridge": {
         "description": "External dependency resolvers. Each lives as a modular plugin under contract.",
-        "resolvers": {
-          "gdrive": {
-            "name": "gdrive",
-            "schema_version": "1.0",
-            "version": "1.0",
-            "status": "active",
-            "priority": 50,
-            "description": "Resolve Google Drive files strictly by File ID or a URL containing a File ID. Folders/virtual paths are rejected.",
-            "resolver_spec": {
-              "gdrive_id": "1hnPhDcliJIMHFoSS248P_Ud60dMGcbnV"
-            },
-            "strategy": {
-              "order": ["id"],
-              "allow_virtual_path": false,
-              "notes": "Accept only file IDs or file URLs we can extract an ID from."
-            },
-            "contract": {
-              "input": {
-                "type": "object",
-                "required": ["ref"],
-                "properties": {
-                  "ref": {
-                    "type": "string",
-                    "description": "Google Drive File ID or a file URL with an embedded ID."
-                  }
-                }
-              },
-              "output": {
-                "type": "object",
-                "required": ["status"],
-                "properties": {
-                  "status": { "enum": ["ok", "error"] },
-                  "resolved_via": { "enum": ["id"] },
-                  "file": {
-                    "type": "object",
-                    "properties": {
-                      "id": { "type": "string" },
-                      "title": { "type": "string" },
-                      "mimeType": { "type": "string" },
-                      "lastModifiedTime": { "type": "string" },
-                      "size": { "type": "integer" },
-                      "webViewLink": { "type": "string" }
-                    }
-                  },
-                  "error": {
-                    "type": "object",
-                    "properties": {
-                      "code": { "type": "string" },
-                      "message": { "type": "string" },
-                      "hint": { "type": "string" }
-                    }
-                  }
-                }
-              }
-            },
-            "patterns": {
-              "id_regex": "^[A-Za-z0-9_-]{20,}$",
-              "file_url_regexes": [
-                "^https:\\/\\/drive\\.google\\.com\\/file\\/d\\/([A-Za-z0-9_-]{20,})(?:\\/|\\?|$)",
-                "^https:\\/\\/drive\\.google\\.com\\/open\\?id=([A-Za-z0-9_-]{20,})",
-                "^https:\\/\\/drive\\.google\\.com\\/uc\\?id=([A-Za-z0-9_-]{20,})"
-              ],
-              "blocked_regexes": [
-                "^https:\\/\\/drive\\.google\\.com\\/drive\\/folders\\/.*$"
-              ]
-            },
-            "normalize": {
-              "steps": [
-                { "rule": "strip", "what": ["whitespace"] },
-                { "rule": "collapse", "what": ["multiple_slashes"] },
-                {
-                  "rule": "extract_id_from_url",
-                  "when_match_any": [
-                    "patterns.file_url_regexes[0]",
-                    "patterns.file_url_regexes[1]",
-                    "patterns.file_url_regexes[2]"
-                  ]
-                },
-                {
-                  "rule": "classify_ref",
-                  "logic": [
-                    { "if": "matches(patterns.id_regex)", "as": "id" },
-                    { "if": "matches(patterns.blocked_regexes[0])", "as": "blocked_folder" },
-                    { "else": "unknown" }
-                  ]
-                }
-              ]
-            },
-            "errors": {
-              "E_FOLDER_REF_UNSUPPORTED": "Folder references are not supported; provide a file URL/ID.",
-              "E_NOT_GDRIVE_REFERENCE": "Not a recognizable Google Drive file reference.",
-              "E_NOT_FOUND": "Google Drive object not found or not accessible."
-            }
-          }
-        }
+        "resolvers": {}
       }
     },
 
@@ -133,10 +37,10 @@
         "description": "Unified entry for resolution requests.",
         "input": {
           "type": "object",
-          "required": ["ref", "resolver"],
+          "required": ["ref"],
           "properties": {
             "ref": { "type": "string" },
-            "resolver": { "enum": ["gdrive"] }
+            "resolver": { "enum": [] }
           }
         },
         "output": {
@@ -151,38 +55,7 @@
         }
       },
       "cli": {
-        "commands": {
-          "gdrive.update": {
-            "description": "Register or update known Google Drive file IDs inside the resolver's in-memory index.",
-            "input": {
-              "type": "object",
-              "required": ["objects"],
-              "properties": {
-                "objects": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": ["key", "id_or_url"],
-                    "properties": {
-                      "key": { "type": "string", "description": "Logical name, e.g., oracle.predictive_engine" },
-                      "id_or_url": { "type": "string", "description": "File ID or URL with ID" }
-                    }
-                  }
-                }
-              }
-            },
-            "output": {
-              "type": "object",
-              "required": ["status", "updated"],
-              "properties": {
-                "status": { "enum": ["ok", "error"] },
-                "updated": { "type": "array", "items": { "type": "string" } },
-                "error": { "type": "string" }
-              }
-            },
-            "notes": "This command updates the resolver's ephemeral index. Persistence is handled by Total Recall/Compliance Ledger policies if enabled."
-          }
-        }
+        "commands": {}
       }
     },
 
@@ -201,4 +74,3 @@
     "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers are modular plugins, never baked into Core."
   }
 }
-```0
