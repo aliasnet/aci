@@ -9,8 +9,8 @@
         ":help hivemind   → Show HiveMind-specific help"
       ],
       "entities": {
-        "oracle": "oracle.json",
-        "hivemind": "drive://ACI/entities/hivemind/hivemind.json"
+        "oracle": "entities/oracle/oracle.json",
+        "hivemind": "entities/hivemind/hivemind.json"
       }
     }
   }

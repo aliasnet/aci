@@ -3,21 +3,30 @@
   "canonical_source": "github",
   "repo": "aci-testnet/aci",
   "mappings": {
-    "drive://ACI/entities/architect.json": "git:/.aci/architect.json",
-    "drive://ACI/prime_directive.txt": "local:prime_directive.txt",
-    "drive://ACI/hivemind.json": "git:/memory/hivemind.json",
-    "drive://ACI/total_recall.json": "git:/memory/total_recall.json",
-    "drive://ACI/entities/local_only_config.json": "local:entities/local_only_config.json"
+    "git:/.aci/architect.json": "entities/architect/architect.json",
+    "local:prime_directive.txt": "prime_directive.txt",
+    "git:/memory/hivemind.json": "entities/hivemind/hivemind.json",
+    "git:/memory/total_recall.json": "memory/total_recall.json",
+    "local:entities/local_only_config.json": "entities/local_only_config.json"
   },
   "rules": {
-    "git_is_canonical_for": ["/.aci/**", "/memory/**"],
-    "local_is_canonical_for": ["/prime_directive.txt", "/entities/**/local_*"],
+    "git_is_canonical_for": [
+      "/.aci/**",
+      "/memory/**"
+    ],
+    "local_is_canonical_for": [
+      "/prime_directive.txt",
+      "/entities/**/local_*"
+    ],
     "sync_policy": "one-way-git-to-drive-when-signed",
     "require_signed_commits": true,
     "pull_on_webhook": true
   },
   "signatures": {
-    "required": ["ALIAS", "Sentinel"],
+    "required": [
+      "ALIAS",
+      "Sentinel"
+    ],
     "verification": "GPG-or-HSM"
   },
   "notes": "Update mappings when you move files; any local-only file should include a small pointer file under /.aci/pointers/"
