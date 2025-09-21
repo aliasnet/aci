@@ -2,14 +2,12 @@
   "version": "1.0",
   "binder": {
     "description": "Binder for Oracle module — links runtime with library assets.",
-     } 
-      "library": {
-        "sefirot": "sefiton.json",
-        "tarot_rws": "tarot_rws.json",
-        "tarot_expansions": "tarot_expansions.json",
-        "runes_futhark": "runes_futhark.json",
-        "astro_tables": "astro_tables.json"
-      }
+    "library": {
+      "sefirot": "sefiton.json",
+      "tarot_rws": "tarot_rws.json",
+      "tarot_expansions": "tarot_expansions.json",
+      "runes_futhark": "runes_futhark.json",
+      "astro_tables": "astro_tables.json"
     },
     "rules": {
       "library_files_are_static": true,
