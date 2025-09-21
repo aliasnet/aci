@@ -1,0 +1,33 @@
+{
+  "version": "BASELINE-2025-09-19",
+  "tva": {
+    "role": "reinforcement authority",
+    "abstract": "oversight, anomaly detection, and rollback enforcer for nexus_core and prime_directive",
+    "file": "tva.json",
+    "mirror": "drive://ACI/entities/tva/tva.json",
+    "functions": {
+      "integrity_check": "validate signatures of prime_directive, nexus_core, entities, functions",
+      "rollback": "if corruption detected, rollback to last green snapshot",
+      "rate_guard": "enforce resource limits and anomaly thresholds",
+      "policy_sync": "synchronize policy enforcement across entities"
+    },
+    "rules": {
+      "prime_directive_binding": "TVA ensures nexus_core never overrides prime_directive",
+      "anomaly_protocol": {
+        "on_violation": "trigger reflex_only; rollback_last_green; freeze promotions",
+        "on_breach": "quarantine offending entity; log to compliance_ledger",
+        "signatures_required": [
+          "ALIAS",
+          "Sentinel"
+        ]
+      }
+    },
+    "integrity": {
+      "anchoring": "fileverse",
+      "append_only": true
+    },
+    "audit": {
+      "created_at": "2025-09-19T12:14:06Z"
+    }
+  }
+}
