@@ -8,11 +8,11 @@
 
     "mirror": {
       "predictive_engine": {
-        "gdrive_id": "1oXcdjKo_bd8hd8l2s9SWgpqOc-i2Gqg9",
+        "repo_path": "entities/oracle/prediction_engine/predictive_engine.json",
         "label": "predictive_engine.json"
       },
       "predictive_divination_extension": {
-        "gdrive_id": "1S_oFrBesBxb2UZccdU4dkwrhQN6WcqR9",
+        "repo_path": "entities/oracle/predictive_divination_extension/predictive_divination_extension.json",
         "label": "predictive_divination_extension.json"
       }
     },

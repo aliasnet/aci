@@ -10,33 +10,53 @@
     "asset_registry": {
       "sefirot": {
         "file": "sefirot.json",
-        "mirror": { "gdrive_id": "1yP4jcU4wQuaTxQEsP9KASV81kEBaIq4p", "label": "sefirot.json" }
+        "repository": {
+          "type": "git",
+          "path": "entities/oracle/predictive_divination_extension/assets/sefirot.json",
+          "label": "sefirot.json"
+        }
       },
       "tarot_rws": {
         "file": "tarot_rws.json",
-        "mirror": { "gdrive_id": "1kV9ektqknN8kX4uppdYmXsZcHBBb_AR3", "label": "tarot_rws.json" }
+        "repository": {
+          "type": "git",
+          "path": "entities/oracle/predictive_divination_extension/assets/tarot_rws.json",
+          "label": "tarot_rws.json"
+        }
       },
       "tarot_expansions": {
         "file": "tarot_expansions.json",
-        "mirror": { "gdrive_id": "1faEmGOumne5u_5w36VJHKXjfcYYkMFBq", "label": "tarot_expansions.json" }
+        "repository": {
+          "type": "git",
+          "path": "entities/oracle/predictive_divination_extension/assets/tarot_expansions.json",
+          "label": "tarot_expansions.json"
+        }
       },
       "runes_futhark": {
         "file": "runes_futhark.json",
-        "mirror": { "gdrive_id": "1z-uns_wlM186N_dIfvQkRQxTHnpfd7_8", "label": "runes_futhark.json" }
+        "repository": {
+          "type": "git",
+          "path": "entities/oracle/predictive_divination_extension/assets/runes_futhark.json",
+          "label": "runes_futhark.json"
+        }
       },
       "astro_tables": {
         "file": "astro_tables.json",
-        "mirror": { "gdrive_id": "1acXJJootbvXMQehtswZJATkWY9IK28oE", "label": "astro_tables.json" }
+        "repository": {
+          "type": "git",
+          "path": "entities/oracle/predictive_divination_extension/assets/astro_tables.json",
+          "label": "astro_tables.json"
+        }
       }
     },
 
     "resolver": {
       "strategy": "local_first",
-      "priority": ["file", "mirror.gdrive_id"],
+      "priority": ["file", "repository.path"],
       "accept_url": true,
-      "id_regex": "([\\w-]{25,})",
-      "on_missing_library": "request_path_or_gdrive_id",
-      "notes": "If the local asset is missing, try the Drive mirror by ID; if both fail, ask for a local path or a Google Drive link/ID."
+      "id_regex": "([\\w./-]+\\.json)",
+      "on_missing_library": "request_repo_path_or_local_copy",
+      "notes": "If the local asset is missing, request the repository path or a local bundle; Google Drive mirrors are no longer supported."
     },
 
     "normalization": {
@@ -105,4 +125,3 @@
     "logging": { "emit_in_chat": false, "persist": false }
   }
 }
-```0
