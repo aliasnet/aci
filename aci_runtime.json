@@ -2,6 +2,6 @@
   "aci_runtime": {
     "entities": "entities.json",
     "functions": "functions.json",
-    "nexus_core": "nexus_core.json"
+    "nexus_core": "entities/nexus_core/nexus_core.json"
   }
 }
