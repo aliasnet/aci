@@ -1,0 +1,7 @@
+{
+  "id": "total_recall",
+  "canonical": "git:/memory/total_recall.json",
+  "local_path": "memory/total_recall.json",
+  "legacy_mirror": "drive://ACI/total_recall.json",
+  "notes": "Legacy drive mirror reference relocated from aci_mapping.json."
+}
