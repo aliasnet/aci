@@ -28,7 +28,32 @@
     "bifrost": {
       "bridge": {
         "description": "External dependency resolvers. Each lives as a modular plugin under contract.",
-        "resolvers": {}
+        "resolvers": {
+          "github_raw_template": {
+            "description": "Expands canonical runtime references using a GitHub raw content template so mirrors stay out of top-level manifests.",
+            "kind": "http_template",
+            "match": {
+              "ref_format": "github:${owner}/${repo}/${ref}/${path}",
+              "notes": "Matches resolver inputs declared in aci_runtime.json anchors.*.remote.inputs."
+            },
+            "template": "https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}",
+            "defaults": {
+              "owner": "aci-testnet",
+              "repo": "aci-testnet",
+              "ref": "main"
+            },
+            "inputs": {
+              "required": ["path"],
+              "optional": ["owner", "repo", "ref"],
+              "documentation": {
+                "path": "File path relative to the repository root.",
+                "owner": "GitHub organization or user that owns the repository (defaults applied when omitted).",
+                "repo": "Repository name to resolve from (defaults applied when omitted).",
+                "ref": "Branch, tag, or commit to read from (defaults to main)."
+              }
+            }
+          }
+        }
       }
     },
 
@@ -40,7 +65,7 @@
           "required": ["ref"],
           "properties": {
             "ref": { "type": "string" },
-            "resolver": { "enum": [] }
+            "resolver": { "enum": ["github_raw_template"] }
           }
         },
         "output": {

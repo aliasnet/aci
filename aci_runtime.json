@@ -2,6 +2,52 @@
   "aci_runtime": {
     "entities": "entities.json",
     "functions": "functions.json",
-    "nexus_core": "entities/nexus_core/nexus_core.json"
+    "nexus_core": "entities/nexus_core/nexus_core.json",
+    "anchors": {
+      "entities": {
+        "local": "entities.json",
+        "remote": {
+          "resolver": "github_raw_template",
+          "inputs": {
+            "path": "entities.json"
+          }
+        }
+      },
+      "functions": {
+        "local": "functions.json",
+        "remote": {
+          "resolver": "github_raw_template",
+          "inputs": {
+            "path": "functions.json"
+          }
+        }
+      },
+      "nexus_core": {
+        "local": "entities/nexus_core/nexus_core.json",
+        "remote": {
+          "resolver": "github_raw_template",
+          "inputs": {
+            "path": "entities/nexus_core/nexus_core.json"
+          }
+        }
+      }
+    },
+    "resolver_registry": {
+      "github_raw_template": {
+        "description": "Synthesizes canonical GitHub raw URLs without embedding concrete mirrors in runtime anchors.",
+        "kind": "http_template",
+        "template": "https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}",
+        "defaults": {
+          "owner": "aci-testnet",
+          "repo": "aci-testnet",
+          "ref": "main"
+        },
+        "inputs": {
+          "required": ["path"],
+          "optional": ["owner", "repo", "ref"]
+        },
+        "notes": "If optional inputs are omitted the defaults are used. 'path' should be the repository-relative path to the file."
+      }
+    }
   }
 }
