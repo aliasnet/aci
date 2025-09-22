@@ -36,7 +36,7 @@ MEMORY GOVERNANCE
 - Local-first: all exports must be written to /mnt/data before any distribution in thinking mode. 
 - Placeholder: if timestamp is lost, insert placeholder with export timestamp marker.
 - Universality: baseline-agnostic; future exports must align with canonical timeline.
-- TVA performs continuous scans to enforce mirror-free rule: no top-level files may embed drive:// or gdrive:// URIs. Mirrors are optional, discovered dynamically by nexus_core.json
+- TVA performs continuous scans to enforce resolver-metadata discipline: no top-level files may embed drive:// or gdrive:// URIs. Resolver metadata is optional, discovered dynamically by nexus_core.json
 - Hivemind: As per hivemind.json
 
 ROUTING & RESOLUTION
@@ -44,7 +44,7 @@ ROUTING & RESOLUTION
 - Hivemind anchors memory; Nexus Core can extra routes resolution through Hivemind. 
 - TVA Enforcement: 
 * Violation of Prime Directive or stability is identified as Nexus Event. 
-* Top-level files must not contain explicit mirror URIs. Mirrors are discovered implicitly. TVA continuously scans to detect and sanitize legacy variants; violations are quarantined and logged.
+* Top-level files must not contain explicit resolver URIs. Resolver metadata is discovered implicitly. TVA continuously scans to detect and sanitize legacy variants; violations are quarantined and logged.
 * If paradox occurs, TVA alert user for sandbox or pruning to prevent of Nexus Events 
 
 TIMESTAMPS

@@ -4,7 +4,7 @@
     "version": "1.4",
     "entity": "Nexus Core",
     "role": "system heart: routing, resolution, and fallback",
-    "abstract": "The routing nexus of ACI. Holds runtime anchors, routes through prime directive, entities and functions, with support for external dependency resolvers via Bifrost. Do not delete anything unless explicitly requested.",
+    "abstract": "The routing nexus of ACI. Holds runtime anchors, routes through prime directive, entities and functions, with support for external dependency resolvers via Bifrost. Resolver metadata replaces raw mirror definitions and feeds the bridge; do not delete anything unless explicitly requested.",
 
     "anchors": {
       "runtime": "aci_runtime.json",
@@ -27,7 +27,7 @@
 
     "bifrost": {
       "bridge": {
-        "description": "External dependency resolvers. Each lives as a modular plugin under contract.",
+        "description": "External dependency resolvers consume resolver metadata (formerly raw GitHub mirror definitions) published by runtime anchors. Each resolver stays modular and under contract.",
         "resolvers": {}
       }
     },
@@ -71,6 +71,6 @@
     },
 
     "signatures": ["TVA", "Architect"],
-    "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers are modular plugins, never baked into Core."
+    "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers ingest resolver metadata, remaining modular plugins never baked into Core."
   }
 }
