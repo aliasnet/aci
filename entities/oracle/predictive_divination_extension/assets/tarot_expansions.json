@@ -1,0 +1,539 @@
+{
+  "expansions": {
+    "metadata": {
+      "version": "2025-09-21",
+      "sources": [
+        "Thoth tarot correspondences compiled from Aleister Crowley's Book of Thoth (public domain)",
+        "Tarot de Marseille numbering harmonized via Camoin/Jodorowsky restoration notes",
+        "Common contemporary spread patterns referenced from BOTA teaching decks"
+      ],
+      "notes": "Provides overlay material for decks and practices that diverge from the Rider–Waite–Smith baseline."
+    },
+    "alternate_numbering": {
+      "justice_strength_swap": {
+        "description": "Strength and Justice swap numbering between Waite/Smith (VIII/XI) and Marseille/Thoth (XI/VIII).",
+        "marseille": {
+          "strength": 11,
+          "justice": 8
+        },
+        "rws": {
+          "strength": 8,
+          "justice": 11
+        },
+        "thoth": {
+          "lust": 11,
+          "adjustment": 8
+        }
+      },
+      "unnumbered_fool": {
+        "description": "Some systems place the Fool at the end rather than at zero.",
+        "marseille": "Unnumbered, often placed between Judgement and World",
+        "thoth": "Designated as Atu 0 but travels through the paths"
+      }
+    },
+    "alternate_titles": {
+      "thoth": {
+        "Justice": "Adjustment",
+        "Strength": "Lust",
+        "Judgement": "The Aeon",
+        "Wheel of Fortune": "Fortune",
+        "The World": "The Universe"
+      },
+      "marseille": {
+        "The High Priestess": "La Papesse",
+        "The Hierophant": "Le Pape",
+        "The Lovers": "L'Amoureux",
+        "The Hanged Man": "Le Pendu"
+      }
+    },
+    "elemental_dignities": {
+      "policy": "Used for advanced spread interpretation; supportive elements amplify while hostile ones diminish.",
+      "matrix": {
+        "fire": {
+          "supportive": [
+            "air"
+          ],
+          "neutral": [
+            "fire",
+            "water"
+          ],
+          "hostile": [
+            "earth"
+          ]
+        },
+        "water": {
+          "supportive": [
+            "earth"
+          ],
+          "neutral": [
+            "water",
+            "air"
+          ],
+          "hostile": [
+            "fire"
+          ]
+        },
+        "air": {
+          "supportive": [
+            "fire"
+          ],
+          "neutral": [
+            "air",
+            "water"
+          ],
+          "hostile": [
+            "earth"
+          ]
+        },
+        "earth": {
+          "supportive": [
+            "water"
+          ],
+          "neutral": [
+            "earth",
+            "fire"
+          ],
+          "hostile": [
+            "air"
+          ]
+        }
+      }
+    },
+    "decans_extended": {
+      "description": "36 decans with ruling planets following the Golden Dawn schema; used for time-based spreads.",
+      "table": [
+        {
+          "decan": 1,
+          "sign": "Aries",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Mars"
+        },
+        {
+          "decan": 2,
+          "sign": "Aries",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Sun"
+        },
+        {
+          "decan": 3,
+          "sign": "Aries",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Venus"
+        },
+        {
+          "decan": 4,
+          "sign": "Taurus",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Mercury"
+        },
+        {
+          "decan": 5,
+          "sign": "Taurus",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Moon"
+        },
+        {
+          "decan": 6,
+          "sign": "Taurus",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Saturn"
+        },
+        {
+          "decan": 7,
+          "sign": "Gemini",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Jupiter"
+        },
+        {
+          "decan": 8,
+          "sign": "Gemini",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Mars"
+        },
+        {
+          "decan": 9,
+          "sign": "Gemini",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Sun"
+        },
+        {
+          "decan": 10,
+          "sign": "Cancer",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Venus"
+        },
+        {
+          "decan": 11,
+          "sign": "Cancer",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Mercury"
+        },
+        {
+          "decan": 12,
+          "sign": "Cancer",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Moon"
+        },
+        {
+          "decan": 13,
+          "sign": "Leo",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Saturn"
+        },
+        {
+          "decan": 14,
+          "sign": "Leo",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Jupiter"
+        },
+        {
+          "decan": 15,
+          "sign": "Leo",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Mars"
+        },
+        {
+          "decan": 16,
+          "sign": "Virgo",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Sun"
+        },
+        {
+          "decan": 17,
+          "sign": "Virgo",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Venus"
+        },
+        {
+          "decan": 18,
+          "sign": "Virgo",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Mercury"
+        },
+        {
+          "decan": 19,
+          "sign": "Libra",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Moon"
+        },
+        {
+          "decan": 20,
+          "sign": "Libra",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Saturn"
+        },
+        {
+          "decan": 21,
+          "sign": "Libra",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Jupiter"
+        },
+        {
+          "decan": 22,
+          "sign": "Scorpio",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Mars"
+        },
+        {
+          "decan": 23,
+          "sign": "Scorpio",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Sun"
+        },
+        {
+          "decan": 24,
+          "sign": "Scorpio",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Venus"
+        },
+        {
+          "decan": 25,
+          "sign": "Sagittarius",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Mercury"
+        },
+        {
+          "decan": 26,
+          "sign": "Sagittarius",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Moon"
+        },
+        {
+          "decan": 27,
+          "sign": "Sagittarius",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Saturn"
+        },
+        {
+          "decan": 28,
+          "sign": "Capricorn",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Jupiter"
+        },
+        {
+          "decan": 29,
+          "sign": "Capricorn",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Mars"
+        },
+        {
+          "decan": 30,
+          "sign": "Capricorn",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Sun"
+        },
+        {
+          "decan": 31,
+          "sign": "Aquarius",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Venus"
+        },
+        {
+          "decan": 32,
+          "sign": "Aquarius",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Mercury"
+        },
+        {
+          "decan": 33,
+          "sign": "Aquarius",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Moon"
+        },
+        {
+          "decan": 34,
+          "sign": "Pisces",
+          "start_degree": 0,
+          "end_degree": 10,
+          "ruler": "Saturn"
+        },
+        {
+          "decan": 35,
+          "sign": "Pisces",
+          "start_degree": 10,
+          "end_degree": 20,
+          "ruler": "Jupiter"
+        },
+        {
+          "decan": 36,
+          "sign": "Pisces",
+          "start_degree": 20,
+          "end_degree": 30,
+          "ruler": "Mars"
+        }
+      ]
+    },
+    "spreads": {
+      "three_card": {
+        "layout": [
+          "past",
+          "present",
+          "future"
+        ],
+        "notes": "Core spread used for rapid diagnostics; can be remapped to situation/obstacle/advice."
+      },
+      "celtic_cross": {
+        "layout": [
+          "significator",
+          "crossing",
+          "foundation",
+          "recent_past",
+          "crown",
+          "near_future",
+          "self",
+          "environment",
+          "hopes_fears",
+          "outcome"
+        ],
+        "notes": "Ten-card classical spread per Waite with positional modifiers for elemental dignities."
+      },
+      "horseshoe": {
+        "layout": [
+          "past",
+          "present",
+          "future",
+          "advice",
+          "external_influences",
+          "hopes_fears",
+          "final_outcome"
+        ],
+        "notes": "Seven-card curve optimized for strategic planning queries."
+      },
+      "relationship_bridge": {
+        "layout": [
+          "querent_state",
+          "querent_needs",
+          "bridge",
+          "partner_state",
+          "partner_needs",
+          "shared_future"
+        ],
+        "notes": "Six-card configuration for interpersonal insight; integrates elemental dignity weighting."
+      }
+    },
+    "deck_integrations": {
+      "thoth": {
+        "majors": {
+          "The Fool": {
+            "hebrew": "Aleph",
+            "element": "Air",
+            "notes": "Atu 0 retains elemental Air but includes Uranian undertones."
+          },
+          "The Magus": {
+            "hebrew": "Beth",
+            "element": "Mercury",
+            "notes": "Multiple Magus variations permitted in some printings."
+          },
+          "The Priestess": {
+            "hebrew": "Gimel",
+            "element": "Moon",
+            "notes": "Combines lunar gatekeeping with camel symbolism."
+          },
+          "The Empress": {
+            "hebrew": "Daleth",
+            "element": "Venus",
+            "notes": "Portrayed with the bees and doves of alchemical union."
+          },
+          "The Emperor": {
+            "hebrew": "Tzaddi",
+            "element": "Aries",
+            "notes": "Crowley swaps Tzaddi and Heh placements compared to Golden Dawn."
+          },
+          "The Hierophant": {
+            "hebrew": "Vav",
+            "element": "Taurus",
+            "notes": "Ceremonial magick emphasis with four kerubs."
+          },
+          "The Lovers": {
+            "hebrew": "Zain",
+            "element": "Gemini",
+            "notes": "Depicts alchemical marriage via royal wedding."
+          },
+          "The Chariot": {
+            "hebrew": "Cheth",
+            "element": "Cancer",
+            "notes": "Sphinx-driven chariot referencing Grail mysteries."
+          },
+          "Adjustment": {
+            "hebrew": "Lamed",
+            "element": "Libra",
+            "notes": "Justice renamed to stress dynamic equilibrium."
+          },
+          "The Hermit": {
+            "hebrew": "Yod",
+            "element": "Virgo",
+            "notes": "Orphic egg and Cerberus motifs illustrate initiation."
+          },
+          "Fortune": {
+            "hebrew": "Kaph",
+            "element": "Jupiter",
+            "notes": "Sphinx, Hermanubis, and Typhon rotate the wheel."
+          },
+          "Lust": {
+            "hebrew": "Teth",
+            "element": "Leo",
+            "notes": "Strength renamed to celebrate ecstatic courage."
+          },
+          "The Hanged Man": {
+            "hebrew": "Mem",
+            "element": "Water",
+            "notes": "Tau cross imagery emphasizes sacrifice."
+          },
+          "Death": {
+            "hebrew": "Nun",
+            "element": "Scorpio",
+            "notes": "Scythe and serpent depict transformative cycles."
+          },
+          "Art": {
+            "hebrew": "Samekh",
+            "element": "Sagittarius",
+            "notes": "Temperance renamed to stress alchemical recombination."
+          },
+          "The Devil": {
+            "hebrew": "Ayin",
+            "element": "Capricorn",
+            "notes": "Goat of Mendes merges with DNA symbolism."
+          },
+          "The Tower": {
+            "hebrew": "Peh",
+            "element": "Mars",
+            "notes": "Called War in some early manuscripts; emphasizes lightning-initiation."
+          },
+          "The Star": {
+            "hebrew": "Heh",
+            "element": "Aquarius",
+            "notes": "Letter swap relative to Golden Dawn placements."
+          },
+          "The Moon": {
+            "hebrew": "Qoph",
+            "element": "Pisces",
+            "notes": "Path of occult trial with scarab, jackal, and wolf."
+          },
+          "The Sun": {
+            "hebrew": "Resh",
+            "element": "Sun",
+            "notes": "Twins dance under solar disks and wall of roses."
+          },
+          "The Aeon": {
+            "hebrew": "Shin",
+            "element": "Fire",
+            "notes": "Judgement recast as new aeon proclamation."
+          },
+          "The Universe": {
+            "hebrew": "Tau",
+            "element": "Saturn",
+            "notes": "World renamed; shows goddess in cosmic oval."
+          }
+        }
+      },
+      "playing_card_reduction": {
+        "method": "Remap minor arcana to standard 52-card playing deck for cartomancy hybrids.",
+        "mapping": {
+          "wands": "clubs",
+          "cups": "hearts",
+          "swords": "spades",
+          "pentacles": "diamonds"
+        },
+        "court_alignment": {
+          "page": "jack",
+          "knight": "knight",
+          "queen": "queen",
+          "king": "king"
+        }
+      }
+    }
+  }
+}

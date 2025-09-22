@@ -1,0 +1,916 @@
+{
+  "western": {
+    "metadata": {
+      "epoch": "Tropical",
+      "timezone_assumption": "UTC unless birth location supplies zone",
+      "sources": [
+        "Swiss Ephemeris public domain tables (summary)",
+        "Alan Leo modern astrological keywords (public domain)"
+      ]
+    },
+    "signs": [
+      {
+        "name": "Aries",
+        "symbol": "♈",
+        "element": "Fire",
+        "modality": "Cardinal",
+        "ruler": "Mars",
+        "date_range": {
+          "start": "03-20",
+          "end": "04-19"
+        },
+        "polarity": "positive",
+        "opposite": "Libra",
+        "keywords": [
+          "initiative",
+          "courage",
+          "pioneering"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Mars"
+          },
+          {
+            "decan": 2,
+            "ruler": "Sun"
+          },
+          {
+            "decan": 3,
+            "ruler": "Venus"
+          }
+        ]
+      },
+      {
+        "name": "Taurus",
+        "symbol": "♉",
+        "element": "Earth",
+        "modality": "Fixed",
+        "ruler": "Venus",
+        "date_range": {
+          "start": "04-19",
+          "end": "05-20"
+        },
+        "polarity": "negative",
+        "opposite": "Scorpio",
+        "keywords": [
+          "stability",
+          "sensuality",
+          "persistence"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Mercury"
+          },
+          {
+            "decan": 2,
+            "ruler": "Moon"
+          },
+          {
+            "decan": 3,
+            "ruler": "Saturn"
+          }
+        ]
+      },
+      {
+        "name": "Gemini",
+        "symbol": "♊",
+        "element": "Air",
+        "modality": "Mutable",
+        "ruler": "Mercury",
+        "date_range": {
+          "start": "05-20",
+          "end": "06-20"
+        },
+        "polarity": "positive",
+        "opposite": "Sagittarius",
+        "keywords": [
+          "communication",
+          "adaptability",
+          "curiosity"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Jupiter"
+          },
+          {
+            "decan": 2,
+            "ruler": "Mars"
+          },
+          {
+            "decan": 3,
+            "ruler": "Sun"
+          }
+        ]
+      },
+      {
+        "name": "Cancer",
+        "symbol": "♋",
+        "element": "Water",
+        "modality": "Cardinal",
+        "ruler": "Moon",
+        "date_range": {
+          "start": "06-20",
+          "end": "07-22"
+        },
+        "polarity": "negative",
+        "opposite": "Capricorn",
+        "keywords": [
+          "nurturing",
+          "protection",
+          "memory"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Venus"
+          },
+          {
+            "decan": 2,
+            "ruler": "Mercury"
+          },
+          {
+            "decan": 3,
+            "ruler": "Moon"
+          }
+        ]
+      },
+      {
+        "name": "Leo",
+        "symbol": "♌",
+        "element": "Fire",
+        "modality": "Fixed",
+        "ruler": "Sun",
+        "date_range": {
+          "start": "07-22",
+          "end": "08-22"
+        },
+        "polarity": "positive",
+        "opposite": "Aquarius",
+        "keywords": [
+          "leadership",
+          "creative expression",
+          "confidence"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Saturn"
+          },
+          {
+            "decan": 2,
+            "ruler": "Jupiter"
+          },
+          {
+            "decan": 3,
+            "ruler": "Mars"
+          }
+        ]
+      },
+      {
+        "name": "Virgo",
+        "symbol": "♍",
+        "element": "Earth",
+        "modality": "Mutable",
+        "ruler": "Mercury",
+        "date_range": {
+          "start": "08-22",
+          "end": "09-22"
+        },
+        "polarity": "negative",
+        "opposite": "Pisces",
+        "keywords": [
+          "analysis",
+          "service",
+          "craft"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Sun"
+          },
+          {
+            "decan": 2,
+            "ruler": "Venus"
+          },
+          {
+            "decan": 3,
+            "ruler": "Mercury"
+          }
+        ]
+      },
+      {
+        "name": "Libra",
+        "symbol": "♎",
+        "element": "Air",
+        "modality": "Cardinal",
+        "ruler": "Venus",
+        "date_range": {
+          "start": "09-22",
+          "end": "10-22"
+        },
+        "polarity": "positive",
+        "opposite": "Aries",
+        "keywords": [
+          "balance",
+          "diplomacy",
+          "aesthetics"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Moon"
+          },
+          {
+            "decan": 2,
+            "ruler": "Saturn"
+          },
+          {
+            "decan": 3,
+            "ruler": "Jupiter"
+          }
+        ]
+      },
+      {
+        "name": "Scorpio",
+        "symbol": "♏",
+        "element": "Water",
+        "modality": "Fixed",
+        "ruler": "Mars",
+        "date_range": {
+          "start": "10-22",
+          "end": "11-21"
+        },
+        "polarity": "negative",
+        "opposite": "Taurus",
+        "keywords": [
+          "intensity",
+          "transformation",
+          "strategy"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Mars"
+          },
+          {
+            "decan": 2,
+            "ruler": "Sun"
+          },
+          {
+            "decan": 3,
+            "ruler": "Venus"
+          }
+        ]
+      },
+      {
+        "name": "Sagittarius",
+        "symbol": "♐",
+        "element": "Fire",
+        "modality": "Mutable",
+        "ruler": "Jupiter",
+        "date_range": {
+          "start": "11-21",
+          "end": "12-21"
+        },
+        "polarity": "positive",
+        "opposite": "Gemini",
+        "keywords": [
+          "vision",
+          "exploration",
+          "philosophy"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Mercury"
+          },
+          {
+            "decan": 2,
+            "ruler": "Moon"
+          },
+          {
+            "decan": 3,
+            "ruler": "Saturn"
+          }
+        ]
+      },
+      {
+        "name": "Capricorn",
+        "symbol": "♑",
+        "element": "Earth",
+        "modality": "Cardinal",
+        "ruler": "Saturn",
+        "date_range": {
+          "start": "12-21",
+          "end": "01-19"
+        },
+        "polarity": "negative",
+        "opposite": "Cancer",
+        "keywords": [
+          "discipline",
+          "structure",
+          "long-term focus"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Jupiter"
+          },
+          {
+            "decan": 2,
+            "ruler": "Mars"
+          },
+          {
+            "decan": 3,
+            "ruler": "Sun"
+          }
+        ]
+      },
+      {
+        "name": "Aquarius",
+        "symbol": "♒",
+        "element": "Air",
+        "modality": "Fixed",
+        "ruler": "Saturn",
+        "date_range": {
+          "start": "01-19",
+          "end": "02-18"
+        },
+        "polarity": "positive",
+        "opposite": "Leo",
+        "keywords": [
+          "innovation",
+          "community",
+          "detachment"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Venus"
+          },
+          {
+            "decan": 2,
+            "ruler": "Mercury"
+          },
+          {
+            "decan": 3,
+            "ruler": "Moon"
+          }
+        ]
+      },
+      {
+        "name": "Pisces",
+        "symbol": "♓",
+        "element": "Water",
+        "modality": "Mutable",
+        "ruler": "Jupiter",
+        "date_range": {
+          "start": "02-18",
+          "end": "03-20"
+        },
+        "polarity": "negative",
+        "opposite": "Virgo",
+        "keywords": [
+          "compassion",
+          "imagination",
+          "dissolution"
+        ],
+        "decans": [
+          {
+            "decan": 1,
+            "ruler": "Saturn"
+          },
+          {
+            "decan": 2,
+            "ruler": "Jupiter"
+          },
+          {
+            "decan": 3,
+            "ruler": "Mars"
+          }
+        ]
+      }
+    ],
+    "planets": [
+      {
+        "name": "Sun",
+        "symbol": "☉",
+        "domain": "Vitality",
+        "keywords": "Identity",
+        "rulership": [
+          "Leo"
+        ],
+        "dignities": {
+          "domicile": [
+            "Leo"
+          ],
+          "exaltation": [
+            "Aries"
+          ],
+          "detriment": [
+            "Aquarius"
+          ],
+          "fall": [
+            "Libra"
+          ]
+        },
+        "orb_degrees": 1.0
+      },
+      {
+        "name": "Moon",
+        "symbol": "☾",
+        "domain": "Emotions",
+        "keywords": "Instinct",
+        "rulership": [
+          "Cancer"
+        ],
+        "dignities": {
+          "domicile": [
+            "Cancer"
+          ],
+          "exaltation": [
+            "Taurus"
+          ],
+          "detriment": [
+            "Capricorn"
+          ],
+          "fall": [
+            "Scorpio"
+          ]
+        },
+        "orb_degrees": 0.8
+      },
+      {
+        "name": "Mercury",
+        "symbol": "☿",
+        "domain": "Communication",
+        "keywords": "Intellect",
+        "rulership": [
+          "Gemini",
+          "Virgo"
+        ],
+        "dignities": {
+          "domicile": [
+            "Gemini",
+            "Virgo"
+          ],
+          "exaltation": [
+            "Virgo"
+          ],
+          "detriment": [
+            "Sagittarius",
+            "Pisces"
+          ],
+          "fall": [
+            "Pisces"
+          ]
+        },
+        "orb_degrees": 0.6
+      },
+      {
+        "name": "Venus",
+        "symbol": "♀",
+        "domain": "Attraction",
+        "keywords": "Harmony",
+        "rulership": [
+          "Taurus",
+          "Libra"
+        ],
+        "dignities": {
+          "domicile": [
+            "Taurus",
+            "Libra"
+          ],
+          "exaltation": [
+            "Pisces"
+          ],
+          "detriment": [
+            "Scorpio",
+            "Aries"
+          ],
+          "fall": [
+            "Virgo"
+          ]
+        },
+        "orb_degrees": 0.7
+      },
+      {
+        "name": "Mars",
+        "symbol": "♂",
+        "domain": "Drive",
+        "keywords": "Action",
+        "rulership": [
+          "Aries",
+          "Scorpio"
+        ],
+        "dignities": {
+          "domicile": [
+            "Aries",
+            "Scorpio"
+          ],
+          "exaltation": [
+            "Capricorn"
+          ],
+          "detriment": [
+            "Libra",
+            "Taurus"
+          ],
+          "fall": [
+            "Cancer"
+          ]
+        },
+        "orb_degrees": 0.9
+      },
+      {
+        "name": "Jupiter",
+        "symbol": "♃",
+        "domain": "Expansion",
+        "keywords": "Wisdom",
+        "rulership": [
+          "Sagittarius",
+          "Pisces"
+        ],
+        "dignities": {
+          "domicile": [
+            "Sagittarius",
+            "Pisces"
+          ],
+          "exaltation": [
+            "Cancer"
+          ],
+          "detriment": [
+            "Gemini",
+            "Virgo"
+          ],
+          "fall": [
+            "Capricorn"
+          ]
+        },
+        "orb_degrees": 1.2
+      },
+      {
+        "name": "Saturn",
+        "symbol": "♄",
+        "domain": "Structure",
+        "keywords": "Discipline",
+        "rulership": [
+          "Capricorn",
+          "Aquarius"
+        ],
+        "dignities": {
+          "domicile": [
+            "Capricorn",
+            "Aquarius"
+          ],
+          "exaltation": [
+            "Libra"
+          ],
+          "detriment": [
+            "Cancer",
+            "Leo"
+          ],
+          "fall": [
+            "Aries"
+          ]
+        },
+        "orb_degrees": 1.1
+      },
+      {
+        "name": "Uranus",
+        "symbol": "♅",
+        "domain": "Innovation",
+        "keywords": "Liberation",
+        "rulership": [
+          "Aquarius"
+        ],
+        "dignities": {
+          "domicile": [
+            "Aquarius"
+          ],
+          "exaltation": [
+            "Scorpio"
+          ],
+          "detriment": [
+            "Leo"
+          ],
+          "fall": [
+            "Taurus"
+          ]
+        },
+        "orb_degrees": 1.3
+      },
+      {
+        "name": "Neptune",
+        "symbol": "♆",
+        "domain": "Vision",
+        "keywords": "Mysticism",
+        "rulership": [
+          "Pisces"
+        ],
+        "dignities": {
+          "domicile": [
+            "Pisces"
+          ],
+          "exaltation": [
+            "Cancer"
+          ],
+          "detriment": [
+            "Virgo"
+          ],
+          "fall": [
+            "Capricorn"
+          ]
+        },
+        "orb_degrees": 1.3
+      },
+      {
+        "name": "Pluto",
+        "symbol": "♇",
+        "domain": "Transformation",
+        "keywords": "Power",
+        "rulership": [
+          "Scorpio"
+        ],
+        "dignities": {
+          "domicile": [
+            "Scorpio"
+          ],
+          "exaltation": [
+            "Leo"
+          ],
+          "detriment": [
+            "Taurus"
+          ],
+          "fall": [
+            "Aquarius"
+          ]
+        },
+        "orb_degrees": 1.4
+      }
+    ],
+    "houses": [
+      {
+        "number": 1,
+        "name": "Self",
+        "alternate_name": "Ascendant",
+        "keywords": [
+          "identity",
+          "approach",
+          "presentation"
+        ],
+        "natural_sign": "Aries"
+      },
+      {
+        "number": 2,
+        "name": "Resources",
+        "alternate_name": "Values",
+        "keywords": [
+          "finances",
+          "possessions",
+          "self-worth"
+        ],
+        "natural_sign": "Taurus"
+      },
+      {
+        "number": 3,
+        "name": "Communication",
+        "alternate_name": "Siblings",
+        "keywords": [
+          "learning",
+          "short trips",
+          "messaging"
+        ],
+        "natural_sign": "Gemini"
+      },
+      {
+        "number": 4,
+        "name": "Home",
+        "alternate_name": "Roots",
+        "keywords": [
+          "family",
+          "foundation",
+          "security"
+        ],
+        "natural_sign": "Cancer"
+      },
+      {
+        "number": 5,
+        "name": "Creativity",
+        "alternate_name": "Pleasure",
+        "keywords": [
+          "romance",
+          "children",
+          "self-expression"
+        ],
+        "natural_sign": "Leo"
+      },
+      {
+        "number": 6,
+        "name": "Service",
+        "alternate_name": "Habits",
+        "keywords": [
+          "work",
+          "health",
+          "routine"
+        ],
+        "natural_sign": "Virgo"
+      },
+      {
+        "number": 7,
+        "name": "Partnership",
+        "alternate_name": "Contracts",
+        "keywords": [
+          "marriage",
+          "alliances",
+          "opposition"
+        ],
+        "natural_sign": "Libra"
+      },
+      {
+        "number": 8,
+        "name": "Shared Resources",
+        "alternate_name": "Transformation",
+        "keywords": [
+          "intimacy",
+          "debt",
+          "alchemy"
+        ],
+        "natural_sign": "Scorpio"
+      },
+      {
+        "number": 9,
+        "name": "Philosophy",
+        "alternate_name": "Long Journeys",
+        "keywords": [
+          "beliefs",
+          "publishing",
+          "higher learning"
+        ],
+        "natural_sign": "Sagittarius"
+      },
+      {
+        "number": 10,
+        "name": "Career",
+        "alternate_name": "Public Standing",
+        "keywords": [
+          "profession",
+          "legacy",
+          "authority"
+        ],
+        "natural_sign": "Capricorn"
+      },
+      {
+        "number": 11,
+        "name": "Community",
+        "alternate_name": "Future",
+        "keywords": [
+          "friends",
+          "networks",
+          "innovation"
+        ],
+        "natural_sign": "Aquarius"
+      },
+      {
+        "number": 12,
+        "name": "Subconscious",
+        "alternate_name": "Completion",
+        "keywords": [
+          "rest",
+          "spirituality",
+          "seclusion"
+        ],
+        "natural_sign": "Pisces"
+      }
+    ],
+    "aspects": [
+      {
+        "name": "conjunction",
+        "angle": 0,
+        "keyword": "merging",
+        "description": "potent union; planets act as one"
+      },
+      {
+        "name": "sextile",
+        "angle": 60,
+        "keyword": "opportunity",
+        "description": "harmonious growth through conscious effort"
+      },
+      {
+        "name": "square",
+        "angle": 90,
+        "keyword": "tension",
+        "description": "dynamic challenge requiring action"
+      },
+      {
+        "name": "trine",
+        "angle": 120,
+        "keyword": "flow",
+        "description": "easy harmony and natural talent"
+      },
+      {
+        "name": "opposition",
+        "angle": 180,
+        "keyword": "polarity",
+        "description": "balancing two ends of a spectrum"
+      },
+      {
+        "name": "quincunx",
+        "angle": 150,
+        "keyword": "adjustment",
+        "description": "need for integration between incompatible energies"
+      }
+    ],
+    "dignity_matrix": {
+      "notes": "Essential dignities summarizing classical relationships.",
+      "table": [
+        {
+          "sign": "Aries",
+          "ruler": "Mars",
+          "exaltation": "Sun",
+          "detriment": "Venus",
+          "fall": "Saturn"
+        },
+        {
+          "sign": "Taurus",
+          "ruler": "Venus",
+          "exaltation": "Moon",
+          "detriment": "Mars",
+          "fall": "Uranus"
+        },
+        {
+          "sign": "Gemini",
+          "ruler": "Mercury",
+          "exaltation": null,
+          "detriment": "Jupiter",
+          "fall": null
+        },
+        {
+          "sign": "Cancer",
+          "ruler": "Moon",
+          "exaltation": "Jupiter",
+          "detriment": "Saturn",
+          "fall": "Mars"
+        },
+        {
+          "sign": "Leo",
+          "ruler": "Sun",
+          "exaltation": null,
+          "detriment": "Saturn",
+          "fall": null
+        },
+        {
+          "sign": "Virgo",
+          "ruler": "Mercury",
+          "exaltation": "Mercury",
+          "detriment": "Jupiter",
+          "fall": "Venus"
+        },
+        {
+          "sign": "Libra",
+          "ruler": "Venus",
+          "exaltation": "Saturn",
+          "detriment": "Mars",
+          "fall": "Sun"
+        },
+        {
+          "sign": "Scorpio",
+          "ruler": "Mars",
+          "exaltation": null,
+          "detriment": "Venus",
+          "fall": "Moon"
+        },
+        {
+          "sign": "Sagittarius",
+          "ruler": "Jupiter",
+          "exaltation": null,
+          "detriment": "Mercury",
+          "fall": null
+        },
+        {
+          "sign": "Capricorn",
+          "ruler": "Saturn",
+          "exaltation": "Mars",
+          "detriment": "Moon",
+          "fall": "Jupiter"
+        },
+        {
+          "sign": "Aquarius",
+          "ruler": "Saturn",
+          "exaltation": null,
+          "detriment": "Sun",
+          "fall": null
+        },
+        {
+          "sign": "Pisces",
+          "ruler": "Jupiter",
+          "exaltation": "Venus",
+          "detriment": "Mercury",
+          "fall": "Mercury"
+        }
+      ]
+    }
+  }
+}

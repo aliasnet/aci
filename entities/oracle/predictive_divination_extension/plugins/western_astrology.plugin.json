@@ -1,0 +1,42 @@
+{
+  "western_astrology": {
+    "schema_version": "1.0",
+    "version": "1.0",
+    "name": "Astrology — Western Tropical",
+    "assets": [
+      {
+        "ref": "astro_tables",
+        "section": "western",
+        "description": "Sign, planet, house, aspect, and dignity tables for tropical western astrology."
+      }
+    ],
+    "operations": {
+      "draw": {
+        "method": "ephemeris_lookup",
+        "requires_payload": [
+          "datetime",
+          "lat",
+          "lon"
+        ],
+        "optional_payload": [
+          "house_system"
+        ],
+        "outputs": [
+          "planet_positions",
+          "house_cusps",
+          "aspect_grid"
+        ]
+      },
+      "interpret": {
+        "pipeline": [
+          "derive_sign_and_house_context",
+          "score_aspects",
+          "synthesize_themes",
+          "compose_reading_frame"
+        ],
+        "normalization": "reading_frame.v1"
+      }
+    },
+    "notes": "Astro resolver expects astro_tables.western metadata to be present for fallback when ephemeris precision is limited."
+  }
+}
