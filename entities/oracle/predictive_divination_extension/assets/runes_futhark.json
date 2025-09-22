@@ -1,0 +1,830 @@
+{
+  "elder_futhark": {
+    "metadata": {
+      "sequence": 24,
+      "usage": "First aettir (Fehu-Othala) with upright/merkstave states; blank rune intentionally omitted.",
+      "sources": [
+        "Runic Poem triad synthesis (Anglo-Saxon, Norwegian, Icelandic)",
+        "Ralph Blum public domain keyword concordance"
+      ]
+    },
+    "runes": [
+      {
+        "order": 1,
+        "rune": "Fehu",
+        "glyph": "ᚠ",
+        "phoneme": "f",
+        "translation": "Wealth",
+        "keywords": {
+          "upright": [
+            "prosperity",
+            "earned success",
+            "resource flow"
+          ],
+          "merkstave": [
+            "loss",
+            "stagnation",
+            "blocked assets"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "prosperity",
+            "earned success",
+            "resource flow"
+          ],
+          "merkstave": [
+            "loss",
+            "stagnation",
+            "blocked assets"
+          ]
+        },
+        "elemental_association": {
+          "classical": "fire"
+        }
+      },
+      {
+        "order": 2,
+        "rune": "Uruz",
+        "glyph": "ᚢ",
+        "phoneme": "u",
+        "translation": "Strength",
+        "keywords": {
+          "upright": [
+            "vitality",
+            "endurance",
+            "wild power"
+          ],
+          "merkstave": [
+            "exhaustion",
+            "missed opportunity",
+            "imbalance"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "vitality",
+            "endurance",
+            "wild power"
+          ],
+          "merkstave": [
+            "exhaustion",
+            "missed opportunity",
+            "imbalance"
+          ]
+        },
+        "elemental_association": {
+          "classical": "fire"
+        }
+      },
+      {
+        "order": 3,
+        "rune": "Thurisaz",
+        "glyph": "ᚦ",
+        "phoneme": "th",
+        "translation": "Threshold",
+        "keywords": {
+          "upright": [
+            "defense",
+            "awakening",
+            "strategic action"
+          ],
+          "merkstave": [
+            "recklessness",
+            "vindictiveness",
+            "obsession"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "defense",
+            "awakening",
+            "strategic action"
+          ],
+          "merkstave": [
+            "recklessness",
+            "vindictiveness",
+            "obsession"
+          ]
+        },
+        "elemental_association": {
+          "classical": "fire"
+        }
+      },
+      {
+        "order": 4,
+        "rune": "Ansuz",
+        "glyph": "ᚨ",
+        "phoneme": "a",
+        "translation": "Signals",
+        "keywords": {
+          "upright": [
+            "communication",
+            "divine insight",
+            "mentorship"
+          ],
+          "merkstave": [
+            "miscommunication",
+            "deception",
+            "confusion"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "communication",
+            "divine insight",
+            "mentorship"
+          ],
+          "merkstave": [
+            "miscommunication",
+            "deception",
+            "confusion"
+          ]
+        },
+        "elemental_association": {
+          "classical": "air"
+        }
+      },
+      {
+        "order": 5,
+        "rune": "Raidho",
+        "glyph": "ᚱ",
+        "phoneme": "r",
+        "translation": "Journey",
+        "keywords": {
+          "upright": [
+            "movement",
+            "aligned progress",
+            "ritual"
+          ],
+          "merkstave": [
+            "delays",
+            "detours",
+            "breakdown"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "movement",
+            "aligned progress",
+            "ritual"
+          ],
+          "merkstave": [
+            "delays",
+            "detours",
+            "breakdown"
+          ]
+        },
+        "elemental_association": {
+          "classical": "fire"
+        }
+      },
+      {
+        "order": 6,
+        "rune": "Kenaz",
+        "glyph": "ᚲ",
+        "phoneme": "k",
+        "translation": "Torch",
+        "keywords": {
+          "upright": [
+            "illumination",
+            "craft",
+            "clarity"
+          ],
+          "merkstave": [
+            "burnout",
+            "creative block",
+            "smoldering resentments"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "illumination",
+            "craft",
+            "clarity"
+          ],
+          "merkstave": [
+            "burnout",
+            "creative block",
+            "smoldering resentments"
+          ]
+        },
+        "elemental_association": {
+          "classical": "air"
+        }
+      },
+      {
+        "order": 7,
+        "rune": "Gebo",
+        "glyph": "ᚷ",
+        "phoneme": "g",
+        "translation": "Gift",
+        "keywords": {
+          "upright": [
+            "exchange",
+            "balance",
+            "contracts"
+          ],
+          "merkstave": [
+            "obligation",
+            "strings attached",
+            "imbalance"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "exchange",
+            "balance",
+            "contracts"
+          ],
+          "merkstave": [
+            "obligation",
+            "strings attached",
+            "imbalance"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 8,
+        "rune": "Wunjo",
+        "glyph": "ᚹ",
+        "phoneme": "w",
+        "translation": "Joy",
+        "keywords": {
+          "upright": [
+            "harmony",
+            "success",
+            "community"
+          ],
+          "merkstave": [
+            "discord",
+            "overindulgence",
+            "alienation"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "harmony",
+            "success",
+            "community"
+          ],
+          "merkstave": [
+            "discord",
+            "overindulgence",
+            "alienation"
+          ]
+        },
+        "elemental_association": {
+          "classical": "water"
+        }
+      },
+      {
+        "order": 9,
+        "rune": "Hagalaz",
+        "glyph": "ᚺ",
+        "phoneme": "h",
+        "translation": "Disruption",
+        "keywords": {
+          "upright": [
+            "necessary change",
+            "catalyst",
+            "weathering storms"
+          ],
+          "merkstave": [
+            "chaos",
+            "crisis",
+            "fragility"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "necessary change",
+            "catalyst",
+            "weathering storms"
+          ],
+          "merkstave": [
+            "chaos",
+            "crisis",
+            "fragility"
+          ]
+        },
+        "elemental_association": {
+          "classical": "water"
+        }
+      },
+      {
+        "order": 10,
+        "rune": "Nauthiz",
+        "glyph": "ᚾ",
+        "phoneme": "n",
+        "translation": "Need",
+        "keywords": {
+          "upright": [
+            "discipline",
+            "constraint",
+            "resourcefulness"
+          ],
+          "merkstave": [
+            "frustration",
+            "obsession",
+            "hardship"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "discipline",
+            "constraint",
+            "resourcefulness"
+          ],
+          "merkstave": [
+            "frustration",
+            "obsession",
+            "hardship"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 11,
+        "rune": "Isa",
+        "glyph": "ᛁ",
+        "phoneme": "i",
+        "translation": "Stillness",
+        "keywords": {
+          "upright": [
+            "pause",
+            "concentration",
+            "preservation"
+          ],
+          "merkstave": [
+            "rigidity",
+            "stagnation",
+            "numbing"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "pause",
+            "concentration",
+            "preservation"
+          ],
+          "merkstave": [
+            "rigidity",
+            "stagnation",
+            "numbing"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 12,
+        "rune": "Jera",
+        "glyph": "ᛃ",
+        "phoneme": "j",
+        "translation": "Harvest",
+        "keywords": {
+          "upright": [
+            "cycles",
+            "reward",
+            "timing"
+          ],
+          "merkstave": [
+            "delay",
+            "impatience",
+            "premature action"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "cycles",
+            "reward",
+            "timing"
+          ],
+          "merkstave": [
+            "delay",
+            "impatience",
+            "premature action"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 13,
+        "rune": "Eihwaz",
+        "glyph": "ᛇ",
+        "phoneme": "ei",
+        "translation": "Axis",
+        "keywords": {
+          "upright": [
+            "resilience",
+            "initiation",
+            "inner strength"
+          ],
+          "merkstave": [
+            "conflict",
+            "aversion",
+            "sacrifice"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "resilience",
+            "initiation",
+            "inner strength"
+          ],
+          "merkstave": [
+            "conflict",
+            "aversion",
+            "sacrifice"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 14,
+        "rune": "Perthro",
+        "glyph": "ᛈ",
+        "phoneme": "p",
+        "translation": "Mystery",
+        "keywords": {
+          "upright": [
+            "chance",
+            "divination",
+            "hidden pattern"
+          ],
+          "merkstave": [
+            "secrets",
+            "gambling",
+            "stagnant fate"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "chance",
+            "divination",
+            "hidden pattern"
+          ],
+          "merkstave": [
+            "secrets",
+            "gambling",
+            "stagnant fate"
+          ]
+        },
+        "elemental_association": {
+          "classical": "water"
+        }
+      },
+      {
+        "order": 15,
+        "rune": "Algiz",
+        "glyph": "ᛉ",
+        "phoneme": "z",
+        "translation": "Guard",
+        "keywords": {
+          "upright": [
+            "protection",
+            "alertness",
+            "sanctuary"
+          ],
+          "merkstave": [
+            "vulnerability",
+            "misplaced trust",
+            "over-defensiveness"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "protection",
+            "alertness",
+            "sanctuary"
+          ],
+          "merkstave": [
+            "vulnerability",
+            "misplaced trust",
+            "over-defensiveness"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 16,
+        "rune": "Sowilo",
+        "glyph": "ᛋ",
+        "phoneme": "s",
+        "translation": "Sun",
+        "keywords": {
+          "upright": [
+            "victory",
+            "wholeness",
+            "radiance"
+          ],
+          "merkstave": [
+            "arrogance",
+            "ego burn",
+            "carelessness"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "victory",
+            "wholeness",
+            "radiance"
+          ],
+          "merkstave": [
+            "arrogance",
+            "ego burn",
+            "carelessness"
+          ]
+        },
+        "elemental_association": {
+          "classical": "air"
+        }
+      },
+      {
+        "order": 17,
+        "rune": "Tiwaz",
+        "glyph": "ᛏ",
+        "phoneme": "t",
+        "translation": "Justice",
+        "keywords": {
+          "upright": [
+            "courage",
+            "strategy",
+            "victory"
+          ],
+          "merkstave": [
+            "impulsiveness",
+            "failed leadership",
+            "stubbornness"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "courage",
+            "strategy",
+            "victory"
+          ],
+          "merkstave": [
+            "impulsiveness",
+            "failed leadership",
+            "stubbornness"
+          ]
+        },
+        "elemental_association": {
+          "classical": "fire"
+        }
+      },
+      {
+        "order": 18,
+        "rune": "Berkano",
+        "glyph": "ᛒ",
+        "phoneme": "b",
+        "translation": "Birch",
+        "keywords": {
+          "upright": [
+            "growth",
+            "nurturing",
+            "renewal"
+          ],
+          "merkstave": [
+            "stagnation",
+            "smothering",
+            "unpreparedness"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "growth",
+            "nurturing",
+            "renewal"
+          ],
+          "merkstave": [
+            "stagnation",
+            "smothering",
+            "unpreparedness"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 19,
+        "rune": "Ehwaz",
+        "glyph": "ᛖ",
+        "phoneme": "e",
+        "translation": "Trust",
+        "keywords": {
+          "upright": [
+            "partnership",
+            "mobility",
+            "cooperation"
+          ],
+          "merkstave": [
+            "disharmony",
+            "restlessness",
+            "detachment"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "partnership",
+            "mobility",
+            "cooperation"
+          ],
+          "merkstave": [
+            "disharmony",
+            "restlessness",
+            "detachment"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 20,
+        "rune": "Mannaz",
+        "glyph": "ᛗ",
+        "phoneme": "m",
+        "translation": "Humankind",
+        "keywords": {
+          "upright": [
+            "self-awareness",
+            "interdependence",
+            "culture"
+          ],
+          "merkstave": [
+            "isolation",
+            "egoism",
+            "bias"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "self-awareness",
+            "interdependence",
+            "culture"
+          ],
+          "merkstave": [
+            "isolation",
+            "egoism",
+            "bias"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 21,
+        "rune": "Laguz",
+        "glyph": "ᛚ",
+        "phoneme": "l",
+        "translation": "Flow",
+        "keywords": {
+          "upright": [
+            "intuition",
+            "dreaming",
+            "adaptive movement"
+          ],
+          "merkstave": [
+            "fear",
+            "overwhelm",
+            "doubt"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "intuition",
+            "dreaming",
+            "adaptive movement"
+          ],
+          "merkstave": [
+            "fear",
+            "overwhelm",
+            "doubt"
+          ]
+        },
+        "elemental_association": {
+          "classical": "water"
+        }
+      },
+      {
+        "order": 22,
+        "rune": "Ingwaz",
+        "glyph": "ᛜ",
+        "phoneme": "ng",
+        "translation": "Seed",
+        "keywords": {
+          "upright": [
+            "gestation",
+            "potential",
+            "rest before action"
+          ],
+          "merkstave": [
+            "stagnation",
+            "refusal to release",
+            "entropy"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "gestation",
+            "potential",
+            "rest before action"
+          ],
+          "merkstave": [
+            "stagnation",
+            "refusal to release",
+            "entropy"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      },
+      {
+        "order": 23,
+        "rune": "Dagaz",
+        "glyph": "ᛞ",
+        "phoneme": "d",
+        "translation": "Breakthrough",
+        "keywords": {
+          "upright": [
+            "transformation",
+            "clarity",
+            "resolution"
+          ],
+          "merkstave": [
+            "resistance",
+            "abrupt endings",
+            "disorientation"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "transformation",
+            "clarity",
+            "resolution"
+          ],
+          "merkstave": [
+            "resistance",
+            "abrupt endings",
+            "disorientation"
+          ]
+        },
+        "elemental_association": {
+          "classical": "air"
+        }
+      },
+      {
+        "order": 24,
+        "rune": "Othala",
+        "glyph": "ᛟ",
+        "phoneme": "o",
+        "translation": "Heritage",
+        "keywords": {
+          "upright": [
+            "legacy",
+            "home",
+            "inheritance"
+          ],
+          "merkstave": [
+            "loss",
+            "rigid tradition",
+            "division"
+          ]
+        },
+        "meanings": {
+          "upright": [
+            "legacy",
+            "home",
+            "inheritance"
+          ],
+          "merkstave": [
+            "loss",
+            "rigid tradition",
+            "division"
+          ]
+        },
+        "elemental_association": {
+          "classical": "earth"
+        }
+      }
+    ]
+  }
+}

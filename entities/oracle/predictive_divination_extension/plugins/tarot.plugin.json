@@ -1,0 +1,41 @@
+{
+  "tarot": {
+    "schema_version": "1.0",
+    "version": "1.0",
+    "name": "Tarot (Rider–Waite–Smith + overlays)",
+    "assets": [
+      {
+        "ref": "tarot_rws",
+        "section": "rws_1909",
+        "description": "Canonical 1909 Rider–Waite–Smith card library with majors, minors, keywords, and correspondences."
+      },
+      {
+        "ref": "tarot_expansions",
+        "section": "expansions",
+        "description": "Alternate numbering, Thoth overlays, elemental dignities, and spread templates."
+      }
+    ],
+    "operations": {
+      "draw": {
+        "method": "fisher_yates",
+        "supports_reversal": true,
+        "default_spread": "three_card",
+        "spread_overrides": {
+          "celtic_cross": 10,
+          "horseshoe": 7,
+          "relationship_bridge": 6
+        }
+      },
+      "interpret": {
+        "pipeline": [
+          "lookup_card_metadata",
+          "apply_elemental_dignity_modifiers",
+          "blend_expansion_overlays",
+          "compose_reading_frame"
+        ],
+        "normalization": "reading_frame.v1"
+      }
+    },
+    "notes": "Plugin expects tarot_rws.rws_1909 and tarot_expansions.expansions sections to be present locally."
+  }
+}

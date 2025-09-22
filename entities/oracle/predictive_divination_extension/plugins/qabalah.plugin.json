@@ -1,0 +1,34 @@
+{
+  "qabalah": {
+    "schema_version": "1.0",
+    "version": "1.0",
+    "name": "Qabalah / Sefirot",
+    "assets": [
+      {
+        "ref": "sefirot",
+        "section": "sefirot",
+        "description": "Tree of Life sephiroth and path correspondences."
+      }
+    ],
+    "operations": {
+      "draw": {
+        "method": "path_lot",
+        "default_count": 3,
+        "layout_modes": [
+          "pillar",
+          "lightning_flash"
+        ],
+        "supports_positions": true
+      },
+      "interpret": {
+        "pipeline": [
+          "map_to_sephirot",
+          "overlay_tarot_paths",
+          "compose_reading_frame"
+        ],
+        "normalization": "reading_frame.v1"
+      }
+    },
+    "notes": "Qabalah draws rely on sefirot.sefirot.tree and sefirot.sefirot.paths data sets."
+  }
+}

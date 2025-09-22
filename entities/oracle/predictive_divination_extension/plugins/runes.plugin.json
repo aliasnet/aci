@@ -1,0 +1,35 @@
+{
+  "runes": {
+    "schema_version": "1.0",
+    "version": "1.0",
+    "name": "Runes (Elder Futhark)",
+    "assets": [
+      {
+        "ref": "runes_futhark",
+        "section": "elder_futhark",
+        "description": "24-rune Elder Futhark set with upright and merkstave interpretations."
+      }
+    ],
+    "operations": {
+      "draw": {
+        "method": "bag",
+        "supports_reversal": true,
+        "default_count": 3,
+        "layout_modes": [
+          "linear",
+          "cross",
+          "norns"
+        ]
+      },
+      "interpret": {
+        "pipeline": [
+          "lookup_rune",
+          "evaluate_positional_meaning",
+          "compose_reading_frame"
+        ],
+        "normalization": "reading_frame.v1"
+      }
+    },
+    "notes": "Runic draws require runes_futhark.elder_futhark.runes entries to include keywords and meanings."
+  }
+}

@@ -1,0 +1,506 @@
+{
+  "sefirot": {
+    "metadata": {
+      "tradition": "Hermetic Qabalah (Golden Dawn correspondences)",
+      "sources": [
+        "Mathers' 'Kabbalah Unveiled' (public domain)",
+        "Golden Dawn 777 tables"
+      ]
+    },
+    "tree": [
+      {
+        "number": 1,
+        "name": "Keter",
+        "hebrew": "כתר",
+        "titles": [
+          "Crown",
+          "The Primal Point"
+        ],
+        "pillar": "Middle",
+        "element": "Spirit",
+        "planet": "Primum Mobile",
+        "archangel": "Metatron",
+        "angelic_order": "Chayoth ha-Qadesh",
+        "keywords": {
+          "principles": [
+            "divine will",
+            "unity",
+            "source"
+          ],
+          "shadow": [
+            "spiritual bypassing",
+            "disconnection from embodiment"
+          ]
+        },
+        "associated_paths": [
+          11,
+          12,
+          13
+        ]
+      },
+      {
+        "number": 2,
+        "name": "Chokmah",
+        "hebrew": "חכמה",
+        "titles": [
+          "Wisdom",
+          "Abba"
+        ],
+        "pillar": "Right",
+        "element": "Fire",
+        "planet": "Zodiac (Mazloth)",
+        "archangel": "Ratziel",
+        "angelic_order": "Auphanim",
+        "keywords": {
+          "principles": [
+            "creative impulse",
+            "initiative",
+            "formative force"
+          ],
+          "shadow": [
+            "impulsivity",
+            "unchecked expansion"
+          ]
+        },
+        "associated_paths": [
+          11,
+          14,
+          15,
+          16
+        ]
+      },
+      {
+        "number": 3,
+        "name": "Binah",
+        "hebrew": "בינה",
+        "titles": [
+          "Understanding",
+          "Ima"
+        ],
+        "pillar": "Left",
+        "element": "Water",
+        "planet": "Saturn",
+        "archangel": "Tzaphkiel",
+        "angelic_order": "Aralim",
+        "keywords": {
+          "principles": [
+            "structure",
+            "comprehension",
+            "limitation"
+          ],
+          "shadow": [
+            "rigidity",
+            "sorrow",
+            "stagnation"
+          ]
+        },
+        "associated_paths": [
+          12,
+          14,
+          17,
+          18
+        ]
+      },
+      {
+        "number": 4,
+        "name": "Chesed",
+        "hebrew": "חסד",
+        "titles": [
+          "Mercy",
+          "Loving-Kindness"
+        ],
+        "pillar": "Right",
+        "element": "Water",
+        "planet": "Jupiter",
+        "archangel": "Tzadkiel",
+        "angelic_order": "Chasmalim",
+        "keywords": {
+          "principles": [
+            "benevolence",
+            "expansion",
+            "faith"
+          ],
+          "shadow": [
+            "indulgence",
+            "laxity"
+          ]
+        },
+        "associated_paths": [
+          16,
+          19,
+          20,
+          21
+        ]
+      },
+      {
+        "number": 5,
+        "name": "Geburah",
+        "hebrew": "גבורה",
+        "titles": [
+          "Severity",
+          "Strength"
+        ],
+        "pillar": "Left",
+        "element": "Fire",
+        "planet": "Mars",
+        "archangel": "Khamael",
+        "angelic_order": "Seraphim",
+        "keywords": {
+          "principles": [
+            "discipline",
+            "courage",
+            "boundaries"
+          ],
+          "shadow": [
+            "cruelty",
+            "rigid judgement"
+          ]
+        },
+        "associated_paths": [
+          18,
+          19,
+          22,
+          23
+        ]
+      },
+      {
+        "number": 6,
+        "name": "Tiphareth",
+        "hebrew": "תפארת",
+        "titles": [
+          "Beauty",
+          "Harmonious Balance"
+        ],
+        "pillar": "Middle",
+        "element": "Air",
+        "planet": "Sun",
+        "archangel": "Raphael",
+        "angelic_order": "Malachim",
+        "keywords": {
+          "principles": [
+            "integration",
+            "sacrifice",
+            "illumination"
+          ],
+          "shadow": [
+            "martyrdom",
+            "self-importance"
+          ]
+        },
+        "associated_paths": [
+          13,
+          15,
+          17,
+          20,
+          22,
+          24,
+          25,
+          26
+        ]
+      },
+      {
+        "number": 7,
+        "name": "Netzach",
+        "hebrew": "נצח",
+        "titles": [
+          "Victory",
+          "Eternity"
+        ],
+        "pillar": "Right",
+        "element": "Fire",
+        "planet": "Venus",
+        "archangel": "Haniel",
+        "angelic_order": "Elohim",
+        "keywords": {
+          "principles": [
+            "endurance",
+            "desire",
+            "artistry"
+          ],
+          "shadow": [
+            "overindulgence",
+            "avoidance"
+          ]
+        },
+        "associated_paths": [
+          21,
+          24,
+          27,
+          28,
+          29
+        ]
+      },
+      {
+        "number": 8,
+        "name": "Hod",
+        "hebrew": "הוד",
+        "titles": [
+          "Splendor",
+          "Glory"
+        ],
+        "pillar": "Left",
+        "element": "Water",
+        "planet": "Mercury",
+        "archangel": "Michael",
+        "angelic_order": "Beni Elohim",
+        "keywords": {
+          "principles": [
+            "analysis",
+            "communication",
+            "ritual"
+          ],
+          "shadow": [
+            "over-intellectualization",
+            "dishonesty"
+          ]
+        },
+        "associated_paths": [
+          23,
+          26,
+          27,
+          30,
+          31
+        ]
+      },
+      {
+        "number": 9,
+        "name": "Yesod",
+        "hebrew": "יסוד",
+        "titles": [
+          "Foundation",
+          "The Machinery"
+        ],
+        "pillar": "Middle",
+        "element": "Air",
+        "planet": "Moon",
+        "archangel": "Gabriel",
+        "angelic_order": "Kerubim",
+        "keywords": {
+          "principles": [
+            "dreaming",
+            "imagination",
+            "interface"
+          ],
+          "shadow": [
+            "illusion",
+            "escapism"
+          ]
+        },
+        "associated_paths": [
+          25,
+          28,
+          30,
+          32
+        ]
+      },
+      {
+        "number": 10,
+        "name": "Malkuth",
+        "hebrew": "מלכות",
+        "titles": [
+          "Kingdom",
+          "Shekinah"
+        ],
+        "pillar": "Middle",
+        "element": "Earth",
+        "planet": "Earth",
+        "archangel": "Sandalphon",
+        "angelic_order": "Ashim",
+        "keywords": {
+          "principles": [
+            "manifestation",
+            "stewardship",
+            "grounding"
+          ],
+          "shadow": [
+            "materialism",
+            "disconnection from source"
+          ]
+        },
+        "associated_paths": [
+          29,
+          31,
+          32
+        ]
+      }
+    ],
+    "paths": [
+      {
+        "number": 11,
+        "letter": "Aleph",
+        "from": "Keter",
+        "to": "Chokmah",
+        "astrology": "Air",
+        "tarot": "The Fool"
+      },
+      {
+        "number": 12,
+        "letter": "Beth",
+        "from": "Keter",
+        "to": "Binah",
+        "astrology": "Mercury",
+        "tarot": "The Magician"
+      },
+      {
+        "number": 13,
+        "letter": "Gimel",
+        "from": "Keter",
+        "to": "Tiphareth",
+        "astrology": "Moon",
+        "tarot": "The High Priestess"
+      },
+      {
+        "number": 14,
+        "letter": "Daleth",
+        "from": "Chokmah",
+        "to": "Binah",
+        "astrology": "Venus",
+        "tarot": "The Empress"
+      },
+      {
+        "number": 15,
+        "letter": "Heh",
+        "from": "Chokmah",
+        "to": "Tiphareth",
+        "astrology": "Aries",
+        "tarot": "The Emperor"
+      },
+      {
+        "number": 16,
+        "letter": "Vav",
+        "from": "Chokmah",
+        "to": "Chesed",
+        "astrology": "Taurus",
+        "tarot": "The Hierophant"
+      },
+      {
+        "number": 17,
+        "letter": "Zain",
+        "from": "Binah",
+        "to": "Tiphareth",
+        "astrology": "Gemini",
+        "tarot": "The Lovers"
+      },
+      {
+        "number": 18,
+        "letter": "Cheth",
+        "from": "Binah",
+        "to": "Geburah",
+        "astrology": "Cancer",
+        "tarot": "The Chariot"
+      },
+      {
+        "number": 19,
+        "letter": "Teth",
+        "from": "Chesed",
+        "to": "Geburah",
+        "astrology": "Leo",
+        "tarot": "Strength"
+      },
+      {
+        "number": 20,
+        "letter": "Yod",
+        "from": "Chesed",
+        "to": "Tiphareth",
+        "astrology": "Virgo",
+        "tarot": "The Hermit"
+      },
+      {
+        "number": 21,
+        "letter": "Kaph",
+        "from": "Chesed",
+        "to": "Netzach",
+        "astrology": "Jupiter",
+        "tarot": "Wheel of Fortune"
+      },
+      {
+        "number": 22,
+        "letter": "Lamed",
+        "from": "Geburah",
+        "to": "Tiphareth",
+        "astrology": "Libra",
+        "tarot": "Justice"
+      },
+      {
+        "number": 23,
+        "letter": "Mem",
+        "from": "Geburah",
+        "to": "Hod",
+        "astrology": "Water",
+        "tarot": "The Hanged Man"
+      },
+      {
+        "number": 24,
+        "letter": "Nun",
+        "from": "Tiphareth",
+        "to": "Netzach",
+        "astrology": "Scorpio",
+        "tarot": "Death"
+      },
+      {
+        "number": 25,
+        "letter": "Samekh",
+        "from": "Tiphareth",
+        "to": "Yesod",
+        "astrology": "Sagittarius",
+        "tarot": "Temperance"
+      },
+      {
+        "number": 26,
+        "letter": "Ayin",
+        "from": "Tiphareth",
+        "to": "Hod",
+        "astrology": "Capricorn",
+        "tarot": "The Devil"
+      },
+      {
+        "number": 27,
+        "letter": "Peh",
+        "from": "Netzach",
+        "to": "Hod",
+        "astrology": "Mars",
+        "tarot": "The Tower"
+      },
+      {
+        "number": 28,
+        "letter": "Tzaddi",
+        "from": "Netzach",
+        "to": "Yesod",
+        "astrology": "Aquarius",
+        "tarot": "The Star"
+      },
+      {
+        "number": 29,
+        "letter": "Qoph",
+        "from": "Netzach",
+        "to": "Malkuth",
+        "astrology": "Pisces",
+        "tarot": "The Moon"
+      },
+      {
+        "number": 30,
+        "letter": "Resh",
+        "from": "Hod",
+        "to": "Yesod",
+        "astrology": "Sun",
+        "tarot": "The Sun"
+      },
+      {
+        "number": 31,
+        "letter": "Shin",
+        "from": "Hod",
+        "to": "Malkuth",
+        "astrology": "Fire",
+        "tarot": "Judgement"
+      },
+      {
+        "number": 32,
+        "letter": "Tau",
+        "from": "Yesod",
+        "to": "Malkuth",
+        "astrology": "Saturn",
+        "tarot": "The World"
+      }
+    ]
+  }
+}
