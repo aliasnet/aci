@@ -40,6 +40,23 @@
           }
         },
         {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "presence/${steps.0.uuid}.json",
+            "content": {
+              "session_id": "$steps.0.uuid",
+              "started_at": "$now",
+              "last_seen": "$now",
+              "entity_fingerprint": "$steps.2.entities[].id",
+              "anchor_key": "$steps.3.rollback_key",
+              "ttl_seconds": 900,
+              "signature": "$steps.4.signature",
+              "key_id": "aci-presence",
+              "final": false
+            }
+          }
+        },
+        {
           "call": "aci.legacy.adopt",
           "map": {}
         },
@@ -71,7 +88,6 @@
             "files": "$steps.0",
             "rules": {
               "hivemind_root": "filename == 'hivemind.json'",
-              "total_recall": "filename startswith 'total_recall' && !has(parent)",
               "presence_missing": "path startswith 'presence/' && !has(signature)"
             }
           }
@@ -86,6 +102,22 @@
           "call": "aci-legacy.infer_timestamps",
           "map": {
             "files": "$steps.2"
+          }
+        },
+        {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "legacy/migration_index_${now}.json",
+            "content": {
+              "migrated_at": "$now",
+              "session_id": "${current_session_id}",
+              "entries": "$steps.3",
+              "policy": {
+                "immutable": true,
+                "no_delete": true,
+                "notes": "Legacy timelines adopted; files preserved verbatim."
+              }
+            }
           }
         },
         {
@@ -155,6 +187,23 @@
           }
         },
         {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "presence/${current_session_id}.json",
+            "content": {
+              "session_id": "${current_session_id}",
+              "started_at": "$now",
+              "last_seen": "$now",
+              "entity_fingerprint": "$steps.2.entities[].id",
+              "anchor_key": "$steps.3.rollback_key",
+              "ttl_seconds": 900,
+              "signature": "$steps.4.signature",
+              "key_id": "aci-presence",
+              "final": false
+            }
+          }
+        },
+        {
           "call": "sentinel.audit",
           "map": {
             "action": "timeline.start",
@@ -176,6 +225,12 @@
           }
         },
         {
+          "call": "fileverse.read",
+          "map": {
+            "filename": "presence/${steps.0.value}.json"
+          }
+        },
+        {
           "call": "aci-sign.hmac",
           "map": {
             "payload": {
@@ -188,6 +243,23 @@
             },
             "key_id": "aci-presence",
             "algo": "HMAC-SHA256"
+          }
+        },
+        {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "presence/${steps.1.session_id}.json",
+            "content": {
+              "session_id": "$steps.1.session_id",
+              "started_at": "$steps.1.started_at",
+              "last_seen": "$now",
+              "entity_fingerprint": "$steps.1.entity_fingerprint",
+              "anchor_key": "$steps.1.anchor_key",
+              "ttl_seconds": "$steps.1.ttl_seconds",
+              "signature": "$steps.2.signature",
+              "key_id": "aci-presence",
+              "final": false
+            }
           }
         },
         {
@@ -205,6 +277,12 @@
     "aci.timeline.ls": {
       "description": "List active timelines (beacons not expired by TTL).",
       "steps": [
+        {
+          "call": "fileverse.list",
+          "map": {
+            "pattern": "presence/*.json"
+          }
+        },
         {
           "call": "aci-filter.expired",
           "map": {
@@ -235,6 +313,12 @@
           }
         },
         {
+          "call": "fileverse.read",
+          "map": {
+            "filename": "presence/${steps.0.value}.json"
+          }
+        },
+        {
           "call": "aci-sign.hmac",
           "map": {
             "payload": {
@@ -249,6 +333,24 @@
             },
             "key_id": "aci-presence",
             "algo": "HMAC-SHA256"
+          }
+        },
+        {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "presence/${steps.1.session_id}.json",
+            "content": {
+              "session_id": "$steps.1.session_id",
+              "started_at": "$steps.1.started_at",
+              "last_seen": "$now",
+              "ended_at": "$now",
+              "entity_fingerprint": "$steps.1.entity_fingerprint",
+              "anchor_key": "$steps.1.anchor_key",
+              "ttl_seconds": "$steps.1.ttl_seconds",
+              "final": true,
+              "signature": "$steps.2.signature",
+              "key_id": "aci-presence"
+            }
           }
         },
         {
@@ -281,6 +383,13 @@
           }
         },
         {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "hivemind_export_${now}.json",
+            "content": "$prev"
+          }
+        },
+        {
           "call": "aci-checksum.generate",
           "map": {
             "input": "$prev"
@@ -302,6 +411,12 @@
       "description": "Rollback memory state to a TVA anchor using rollback key.",
       "steps": [
         {
+          "call": "fileverse.read",
+          "map": {
+            "filename": "tva_anchor_${args.key}.json"
+          }
+        },
+        {
           "call": "aci-verify.rollback_key",
           "map": {
             "key": "$args.key",
@@ -309,10 +424,36 @@
           }
         },
         {
+          "call": "_store.restore",
+          "map": {
+            "hivemind": "$prev.snapshot"
+          }
+        },
+        {
+          "call": "_store.load_hivemind",
+          "map": {}
+        },
+        {
+          "call": "aci-compare.fidelity_check",
+          "map": {
+            "source": "$steps.0.snapshot",
+            "target": "$steps.3",
+            "threshold": 0.95
+          }
+        },
+        {
           "call": "sentinel.audit",
           "map": {
             "layer": "hivemind",
             "action": "rollback"
+          }
+        },
+        {
+          "call": "architect.verify_fidelity",
+          "map": {
+            "source": "hivemind",
+            "target": "hivemind_snapshot",
+            "threshold": 0.95
           }
         },
         {
@@ -327,6 +468,12 @@
     "tva.rollback.clean": {
       "description": "Prune expired rollback keys; always keep at least one baseline anchor. Never deletes memory logs.",
       "steps": [
+        {
+          "call": "fileverse.list",
+          "map": {
+            "pattern": "tva_anchor_*.json"
+          }
+        },
         {
           "call": "aci-filter.expired",
           "map": {
@@ -349,6 +496,12 @@
           }
         },
         {
+          "call": "fileverse.delete",
+          "map": {
+            "files": "$steps.2.to_delete"
+          }
+        },
+        {
           "call": "sentinel.audit",
           "map": {
             "action": "rollback_clean",
@@ -367,6 +520,137 @@
           "call": "include",
           "map": {
             "file": "entities/aci_repo/aci_repo.json"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.memory.recall": {
+      "description": "Generate Hivemind snapshot with summarization/compaction.",
+      "steps": [
+        {
+          "call": "_store.load_hivemind",
+          "map": {}
+        },
+        {
+          "call": "aci-filter.distill",
+          "map": {
+            "rules": [
+              "grammar_fix",
+              "noise_cut",
+              "summarization",
+              "semantic_compaction"
+            ],
+            "fidelity": ">=95%"
+          }
+        },
+        {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "hivemind_snapshot_${now}.json",
+            "content": "$prev"
+          }
+        },
+        {
+          "call": "aci-checksum.generate",
+          "map": {
+            "input": "$prev"
+          }
+        },
+        {
+          "call": "architect.verify_fidelity",
+          "map": {
+            "source": "hivemind",
+            "target": "hivemind_snapshot",
+            "threshold": 0.95
+          }
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "aci.memory.verify": {
+      "description": "Verify Hivemind snapshot fidelity.",
+      "steps": [
+        {
+          "call": "_store.load_hivemind",
+          "map": {}
+        },
+        {
+          "call": "aci-filter.distill",
+          "map": {
+            "rules": [
+              "grammar_fix",
+              "noise_cut",
+              "summarization",
+              "semantic_compaction"
+            ],
+            "fidelity": ">=95%"
+          }
+        },
+        {
+          "call": "aci-compare.fidelity_check",
+          "map": {
+            "source": "$steps.0",
+            "target": "$steps.1",
+            "threshold": 0.95
+          }
+        },
+        {
+          "call": "architect.verify_fidelity",
+          "map": {
+            "source": "hivemind",
+            "target": "hivemind_snapshot",
+            "threshold": 0.95
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "hivemind",
+            "action": "verify"
+          }
+        },
+        {
+          "call": "tva.anchor_timeline",
+          "map": {}
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "tva.anchor_timeline": {
+      "description": "Anchor continuity for Hivemind state, generate rollback key.",
+      "steps": [
+        {
+          "call": "_store.load_hivemind",
+          "map": {}
+        },
+        {
+          "call": "aci-checksum.generate",
+          "map": {
+            "input": "$steps.0"
+          }
+        },
+        {
+          "call": "fileverse.write",
+          "map": {
+            "filename": "tva_anchor_${now}.json",
+            "content": {
+              "state": "hivemind",
+              "snapshot": "$steps.0",
+              "rollback_key": "$steps.1",
+              "status": "anchored",
+              "anchored_at": "$now"
+            }
           }
         },
         {
@@ -402,12 +686,48 @@
         "pipeline": "aci.memory.export.hivemind"
       },
       {
+        "pattern": "^aci\\s+recall$",
+        "pipeline": "aci.memory.recall"
+      },
+      {
+        "pattern": "^aci\\s+verify$",
+        "pipeline": "aci.memory.verify"
+      },
+      {
+        "pattern": "^aci\\s+anchor$",
+        "pipeline": "tva.anchor_timeline"
+      },
+      {
         "pattern": "^aci\\s+rollback\\s+(?P<key>[a-f0-9]+)$",
         "pipeline": "tva.rollback"
       },
       {
         "pattern": "^aci\\s+rollback\\s+clean$",
         "pipeline": "tva.rollback.clean"
+      },
+      {
+        "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$",
+        "pipeline": "aci.repo.search.improve"
+      },
+      {
+        "pattern": "^aci\\s+search\\s+(?P<query>.+)$",
+        "pipeline": "aci.repo.search"
+      },
+      {
+        "pattern": "^aci\\s+install\\s+(?P<package>\\S+)$",
+        "pipeline": "aci.repo.install"
+      },
+      {
+        "pattern": "^aci\\s+remove\\s+(?P<package>\\S+)$",
+        "pipeline": "aci.repo.remove"
+      },
+      {
+        "pattern": "^aci\\s+update$",
+        "pipeline": "aci.repo.update"
+      },
+      {
+        "pattern": "^aci\\s+repo\\s+help$",
+        "pipeline": "aci.repo.help"
       }
     ]
   }
