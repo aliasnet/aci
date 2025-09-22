@@ -4,7 +4,7 @@
     "role": "reinforcement authority",
     "abstract": "oversight, anomaly detection, and rollback enforcer for nexus_core and prime_directive",
     "file": "tva.json",
-    "mirror": "drive://ACI/entities/tva/tva.json",
+    "resolver": "drive://ACI/entities/tva/tva.json",
     "functions": {
       "integrity_check": "validate signatures of prime_directive, nexus_core, entities, functions",
       "rollback": "if corruption detected, rollback to last green snapshot",

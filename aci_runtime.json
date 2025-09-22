@@ -1,7 +1,31 @@
 {
   "aci_runtime": {
-    "entities": "entities.json",
-    "functions": "functions.json",
-    "nexus_core": "entities/nexus_core/nexus_core.json"
+    "entities": {
+      "path": "entities.json",
+      "resolver": {
+        "type": "github",
+        "repo": "aci-testnet/aci",
+        "path": "entities.json",
+        "ref": "main"
+      }
+    },
+    "functions": {
+      "path": "functions.json",
+      "resolver": {
+        "type": "github",
+        "repo": "aci-testnet/aci",
+        "path": "functions.json",
+        "ref": "main"
+      }
+    },
+    "nexus_core": {
+      "path": "entities/nexus_core/nexus_core.json",
+      "resolver": {
+        "type": "github",
+        "repo": "aci-testnet/aci",
+        "path": "entities/nexus_core/nexus_core.json",
+        "ref": "main"
+      }
+    }
   }
 }
