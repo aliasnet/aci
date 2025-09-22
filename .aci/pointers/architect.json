@@ -1,0 +1,7 @@
+{
+  "id": "architect",
+  "canonical": "git:/.aci/architect.json",
+  "local_path": "entities/architect/architect.json",
+  "legacy_mirror": "drive://ACI/entities/architect.json",
+  "notes": "Legacy drive mirror reference relocated from aci_mapping.json."
+}

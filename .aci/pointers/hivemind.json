@@ -1,0 +1,7 @@
+{
+  "id": "hivemind",
+  "canonical": "git:/memory/hivemind.json",
+  "local_path": "entities/hivemind/hivemind.json",
+  "legacy_mirror": "drive://ACI/entities/hivemind/hivemind.json",
+  "notes": "Legacy drive mirror reference relocated from aci_commands.json and aci_mapping.json."
+}

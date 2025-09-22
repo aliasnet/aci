@@ -1,0 +1,7 @@
+{
+  "id": "local_only_config",
+  "canonical": "local:entities/local_only_config.json",
+  "local_path": "entities/local_only_config.json",
+  "legacy_mirror": "drive://ACI/entities/local_only_config.json",
+  "notes": "Legacy drive mirror reference relocated from aci_mapping.json."
+}

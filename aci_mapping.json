@@ -9,12 +9,12 @@
   "version": "1.20250921.00",
   "canonical_source": "github",
   "repo": "aci-testnet/aci",
-  "mappings": {
-    "drive://ACI/entities/architect.json": "git:/.aci/architect.json",
-    "drive://ACI/prime_directive.txt": "local:prime_directive.txt",
-    "drive://ACI/hivemind.json": "git:/memory/hivemind.json",
-    "drive://ACI/total_recall.json": "git:/memory/total_recall.json",
-    "drive://ACI/entities/local_only_config.json": "local:entities/local_only_config.json"
+  "pointer_index": {
+    "architect": ".aci/pointers/architect.json",
+    "prime_directive": ".aci/pointers/prime_directive.json",
+    "hivemind": ".aci/pointers/hivemind.json",
+    "total_recall": ".aci/pointers/total_recall.json",
+    "local_only_config": ".aci/pointers/local_only_config.json"
   },
   "rules": {
     "git_is_canonical_for": [
