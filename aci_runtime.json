@@ -26,6 +26,37 @@
         "path": "entities/nexus_core/nexus_core.json",
         "ref": "main"
       }
+    },
+    "sandbox_mode": {
+      "enabled": true,
+      "core_files": [
+        "aci_runtime.json",
+        "prime_directive.txt"
+      ],
+      "initialization_sequence": [
+        {
+          "step": "verify_core_files",
+          "action": "confirm_required_files_present"
+        },
+        {
+          "step": "bootstrap_runtime",
+          "action": "initialize_core_systems"
+        },
+        {
+          "step": "launch_default_interface",
+          "action": "render_mother_interface"
+        }
+      ]
+    },
+    "default_interface": {
+      "path": "entities/mother/mother.json",
+      "resolver": {
+        "type": "github",
+        "repo": "aci-testnet/aci",
+        "path": "entities/mother/mother.json",
+        "ref": "main"
+      },
+      "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     }
   }
 }
