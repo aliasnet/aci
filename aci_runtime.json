@@ -1,36 +1,19 @@
 {
   "aci_runtime": {
     "entities": {
-      "path": "entities.json",
-      "resolver": {
-        "type": "github",
-        "repo": "aci-testnet/aci",
-        "path": "entities.json",
-        "ref": "main"
-      }
+      "path": "entities.json"
     },
     "functions": {
-      "path": "functions.json",
-      "resolver": {
-        "type": "github",
-        "repo": "aci-testnet/aci",
-        "path": "functions.json",
-        "ref": "main"
-      }
+      "path": "functions.json"
     },
     "nexus_core": {
-      "path": "entities/nexus_core/nexus_core.json",
-      "resolver": {
-        "type": "github",
-        "repo": "aci-testnet/aci",
-        "path": "entities/nexus_core/nexus_core.json",
-        "ref": "main"
-      }
+      "path": "entities/nexus_core/nexus_core.json"
     },
     "sandbox_mode": {
       "enabled": true,
       "core_files": [
         "aci_runtime.json",
+        "aci_resolver.json",
         "prime_directive.txt"
       ],
       "initialization_sequence": [
@@ -50,13 +33,15 @@
     },
     "default_interface": {
       "path": "entities/mother/mother.json",
-      "resolver": {
-        "type": "github",
-        "repo": "aci-testnet/aci",
-        "path": "entities/mother/mother.json",
-        "ref": "main"
-      },
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
+    },
+    "resolver_registry": {
+      "path": "aci_resolver.json",
+      "load_strategy": "bootstrap",
+      "fallback_behavior": {
+        "on_nexus_core_failure": "direct_resolver_load"
+      },
+      "notes": "ACI runtime loads the resolver registry during initialization so GitHub fallbacks remain available even if Nexus Core fails to boot."
     }
   }
 }
