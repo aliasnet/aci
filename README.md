@@ -7,5 +7,5 @@
 ## Resolver metadata housekeeping
 
 - The `:help` command entries now reference repository-relative files only.
-- Legacy resolver references (formerly mirror locations) once embedded in top-level configuration files now surface as resolver metadata under `.aci/pointers/` for TVA compliance.
-- See `.aci/pointers/hivemind.json` for the HiveMind resolver mapping formerly referenced directly by `aci_commands.json`.
+- Legacy resolver references (formerly mirror locations) now live in the Hivemind metadata registry for TVA compliance.
+- The HiveMind resolver mapping is embedded directly in hivemind.json; `.aci` pointer files are no longer required.

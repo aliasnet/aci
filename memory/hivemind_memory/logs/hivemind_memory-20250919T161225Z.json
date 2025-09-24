@@ -8,7 +8,7 @@
         "sources": [
           "hivemind.json",
           "memory_recall.json",
-          "total_recall.json",
+          "hivemind.json",
           "current_session"
         ],
         "legacy_transform_applied": true,

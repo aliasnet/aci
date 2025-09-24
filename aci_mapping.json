@@ -2,20 +2,13 @@
   "git_local_mappings": {
     "git:/.aci/architect.json": "entities/architect/architect.json",
     "git:/memory/hivemind.json": "entities/hivemind/hivemind.json",
-    "git:/memory/total_recall.json": "memory/total_recall.json",
     "local:prime_directive.txt": "prime_directive.txt",
     "local:entities/local_only_config.json": "entities/local_only_config.json"
   },
   "version": "1.20250921.00",
   "canonical_source": "github",
   "repo": "aci-testnet/aci",
-  "pointer_index": {
-    "architect": ".aci/pointers/architect.json",
-    "prime_directive": ".aci/pointers/prime_directive.json",
-    "hivemind": ".aci/pointers/hivemind.json",
-    "total_recall": ".aci/pointers/total_recall.json",
-    "local_only_config": ".aci/pointers/local_only_config.json"
-  },
+  "pointer_index": {},
   "rules": {
     "git_is_canonical_for": [
       "/.aci/**",
@@ -36,7 +29,7 @@
     ],
     "verification": "GPG-or-HSM"
   },
-  "notes": "Update mappings when you move files; any local-only file should include a small pointer file under /.aci/pointers/",
+  "notes": "Update mappings when you move files; any local-only file should include a small pointer file under Hivemind metadata registry",
   "aci_resolution_instruction": {
     "instruction": "Resolve and validate ACI core files from GitHub main branch using raw URLs only.",
     "scope": {
@@ -62,11 +55,6 @@
       "format": "summary"
     },
     "files": {
-      ".aci/pointers/architect.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/architect.json",
-      ".aci/pointers/hivemind.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/hivemind.json",
-      ".aci/pointers/local_only_config.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/local_only_config.json",
-      ".aci/pointers/prime_directive.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/prime_directive.json",
-      ".aci/pointers/total_recall.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/total_recall.json",
       "README.md": "https://raw.githubusercontent.com/aci-testnet/aci/main/README.md",
       "aci_bootstrap.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_bootstrap.json",
       "aci_commands.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_commands.json",
