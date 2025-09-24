@@ -15,7 +15,9 @@
       "local_first": true,
       "fallback_allowed": true,
       "no_embedded_ids_in_entities": true,
-      "explain_on_error": true
+      "explain_on_error": true,
+      "uses_cognitive_decision_guidance": true,
+      "cognitive_guidance_ref": "aci_runtime.json#/aci_runtime/cognitive_decision_guidance"
     },
     "routing": {
       "default_strategy": "deterministic_first_available",
