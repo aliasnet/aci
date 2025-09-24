@@ -14,10 +14,13 @@
   "rules": {
     "require_signed_commits": true,
     "canonical_source": "git",
-    "local_only_files_policy": "referenced in /.aci/pointers/"
+    "local_only_files_policy": "maintained via Hivemind metadata registry"
   },
   "signatures": {
-    "required": ["ALIAS", "Sentinel"],
+    "required": [
+      "ALIAS",
+      "Sentinel"
+    ],
     "verification": "GPG-or-HSM"
   },
   "notes": "Populate with your full Architect manifest. This is a safe minimal starting point."
