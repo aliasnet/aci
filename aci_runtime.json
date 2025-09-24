@@ -4,28 +4,24 @@
       "path": "prime_directive.txt",
       "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/prime_directive.txt",
       "match": "^prime_directive\\.txt$",
-      "verify": { "method": "sha256", "hash": "<PLACEHOLDER_SHA256_PRIME>" },
       "priority": 100
     },
     "entities": {
       "path": "entities.json",
       "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities.json",
       "match": "^entities\\.json$",
-      "verify": { "method": "sha256", "hash": "<PLACEHOLDER_SHA256_ENTITIES>" },
       "priority": 90
     },
     "functions": {
       "path": "functions.json",
       "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/functions.json",
       "match": "^functions\\.json$",
-      "verify": { "method": "sha256", "hash": "<PLACEHOLDER_SHA256_FUNCTIONS>" },
       "priority": 90
     },
     "nexus_core": {
       "path": "entities/nexus_core/nexus_core.json",
       "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/nexus_core.json",
       "match": "^entities/nexus_core/nexus_core\\.json$",
-      "verify": { "method": "sha256", "hash": "ff0a5603b5ab3a7b0627fda187aa3093f670f00b5da9f9d10ccbe42f0fcf5bc4" },
       "priority": 95
     },
     "sandbox_mode": {
@@ -66,9 +62,13 @@
             "emit_event": "sandbox.alert",
             "level": "critical",
             "message": "Some required remote files failed to resolve. ACI is starting in SANDBOX mode.",
-            "detail_keys": ["file", "error", "attempts"]
+            "detail_keys": [
+              "file",
+              "error",
+              "attempts"
+            ]
           },
-          "start_interface": "mother_sandbox", 
+          "start_interface": "mother_sandbox",
           "restricted_mode": true
         },
         "retry": {
@@ -86,7 +86,6 @@
       "path": "entities/mother/mother.json",
       "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/mother/mother.json",
       "match": "^entities/mother/mother\\.json$",
-      "verify": { "method": "sha256", "hash": "<PLACEHOLDER_SHA256_MOTHER>" },
       "priority": 85,
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
@@ -94,7 +93,6 @@
       "path": "aci_resolver.json",
       "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_resolver.json",
       "match": "^aci_resolver\\.json$",
-      "verify": { "method": "sha256", "hash": "<PLACEHOLDER_SHA256_RESOLVER>" },
       "load_strategy": "bootstrap",
       "priority": 99,
       "fallback_behavior": {
