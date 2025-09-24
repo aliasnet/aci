@@ -43,6 +43,6 @@
       "start_interface": "mother_sandbox",
       "notes": "If promotion criteria not met, do not continue to full bootstrap; start sandbox and emit alert."
     },
-    "notes": "Manifest enforces preflight promotion check. If promotion fails, runtime enters sandbox and waits (with retries) before final decision."
+    "notes": "Manifest enforces preflight promotion check. If promotion fails, runtime enters sandbox and waits (with retries) before final decision. Remote resolver registry is 'entities/nexus_core/bifrost.json'."
   }
 }
