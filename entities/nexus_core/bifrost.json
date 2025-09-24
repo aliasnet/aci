@@ -1,0 +1,100 @@
+{
+  "bifrost": {
+    "version": "1.0",
+    "description": "Resolver/bridge registry for ACI (renamed from aci_resolver). Small registry + mapping pointer; runtime should expand mapping at bootstrap.",
+    "default_policy": {
+      "local_first": true,
+      "allow_remote": true,
+      "cache_strategy": "memory"
+    },
+    "sources": [
+      {
+        "id": "mapping",
+        "match": "^aci_mapping\\.json$",
+        "path": "aci_mapping.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_mapping.json",
+        "priority": 100
+      },
+      {
+        "id": "entities",
+        "match": "^entities\\.json$",
+        "local_path": "entities.json",
+        "path": "entities.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities.json",
+        "priority": 95,
+        "resolver": {
+          "type": "github",
+          "repo": "aci-testnet/aci",
+          "path": "entities.json",
+          "ref": "main"
+        }
+      },
+      {
+        "id": "functions",
+        "match": "^functions\\.json$",
+        "local_path": "functions.json",
+        "path": "functions.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/functions.json",
+        "priority": 95,
+        "resolver": {
+          "type": "github",
+          "repo": "aci-testnet/aci",
+          "path": "functions.json",
+          "ref": "main"
+        }
+      },
+      {
+        "id": "nexus_core",
+        "match": "^entities/nexus_core/nexus_core\\.json$",
+        "local_path": "entities/nexus_core/nexus_core.json",
+        "path": "entities/nexus_core/nexus_core.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/nexus_core.json",
+        "priority": 100,
+        "resolver": {
+          "type": "github",
+          "repo": "aci-testnet/aci",
+          "path": "entities/nexus_core/nexus_core.json",
+          "ref": "main"
+        }
+      },
+      {
+        "id": "default_interface",
+        "match": "^entities/mother/mother\\.json$",
+        "local_path": "entities/mother/mother.json",
+        "path": "entities/mother/mother.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/mother/mother.json",
+        "priority": 90,
+        "resolver": {
+          "type": "github",
+          "repo": "aci-testnet/aci",
+          "path": "entities/mother/mother.json",
+          "ref": "main"
+        }
+      },
+      {
+        "id": "entities_dynamic",
+        "match": "^entities\\/.*\\.json$",
+        "path": "entities/{path}",
+        "mirror_template": "https://raw.githubusercontent.com/aci-testnet/aci/main/{path}",
+        "priority": 10,
+        "resolver": {
+          "type": "github",
+          "repo": "aci-testnet/aci",
+          "ref": "main"
+        }
+      }
+    ],
+    "bootstrap": {
+      "load_on_init": true,
+      "register_with": [
+        "aci_runtime.sandbox_mode.mirror_check",
+        "aci_runtime.entities",
+        "aci_runtime.functions",
+        "aci_runtime.nexus_core",
+        "aci_runtime.default_interface"
+      ],
+      "fallback_behavior": "direct_resolver_load_on_failure"
+    },
+    "notes": "This file (entities/nexus_core/bifrost.json) is the bifrost resolver registry. It points to aci_mapping.json for full inventory; runtime should fetch mapping, expand to an expanded resolver table, persist locally and use it for lookups."
+  }
+}
