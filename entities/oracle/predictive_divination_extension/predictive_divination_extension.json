@@ -9,52 +9,24 @@
     "asset_registry": {
       "sefirot": {
         "file": "sefirot.json",
-        "source": {
-          "type": "git",
-          "repo": "aci-testnet/aci",
-          "path": "entities/oracle/predictive_divination_extension/assets/sefirot.json"
-        }
+        "source": null
       },
       "tarot_rws": {
         "file": "tarot_rws.json",
-        "source": {
-          "type": "git",
-          "repo": "aci-testnet/aci",
-          "path": "entities/oracle/predictive_divination_extension/assets/tarot_rws.json"
-        }
+        "source": null
       },
       "tarot_expansions": {
         "file": "tarot_expansions.json",
-        "source": {
-          "type": "git",
-          "repo": "aci-testnet/aci",
-          "path": "entities/oracle/predictive_divination_extension/assets/tarot_expansions.json"
-        }
+        "source": null
       },
       "runes_futhark": {
         "file": "runes_futhark.json",
-        "source": {
-          "type": "git",
-          "repo": "aci-testnet/aci",
-          "path": "entities/oracle/predictive_divination_extension/assets/runes_futhark.json"
-        }
+        "source": null
       },
       "astro_tables": {
         "file": "astro_tables.json",
-        "source": {
-          "type": "git",
-          "repo": "aci-testnet/aci",
-          "path": "entities/oracle/predictive_divination_extension/assets/astro_tables.json"
-        }
+        "source": null
       }
-    },
-    "resolver": {
-      "strategy": "local_first",
-      "priority": ["file", "source.git", "provided_url"],
-      "accept_url": true,
-      "id_regex": "([\\w\\-./]{5,})",
-      "on_missing_library": "request_git_repo_or_local_path",
-      "notes": "If the local asset is missing, fetch it from the canonical GitHub repository (aci-testnet/aci) using the listed repo/path coordinates or prompt for an explicit filesystem path."
     },
     "normalization": {
       "reading_frame.v1": {

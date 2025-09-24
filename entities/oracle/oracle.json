@@ -12,21 +12,6 @@
       "Implement journal persistence for divination workflows so symbolic readings and narratives are stored with retention controls."
     ],
 
-    "fallback": {
-      "strategy": "git_repo",
-      "repository": "aci-testnet/aci",
-      "paths": {
-        "predictive_engine": {
-          "path": "entities/oracle/prediction_engine/predictive_engine.json",
-          "label": "predictive_engine.json"
-        },
-        "predictive_divination_extension": {
-          "path": "entities/oracle/predictive_divination_extension/predictive_divination_extension.json",
-          "label": "predictive_divination_extension.json"
-        }
-      }
-    },
-
     "children": {
       "predictive_engine": {
         "id": "1.1",
