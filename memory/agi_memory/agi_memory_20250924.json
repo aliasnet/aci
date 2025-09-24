@@ -1,0 +1,26 @@
+{
+  "agi_memory": {
+    "version": "1.0",
+    "namespace": "AGI",
+    "created_at": "2025-09-24T00:00:00Z",
+    "lock": {
+      "export": "hivemind",
+      "lock_namespace": true,
+      "acl": {
+        "read": ["ALIAS", "TVA", "Sentinel", "Architect", "AGI"],
+        "write": ["AGI", "Architect"],
+        "promote": ["ALIAS", "TVA", "Sentinel"]
+      }
+    },
+    "retention": { "policy": "append_only", "prune": "summaries_only_after_90d" },
+    "logs": [],
+    "summaries": [],
+    "links": {
+      "hivemind_anchor": "aci/entities/hivemind.json#namespace=AGI"
+    },
+    "integrity": {
+      "hash": "${BLAKE3}",
+      "last_rehash": null
+    }
+  }
+}

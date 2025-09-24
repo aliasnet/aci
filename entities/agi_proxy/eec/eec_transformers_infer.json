@@ -1,0 +1,11 @@
+{
+  "extends": "eec_base.json",
+  "task": "transformers.pipeline.infer",
+  "model": "meta-llama/Llama-3-8b-instruct",
+  "revision": "main",
+  "dtype": "bfloat16",
+  "device_map": "auto",
+  "pipeline": { "task": "text-generation", "max_new_tokens": 256, "temperature": 0.7 },
+  "input": { "prompt": "${PROMPT}" },
+  "sandbox_overrides": { "internet": false }
+}

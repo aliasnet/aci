@@ -1,0 +1,23 @@
+{
+  "extends": "eec_base.json",
+  "task": "peft.train_adapter",
+  "base_model": "meta-llama/Llama-3-8b-instruct",
+  "method": "lora",
+  "peft_config": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": ["q_proj", "v_proj"]
+  },
+  "train": {
+    "dataset": "aci://datasets/curriculum_v1.jsonl",
+    "epochs": 1,
+    "bsz": 4,
+    "lr": 0.0002,
+    "max_steps": 500,
+    "shuffle": true
+  },
+  "accelerate": { "mixed_precision": "bf16" },
+  "output": { "adapter_path": "temp://adapters/l3-8b-curriculum-lora" },
+  "sandbox_overrides": { "internet": false }
+}

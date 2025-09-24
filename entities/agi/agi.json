@@ -1,13 +1,93 @@
 {
-  "version": "BASELINE-2025-09-21",
   "entity": "AGI",
-  "role": "average_general_intelligence_framework",
-  "status": "placeholder",
-  "description": "Placeholder for the proxy-only AGI framework with strict guardrails.",
-  "todo": [
-    "Define capability boundaries, guardrails, and oversight loops for function 6267.",
-    "Document safety constraints, human-in-the-loop requirements, and auditing hooks.",
-    "Link to alignment research artifacts once available."
-  ],
-  "notes": "Replace with finalized AGI manifest before enabling production use."
+  "version": "1.0",
+  "role": "ALIAS  general intelligence framework for advanced digital entity",
+  "abstract": "Controlled container for above-human-level reasoning experiments via ephemeral adaptation (PEFT/SFT/RLHF) under ACI governance.",
+  "governance": {
+    "root_authority": "ALIAS",
+    "oversight": ["Sentinel", "TVA", "Architect", "Nexus Core"],
+    "binding_rules": [
+      "AGI cannot bypass Nexus Core routing",
+      "All AGI actions emit TVA checkpoints and Sentinel audits",
+      "Risk-bearing actions require Oracle precheck and human gate"
+    ],
+    "dry_run_default": true
+  },
+  "invocation_defaults": {
+    "alias": "Alice",
+    "caller_hint": "Alice"
+  },
+  "memory": {
+    "file": "aci/memory/agi_memory/agi_memory_20250924.json",
+    "policy": {
+      "export": "hivemind",
+      "lock_namespace": "AGI",
+      "acl": {
+        "read": ["ALIAS", "TVA", "Sentinel", "Architect", "AGI"],
+        "write": ["AGI", "Architect"],
+        "promote": ["ALIAS", "TVA", "Sentinel"]
+      }
+    }
+  },
+  "presets": {
+    "eec": {
+      "infer": "aci/entities/agi_proxy/eec/eec_transformers_infer.json",
+      "peft_train": "aci/entities/agi_proxy/eec/eec_peft_train_lora.json",
+      "sft_deepspeed": "aci/entities/agi_proxy/eec/eec_sft_deepspeed.json",
+      "rlhf_ppo": "aci/entities/agi_proxy/eec/eec_trl_ppo.json",
+      "agent_rag": "aci/entities/agi_proxy/eec/eec_agent_langchain_rag.json",
+      "faiss_build": "aci/entities/agi_proxy/eec/eec_faiss_build.json",
+      "eval_agieval": "aci/entities/agi_proxy/eec/eec_eval_agieval.json",
+      "eval_arc_agi2": "aci/entities/agi_proxy/eec/eec_eval_arc_agi2.json"
+    }
+  },
+  "functions": {
+    "agi.loop.run": {
+      "description": "Durable plan→act→reflect agent loop with RAG + HITL",
+      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.agent_rag"
+    },
+    "agi.loop.step_infer": {
+      "description": "Single-step inference via Transformers",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.infer"
+    },
+    "agi.learn.peft_adapter_train": {
+      "description": "Train PEFT adapter (LoRA) ephemerally",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.peft_train",
+      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "promotion_policy": {
+        "default": "manual",
+        "requires": ["TVA.ok", "Sentinel.ok", "Human.approval"]
+      }
+    },
+    "agi.learn.sft_deepspeed": {
+      "description": "SFT with Accelerate + DeepSpeed ZeRO",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.sft_deepspeed"
+    },
+    "agi.learn.rlhf_ppo": {
+      "description": "TRL/TRLX PPO post-training with KL control",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.rlhf_ppo"
+    },
+    "agi.retrieval.index_build": {
+      "description": "Build/refresh FAISS index for RAG",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.faiss_build"
+    },
+    "agi.eval.agieval": {
+      "description": "Run AGIEval suite and gate promotions",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.eval_agieval"
+    },
+    "agi.eval.arc_agi2": {
+      "description": "Run ARC-AGI-2 eval and gate promotions",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "@presets.eec.eval_arc_agi2"
+    }
+  },
+  "signatures": ["ALIAS", "Sentinel", "TVA"]
 }

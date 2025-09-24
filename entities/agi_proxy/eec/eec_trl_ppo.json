@@ -1,0 +1,15 @@
+{
+  "extends": "eec_base.json",
+  "task": "trl.train",
+  "algo": "ppo",
+  "base_model": "meta-llama/Llama-3-8b-instruct",
+  "reward": { "type": "rm_model", "model": "aci://models/reward_model_v1" },
+  "rollouts": {
+    "prompts": "aci://datasets/rollout_prompts.jsonl",
+    "per_step": 64
+  },
+  "constraints": { "kl_coeff": 0.02, "max_new_tokens": 128 },
+  "accelerate": { "mixed_precision": "bf16" },
+  "output": { "adapter_path": "temp://adapters/l3-8b-ppo" },
+  "sandbox_overrides": { "internet": false }
+}
