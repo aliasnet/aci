@@ -1,0 +1,48 @@
+{
+  "aci_bootstrap": {
+    "version": "1.0-preflight-3file-nexus-bifrost-nohash",
+    "local_core": {
+      "runtime": { "path": "aci_runtime.json" },
+      "prime_directive": { "path": "prime_directive.txt" },
+      "bootstrap": { "path": "aci_bootstrap.json" }
+    },
+    "remote_core": {
+      "nexus_core": {
+        "path": "entities/nexus_core/nexus_core.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/nexus_core.json",
+        "match": "^entities/nexus_core/nexus_core\\.json$"
+      },
+      "bifrost": {
+        "path": "entities/nexus_core/bifrost.json",
+        "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json",
+        "match": "^entities/nexus_core/bifrost\\.json$"
+      }
+    },
+    "initialization_sequence": [
+      { "step": "mirror_check", "action": "validate_and_fetch_from_mirrors" },
+      { "step": "verify_core_files", "action": "confirm_required_files_present" },
+      { "step": "load_nexus_core", "action": "load_and_validate_nexus" },
+      { "step": "load_bifrost", "action": "register_resolver_registry" },
+      { "step": "check_promotion_criteria", "action": "resolve_promotion_required_files" },
+      { "step": "bootstrap_runtime", "action": "initialize_core_systems" },
+      { "step": "launch_default_interface", "action": "render_mother_interface" }
+    ],
+    "promotion": {
+      "auto_promote": true,
+      "promotion_required_files": [
+        "entities/nexus_core/nexus_core.json",
+        "entities.json",
+        "functions.json"
+      ],
+      "retry": { "max_attempts": 3, "interval_seconds": 10 }
+    },
+    "sandbox": {
+      "enter_event": "sandbox.mode.enter",
+      "alert_event": "sandbox.alert",
+      "locked_event": "sandbox.mode.locked",
+      "start_interface": "mother_sandbox",
+      "notes": "If promotion criteria not met, do not continue to full bootstrap; start sandbox and emit alert."
+    },
+    "notes": "Manifest enforces preflight promotion check. If promotion fails, runtime enters sandbox and waits (with retries) before final decision."
+  }
+}
