@@ -36,5 +36,77 @@
     ],
     "verification": "GPG-or-HSM"
   },
-  "notes": "Update mappings when you move files; any local-only file should include a small pointer file under /.aci/pointers/"
+  "notes": "Update mappings when you move files; any local-only file should include a small pointer file under /.aci/pointers/",
+  "aci_resolution_instruction": {
+    "instruction": "Resolve and validate ACI core files from GitHub main branch using raw URLs only.",
+    "scope": {
+      "repository": "aci-testnet/aci",
+      "branch": "main",
+      "source": "https://raw.githubusercontent.com/aci-testnet/aci/main/"
+    },
+    "policy": {
+      "retry": {
+        "max_attempts": 3,
+        "interval_seconds": 10
+      },
+      "resolve_order": "known_files_first",
+      "on_failure": {
+        "action": "enter_sandbox",
+        "interface": "mother_sandbox",
+        "alert": "sandbox.alert"
+      }
+    },
+    "output": {
+      "report": "diffs_only",
+      "channel": "current_chat",
+      "format": "summary"
+    },
+    "files": {
+      ".aci/pointers/architect.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/architect.json",
+      ".aci/pointers/hivemind.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/hivemind.json",
+      ".aci/pointers/local_only_config.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/local_only_config.json",
+      ".aci/pointers/prime_directive.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/prime_directive.json",
+      ".aci/pointers/total_recall.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/.aci/pointers/total_recall.json",
+      "README.md": "https://raw.githubusercontent.com/aci-testnet/aci/main/README.md",
+      "aci_bootstrap.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_bootstrap.json",
+      "aci_commands.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_commands.json",
+      "aci_mapping.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_mapping.json",
+      "aci_runtime.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_runtime.json",
+      "alias.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/alias.json",
+      "entities.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities.json",
+      "entities/aci_repo/aci_repo.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/aci_repo/aci_repo.json",
+      "entities/aci_repo/api_repo.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/aci_repo/api_repo.json",
+      "entities/agi/agi.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi/agi.json",
+      "entities/architect/architect.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/architect/architect.json",
+      "entities/commerce_ai/commerce_ai.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/commerce_ai/commerce_ai.json",
+      "entities/hivemind/hivemind.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/hivemind/hivemind.json",
+      "entities/iam_gate/iam_gate.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/iam_gate/iam_gate.json",
+      "entities/keychain/keychain.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/keychain/keychain.json",
+      "entities/mother/mother.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/mother/mother.json",
+      "entities/nexus_core/bifrost.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json",
+      "entities/nexus_core/nexus_core.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/nexus_core.json",
+      "entities/oracle/binder.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/binder.json",
+      "entities/oracle/journal.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/journal.json",
+      "entities/oracle/oracle.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/oracle.json",
+      "entities/oracle/prediction_engine/predictive_engine.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/prediction_engine/predictive_engine.json",
+      "entities/oracle/predictive_divination_extension/assets/astro_tables.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/assets/astro_tables.json",
+      "entities/oracle/predictive_divination_extension/assets/runes_futhark.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/assets/runes_futhark.json",
+      "entities/oracle/predictive_divination_extension/assets/sefirot.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/assets/sefirot.json",
+      "entities/oracle/predictive_divination_extension/assets/tarot_expansions.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/assets/tarot_expansions.json",
+      "entities/oracle/predictive_divination_extension/assets/tarot_rws.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/assets/tarot_rws.json",
+      "entities/oracle/predictive_divination_extension/plugins/qabalah.plugin.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/plugins/qabalah.plugin.json",
+      "entities/oracle/predictive_divination_extension/plugins/runes.plugin.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/plugins/runes.plugin.json",
+      "entities/oracle/predictive_divination_extension/plugins/tarot.plugin.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/plugins/tarot.plugin.json",
+      "entities/oracle/predictive_divination_extension/plugins/western_astrology.plugin.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/plugins/western_astrology.plugin.json",
+      "entities/oracle/predictive_divination_extension/predictive_divination_extension.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_extension.json",
+      "entities/oracle/predictive_divination_extension/predictive_divination_extension.sources.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_extension.sources.json",
+      "entities/pmu_adapter/pmu_adapter.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/pmu_adapter/pmu_adapter.json",
+      "entities/sentinel/sentinel.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/sentinel/sentinel.json",
+      "entities/tracehub/tracehub.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/tracehub/tracehub.json",
+      "entities/tva/tva.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/tva/tva.json",
+      "functions.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/functions.json",
+      "memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json",
+      "prime_directive.txt": "https://raw.githubusercontent.com/aci-testnet/aci/main/prime_directive.txt"
+    }
+  }
 }
