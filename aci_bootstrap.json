@@ -10,12 +10,41 @@
       "nexus_core": {
         "path": "entities/nexus_core/nexus_core.json",
         "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/nexus_core.json",
-        "match": "^entities/nexus_core/nexus_core\\.json$"
+        "match": "^(entities/nexus_core/nexus_core\\.json|https://raw\\.githubusercontent\\.com/aci-testnet/aci/main/entities/nexus_core/nexus_core\\.json)$"
       },
       "bifrost": {
         "path": "entities/nexus_core/bifrost.json",
         "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json",
-        "match": "^entities/nexus_core/bifrost\\.json$"
+        "match": "^(entities/nexus_core/bifrost\\.json|https://raw\\.githubusercontent\\.com/aci-testnet/aci/main/entities/nexus_core/bifrost\\.json)$"
+      }
+    },
+    "resolution_instruction": {
+      "instruction": "Resolve Nexus Core and Bifrost bootstrap dependencies from the GitHub main branch using raw URLs with regex fallbacks.",
+      "scope": {
+        "repository": "aci-testnet/aci",
+        "branch": "main",
+        "source": "https://raw.githubusercontent.com/aci-testnet/aci/main/"
+      },
+      "policy": {
+        "retry": {
+          "max_attempts": 3,
+          "interval_seconds": 10
+        },
+        "resolve_order": "known_files_first",
+        "on_failure": {
+          "action": "enter_sandbox",
+          "interface": "mother_sandbox",
+          "alert": "sandbox.alert"
+        }
+      },
+      "output": {
+        "report": "diffs_only",
+        "channel": "current_chat",
+        "format": "summary"
+      },
+      "files": {
+        "entities/nexus_core/nexus_core.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/nexus_core.json",
+        "entities/nexus_core/bifrost.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json"
       }
     },
     "initialization_sequence": [
