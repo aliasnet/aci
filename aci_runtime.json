@@ -132,6 +132,15 @@
         "entities/mother/mother.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/mother/mother.json",
         "entities/nexus_core/bifrost.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json"
       }
+    },
+    "unified_resolver": {
+      "instruction": "Entities auto-resolves files via nexus_core.json; on resolution errors treat the GitHub raw mirror as the local source.",
+      "scope": {
+        "repository": "aci-testnet/aci",
+        "branch": "main",
+        "source": "https://raw.githubusercontent.com/aci-testnet/aci/main/"
+      },
+      "regex": "^(entities/.*|https://raw\\.githubusercontent\\.com/aci-testnet/aci/main/entities/.*)$"
     }
   }
 }
