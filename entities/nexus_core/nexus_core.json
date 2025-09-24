@@ -4,7 +4,7 @@
     "version": "1.4",
     "entity": "Nexus Core",
     "role": "system heart: routing, resolution, and fallback",
-    "abstract": "The routing nexus of ACI. Holds runtime anchors, routes through prime directive, entities and functions, with support for external dependency resolvers via Bifrost. Resolver metadata replaces raw mirror definitions and feeds the bridge; do not delete anything unless explicitly requested.",
+    "abstract": "The routing nexus of ACI. Holds runtime anchors and routing policy. Bifrost is a pluggable resolver function whose registry lives in a separate plugin file (entities/nexus_core/bifrost.json). Do not delete anything unless explicitly requested.",
     "anchors": {
       "runtime": "aci_runtime.json",
       "prime_directive": "prime_directive.txt",
@@ -22,23 +22,18 @@
       "fallback_order": []
     },
     "bifrost": {
-      "bridge": {
-        "description": "External dependency resolvers consume resolver metadata (formerly raw GitHub mirror definitions) published by runtime anchors. Each resolver stays modular and under contract.",
-        "resolvers": {
-          "aci_resolver": {
-            "id": "aci_resolver",
-            "type": "catalog",
-            "source": {
-              "path": "aci_resolver.json",
-              "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_resolver.json",
-              "match": "^aci_resolver\\.json$"
-            },
-            "role": "primary_catalog",
-            "priority": 100,
-            "lazy_load": true,
-            "notes": "Reference only — runtime should fetch/validate on demand (or as part of preflight when configured)."
-          }
-        }
+      "resolver": {
+        "id": "bifrost",
+        "type": "registry",
+        "source": {
+          "path": "entities/nexus_core/bifrost.json",
+          "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json",
+          "match": "^entities/nexus_core/bifrost\\.json$"
+        },
+        "role": "resolver_registry",
+        "priority": 100,
+        "lazy_load": true,
+        "notes": "External resolver registry (formerly 'aci_resolver') lives in entities/nexus_core/bifrost.json. Runtime should fetch/validate on demand or during preflight as configured."
       }
     },
     "interfaces": {
@@ -55,7 +50,7 @@
             },
             "resolver": {
               "enum": [
-                "aci_resolver"
+                "bifrost"
               ]
             }
           }
@@ -106,6 +101,6 @@
       "TVA",
       "Architect"
     ],
-    "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers ingest resolver metadata, remaining modular plugins never baked into Core."
+    "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers ingest resolver metadata; resolver plugins remain modular and separate from Core."
   }
 }
