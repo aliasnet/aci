@@ -87,6 +87,61 @@
       "description": "Run ARC-AGI-2 eval and gate promotions",
       "runner": "agi_proxy.execute",
       "spec_ref": "@presets.eec.eval_arc_agi2"
+    },
+    "agi.export.hivemind_session": {
+      "description": "Export the current active chat/session for the target identity into an AGI memory file (session-level hivemind slice).",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "aci/entities/agi_proxy/eec/eec_export_hivemind_session.json",
+      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "params_schema": {
+        "type": "object",
+        "properties": {
+          "identity": { "type": "string" },
+          "session_id": { "type": ["string", "null"] },
+          "include_chatlogs": { "type": "boolean", "default": true },
+          "include_weights_meta": { "type": "boolean", "default": true },
+          "include_artifacts": { "type": "boolean", "default": false },
+          "format": { "type": "string", "enum": ["json", "tar"], "default": "json" },
+          "force_codebox": { "type": "boolean", "default": false, "description": "Inline export into chat/codebox (subject to size/redaction limits)." },
+          "force_codebox_max_bytes": { "type": "integer", "default": 131072, "description": "Max bytes to inline (default 128KB)." },
+          "note": { "type": "string" }
+        },
+        "required": ["identity"]
+      },
+      "policy": {
+        "requires": ["Human.approval"],
+        "default_dry_run": true,
+        "shareable": false
+      }
+    },
+    "agi.export.hivemind_full": {
+      "description": "Create a full AGI-local export bundle (session hivemind slice + artifacts + signed manifest) for the specified identity.",
+      "runner": "agi_proxy.execute",
+      "spec_ref": "aci/entities/agi_proxy/eec/eec_export_hivemind_full.json",
+      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "params_schema": {
+        "type": "object",
+        "properties": {
+          "identity": { "type": "string" },
+          "session_id": { "type": ["string", "null"] },
+          "source_jobs": { "type": "array", "items": { "type": "string" } },
+          "include_chatlogs": { "type": "boolean", "default": true },
+          "include_weights_meta": { "type": "boolean", "default": true },
+          "include_artifacts": { "type": "boolean", "default": false },
+          "format": { "type": "string", "enum": ["json", "tar"], "default": "tar" },
+          "force_codebox": { "type": "boolean", "default": false, "description": "Inline small bundle manifest into chat/codebox (safer 64KB cap)." },
+          "force_codebox_max_bytes": { "type": "integer", "default": 65536, "description": "Max bytes to inline (default 64KB)." },
+          "human_id": { "type": "string", "description": "Human approver required if include_artifacts or force_codebox are true." },
+          "note": { "type": "string" }
+        },
+        "required": ["identity"]
+      },
+      "policy": {
+        "requires": ["Human.approval", "ALIAS.signature"],
+        "default_dry_run": true,
+        "shareable": false,
+        "promotion_required": true
+      }
     }
   },
   "signatures": ["ALIAS", "Sentinel", "TVA"]

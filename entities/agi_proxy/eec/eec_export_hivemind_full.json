@@ -1,0 +1,26 @@
+{
+  "extends": "eec_base.json",
+  "task": "export.hivemind.full_bundle",
+  "description": "Produce a full AGI-local export bundle (session hivemind slice + artifacts + signed manifest) under AGI memory.",
+  "inputs": {
+    "identity": "${IDENTITY}",
+    "session_id": "${SESSION_ID}",
+    "source_jobs": ["${JOB_ID}"],
+    "include_chatlogs": true,
+    "include_weights_meta": true,
+    "include_artifacts": true,
+    "format": "tar",
+    "force_codebox": false,
+    "force_codebox_max_bytes": 65536,
+    "human_id": null,
+    "note": null
+  },
+  "output": {
+    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}_agi_memory_${DATE}_${TIME}_${N}.${FORMAT}",
+    "bundle_artifact_dir": "aci/entities/agi/identities/${IDENTITY}/adapters/",
+    "manifest_template": "aci/memory/agi_memory/${IDENTITY}_agi_memory_${DATE}_${TIME}_${N}.json"
+  },
+  "sandbox_overrides": {
+    "internet": false
+  }
+}

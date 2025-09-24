@@ -1,0 +1,22 @@
+{
+  "extends": "eec_base.json",
+  "task": "export.hivemind.session",
+  "description": "Produce a session-level hivemind slice and write it into AGI memory (no external hivemind changes).",
+  "inputs": {
+    "identity": "${IDENTITY}",
+    "session_id": "${SESSION_ID}",
+    "include_chatlogs": true,
+    "include_weights_meta": true,
+    "include_artifacts": false,
+    "format": "json",
+    "force_codebox": false,
+    "force_codebox_max_bytes": 131072,
+    "note": null
+  },
+  "output": {
+    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}_agi_memory_${DATE}_${TIME}_${N}.json"
+  },
+  "sandbox_overrides": {
+    "internet": false
+  }
+}
