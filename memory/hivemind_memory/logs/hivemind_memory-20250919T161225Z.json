@@ -86,7 +86,7 @@
         },
         {
           "role": "user",
-          "content": "Collapse Total Recall into HiveMind; exports must be newest_first, with timestamps per entry and completion (no deletion). (context preserved)",
+          "content": "Collapse Hivemind Legacy Context into HiveMind; exports must be newest_first, with timestamps per entry and completion (no deletion). (context preserved)",
           "timestamp": "2025-09-19T10:59:37Z",
           "ts_sort": "2025-09-19T10:59:37Z",
           "export_ts_hint": "2025-09-19T11:00:41Z",
