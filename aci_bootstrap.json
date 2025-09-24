@@ -1,6 +1,6 @@
 {
   "aci_bootstrap": {
-    "version": "1.0-preflight-3file-nexus-bifrost-nohash",
+    "version": "1.0",
     "local_core": {
       "runtime": { "path": "aci_runtime.json" },
       "prime_directive": { "path": "prime_directive.txt" },
