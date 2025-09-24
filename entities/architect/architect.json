@@ -8,9 +8,6 @@
     "enforce_signatures": "require multi-sig on critical commits",
     "remap_check": "compare git vs drive mappings and propose actions"
   },
-  "resolver_refs": {
-    "drive_anchor": "drive://ACI/entities/architect.json"
-  },
   "rules": {
     "require_signed_commits": true,
     "canonical_source": "git",

@@ -37,6 +37,6 @@
         "normalization": "reading_frame.v1"
       }
     },
-    "notes": "Astro resolver expects astro_tables.western metadata to be present for fallback when ephemeris precision is limited."
+    "notes": "Astro module expects astro_tables.western metadata to be present for fallback when ephemeris precision is limited."
   }
 }

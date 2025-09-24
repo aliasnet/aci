@@ -17,9 +17,7 @@
         "default_parameter": "--session --download",
         "parameters": "--session (export current session memory), --combined (merge with the latest canonical memory), --download (download as file), --codebox (print in codebox, full, no trimming), --slice (export as learning slice), --weight (export as learning weight)",
         "description": "Exports HiveMind global memory with timestamps and completed entries",
-        "output_default": "hivemind_memory_(timestamp).json",
-        "resolver_path": "https://raw.githubusercontent.com/aci-testnet/aci/main/memory/hivemind.json",
-        "file_resolver": "github:aci-testnet/aci"
+        "output_default": "hivemind_memory_(timestamp).json"
       },
       {
         "command": ":hivemind help",
