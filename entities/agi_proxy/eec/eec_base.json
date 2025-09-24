@@ -1,0 +1,28 @@
+{
+  "eec_version": "1.0",
+  "job_id": "${JOB_ID}",
+  "created_at": "${ISO_8601}",
+  "runner": "python",
+  "ttl_seconds": 3600,
+  "sandbox": {
+    "internet": false,
+    "network": "whitelist",
+    "files": "temp_only",
+    "allowed_hosts": []
+  },
+  "governance": {
+    "guards": ["TVA.checkpoint", "Sentinel.audit"],
+    "risk_precheck": "Oracle.precheck",
+    "dry_run_default": true,
+    "promotion_policy": "manual_human_gate"
+  },
+  "trace": {
+    "wandb": { "project": "aci-agi", "mode": "online", "tags": ["EEC"] },
+    "tracehub": true
+  },
+  "artifacts": {
+    "store": "temp",
+    "retention": "7d",
+    "promotion_requires": ["TVA.ok", "Sentinel.ok", "Human.approval"]
+  }
+}

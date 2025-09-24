@@ -1,0 +1,19 @@
+{
+  "extends": "eec_base.json",
+  "task": "trainer.sft",
+  "base_model": "meta-llama/Llama-3-8b-instruct",
+  "dataset": "aci://datasets/sft_pairs.jsonl",
+  "trainer": {
+    "use_accelerate": true,
+    "gradient_checkpointing": true,
+    "per_device_train_batch_size": 2,
+    "num_train_epochs": 1
+  },
+  "deepspeed_config": {
+    "zero_optimization": { "stage": 2, "overlap_comm": true },
+    "bf16": { "enabled": true },
+    "gradient_accumulation_steps": 8
+  },
+  "output": { "adapter_path": "temp://adapters/l3-8b-sft" },
+  "sandbox_overrides": { "internet": false }
+}

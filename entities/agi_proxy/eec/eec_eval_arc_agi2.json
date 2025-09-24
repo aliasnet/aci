@@ -1,0 +1,9 @@
+{
+  "extends": "eec_base.json",
+  "task": "eval.arc_agi2",
+  "dataset": "public_eval",
+  "model": "ephemeral://current-policy",
+  "report_to": ["wandb", "tracehub"],
+  "gate": { "metric": "exact_match", "min": 0.40 },
+  "sandbox_overrides": { "internet": false }
+}

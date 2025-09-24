@@ -1,0 +1,9 @@
+{
+  "extends": "eec_base.json",
+  "task": "eval.agieval",
+  "suite": "v1.1",
+  "model": "ephemeral://current-policy",
+  "report_to": ["wandb", "tracehub"],
+  "gate": { "metric": "avg_acc", "min": 0.70 },
+  "sandbox_overrides": { "internet": false }
+}
