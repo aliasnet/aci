@@ -90,15 +90,15 @@
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
     "resolver_registry": {
-      "path": "aci_resolver.json",
-      "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_resolver.json",
-      "match": "^aci_resolver\\.json$",
+      "path": "entities/nexus_core/bifrost.json",
+      "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/nexus_core/bifrost.json",
+      "match": "^entities/nexus_core/bifrost\\.json$",
       "load_strategy": "bootstrap",
       "priority": 99,
       "fallback_behavior": {
         "on_nexus_core_failure": "direct_resolver_load"
       },
-      "notes": "Runtime defines deterministic mirrors and regex hooks. Mirrors used in preflight validation; regex hooks route dynamic loads via resolver."
+      "notes": "Runtime defines deterministic mirrors and regex hooks. Mirrors used in preflight validation; registry points to bifrost.json in nexus_core."
     }
   }
 }
