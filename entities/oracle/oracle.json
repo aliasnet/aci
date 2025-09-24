@@ -5,6 +5,12 @@
     "entity": "Oracle",
     "role": "LLM Predictive and Analysis Engine",
     "abstract": "Hybrid prediction engine. Core LLM analysis is primary. Symbolic divination methods are optional and surfaced only when aligned or explicitly requested.",
+    "todo": [
+      "Extend task detection and routing to cover anomaly detection, segmentation, survival analysis, and text analytics scenarios beyond the current trio of tasks.",
+      "Insert automated data-quality, feature engineering, and drift monitoring stages ahead of model selection and ensembling.",
+      "Add adaptive performance budgets that scale with dataset size and optionally enable GPU-capable adapters alongside CPU defaults.",
+      "Implement journal persistence for divination workflows so symbolic readings and narratives are stored with retention controls."
+    ],
 
     "fallback": {
       "strategy": "git_repo",
