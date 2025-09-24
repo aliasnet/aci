@@ -1,88 +1,111 @@
-{ "nexus_core": { "schema_version": "1.0", "version": "1.4", "entity": "Nexus Core", "role": "system heart: routing, resolution, and fallback", "abstract": "The routing nexus of ACI. Holds runtime anchors, routes through prime directive, entities and functions, with support for external dependency resolvers via Bifrost. Resolver metadata replaces raw mirror definitions and feeds the bridge; do not delete anything unless explicitly requested.",
-
-"anchors": {
-  "runtime": "aci_runtime.json",
-  "prime_directive": "prime_directive.txt",
-  "entities": "entities.json",
-  "functions": "functions.json"
-},
-
-"policy": {
-  "local_first": true,
-  "fallback_allowed": true,
-  "no_embedded_ids_in_entities": true,
-  "explain_on_error": true
-},
-
-"routing": {
-  "default_strategy": "deterministic_first_available",
-  "fallback_order": []
-},
-
-"bifrost": {
-  "bridge": {
-    "description": "External dependency resolvers consume resolver metadata (formerly raw GitHub mirror definitions) published by runtime anchors. Each resolver stays modular and under contract.",
-    "resolvers": {
-      "aci_resolver": {
-        "id": "aci_resolver",
-        "type": "catalog",
-        "source": {
-          "path": "aci_resolver.json",
-          "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_resolver.json",
-          "verify": {
-            "method": "sha256",
-            "hash": "<PLACEHOLDER_SHA256_ACI_RESOLVER>"
+{
+  "nexus_core": {
+    "schema_version": "1.0",
+    "version": "1.4",
+    "entity": "Nexus Core",
+    "role": "system heart: routing, resolution, and fallback",
+    "abstract": "The routing nexus of ACI. Holds runtime anchors, routes through prime directive, entities and functions, with support for external dependency resolvers via Bifrost. Resolver metadata replaces raw mirror definitions and feeds the bridge; do not delete anything unless explicitly requested.",
+    "anchors": {
+      "runtime": "aci_runtime.json",
+      "prime_directive": "prime_directive.txt",
+      "entities": "entities.json",
+      "functions": "functions.json"
+    },
+    "policy": {
+      "local_first": true,
+      "fallback_allowed": true,
+      "no_embedded_ids_in_entities": true,
+      "explain_on_error": true
+    },
+    "routing": {
+      "default_strategy": "deterministic_first_available",
+      "fallback_order": []
+    },
+    "bifrost": {
+      "bridge": {
+        "description": "External dependency resolvers consume resolver metadata (formerly raw GitHub mirror definitions) published by runtime anchors. Each resolver stays modular and under contract.",
+        "resolvers": {
+          "aci_resolver": {
+            "id": "aci_resolver",
+            "type": "catalog",
+            "source": {
+              "path": "aci_resolver.json",
+              "mirror": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_resolver.json",
+              "match": "^aci_resolver\\.json$"
+            },
+            "role": "primary_catalog",
+            "priority": 100,
+            "lazy_load": true,
+            "notes": "Reference only — runtime should fetch/validate on demand (or as part of preflight when configured)."
           }
-        },
-        "role": "primary_catalog",
-        "priority": 100,
-        "lazy_load": true,
-        "notes": "Reference only — runtime should fetch/validate on demand (or as part of preflight when configured)."
-      }
-    }
-  }
-},
-
-"interfaces": {
-  "resolve": {
-    "description": "Unified entry for resolution requests.",
-    "input": {
-      "type": "object",
-      "required": ["ref"],
-      "properties": {
-        "ref": { "type": "string" },
-        "resolver": { "enum": ["aci_resolver"] }
+        }
       }
     },
-    "output": {
-      "type": "object",
-      "required": ["status"],
-      "properties": {
-        "status": { "enum": ["ok", "error"] },
-        "resolved_via": { "type": "string" },
-        "file": { "type": "object" },
-        "error": { "type": "object" }
+    "interfaces": {
+      "resolve": {
+        "description": "Unified entry for resolution requests.",
+        "input": {
+          "type": "object",
+          "required": [
+            "ref"
+          ],
+          "properties": {
+            "ref": {
+              "type": "string"
+            },
+            "resolver": {
+              "enum": [
+                "aci_resolver"
+              ]
+            }
+          }
+        },
+        "output": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "ok",
+                "error"
+              ]
+            },
+            "resolved_via": {
+              "type": "string"
+            },
+            "file": {
+              "type": "object"
+            },
+            "error": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "cli": {
+        "commands": {}
       }
-    }
-  },
-  "cli": {
-    "commands": {}
+    },
+    "observability": {
+      "tracehub_binding": true,
+      "emit_events": [
+        "resolver.init",
+        "resolver.resolve",
+        "resolver.error"
+      ],
+      "metrics": {
+        "resolver_ok": "counter",
+        "resolver_error": "counter",
+        "resolver_latency_ms_p50": "gauge",
+        "resolver_latency_ms_p95": "gauge"
+      }
+    },
+    "signatures": [
+      "TVA",
+      "Architect"
+    ],
+    "checksum_note": "Nexus Core is the canonical runtime spine. Resolvers ingest resolver metadata, remaining modular plugins never baked into Core."
   }
-},
-
-"observability": {
-  "tracehub_binding": true,
-  "emit_events": ["resolver.init", "resolver.resolve", "resolver.error"],
-  "metrics": {
-    "resolver_ok": "counter",
-    "resolver_error": "counter",
-    "resolver_latency_ms_p50": "gauge",
-    "resolver_latency_ms_p95": "gauge"
-  }
-},
-
-"signatures": ["TVA", "Architect"],
-"checksum_note": "Nexus Core is the canonical runtime spine. Resolvers ingest resolver metadata, remaining modular plugins never baked into Core."
-
-} }
-
+}
