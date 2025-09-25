@@ -16,20 +16,15 @@
         "chatgpt_connector": true
       }
     },
-       "mirror_resolution_policy": {
-         "key": "aci_github_resolver",
-         "file": "aci_github_resolver.json",
-         "canonical_source": "github",
-         "repo": "aci-testnet/aci",
-         "url":                    
-"https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json",
-      }
+    "mirror_resolution_policy": {
+      "key": "aci_github_resolver",
+      "file": "aci_github_resolver.json",
+      "canonical_source": "github",
+      "repo": "aci-testnet/aci",
+      "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json"
     },
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw URLs take precedence over local copies; use local files only when the canonical mirrors are unavailable."
-  }
-}
-
+    "notes": "Canonical raw URLs take precedence over local copies; use local files only when the canonical mirrors are unavailable. Update mappings when you move files.",
     "signatures": {
       "required": [
         "ALIAS",
@@ -37,7 +32,6 @@
         "Sentinel"
       ]
     },
-    "notes": "Update mappings when you move files.",
     "aci_resolution_instruction": {
       "instruction": "Resolve and validate ACI files from GitHub main branch using raw URLs only.",
       "scope": {
@@ -129,3 +123,4 @@
       }
     }
   }
+}
