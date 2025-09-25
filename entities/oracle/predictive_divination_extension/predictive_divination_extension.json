@@ -9,28 +9,34 @@
     "asset_registry": {
       "sefirot": {
         "file": "sefirot.json",
-        "source": null
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json"
       },
       "tarot_rws": {
         "file": "tarot_rws.json",
-        "source": null
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
       },
       "tarot_expansions": {
         "file": "tarot_expansions.json",
-        "source": null
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json"
       },
       "runes_futhark": {
         "file": "runes_futhark.json",
-        "source": null
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json"
       },
       "astro_tables": {
         "file": "astro_tables.json",
-        "source": null
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json"
       }
     },
     "normalization": {
       "reading_frame.v1": {
-        "required": ["themes", "tensions", "counsel", "symbols", "provenance"],
+        "required": [
+          "themes",
+          "tensions",
+          "counsel",
+          "symbols",
+          "provenance"
+        ],
         "notes": "Matches oracle/schemas/reading_frame.schema.json in structure."
       }
     },
@@ -39,8 +45,8 @@
         "id": "1.2.1",
         "version": "1.0",
         "key": "tarot",
-        "name": "Tarot (Rider–Waite–Smith + expansions)",
-        "file": "plugins/tarot.plugin.json",
+        "name": "Tarot (Rider\u2013Waite\u2013Smith + expansions)",
+        "file": "plugins/tarot.json",
         "tools": {
           "draw": "tarot.draw",
           "interpret": "tarot.interpreter"
@@ -56,8 +62,12 @@
           }
         ],
         "payload_contract": {
-          "required": ["spread"],
-          "optional": ["reversed"]
+          "required": [
+            "spread"
+          ],
+          "optional": [
+            "reversed"
+          ]
         },
         "output_contract": "reading_frame.v1"
       },
@@ -66,7 +76,7 @@
         "version": "1.0",
         "key": "runes",
         "name": "Runes (Elder Futhark)",
-        "file": "plugins/runes.plugin.json",
+        "file": "plugins/runes.json",
         "tools": {
           "draw": "runes.draw",
           "interpret": "runes.interpreter"
@@ -78,8 +88,14 @@
           }
         ],
         "payload_contract": {
-          "required": ["count", "layout"],
-          "optional": ["without_replacement", "positions"]
+          "required": [
+            "count",
+            "layout"
+          ],
+          "optional": [
+            "without_replacement",
+            "positions"
+          ]
         },
         "output_contract": "reading_frame.v1"
       },
@@ -87,8 +103,8 @@
         "id": "1.2.3",
         "version": "1.0",
         "key": "western_astrology",
-        "name": "Astrology — Western",
-        "file": "plugins/western_astrology.plugin.json",
+        "name": "Astrology \u2014 Western",
+        "file": "plugins/western_astrology.json",
         "tools": {
           "draw": "astro.western.positions",
           "interpret": "astro.western.interpreter"
@@ -100,8 +116,14 @@
           }
         ],
         "payload_contract": {
-          "required": ["datetime", "lat", "lon"],
-          "optional": ["house_system"]
+          "required": [
+            "datetime",
+            "lat",
+            "lon"
+          ],
+          "optional": [
+            "house_system"
+          ]
         },
         "output_contract": "reading_frame.v1"
       },
@@ -110,7 +132,7 @@
         "version": "1.0",
         "key": "qabalah",
         "name": "Qabalah / Sefirot",
-        "file": "plugins/qabalah.plugin.json",
+        "file": "plugins/qabalah.json",
         "tools": {
           "draw": "qabalah.draw",
           "interpret": "qabalah.interpreter"
@@ -122,8 +144,14 @@
           }
         ],
         "payload_contract": {
-          "required": ["count", "domain", "layout"],
-          "optional": ["positions"]
+          "required": [
+            "count",
+            "domain",
+            "layout"
+          ],
+          "optional": [
+            "positions"
+          ]
         },
         "output_contract": "reading_frame.v1"
       }
