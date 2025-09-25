@@ -3,7 +3,7 @@
   "identity": "alice",
   "exported_at": "2025-09-24T13:44:27Z",
   "slice_id": "hivemind_memory_2025-09-25T13-44-27_0001",
-  "scope": "near-chat-logs-plus-autocomlete",
+  "scope": "session_logs",
   "chatlogs_order": "desc",
   "chatlogs": [
     {
@@ -294,20 +294,19 @@
   ],
   "weights": [],
   "slice": null,
-  "llm_summary": {
-    "overview": "This conversation documents a hands-on design and governance session for running an AGI-like entity inside a strictly controlled ACI environment...",
-    "coverage": "Full, ordered most-recent-first (descending)."
-  },
   "meta": {
     "source_job": "hivemind-export-session-alice-20250924-0001",
     "eec_ref": "aci/entities/agi_proxy/eec/eec_export_hivemind_session.json",
     "provenance": {
       "tva_anchor_id": null,
-      "sentinel_audit_id": null,
       "exported_by": "ALIAS",
-      "simulated": false
-    }
-  },
-  "notes": "Export performed in 'isolate' snapshot mode. Session stopped/pruned; context reset ensured."
+      "simulated": false,
+      "aci_entity_audit_id": null
+    },
+    "sources": [
+      "hivemind.json",
+      "session_logs",
+      "hivemind_legacy_context"
+    ]
+  }
 }
-

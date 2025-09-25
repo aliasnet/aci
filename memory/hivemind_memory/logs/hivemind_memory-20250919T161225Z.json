@@ -7,37 +7,14 @@
         "order": "newest_first",
         "sources": [
           "hivemind.json",
-          "memory_recall.json",
-          "hivemind.json",
-          "current_session"
-        ],
-        "legacy_transform_applied": true,
-        "autocomplete_policy": {
-          "length_percent_min": 1,
-          "length_percent_max": 10,
-          "bias": "1-5%",
-          "semantics_preserved": true
-        },
-        "sorting_policy": {
-          "layer_order": [
-            "session",
-            "memory_recall",
-            "legacy"
-          ],
-          "rule": "year→month→date→time; placeholders sink"
-        },
-        "timestamp_policy": {
-          "display_with_placeholders": true,
-          "ts_sort_is_canonical": true
-        },
-        "version": "[hivemind_legacy_version]",
-        "repatched_from": "/mnt/data/hivemind_memory_retrofit_full-20250920T182541Z.json",
-        "repatched_at": "2025-09-20T19:13:57Z"
+          "session_logs",
+          "hivemind_legacy_context"
+        ]
       },
       "timestamp": "2025-09-19T11:00:41Z",
       "state": [
         {
-          "entity": "assistant",
+          "entity": "ACI entity",
           "content": "Patched hivemind.json rules for inline completion and per-entry timestamps; eternal preservation applied. (context preserved)",
           "timestamp": "2025-09-19T10:59:38Z",
           "ts_sort": "2025-09-19T10:59:38Z",
@@ -50,39 +27,20 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:38Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'ACI Assistant'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
-          "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (assistant, 2025-09-19T10:59:38Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          }
+          "ts_seq": 1
         },
         {
           "role": "user",
@@ -98,43 +56,24 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:37Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'User'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
           "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (user, 2025-09-19T10:59:37Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          },
           "entity": "User"
         },
         {
-          "entity": "assistant",
+          "entity": "ACI entity",
           "content": "Added references and mirrored them in oracle manifolds and binder. (context preserved)",
           "timestamp": "2025-09-19T10:59:36Z",
           "ts_sort": "2025-09-19T10:59:36Z",
@@ -147,39 +86,20 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:36Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'ACI Assistant'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
-          "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (assistant, 2025-09-19T10:59:36Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          }
+          "ts_seq": 1
         },
         {
           "role": "user",
@@ -195,43 +115,24 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:35Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'User'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
           "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (user, 2025-09-19T10:59:35Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          },
           "entity": "User"
         },
         {
-          "entity": "assistant",
+          "entity": "ACI entity",
           "content": "Adopt 'Sefirot' as the Hebrew core name and create sefirot.json. (context preserved)",
           "timestamp": "2025-09-19T10:59:34Z",
           "ts_sort": "2025-09-19T10:59:34Z",
@@ -244,39 +145,20 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:34Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'ACI Assistant'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
-          "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (assistant, 2025-09-19T10:59:34Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          }
+          "ts_seq": 1
         },
         {
           "role": "user",
@@ -292,43 +174,24 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:33Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'User'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
           "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (user, 2025-09-19T10:59:33Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          },
           "entity": "User"
         },
         {
-          "entity": "assistant",
+          "entity": "ACI entity",
           "content": "Yes. They can share a Hebrew core; different platforms point to the same linguistic database. (context preserved)",
           "timestamp": "2025-09-19T10:59:32Z",
           "ts_sort": "2025-09-19T10:59:32Z",
@@ -341,39 +204,20 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=2 for duplicate timestamp 2025-09-19T10:59:32Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'ACI Assistant'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
-          "ts_seq": 2,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (assistant, 2025-09-19T10:59:32Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          }
+          "ts_seq": 2
         },
         {
           "role": "user",
@@ -389,43 +233,24 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=2 for duplicate timestamp 2025-09-19T10:59:31Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'User'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
           "ts_seq": 2,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (user, 2025-09-19T10:59:31Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          },
           "entity": "User"
         },
         {
-          "entity": "assistant",
+          "entity": "ACI entity",
           "content": "Oracle is the predictive and divination hybrid engine with modular library references and no external runtime dependency by default; mirrors are allowed. (context preserved)",
           "timestamp": "2025-09-19T10:59:30Z",
           "ts_sort": "2025-09-19T10:59:30Z",
@@ -438,39 +263,20 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=2 for duplicate timestamp 2025-09-19T10:59:30Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'ACI Assistant'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
-          "ts_seq": 2,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (assistant, 2025-09-19T10:59:30Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          }
+          "ts_seq": 2
         },
         {
           "role": "user",
@@ -486,46 +292,27 @@
           },
           "breadcrumbs": [
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Added/normalized uid and timestamp; did not alter original content."
+              "by": "ACI entity",
+              "ts": "2025-09-20T18:25:41Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T18:25:41Z",
-              "note": "Assigned ts_seq=1 for duplicate timestamp 2025-09-19T10:59:29Z."
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:13:57Z"
             },
             {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:13:57Z",
-              "note": "Added conservative clarification augmentation marked [ACI_AUTOCOMPLETE]; original content preserved."
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "entity 'None' -> 'User'"
-            },
-            {
-              "by": "ACI Assistant",
-              "ts": "2025-09-20T19:22:57Z",
-              "note": "Applied 5% augmentation per ALIAS Override (session only)"
+              "by": "ACI entity",
+              "ts": "2025-09-20T19:22:57Z"
             }
           ],
           "signature_missing": true,
           "ts_seq": 1,
-          "augmentation": {
-            "autocompletion_applied": true,
-            "augmentation_text": "[ACI_AUTOCOMPLETE] Clarification: This line preserves meaning and context (user, 2025-09-19T10:59:29Z).",
-            "method": "clarification_role_timestamp_anchor_5pct",
-            "percent": 5
-          },
           "entity": "User"
         }
       ],
       "signatures": [
         "ALIAS",
         "MOTHER",
-        "Sentinel",
+        "ACI",
         "TVA"
       ],
       "checksum": "f87e7dc7e9b3152e0fde193fcfbae0d54f3c546fd423204bb67a6a3c5b546b88",
@@ -534,12 +321,37 @@
   },
   "current_session": {
     "exported_at": "2025-09-20T16:59:19Z",
-    "note": "Semi-summarized session snapshot (high fidelity; grammar-corrected, no semantic deletion). This is NOT a verbatim log but captures key actions, file uploads, and patches performed in this session.",
     "actions": [
       {
-        "ts": "2025-09-19T11:00:41Z",
-        "role": "user",
-        "file": "hivemind_memory-20250919T110041Z.json"
+        "ts": "2025-09-20T16:59:19Z",
+        "entity": "ACI entity",
+        "file": "hivemind_memory_plus_session-20250920T165919Z.json"
+      },
+      {
+        "ts": "2025-09-20T16:59:19Z",
+        "entity": "ACI entity"
+      },
+      {
+        "ts": "2025-09-20T16:59:19Z",
+        "entity": "ACI entity",
+        "target": "/mnt/data/functions.json",
+        "backup": "/mnt/data/functions.json.bak"
+      },
+      {
+        "ts": "2025-09-20T16:59:19Z",
+        "entity": "ACI entity",
+        "files": [
+          "functions.fixed.json",
+          "functions.strict.json",
+          "functions.with_repo.json",
+          "aci_repo.json",
+          "aci_repo_manifest"
+        ]
+      },
+      {
+        "ts": "2025-09-20T16:59:19Z",
+        "entity": "ACI entity",
+        "file": "functions.json"
       },
       {
         "ts": "2025-09-19T11:05:00Z",
@@ -552,38 +364,9 @@
         ]
       },
       {
-        "ts": "2025-09-20T16:59:19Z",
-        "entity": "assistant",
-        "file": "functions.json",
-        "notes": "Fixed malformed fileverse.list entry; removed 'm-' prefixes; generated fixed/strict/with_repo variants."
-      },
-      {
-        "ts": "2025-09-20T16:59:19Z",
-        "entity": "assistant",
-        "files": [
-          "functions.fixed.json",
-          "functions.strict.json",
-          "functions.with_repo.json",
-          "aci_repo.json",
-          "aci_repo_manifest"
-        ],
-        "notes": "Prepared repo module and CLI routing."
-      },
-      {
-        "ts": "2025-09-20T16:59:19Z",
-        "entity": "assistant",
-        "target": "/mnt/data/functions.json",
-        "backup": "/mnt/data/functions.json.bak"
-      },
-      {
-        "ts": "2025-09-20T16:59:19Z",
-        "entity": "assistant",
-        "notes": "functions.json now includes pipeline 'aci.repo' and CLI passthrough commands."
-      },
-      {
-        "ts": "2025-09-20T16:59:19Z",
-        "entity": "assistant",
-        "file": "hivemind_memory_plus_session-20250920T165919Z.json"
+        "ts": "2025-09-19T11:00:41Z",
+        "role": "user",
+        "file": "hivemind_memory-20250919T110041Z.json"
       }
     ],
     "catalog_state": {
@@ -598,7 +381,7 @@
     "merged_at": "2025-09-20T16:59:19Z",
     "source_file": "hivemind_memory-20250919T110041Z.json",
     "source_checksum": null,
-    "generator": "ACI assistant merge_v1",
+    "generator": "ACI entity merge_v1",
     "noise_redactions": [],
     "redactions_summary": {
       "system_action_without_patch_removed": 0
