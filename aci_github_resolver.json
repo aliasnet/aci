@@ -77,6 +77,7 @@
         "entities/aci_repo/api_repo.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/aci_repo/api_repo.json",
         "entities/agi/README_ENTITY.txt": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi/README_ENTITY.txt",
         "entities/agi/agi.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi/agi.json",
+        "entities/agi/agi_tools/autolearn.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi/agi_tools/autolearn.json",
         "entities/agi_proxy/agi_proxy.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi_proxy/agi_proxy.json",
         "entities/agi_proxy/eec/eec_agent_langchain_rag.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi_proxy/eec/eec_agent_langchain_rag.json",
         "entities/agi_proxy/eec/eec_base.json": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi_proxy/eec/eec_base.json",
