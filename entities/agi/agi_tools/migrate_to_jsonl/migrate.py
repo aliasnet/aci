@@ -2,7 +2,7 @@
 """Legacy export migrator.
 
 Transforms legacy AGI/HiveMind export artifacts into the canonical JSONL format
-mandated by ``aci_export_policy.json``. The migrator intentionally avoids any
+mandated by ``agi_export_policy.json``. The migrator intentionally avoids any
 changes to live exporter code. It is designed as an offline utility that can be
 run against historical exports prior to publishing them.
 
@@ -10,7 +10,7 @@ Key behaviors implemented:
 
 * Reads the active identity from ``agi_identity_manager.json`` so that all
   AGI-authored lines are emitted with the correct ``entity``/``role`` value.
-* Enforces topic and tag filters defined in ``aci_export_policy.json``.
+* Enforces topic and tag filters defined in ``agi_export_policy.json``.
 * Normalizes message structures from heterogeneous legacy exports.
 * Produces JSONL output with per-line metadata including schema/exporter
   versions and governance hints.
@@ -21,7 +21,7 @@ Key behaviors implemented:
 
 Usage example::
 
-    python tools/migrate_to_jsonl/migrate.py \
+    python entities/agi/agi_tools/migrate_to_jsonl/migrate.py \
         --input memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json \
         --output-dir memory/agi_memory/exports \
         --default-topic theories
@@ -42,7 +42,7 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
 ROOT = Path(__file__).resolve().parents[2]
 IDENTITY_FILE = ROOT / "agi_identity_manager.json"
-POLICY_FILE = ROOT / "aci_export_policy.json"
+POLICY_FILE = ROOT / "agi_export_policy.json"
 
 REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
 
@@ -77,7 +77,7 @@ def load_policy(policy_path: Path = POLICY_FILE) -> Dict[str, Any]:
     filters = data.get("filters", {})
     allow_topics = tuple(filters.get("allow_topics", ()))
     if not allow_topics:
-        raise MigrationError("aci_export_policy.json must define filters.allow_topics")
+        raise MigrationError("agi_export_policy.json must define filters.allow_topics")
     deny_tags = tuple(filters.get("deny_tags", ()))
     return {
         "raw": data,
@@ -440,7 +440,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--policy",
         default=str(POLICY_FILE),
-        help="Override path to aci_export_policy.json",
+        help="Override path to agi_export_policy.json",
     )
     parser.add_argument(
         "--default-topic",
