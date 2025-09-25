@@ -13,5 +13,12 @@
         "hivemind": "entities/hivemind/hivemind.json"
       }
     }
+  },
+  "aci_files_resolution_solution": {
+    "key": "aci_github_resolver",
+    "file": "aci_github_resolver.json",
+    "canonical_source": "github",
+    "repo": "aci-testnet/aci",
+    "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json"
   }
 }

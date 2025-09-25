@@ -248,7 +248,14 @@
         "resolution_hooks": "runtime should include on_bracket_override hooks in resolution_instruction flow"
       },
       "cognitive_guidance_ref": "#/aci_runtime/cognitive_decision_guidance",
-      "uses_cognitive_decision_guidance": true
+    "uses_cognitive_decision_guidance": true
     }
+  },
+  "aci_files_resolution_solution": {
+    "key": "aci_github_resolver",
+    "file": "aci_github_resolver.json",
+    "canonical_source": "github",
+    "repo": "aci-testnet/aci",
+    "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json"
   }
 }
