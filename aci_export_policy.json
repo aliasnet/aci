@@ -1,0 +1,59 @@
+{
+  "policy_version": "1.0",
+  "schema_version": "1.0",
+  "exporter_version": "agi-jsonl-1.0",
+  "format": "JSONL",
+  "file_pattern": "{identity}_agi_memory_{timestamp}.jsonl",
+  "timestamp_utc": true,
+  "timestamp_format": "%Y-%m-%dT%H-%M-%S",
+  "identity_source": "agi_identity_manager.json",
+  "filters": {
+    "allow_topics": [
+      "definitions",
+      "theories",
+      "measurement",
+      "results",
+      "synthesis",
+      "ethics",
+      "open_questions"
+    ],
+    "deny_tags": [
+      "ops",
+      "admin",
+      "scheduling",
+      "automation",
+      "credentials",
+      "restricted"
+    ],
+    "drop_if_topic_missing": true,
+    "default_topic": null,
+    "notes": "Messages without an allowed topic tag are excluded unless a default_topic is explicitly supplied at export time."
+  },
+  "validation": {
+    "required_keys": ["timestamp", "role", "entity", "content", "metadata"],
+    "deduplicate_on": ["timestamp", "entity", "content"],
+    "identity_binding": true,
+    "checksum": "sha256",
+    "enforce_policy_tags": true
+  },
+  "anchoring": {
+    "ledger": "memory/agi_memory/anchors_ledger.jsonl",
+    "record_fields": ["filename", "sha256", "anchored_at", "policy_version"],
+    "notes": "Ledger is append-only and may be rotated by TVA after verification."
+  },
+  "export": {
+    "default_command": "hivemind export agi --jsonl",
+    "compatibility": {
+      "legacy_parameters": "Retained; conflicting parameters should be marked as (deprecated)."
+    },
+    "checks": [
+      "schema",
+      "identity",
+      "filter",
+      "deduplication",
+      "checksum",
+      "anchor"
+    ]
+  },
+  "notes": "Policy defines canonical JSONL export behavior for AGI-managed memory exports without modifying inner inference logic."
+}
