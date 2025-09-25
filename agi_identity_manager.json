@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "exporter_version": "agi-jsonl-1.0",
+  "active_identity": {
+    "name": "Alice",
+    "slug": "alice",
+    "activated_at": "2025-09-25T00:00:00Z",
+    "governance": {
+      "parent": "AGI",
+      "policy_ref": "aci_export_policy.json"
+    },
+    "notes": "Primary AGI child identity for canonical memory exports."
+  },
+  "identities": [
+    {
+      "name": "Alice",
+      "slug": "alice",
+      "status": "active",
+      "aliases": ["agi.alice", "Alice"],
+      "roles": ["research", "memory-export"],
+      "governance": {
+        "parent": "AGI",
+        "policy": "aci_export_policy.json"
+      },
+      "created_at": "2025-09-24T00:00:00Z",
+      "last_reviewed_at": "2025-09-25T00:00:00Z",
+      "notes": "Default export identity. Switch by updating active_identity.name."
+    }
+  ],
+  "fallback_identity": {
+    "name": "external entity",
+    "slug": "external",
+    "notes": "Applied to non-AGI authored lines encountered during migration or export."
+  }
+}
