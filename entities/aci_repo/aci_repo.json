@@ -1,147 +1,230 @@
 {
-  "version": "BASELINE-2025-09-21",
+  "version": "1.{date.time gen by codex}",
   "entity": "ACI Repo",
+  "role": "package_manager",
+  "notes": "Standalone, mirror-agnostic package manager for ACI. All instructions inline; only external state file is aci_repo_manifest.",
+  "rules": {
+    "safety": [
+      "Sentinel audits all repo activity.",
+      "Architect verifies package compatibility and rejects unsafe packages.",
+      "TVA anchors install/remove/update events; rollback keys available.",
+      "No package is installed without explicit operator approval."
+    ],
+    "storage": {
+      "manifest": "aci_repo_manifest",
+      "format": "json",
+      "persistence": ""
+    }
+  },
+  "souces": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/aci_repo/aci_repo_sources.json",
+  "prefs": {
+    "priority": ["github", "pypi"],
+    "license_allowlist": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause"],
+    "block_keywords": ["crypto-miner", "keylogger", "obfuscated-payload"],
+    "allow_keywords": ["aci", "plugin", "extension", "adapter", "entity", "improve"],
+    "min_stars": 5,
+    "min_recent_commit_days": 365,
+    "entity_bias": {
+      "Oracle":   ["prediction", "divination", "symbolic", "semantic-index"],
+      "Sentinel": ["audit", "security", "signature", "policy"],
+      "Architect": ["compatibility", "schema", "pipeline", "fidelity"],
+      "TVA":      ["timeline", "anchor", "rollback", "checkpoint"]
+    }
+  },
+  "catalog": [],
+  "help_output": {
+    "title": "ACI Repo Command Reference",
+    "commands": [
+      { "command": "aci search <query>", "description": "Search external sources by keyword (GitHub, PyPI)." },
+      { "command": "aci search --improve <Entity>", "description": "Suggest packages/extensions that improve a given Entity." },
+      { "command": "aci install <pkg>", "description": "Fetch, verify, anchor and register as an Entity." },
+      { "command": "aci remove <pkg>", "description": "Unregister a package/Entity (append-only manifest update)." },
+      { "command": "aci update", "description": "Refetch latest compatible versions for all installed packages." },
+      { "command": "aci repo help", "description": "Show this reference." }
+    ]
+  },
   "pipelines": {
-    "aci.repo.search": {
-      "description": "Search the ACI package repository for modules matching the provided query.",
+    "aci.repo.policy": {
+      "description": "Resolve effective policy from inline prefs only.",
       "steps": [
-        {
-          "call": "aci-repo.search",
-          "map": {
-            "query": "$args.query",
-            "filters": "$args.filters",
-            "limit": "$args.limit"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "aci_repo",
-            "action": "search",
-            "query": "$args.query"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_store.set", "map": { "key": "aci_repo.policy.effective", "value": "$root.prefs" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "repo.query": {
+      "description": "Query inline catalog; if empty, call external resolvers (GitHub, PyPI).",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "keyword" } },
+        { "call": "_args.get", "map": { "key": "sources_inline", "default": "$root.sources" } },
+        { "if": "$root.catalog == []", "then": [
+            { "call": "http.multi_search",
+              "map": {
+                "sources": "$steps.1.value",
+                "query": "$steps.0.value"
+              }
+            }
+        ], "else": [
+            { "call": "_select", "map": { "from": "$root.catalog", "into_key": "aci_repo.query.candidates" } }
+        ]},
+        { "call": "_format.json" }
+      ]
+    },
+    "repo.filter": {
+      "description": "Filter candidates by keyword/selectors and inline prefs (license, blocks, stars, recency).",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "candidates" } },
+        { "call": "_args.get", "map": { "key": "keyword", "default": "" } },
+        { "call": "_args.get", "map": { "key": "selectors", "default": [] } },
+        { "call": "_args.get", "map": { "key": "prefs", "default": {} } },
+        { "call": "_text.lower", "map": { "value": "$steps.1.value" } },
+        { "call": "_filter.contains", "map": { "items": "$steps.0", "fields": ["name","description","keywords"], "needle": "$steps.4", "also": "$steps.2.value" } },
+        { "call": "_filter.policy", "map": { "items": "$steps.5", "prefs": "$steps.3.value" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "repo.rank": {
+      "description": "Local shim: score candidates and return ranked list.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "criteria" } },
+        { "call": "_args.get", "map": { "key": "candidates", "default": "$prev" } },
+        { "call": "scoring.rank", "map": { "items": "$steps.1", "criteria": "$steps.0.value" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "repo.fetch": {
+      "description": "Local shim: resolve package from catalog by name.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "name" } },
+        { "call": "registry.resolve", "map": { "name": "$steps.0.value", "catalog": "$root.catalog?:[]" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "repo.fetch_latest": {
+      "description": "Local shim: resolve many package metas from catalog.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "packages" } },
+        { "call": "registry.resolve_many", "map": { "packages": "$steps.0.value", "catalog": "$root.catalog?:[]" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "scoring.rank": {
+      "description": "Heuristic score: stars (w3), recency (w2), compatibility tags (w2).",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "items" } },
+        { "call": "_score.apply", "map": { "items": "$steps.0", "formula": { "stars_w":3, "recent_w":2, "compat_w":2, "compat_keywords":["aci","entity","plugin","extension","adapter"] } } },
+        { "call": "_sort.desc", "map": { "items": "$steps.1", "by": "score" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "registry.resolve": {
+      "description": "Find exact-name match in catalog; return the first match.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "name" } },
+        { "call": "_args.get", "map": { "key": "catalog" } },
+        { "call": "_filter.equals", "map": { "items": "$steps.1", "field": "name", "value": "$steps.0.value" } },
+        { "call": "_take.first", "map": { "items": "$steps.2" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "registry.resolve_many": {
+      "description": "Resolve many package metas by name from catalog.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "packages" } },
+        { "call": "_args.get", "map": { "key": "catalog" } },
+        { "call": "_map.each", "map": { "items": "$steps.0.value", "as": "pkg", "do": [
+          { "call": "_filter.equals", "map": { "items": "$steps.-2", "field": "name", "value": "${pkg}" } },
+          { "call": "_take.first", "map": { "items": "$prev" } }
+        ] } },
+        { "call": "_format.json" }
+      ]
+    },
+    "aci.repo.validate": {
+      "description": "Validate fetched package metadata against policy.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "package_meta" } },
+        { "call": "aci.repo.policy", "map": {} },
+        { "call": "_assert.contains", "map": { "value": "$steps.0.license", "set": "${aci_repo.policy.effective.license_allowlist}", "error": "license_not_allowed" } },
+        { "call": "_assert.not_contains_any", "map": { "haystack": "$steps.0.keywords", "needles": "${aci_repo.policy.effective.block_keywords}", "error": "blocked_keyword" } },
+        { "call": "_assert.gte", "map": { "value": "$steps.0.stars", "min": "${aci_repo.policy.effective.min_stars}", "error": "low_popularity" } },
+        { "call": "_assert.lte_days_since", "map": { "last_date": "$steps.0.last_commit_at", "max_days": "${aci_repo.policy.effective.min_recent_commit_days}", "error": "stale_repo" } },
+        { "call": "_format.json" }
+      ]
+    },
+    "aci.repo.search": {
+      "description": "Search repo sources for packages by keyword.",
+      "steps": [
+        { "call": "_args.get", "map": { "key": "query" } },
+        { "call": "aci.repo.policy", "map": {} },
+        { "call": "repo.query", "map": { "sources_inline": "$root.sources", "keyword": "$steps.0.value", "prefs": "${aci_repo.policy.effective}" } },
+        { "call": "repo.rank", "map": { "criteria": ["compatibility", "stability", "popularity"] } },
+        { "call": "sentinel.audit", "map": { "action": "repo_search", "query": "$steps.0.value" } },
+        { "call": "_format.json" }
       ]
     },
     "aci.repo.search.improve": {
-      "description": "Search the repository and emit focused improvement recommendations for the requested entity.",
+      "description": "Search for improvements to a given Entity.",
       "steps": [
-        {
-          "call": "aci-repo.search",
-          "map": {
-            "query": "$args.entity",
-            "filters": [
-              "category:entity"
-            ],
-            "limit": 25
-          }
-        },
-        {
-          "call": "aci-repo.suggest_improvements",
-          "map": {
-            "entity": "$args.entity",
-            "results": "$prev"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "aci_repo",
-            "action": "search.improve",
-            "entity": "$args.entity"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_args.get", "map": { "key": "entity" } },
+        { "call": "aci.repo.policy", "map": {} },
+        { "call": "_derive", "map": { "keyword": "$steps.0.value", "selectors": ["improve","plugin","extension","adapter","entity:$steps.0.value","aci"] } },
+        { "call": "repo.query", "map": { "sources_inline": "$root.sources", "keyword": "$steps.2.keyword", "selectors": "$steps.2.selectors", "prefs": "${aci_repo.policy.effective}" } },
+        { "call": "repo.rank", "map": { "criteria": ["compatibility", "stability", "performance"] } },
+        { "call": "sentinel.audit", "map": { "action": "repo_search_improve", "entity": "$steps.0.value" } },
+        { "call": "_format.json" }
       ]
     },
     "aci.repo.install": {
-      "description": "Install or activate an ACI package into the current workspace.",
+      "description": "Install a package and register it as an Entity.",
       "steps": [
-        {
-          "call": "aci-repo.install",
-          "map": {
-            "package": "$args.package",
-            "version": "$args.version",
-            "options": "$args.options"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "aci_repo",
-            "action": "install",
-            "package": "$args.package",
-            "version": "$args.version"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_args.get", "map": { "key": "package" } },
+        { "call": "repo.fetch", "map": { "name": "$steps.0.value" } },
+        { "call": "aci.repo.validate", "map": { "package_meta": "$steps.1" } },
+        { "call": "architect.verify_package", "map": { "meta": "$steps.1" } },
+        { "call": "sentinel.audit", "map": { "action": "install_attempt", "package": "$steps.0.value" } },
+        { "call": "tva.anchor_timeline", "map": {} },
+        { "call": "_manifest.add", "map": { "file": "aci_repo_manifest", "entry": { "name": "$steps.1.name", "version": "$steps.1.version", "source": "$steps.1.source", "installed_at": "$now" } } },
+        { "call": "sentinel.audit", "map": { "action": "install_complete", "package": "$steps.0.value" } },
+        { "call": "_format.json" }
       ]
     },
     "aci.repo.remove": {
-      "description": "Remove a previously installed ACI package while preserving rollback data.",
+      "description": "Remove a package and unregister it as an Entity (append-only manifest update).",
       "steps": [
-        {
-          "call": "aci-repo.remove",
-          "map": {
-            "package": "$args.package",
-            "options": "$args.options"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "aci_repo",
-            "action": "remove",
-            "package": "$args.package"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_args.get", "map": { "key": "package" } },
+        { "call": "_manifest.remove", "map": { "file": "aci_repo_manifest", "entry": "$steps.0.value" } },
+        { "call": "sentinel.audit", "map": { "action": "remove", "package": "$steps.0.value" } },
+        { "call": "tva.anchor_timeline", "map": {} },
+        { "call": "_format.json" }
       ]
     },
     "aci.repo.update": {
-      "description": "Update installed ACI packages, optionally targeting a specific module.",
+      "description": "Update all installed packages by re-fetching latest compatible versions.",
       "steps": [
-        {
-          "call": "aci-repo.update",
-          "map": {
-            "package": "$args.package",
-            "mode": "$args.mode"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "aci_repo",
-            "action": "update",
-            "package": "$args.package",
-            "mode": "$args.mode"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_manifest.list", "map": { "file": "aci_repo_manifest" } },
+        { "call": "repo.fetch_latest", "map": { "packages": "$steps.0" } },
+        { "call": "aci.repo.validate", "map": { "package_meta": "$steps.1" } },
+        { "call": "architect.verify_package", "map": { "meta": "$steps.1" } },
+        { "call": "sentinel.audit", "map": { "action": "update", "packages": "$steps.0" } },
+        { "call": "tva.anchor_timeline", "map": {} },
+        { "call": "_manifest.update", "map": { "file": "aci_repo_manifest", "entries": "$steps.1" } },
+        { "call": "_format.json" }
       ]
     },
     "aci.repo.help": {
-      "description": "Display usage guidance for the ACI repository subsystem.",
+      "description": "Display Repo help text from this file.",
       "steps": [
-        {
-          "call": "aci-repo.help_index",
-          "map": {}
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_format.text", "map": { "text": "ACI Repo Manager Commands:\n  aci search <query>\n  aci search --improve <Entity>\n  aci install <pkg>\n  aci remove <pkg>\n  aci update\n  aci repo help" } }
       ]
     }
+  },
+  "cli": {
+    "commands": [
+      { "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$", "pipeline": "aci.repo.search.improve" },
+      { "pattern": "^aci\\s+search\\s+(?P<query>.+)$", "pipeline": "aci.repo.search" },
+      { "pattern": "^aci\\s+install\\s+(?P<package>\\S+)$", "pipeline": "aci.repo.install" },
+      { "pattern": "^aci\\s+remove\\s+(?P<package>\\S+)$", "pipeline": "aci.repo.remove" },
+      { "pattern": "^aci\\s+update$", "pipeline": "aci.repo.update" },
+      { "pattern": "^aci\\s+repo\\s+help$", "pipeline": "aci.repo.help" }
+    ]
   }
 }
