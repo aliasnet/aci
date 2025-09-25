@@ -8,24 +8,24 @@
     "file": "predictive_divination_extension.json",
     "asset_registry": {
       "sefirot": {
-        "file": "sefirot.json",
-        "source": null
+        "file": "predictive_divination_library/sefirot.json",
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json"
       },
       "tarot_rws": {
-        "file": "tarot_rws.json",
-        "source": null
+        "file": "predictive_divination_library/tarot_rws.json",
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
       },
       "tarot_expansions": {
-        "file": "tarot_expansions.json",
-        "source": null
+        "file": "predictive_divination_library/tarot_expansions.json",
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json"
       },
       "runes_futhark": {
-        "file": "runes_futhark.json",
-        "source": null
+        "file": "predictive_divination_library/runes_futhark.json",
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json"
       },
       "astro_tables": {
-        "file": "astro_tables.json",
-        "source": null
+        "file": "predictive_divination_library/astro_tables.json",
+        "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json"
       }
     },
     "normalization": {
