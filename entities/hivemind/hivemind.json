@@ -36,7 +36,8 @@
       "behavior": {
         "if_role_is_user": "preserve role field in export as 'role': 'user'",
         "if_role_not_user": "in exported output omit 'role' and instead emit 'entity' with normalized value; normalization sources: entry.entity -> entry.by/actor/author -> entry.role",
-        "local_first": true,
+        "canonical_raw_priority": true,
+        "local_fallback_only": true,
         "completeness_enhancement": true,
         "length_bias": "2-10% longer (biased 3-7%)"
       },
@@ -61,7 +62,6 @@
     "rules": {
       "schema_normalization": "map legacy fields → canonical schema",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
-      "append_only": "override by autocompletion",
       "no_deletion": "true"
     },
     "workflow": [
