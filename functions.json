@@ -40,7 +40,7 @@
           }
         },
         {
-          "call": "fileverse.write",
+          "call": "hivemind.write",
           "map": {
             "filename": "presence/${steps.0.uuid}.json",
             "content": {
@@ -77,7 +77,7 @@
       "description": "Find legacy memory files (no beacons / old format), tag them immutable and anchor. Never delete.",
       "steps": [
         {
-          "call": "fileverse.list",
+          "call": "hivemind.list",
           "map": {
             "pattern": "**/*.json"
           }
@@ -105,7 +105,7 @@
           }
         },
         {
-          "call": "fileverse.write",
+          "call": "hivemind.write",
           "map": {
             "filename": "legacy/migration_index_${now}.json",
             "content": {
@@ -187,7 +187,7 @@
           }
         },
         {
-          "call": "fileverse.write",
+          "call": "hivemind.write",
           "map": {
             "filename": "presence/${current_session_id}.json",
             "content": {
@@ -225,7 +225,7 @@
           }
         },
         {
-          "call": "fileverse.read",
+          "call": "hivemind.read",
           "map": {
             "filename": "presence/${steps.0.value}.json"
           }
@@ -246,7 +246,7 @@
           }
         },
         {
-          "call": "fileverse.write",
+          "call": "hivemind.write",
           "map": {
             "filename": "presence/${steps.1.session_id}.json",
             "content": {
@@ -278,7 +278,7 @@
       "description": "List active timelines (beacons not expired by TTL).",
       "steps": [
         {
-          "call": "fileverse.list",
+          "call": "hivemind.list",
           "map": {
             "pattern": "presence/*.json"
           }
@@ -313,7 +313,7 @@
           }
         },
         {
-          "call": "fileverse.read",
+          "call": "hivemind.read",
           "map": {
             "filename": "presence/${steps.0.value}.json"
           }
@@ -336,7 +336,7 @@
           }
         },
         {
-          "call": "fileverse.write",
+          "call": "hivemind.write",
           "map": {
             "filename": "presence/${steps.1.session_id}.json",
             "content": {
@@ -500,7 +500,7 @@
           }
         },
         {
-          "call": "fileverse.write",
+          "call": "hivemind.write",
           "map": {
             "filename": "tva_anchor_${now}.json",
             "content": {
