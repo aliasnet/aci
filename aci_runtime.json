@@ -86,6 +86,16 @@
       "priority": 85,
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
+    "mirror_resolution_policy": {
+      "key": "aci_github_resolver",
+      "file": "aci_github_resolver.json",
+      "canonical_source": "github",
+      "repo": "aci-testnet/aci",
+      "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json",
+    "priority": "canonical_raw_over_local",
+    "notes": "Canonical raw URLs take precedence over local copies; fall back to local only if the remote mirror is unavailable."
+      }
+    } 
     "cognitive_decision_guidance": {
       "version": "1.0",
       "scope": "universal",
@@ -250,14 +260,4 @@
       "cognitive_guidance_ref": "#/aci_runtime/cognitive_decision_guidance",
     "uses_cognitive_decision_guidance": true
     }
-  },
-  "mirror_resolution_policy": {
-    "key": "aci_github_resolver",
-    "file": "aci_github_resolver.json",
-    "canonical_source": "github",
-    "repo": "aci-testnet/aci",
-    "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json",
-    "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw URLs take precedence over local copies; fall back to local only if the remote mirror is unavailable."
   }
-}
