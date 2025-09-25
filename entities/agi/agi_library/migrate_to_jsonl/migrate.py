@@ -21,7 +21,7 @@ Key behaviors implemented:
 
 Usage example::
 
-    python entities/agi/agi_tools/migrate_to_jsonl/migrate.py \
+    python entities/agi/agi_library/migrate_to_jsonl/migrate.py \
         --input memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json \
         --output-dir memory/agi_memory/exports \
         --default-topic theories

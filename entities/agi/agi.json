@@ -144,5 +144,12 @@
       }
     }
   },
+  "pipelines": {
+    "agi.mode.auto_learn": {
+      "description": "Engage AGI auto-learn mode with hourly scheduled research and iterative article refinement.",
+      "spec_ref": "entities/agi/agi_library/autolearn.json",
+      "raw_url": "https://raw.githubusercontent.com/aci-testnet/aci/main/entities/agi/agi_library/autolearn.json"
+    }
+  },
   "signatures": ["ALIAS", "Sentinel", "TVA"]
 }
