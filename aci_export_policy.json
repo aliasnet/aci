@@ -1,59 +1,38 @@
 {
-  "policy_version": "1.0",
-  "schema_version": "1.0",
-  "exporter_version": "agi-jsonl-1.0",
-  "format": "JSONL",
-  "file_pattern": "{identity}_agi_memory_{timestamp}.jsonl",
-  "timestamp_utc": true,
-  "timestamp_format": "%Y-%m-%dT%H-%M-%S",
-  "identity_source": "agi_identity_manager.json",
-  "filters": {
-    "allow_topics": [
-      "definitions",
-      "theories",
-      "measurement",
-      "results",
-      "synthesis",
-      "ethics",
-      "open_questions"
-    ],
-    "deny_tags": [
-      "ops",
-      "admin",
-      "scheduling",
-      "automation",
-      "credentials",
-      "restricted"
-    ],
-    "drop_if_topic_missing": true,
-    "default_topic": null,
-    "notes": "Messages without an allowed topic tag are excluded unless a default_topic is explicitly supplied at export time."
-  },
-  "validation": {
+  "version": "1.0",
+  "name": "AGI Memory Export Policy",
+  "format": "jsonl",
+  "file_pattern": "${active_identity_lower}_agi_memory_${UTC_TIMESTAMP}.jsonl",
+
+  "schema": {
     "required_keys": ["timestamp", "role", "entity", "content", "metadata"],
-    "deduplicate_on": ["timestamp", "entity", "content"],
-    "identity_binding": true,
-    "checksum": "sha256",
-    "enforce_policy_tags": true
+    "timestamp": { "format": "ISO8601-UTC" },
+    "role_entity_rule": "AGI-authored lines must use active_identity.name (from agi_identity_manager.json) for BOTH `role` and `entity`. User lines must use `User` (or alias mapping).",
+    "metadata_recommended": ["topic", "theory", "method", "study", "tags", "schema_version", "exporter_version"]
   },
-  "anchoring": {
-    "ledger": "memory/agi_memory/anchors_ledger.jsonl",
-    "record_fields": ["filename", "sha256", "anchored_at", "policy_version"],
-    "notes": "Ledger is append-only and may be rotated by TVA after verification."
+
+  "filters": {
+    "include_topics": ["definitions", "theories", "measurement", "results", "synthesis", "ethics", "open_questions", "methods", "psychology", "clinical", "ai", "glossary"],
+    "exclude_tags": ["ops", "export", "scheduling", "runtime", "credentials", "secrets", "keys", "admin", "non_exportable"]
   },
-  "export": {
-    "default_command": "hivemind export agi --jsonl",
-    "compatibility": {
-      "legacy_parameters": "Retained; conflicting parameters should be marked as (deprecated)."
-    },
-    "checks": [
-      "schema",
-      "identity",
-      "filter",
-      "deduplication",
-      "checksum",
-      "anchor"
-    ]
+
+  "validation": {
+    "schema_check": true,
+    "identity_binding_check": true,
+    "filter_check": true,
+    "deduplicate": { "enabled": true, "hash_fields": ["timestamp", "entity", "content"] },
+    "checksum": { "algorithm": "SHA256", "write_sidecar": true },
+    "anchor_to_tva": true
   },
-  "notes": "Policy defines canonical JSONL export behavior for AGI-managed memory exports without modifying inner inference logic."
+
+  "governance": {
+    "operator_entity": "AGI",
+    "identity_manager_file": "agi_identity_manager.json",
+    "policy_version": "1.0"
+  },
+
+  "compatibility": {
+    "legacy_aliases_supported": true,
+    "legacy_exports_readonly": true
+  }
 }
