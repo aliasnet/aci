@@ -35,5 +35,13 @@
       "notes": "If promotion criteria not met, do not continue to full bootstrap; start sandbox and emit alert."
     },
     "notes": "Manifest enforces preflight promotion check. If promotion fails, runtime enters sandbox and waits (with retries) before final decision."
+  },
+  "mirror_resolution_policy": {
+    "key": "aci_github_resolver",
+    "file": "aci_github_resolver.json",
+    "canonical_source": "github",
+    "repo": "aci-testnet/aci",
+    "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json",
+    "context": "Canonical raw URLs take precedence over local copies during resolution."
   }
 }

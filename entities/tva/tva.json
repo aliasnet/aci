@@ -23,7 +23,7 @@
     },
     "integrity": {
       "anchoring": "fileverse",
-      "append_only": true
+      "update_policy": "anchored_revisions_allowed"
     },
     "audit": {
       "created_at": "2025-09-19T12:14:06Z"

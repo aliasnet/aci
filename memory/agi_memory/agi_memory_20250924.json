@@ -12,7 +12,7 @@
         "promote": ["ALIAS", "TVA", "Sentinel"]
       }
     },
-    "retention": { "policy": "append_only", "prune": "summaries_only_after_90d" },
+    "retention": { "policy": "governed_updates", "prune": "summaries_only_after_90d" },
     "logs": [],
     "summaries": [],
     "links": {
