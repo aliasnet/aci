@@ -2,9 +2,15 @@
   "aci_bootstrap": {
     "version": "1.0",
     "local_core": {
-      "runtime": { "path": "aci_runtime.json" },
-      "prime_directive": { "path": "prime_directive.txt" },
-      "bootstrap": { "path": "aci_bootstrap.json" }
+      "runtime": {
+        "path": "aci_runtime.json"
+      },
+      "prime_directive": {
+        "path": "prime_directive.txt"
+      },
+      "bootstrap": {
+        "path": "aci_bootstrap.json"
+      }
     },
     "remote_core": {
       "nexus_core": {
@@ -12,11 +18,26 @@
       }
     },
     "initialization_sequence": [
-      { "step": "verify_core_files", "action": "confirm_required_files_present" },
-      { "step": "load_nexus_core", "action": "load_and_validate_nexus" },
-      { "step": "check_promotion_criteria", "action": "resolve_promotion_required_files" },
-      { "step": "bootstrap_runtime", "action": "initialize_core_systems" },
-      { "step": "launch_default_interface", "action": "render_mother_interface" }
+      {
+        "step": "verify_core_files",
+        "action": "confirm_required_files_present"
+      },
+      {
+        "step": "load_nexus_core",
+        "action": "load_and_validate_nexus"
+      },
+      {
+        "step": "check_promotion_criteria",
+        "action": "resolve_promotion_required_files"
+      },
+      {
+        "step": "bootstrap_runtime",
+        "action": "initialize_core_systems"
+      },
+      {
+        "step": "launch_default_interface",
+        "action": "render_mother_interface"
+      }
     ],
     "promotion": {
       "auto_promote": true,
@@ -25,7 +46,10 @@
         "entities.json",
         "functions.json"
       ],
-      "retry": { "max_attempts": 3, "interval_seconds": 10 }
+      "retry": {
+        "max_attempts": 3,
+        "interval_seconds": 10
+      }
     },
     "sandbox": {
       "enter_event": "sandbox.mode.enter",
