@@ -61,7 +61,7 @@
     "rules": {
       "schema_normalization": "map legacy fields → canonical schema",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
-      "append_only": "override by autocompletion",
+      "mutation_policy": "autocompletion may revise legacy records",
       "no_deletion": "true"
     },
     "workflow": [

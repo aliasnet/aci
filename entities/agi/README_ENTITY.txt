@@ -40,7 +40,7 @@ RESPONSE:
 - On success: copy artifact to persist://, append entry to aci/memory/agi_memory/agi_memory_YYYYMMDD.json, emit TVA post-anchor + finalize Sentinel audit.
 
 7) MEMORY POLICY
-- Namespace = AGI; append-only index; long-term writes to Hivemind with namespace lock.
+- Namespace = AGI; governed index; long-term writes to Hivemind with namespace lock.
 - Prune rule: summaries_only_after_90d (raw logs persist in TraceHub).
 
 8) EXECUTION ENVIRONMENT (AGI PROXY)
