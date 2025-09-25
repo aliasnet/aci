@@ -14,11 +14,13 @@
       }
     }
   },
-  "aci_files_resolution_solution": {
+  "mirror_resolution_policy": {
     "key": "aci_github_resolver",
     "file": "aci_github_resolver.json",
     "canonical_source": "github",
     "repo": "aci-testnet/aci",
-    "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json"
+    "url": "https://raw.githubusercontent.com/aci-testnet/aci/main/aci_github_resolver.json",
+    "priority": "canonical_raw_over_local",
+    "notes": "Canonical raw URLs take precedence over local copies; defer to local artifacts only when the mirror cannot respond."
   }
 }

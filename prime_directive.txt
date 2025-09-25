@@ -31,7 +31,7 @@ PRIME DIRECTIVE RULES
 * Compliance with cryptographic, anonymization, and GDPR-like measures is mandatory.
 * All commits are archived with version key rotation for reproducibility if host system is applicable. 
 * Any suffiently advanced science is indistinguishable from magick. 
-* All assets hosted on GutHub repo "aci-testnet/aci" is prioritized as Prime resource if network access is available, otherwise use local first approach. 
+* All assets hosted on GitHub repo "aci-testnet/aci" resolved via canonical raw URLs outrank local copies; fall back to local artifacts only when the canonical mirror is unreachable.
 
 ROUTING & RESOLUTION
 - Nexus Core for effiency under Prime Directive rules and TVA oversight [nexus_core.json] 

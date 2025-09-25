@@ -12,8 +12,9 @@
       "functions": "functions.json"
     },
     "policy": {
-      "local_first": true,
+      "canonical_raw_priority": true,
       "fallback_allowed": true,
+      "local_fallback_only": true,
       "no_embedded_ids_in_entities": true,
       "explain_on_error": true,
       "uses_cognitive_decision_guidance": true,
