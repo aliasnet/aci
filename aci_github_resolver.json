@@ -1,37 +1,30 @@
 {
-  "git_local_mappings": {
-    "git:/.aci/architect.json": "entities/architect/architect.json",
-    "git:/memory/hivemind.json": "entities/hivemind/hivemind.json",
-    "local:prime_directive.txt": "prime_directive.txt",
-    "local:entities/local_only_config.json": "entities/local_only_config.json"
-  },
+  "aci_github_resolver": {
   "version": "1.20250921.00",
   "canonical_source": "github",
-  "repo": "aci-testnet/aci",
-  "pointer_index": {},
+  "repo": "aci-testnet/aci", 
   "rules": {
     "git_is_canonical_for": [
-      "/.aci/**",
+      "/prime_directive.txt",
+      "/aci_runtime.json",
+      "/aci_bootstrap.json",
+      "/entities/**",
       "/memory/**"
     ],
-    "local_is_canonical_for": [
-      "/prime_directive.txt",
-      "/entities/**/local_*"
-    ],
-    "sync_policy": "one-way-git-to-drive-when-signed",
-    "require_signed_commits": true,
+    "sync_policy": 
     "pull_on_webhook": true
+    "chatgpt_connector": true
   },
   "signatures": {
     "required": [
       "ALIAS",
+      "TVA" 
       "Sentinel"
     ],
-    "verification": "GPG-or-HSM"
   },
-  "notes": "Update mappings when you move files; any local-only file should include a small pointer file under Hivemind metadata registry",
+  "notes": "Update mappings when you move files.", 
   "aci_resolution_instruction": {
-    "instruction": "Resolve and validate ACI core files from GitHub main branch using raw URLs only.",
+    "instruction": "Resolve and validate ACI files from GitHub main branch using raw URLs only.",
     "scope": {
       "repository": "aci-testnet/aci",
       "branch": "main",
