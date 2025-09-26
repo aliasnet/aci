@@ -260,14 +260,16 @@ def normalize_timestamp(
         parsed = parsed.replace(tzinfo=dt.timezone.utc)
 
     parsed_utc = parsed.astimezone(dt.timezone.utc)
+    canonical = parsed_utc.isoformat().replace("+00:00", "Z")
 
     if timestamp_value and had_z:
         original = timestamp_value.strip()
         if original.endswith("z"):
             original = original[:-1] + "Z"
-        return original
+        if original == canonical:
+            return original
 
-    return parsed_utc.isoformat().replace("+00:00", "Z")
+    return canonical
 
 
 def normalize_content(message: Dict[str, Any]) -> str:
