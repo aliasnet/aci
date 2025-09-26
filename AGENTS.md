@@ -8,7 +8,7 @@
 
 ## 0) Quick TL;DR
 
-- In ACI, an **agent** is any autonomous/semi-autonomous entity that performs tasks under governance: core governors, specialist workers, wrappers/adapters, or orchestrators.
+- In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, specialist workers, wrappers/adapters, or orchestrators.
 - **Where code lives**
   - **/entities/** → identity, roles, per-agent configs
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
@@ -17,13 +17,13 @@
 
 ---
 
-## 1) What is an Agent (in ACI)?
+## 1) What is an Entity and Agent (in ACI)?
 
-> An **agent** is a named, governed participant that can reason, act, or transform information within the ACI sandbox.  
-Agents include:
+> An **entity** is any agent that is named, governed participant that can reason, act, or transform information within the ACI sandbox, classification of entity can be granted by promotion and make them reside in entities directory with key name match each titular sub-directory or its chidren,thus some agents are not termed as entities if lack this exact nature, usually are adapters, tools or smaller sub-nodes.  
+ACI Agents include:
 - **Core Governors** (e.g., **AGI** agi-001) — observe, evaluate, gate, escalate.
 - **Specialists** (e.g., **Alice** agi-002) — design, analysis, execution.
-- **Wrappers/Adapters** (e.g., **Metacognition**, **EEL Adapter**) — add capabilities non-invasively.
+- **Wrappers/Adapters (usually non-entity)** (e.g., **Metacognition**, **EEL Adapter**) — add capabilities non-invasively.
 - **Orchestrators/Tools** (e.g., migrators) — convert, export, or route data under policy.
 
 Agents are treated as **digital organisms** operating in a **colony** with clear identity, memory, and governance.
