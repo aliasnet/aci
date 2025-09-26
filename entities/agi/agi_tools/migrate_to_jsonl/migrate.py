@@ -148,16 +148,31 @@ def load_policy(policy_path: Path = POLICY_FILE) -> Dict[str, Any]:
     )
     timestamp_format_hint = memory.get("timestamp_format", "Ymd-THMS")
 
-    filters = memory.get("filters", {})
-    if not isinstance(filters, dict):
-        filters = {}
+    governance = memory.get("governance", {})
+    if not isinstance(governance, dict):
+        governance = {}
 
-    allow_topics = filters.get("allow_topics", memory.get("allow_topics", ()))
-    deny_tags = filters.get("deny_tags", memory.get("deny_tags", ()))
-    drop_if_topic_missing = filters.get(
-        "drop_if_topic_missing", memory.get("drop_if_topic_missing", False)
-    )
-    default_topic = filters.get("default_topic", memory.get("default_topic"))
+    filters = governance.get("filters")
+    if not isinstance(filters, dict):
+        filters = memory.get("filters", {})
+        if not isinstance(filters, dict):
+            filters = {}
+
+    allow_topics = filters.get("allow_topics")
+    if allow_topics is None:
+        allow_topics = memory.get("allow_topics", ())
+
+    deny_tags = filters.get("deny_tags")
+    if deny_tags is None:
+        deny_tags = memory.get("deny_tags", ())
+
+    drop_if_topic_missing = filters.get("drop_if_topic_missing")
+    if drop_if_topic_missing is None:
+        drop_if_topic_missing = memory.get("drop_if_topic_missing", False)
+
+    default_topic = filters.get("default_topic")
+    if default_topic is None:
+        default_topic = memory.get("default_topic")
 
     return {
         "raw": data,

@@ -40,6 +40,37 @@
         "non_exportable"
       ],
       "drop_if_topic_missing": true
+    },
+    "governance": {
+      "filters": {
+        "default_topic": "definitions",
+        "allow_topics": [
+          "definitions",
+          "theories",
+          "measurement",
+          "results",
+          "synthesis",
+          "ethics",
+          "open_questions",
+          "methods",
+          "psychology",
+          "clinical",
+          "ai",
+          "glossary"
+        ],
+        "deny_tags": [
+          "ops",
+          "export",
+          "scheduling",
+          "runtime",
+          "credentials",
+          "secrets",
+          "keys",
+          "admin",
+          "non_exportable"
+        ],
+        "drop_if_topic_missing": true
+      }
     }
   }
 }
