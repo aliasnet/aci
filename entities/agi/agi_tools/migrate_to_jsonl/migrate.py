@@ -11,6 +11,16 @@ def load_json(p):
     return json.loads(Path(p).read_text(encoding="utf-8"))
 
 
+def resolve_path(base_file, maybe_path):
+    """Resolve a potentially relative path with respect to the policy file."""
+    candidate = Path(maybe_path)
+    if candidate.is_absolute():
+        if candidate.exists():
+            return candidate
+        return Path(base_file).parent / candidate.relative_to("/")
+    return Path(base_file).parent / candidate
+
+
 def normalize_ts(ts):
     # Accept "YYYY-MM-DDTHH:MM:SSZ" or with offset; emit Z
     try:
@@ -79,9 +89,14 @@ def main():
     ap.add_argument("--out", dest="out", required=True, help="output jsonl path")
     args = ap.parse_args()
 
-    policy = load_json(args.policy_file)["agi_memory"]
+    policy_file = Path(args.policy_file)
+    policy = load_json(policy_file)["agi_memory"]
     identity_source = args.identity_source or policy.get("identity_source")
-    ident_mgr = load_json(identity_source)
+    if not identity_source:
+        raise SystemExit("ERROR: No identity_source configured in policy or CLI args.")
+
+    identity_source_path = resolve_path(policy_file, identity_source)
+    ident_mgr = load_json(identity_source_path)
     identity_key = select_identity(ident_mgr, args.identity_key)
 
     raw = [json.loads(line) for line in Path(args.inp).read_text(encoding="utf-8").splitlines() if line.strip()]
