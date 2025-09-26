@@ -67,7 +67,11 @@ def load_identity(
     entry: Optional[Dict[str, Any]] = None
 
     if entry is None and selected_key is None:
-        configured_key = data.get("active_identity") or data.get("default_identity")
+        configured_key = (
+            data.get("active")
+            or data.get("active_identity")
+            or data.get("default_identity")
+        )
         if configured_key:
             configured_entry = identities.get(configured_key)
             if configured_entry is None:
@@ -80,6 +84,13 @@ def load_identity(
                 )
             entry = configured_entry
             selected_key = configured_key
+
+    if entry is None and selected_key is None:
+        for ident_key, ident_entry in identities.items():
+            if isinstance(ident_entry, dict) and ident_entry.get("default") is True:
+                entry = ident_entry
+                selected_key = ident_key
+                break
 
     if selected_key:
         entry = identities.get(selected_key)
@@ -137,12 +148,23 @@ def load_policy(policy_path: Path = POLICY_FILE) -> Dict[str, Any]:
     )
     timestamp_format_hint = memory.get("timestamp_format", "Ymd-THMS")
 
+    filters = memory.get("filters", {})
+    if not isinstance(filters, dict):
+        filters = {}
+
+    allow_topics = filters.get("allow_topics", memory.get("allow_topics", ()))
+    deny_tags = filters.get("deny_tags", memory.get("deny_tags", ()))
+    drop_if_topic_missing = filters.get(
+        "drop_if_topic_missing", memory.get("drop_if_topic_missing", False)
+    )
+    default_topic = filters.get("default_topic", memory.get("default_topic"))
+
     return {
         "raw": data,
-        "allow_topics": tuple(memory.get("allow_topics", ())),
-        "deny_tags": tuple(memory.get("deny_tags", ())),
-        "drop_if_topic_missing": bool(memory.get("drop_if_topic_missing", False)),
-        "default_topic": memory.get("default_topic"),
+        "allow_topics": tuple(allow_topics or ()),
+        "deny_tags": tuple(deny_tags or ()),
+        "drop_if_topic_missing": bool(drop_if_topic_missing),
+        "default_topic": default_topic,
         "policy_version": data.get("version", "unknown"),
         "schema_version": memory.get("schema", "unknown"),
         "exporter_version": data.get("version", "unknown"),
