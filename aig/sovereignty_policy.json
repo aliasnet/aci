@@ -4,7 +4,7 @@
     "agi-001": ["governance","assignment","abstention","escalation","export"],
     "agi-002": ["design","analysis","execution"]
   },
-  "identity_source": "/entities/agi/agi_identity_manager.json",
+  "identity_source": "/workspace/aci/entities/agi/agi_identity_manager.json",
   "escalation": {
     "to_human_if": [
       "risk_budget_exceeded",

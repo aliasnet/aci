@@ -4,6 +4,7 @@
 import argparse
 import datetime
 import json
+import os
 from datetime import timezone
 from pathlib import Path
 
@@ -12,14 +13,53 @@ def load_json(p):
     return json.loads(Path(p).read_text(encoding="utf-8"))
 
 
-def resolve_path(base_file, maybe_path):
-    """Resolve a potentially relative path with respect to the policy file."""
+DEFAULT_REPO_ROOT = Path("/workspace/aci")
+
+
+def detect_repo_root() -> Path:
+    """Return the repository root, defaulting to /workspace/aci."""
+
+    env_root = os.environ.get("ACI_REPO_ROOT")
+    if env_root:
+        return Path(env_root).resolve()
+
+    current = Path(__file__).resolve()
+    for parent in current.parents:
+        if (parent / ".git").exists() or (parent / "prime_directive.txt").exists():
+            return parent
+    return DEFAULT_REPO_ROOT
+
+
+REPO_ROOT = detect_repo_root()
+
+
+def resolve_path(base_file: Path, maybe_path: str) -> Path:
+    """Resolve a path relative to the policy file and repository root."""
+
+    base_dir = Path(base_file).parent if base_file else REPO_ROOT
     candidate = Path(maybe_path)
+    probes = []
+
     if candidate.is_absolute():
-        if candidate.exists():
-            return candidate
-        return Path(base_file).parent / candidate.relative_to("/")
-    return Path(base_file).parent / candidate
+        probes.append(candidate)
+        try:
+            probes.append(REPO_ROOT / candidate.relative_to("/"))
+        except ValueError:
+            # Non-rooted absolutes (e.g. Windows drives) are not expected; keep original.
+            pass
+    else:
+        probes.append(base_dir / candidate)
+        probes.append(REPO_ROOT / candidate)
+
+    for path in probes:
+        normalized = path.resolve()
+        if normalized.exists():
+            return normalized
+
+    searched = ", ".join(str(p.resolve()) for p in probes)
+    raise SystemExit(
+        f"ERROR: Unable to resolve '{maybe_path}' relative to {base_file}. Checked: {searched}"
+    )
 
 
 def normalize_ts(ts: str) -> str:

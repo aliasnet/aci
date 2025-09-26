@@ -4,7 +4,7 @@
   "agi_memory": {
     "schema": "hivemind_agi_memory",
     "path_template": "/memory/agi_memory/{identity}/{filename}",
-    "identity_source": "entities/agi/agi_identity_manager.json",
+    "identity_source": "/workspace/aci/entities/agi/agi_identity_manager.json",
     "timestamp_format": "Ymd-THMS",
     "filename_template": "{identity_lower}_agi_memory_{timestamp}.jsonl",
     "filters": {
