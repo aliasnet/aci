@@ -4,6 +4,7 @@
 import argparse
 import datetime
 import json
+from datetime import timezone
 from pathlib import Path
 
 
@@ -21,20 +22,28 @@ def resolve_path(base_file, maybe_path):
     return Path(base_file).parent / candidate
 
 
-def normalize_ts(ts):
-    # Accept "YYYY-MM-DDTHH:MM:SSZ" or with offset; emit Z
+def normalize_ts(ts: str) -> str:
+    """Normalize timestamps to strict RFC 3339 UTC (..Z) form."""
+
+    if ts.endswith("Z"):
+        # Validate the format to catch malformed values such as missing date/time parts.
+        try:
+            datetime.datetime.fromisoformat(ts.replace("Z", "+00:00"))
+        except ValueError as exc:  # pragma: no cover - defensive guard
+            raise SystemExit(f"ERROR: Invalid timestamp format: {ts}") from exc
+        return ts
+
     try:
-        if ts.endswith("Z"):
-            return ts
-        # naive parse; tolerate "+00:00"
-        if ts.endswith("+00:00"):
-            return ts[:-6] + "Z"
-        # fallback: ensure 'Z'
-        if ts[-1].isdigit():
-            return ts + "Z"
-    except Exception:
-        pass
-    return ts
+        dt = datetime.datetime.fromisoformat(ts)
+    except ValueError as exc:
+        raise SystemExit(f"ERROR: Invalid timestamp format: {ts}") from exc
+
+    if dt.tzinfo is not None:
+        dt = dt.astimezone(timezone.utc)
+    else:
+        dt = dt.replace(tzinfo=timezone.utc)
+
+    return dt.isoformat().replace("+00:00", "Z")
 
 
 def select_identity(identity_manager, cli_key=None):
