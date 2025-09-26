@@ -35,6 +35,8 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import re
+import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
 
@@ -191,6 +193,46 @@ def looks_like_message(node: Dict[str, Any]) -> bool:
     return True
 
 
+ISO8601_OFFSET_PATTERN = re.compile(
+    r"^(?P<prefix>.*?)(?P<sign>[+-])(?P<hours>\d{2})(?::?(?P<minutes>\d{2})"
+    r"(?::?(?P<seconds>\d{2}))?)?$"
+)
+
+
+def _coerce_iso8601(value: str) -> Tuple[str, bool]:
+    """Return a string parseable by ``datetime.fromisoformat``.
+
+    The second element of the tuple indicates whether the original string ended
+    with a ``Z`` suffix.
+    """
+
+    cleaned = value.strip()
+    if not cleaned:
+        raise ValueError("empty timestamp string")
+
+    had_z = cleaned.endswith("Z") or cleaned.endswith("z")
+    candidate = cleaned
+
+    if "T" not in candidate and " " in candidate:
+        # Allow ``YYYY-MM-DD HH:MM:SS`` style strings.
+        candidate = candidate.replace(" ", "T", 1)
+
+    if had_z:
+        candidate = candidate[:-1] + "+00:00"
+
+    match = ISO8601_OFFSET_PATTERN.match(candidate)
+    if match and ":" not in candidate[match.start("sign") :]:
+        hours = match.group("hours")
+        minutes = match.group("minutes") or "00"
+        seconds = match.group("seconds")
+        offset = f"{match.group('sign')}{hours}:{minutes}"
+        if seconds:
+            offset += f":{seconds}"
+        candidate = f"{match.group('prefix')}{offset}"
+
+    return candidate, had_z
+
+
 def normalize_timestamp(
     message: Dict[str, Any],
     fallback: Optional[dt.datetime] = None,
@@ -199,16 +241,33 @@ def normalize_timestamp(
     for key in MESSAGE_TIMESTAMP_KEYS:
         value = message.get(key)
         if value:
-            timestamp_value = value
+            timestamp_value = str(value)
             break
+
     if timestamp_value:
         try:
-            parsed = dt.datetime.fromisoformat(timestamp_value.replace("Z", "+00:00"))
-        except ValueError:
-            parsed = fallback or dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
+            candidate, had_z = _coerce_iso8601(timestamp_value)
+            parsed = dt.datetime.fromisoformat(candidate)
+        except ValueError as exc:
+            raise MigrationError(
+                f"Invalid timestamp '{timestamp_value}' (expected ISO-8601 format)"
+            ) from exc
     else:
         parsed = fallback or dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
-    return parsed.astimezone(dt.timezone.utc).isoformat().replace("+00:00", "Z")
+        had_z = False
+
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+
+    parsed_utc = parsed.astimezone(dt.timezone.utc)
+
+    if timestamp_value and had_z:
+        original = timestamp_value.strip()
+        if original.endswith("z"):
+            original = original[:-1] + "Z"
+        return original
+
+    return parsed_utc.isoformat().replace("+00:00", "Z")
 
 
 def normalize_content(message: Dict[str, Any]) -> str:
@@ -431,7 +490,10 @@ def migrate_file(
         )
         if topic is None:
             continue
-        timestamp_str = normalize_timestamp(message)
+        try:
+            timestamp_str = normalize_timestamp(message)
+        except MigrationError as exc:
+            raise MigrationError(f"{input_path}: {exc}") from exc
         timestamp_dt = dt.datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
         if first_timestamp is None:
             first_timestamp = timestamp_dt
@@ -535,24 +597,28 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     input_path = Path(args.input).resolve()
     output_dir = Path(args.output_dir).resolve()
 
-    identity = load_identity(Path(args.identity), args.identity_key)
-    policy = load_policy(Path(args.policy))
+    try:
+        identity = load_identity(Path(args.identity), args.identity_key)
+        policy = load_policy(Path(args.policy))
 
-    migrated_any = False
-    for file_path in discover_input_files(input_path):
-        result = migrate_file(
-            file_path,
-            output_dir=output_dir,
-            identity=identity,
-            policy=policy,
-            default_topic=args.default_topic,
-        )
-        if result is not None:
-            migrated_any = True
-    if not migrated_any:
-        print("No files migrated; nothing to do.")
+        migrated_any = False
+        for file_path in discover_input_files(input_path):
+            result = migrate_file(
+                file_path,
+                output_dir=output_dir,
+                identity=identity,
+                policy=policy,
+                default_topic=args.default_topic,
+            )
+            if result is not None:
+                migrated_any = True
+        if not migrated_any:
+            print("No files migrated; nothing to do.")
+            return 1
+        return 0
+    except MigrationError as exc:
+        print(f"[error] {exc}", file=sys.stderr)
         return 1
-    return 0
 
 
 if __name__ == "__main__":
