@@ -1,6 +1,7 @@
 {
   "$schema": "aci://schemas/agi-identity-manager-1.json",
   "version": "1.0.0",
+  "active_identity": "agi-002",
   "agi_identities": {
     "agi-001": {
       "key": "AGI",

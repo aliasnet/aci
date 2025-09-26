@@ -66,11 +66,30 @@ def load_identity(
     selected_key = identity_key
     entry: Optional[Dict[str, Any]] = None
 
+    if entry is None and selected_key is None:
+        configured_key = data.get("active_identity") or data.get("default_identity")
+        if configured_key:
+            configured_entry = identities.get(configured_key)
+            if configured_entry is None:
+                raise MigrationError(
+                    f"Active identity '{configured_key}' not found in agi_identity_manager.json"
+                )
+            if not isinstance(configured_entry, dict):
+                raise MigrationError(
+                    "Active identity entry must be an object in agi_identity_manager.json"
+                )
+            entry = configured_entry
+            selected_key = configured_key
+
     if selected_key:
         entry = identities.get(selected_key)
         if entry is None:
             raise MigrationError(
                 f"Identity '{selected_key}' not found in agi_identity_manager.json"
+            )
+        if not isinstance(entry, dict):
+            raise MigrationError(
+                "Invalid identity entry in agi_identity_manager.json (expected object)"
             )
 
     if entry is None:

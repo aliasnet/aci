@@ -7,6 +7,33 @@
     "identity_source": "/entities/agi/agi_identity_manager.json",
     "timestamp_format": "Ymd-THMS",
     "filename_template": "{identity_lower}_agi_memory_{timestamp}.jsonl",
+    "default_topic": "definitions",
+    "allow_topics": [
+      "definitions",
+      "theories",
+      "measurement",
+      "results",
+      "synthesis",
+      "ethics",
+      "open_questions",
+      "methods",
+      "psychology",
+      "clinical",
+      "ai",
+      "glossary"
+    ],
+    "deny_tags": [
+      "ops",
+      "export",
+      "scheduling",
+      "runtime",
+      "credentials",
+      "secrets",
+      "keys",
+      "admin",
+      "non_exportable"
+    ],
+    "drop_if_topic_missing": true,
     "audit": {
       "add_export_event": true,
       "normalize_timestamps": true,
