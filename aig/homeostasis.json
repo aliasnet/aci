@@ -1,0 +1,27 @@
+{
+  "$schema": "aci://schemas/aig-homeostasis-1.json",
+  "set_points": {
+    "ece_max": 0.05,
+    "coverage_at_alpha_risk_min": 0.90
+  },
+  "enter_cautious_if": [
+    { "ood_score": { "gt": 0.7 } },
+    { "ece": { "gt": 0.08 } }
+  ],
+  "effects": {
+    "temperature_max": 0.2,
+    "abstain_threshold_delta": 0.1
+  },
+  "recovery": {
+    "cooldown_events": 5,
+    "exit_cautious_if": [
+      { "ood_score": { "lt": 0.5 } },
+      { "ece": { "lt": 0.06 } }
+    ]
+  },
+  "telemetry": {
+    "emit_state_of_mind": true,
+    "slices": ["domain","task_type","language"]
+  },
+  "version": "1.0.0"
+}

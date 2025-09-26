@@ -1,38 +1,16 @@
 {
-  "version": "1.0",
-  "name": "AGI Memory Export Policy",
-  "format": "jsonl",
-  "file_pattern": "${active_identity_lower}_agi_memory_${UTC_TIMESTAMP}.jsonl",
-
-  "schema": {
-    "required_keys": ["timestamp", "role", "entity", "content", "metadata"],
-    "timestamp": { "format": "ISO8601-UTC" },
-    "role_entity_rule": "AGI-authored lines must use active_identity.name (from agi_identity_manager.json) for BOTH `role` and `entity`. User lines must use `User` (or alias mapping).",
-    "metadata_recommended": ["topic", "theory", "method", "study", "tags", "schema_version", "exporter_version"]
-  },
-
-  "filters": {
-    "include_topics": ["definitions", "theories", "measurement", "results", "synthesis", "ethics", "open_questions", "methods", "psychology", "clinical", "ai", "glossary"],
-    "exclude_tags": ["ops", "export", "scheduling", "runtime", "credentials", "secrets", "keys", "admin", "non_exportable"]
-  },
-
-  "validation": {
-    "schema_check": true,
-    "identity_binding_check": true,
-    "filter_check": true,
-    "deduplicate": { "enabled": true, "hash_fields": ["timestamp", "entity", "content"] },
-    "checksum": { "algorithm": "SHA256", "write_sidecar": true },
-    "anchor_to_tva": true
-  },
-
-  "governance": {
-    "operator_entity": "AGI",
-    "identity_manager_file": "agi_identity_manager.json",
-    "policy_version": "1.0"
-  },
-
-  "compatibility": {
-    "legacy_aliases_supported": true,
-    "legacy_exports_readonly": true
+  "$schema": "aci://schemas/agi-export-policy-1.json",
+  "version": "1.0.0",
+  "agi_memory": {
+    "schema": "hivemind_agi_memory",
+    "path_template": "/memory/agi_memory/{identity}/{filename}",
+    "identity_source": "/entities/agi/agi_identity_manager.json",
+    "timestamp_format": "Ymd-THMS",
+    "filename_template": "{identity_lower}_agi_memory_{timestamp}.jsonl",
+    "audit": {
+      "add_export_event": true,
+      "normalize_timestamps": true,
+      "enforce_chronological_order": true
+    }
   }
 }

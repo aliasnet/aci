@@ -1,0 +1,20 @@
+{
+  "$schema": "aci://schemas/aig-eel-policy-1.json",
+  "rehydration": {
+    "capsule_fields": [
+      "intent",
+      "constraints",
+      "last_audit_id",
+      "workspace_summary",
+      "salient_signals"
+    ],
+    "max_bytes": 20480
+  },
+  "retry": { "max_attempts": 2, "backoff_ms": [250, 750] },
+  "privacy": { "drop_raw_text": true, "hash_inputs": true },
+  "notes": [
+    "EEL provides optional, ephemeral continuity across hosts.",
+    "Only summaries/signals should traverse EEL; avoid raw user text by default."
+  ],
+  "version": "1.0.0"
+}
