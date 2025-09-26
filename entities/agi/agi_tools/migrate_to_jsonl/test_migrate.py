@@ -14,6 +14,13 @@ class NormalizeTimestampTests(unittest.TestCase):
             "2023-05-05T12:34:56Z",
         )
 
+    def test_normalizes_space_separated_z_timestamp(self) -> None:
+        message = {"timestamp": "2023-05-05 15:00:00Z"}
+        self.assertEqual(
+            migrate.normalize_timestamp(message),
+            "2023-05-05T15:00:00Z",
+        )
+
     def test_converts_offset_to_utc(self) -> None:
         message = {"timestamp": "2023-05-05T12:34:56+02:00"}
         self.assertEqual(
