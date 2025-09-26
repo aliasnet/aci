@@ -1,0 +1,16 @@
+docs(aci): add AGENTS.md — entities & agents guide for ACI contributors
+
+Why
+— Provide a single, human-readable map of how agents/entities operate in ACI: identities, governance, exports, wrappers/adapters, and pitfalls.
+
+What changed
+— Added AGENTS.md to the repo root:
+  • Defines entity vs agent and the colony model (AGI governs; specialists execute)
+  • Documents folder map (/entities, /library, /aig, /memory) with examples
+  • Details identity/memory rules, export policy & filters, naming conventions
+  • Captures governance & safety (sovereignty, homeostasis, EEL, playbook)
+  • Lists common pitfalls and a contributor checklist
+  • Provides JSONL event examples and a tiny diff snippet for Codex context
+
+Scope/impact
+— Documentation only; aligns with existing policies and modules. Serves as the canonical on-ramp for new agents/entities and contributors.
