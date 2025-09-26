@@ -8,16 +8,15 @@ run against historical exports prior to publishing them.
 
 Key behaviors implemented:
 
-* Reads the active identity from ``agi_identity_manager.json`` so that all
-  AGI-authored lines are emitted with the correct ``entity``/``role`` value.
-* Enforces topic and tag filters defined in ``agi_export_policy.json``.
+* Resolves identity metadata via ``agi_identity_manager.json`` (multiple
+  identities may be defined; callers choose which identity key to bind).
 * Normalizes message structures from heterogeneous legacy exports.
 * Produces JSONL output with per-line metadata including schema/exporter
-  versions and governance hints.
-* Runs validation steps (schema, identity binding, filter audit, duplicate
+  versions and governance hints defined by the export policy.
+* Runs validation steps (schema, identity binding, optional filtering, duplicate
   detection) before finalizing the export.
-* Emits a SHA-256 checksum alongside the JSONL file and appends an anchoring
-  record to the configured ledger.
+* Emits a SHA-256 checksum alongside the JSONL file and (optionally) appends an
+  anchoring record to the configured ledger if the policy requests it.
 
 Usage example::
 
@@ -26,9 +25,8 @@ Usage example::
         --output-dir memory/agi_memory/exports \
         --default-topic theories
 
-The ``--default-topic`` flag may be used to supply an allowed topic for legacy
-messages that lack tagging. Messages without an allowed topic and without the
-flag will be excluded to honor governance filters.
+The ``--default-topic`` flag may be used to supply a topic for legacy messages
+that lack tagging.
 """
 
 from __future__ import annotations
@@ -56,43 +54,102 @@ def load_json(path: Path) -> Any:
         return json.load(handle)
 
 
-def load_identity(identity_path: Path = IDENTITY_FILE) -> Dict[str, Any]:
+def load_identity(
+    identity_path: Path = IDENTITY_FILE,
+    identity_key: Optional[str] = None,
+) -> Dict[str, Any]:
     data = load_json(identity_path)
-    active = data.get("active_identity", {})
-    name = active.get("name")
-    if not name:
-        raise MigrationError(
-            "active_identity.name is required in agi_identity_manager.json"
+    identities = data.get("agi_identities", {})
+    if not isinstance(identities, dict) or not identities:
+        raise MigrationError("agi_identity_manager.json must define agi_identities")
+
+    selected_key = identity_key
+    entry: Optional[Dict[str, Any]] = None
+
+    if selected_key:
+        entry = identities.get(selected_key)
+        if entry is None:
+            raise MigrationError(
+                f"Identity '{selected_key}' not found in agi_identity_manager.json"
+            )
+
+    if entry is None:
+        # Prefer a concrete identity that declares a key.
+        for candidate_key, candidate_entry in identities.items():
+            if isinstance(candidate_entry, dict) and "key" in candidate_entry:
+                entry = candidate_entry
+                selected_key = candidate_key
+                break
+
+    if entry is None:
+        # Fallback to the first declared identity.
+        selected_key, entry = next(iter(identities.items()))
+        if not isinstance(entry, dict):
+            raise MigrationError(
+                "Invalid identity entry in agi_identity_manager.json (expected object)"
+            )
+
+    active_name = entry.get("key") or selected_key
+    fallback_entry = identities.get("agi-external")
+    fallback_name = "external entity"
+    if isinstance(fallback_entry, dict):
+        fallback_name = (
+            fallback_entry.get("key")
+            or fallback_entry.get("role")
+            or fallback_name
         )
-    fallback = data.get("fallback_identity", {})
+
     return {
-        "active_name": name,
-        "fallback_name": fallback.get("name", "external entity"),
+        "active_name": str(active_name),
+        "active_id": str(selected_key),
+        "fallback_name": str(fallback_name),
         "raw": data,
     }
 
 
 def load_policy(policy_path: Path = POLICY_FILE) -> Dict[str, Any]:
     data = load_json(policy_path)
-    filters = data.get("filters", {})
-    allow_topics = tuple(filters.get("allow_topics", ()))
-    if not allow_topics:
-        raise MigrationError("agi_export_policy.json must define filters.allow_topics")
-    deny_tags = tuple(filters.get("deny_tags", ()))
+    memory = data.get("agi_memory", {})
+    if not isinstance(memory, dict):
+        raise MigrationError("agi_export_policy.json must define agi_memory block")
+
+    filename_template = memory.get(
+        "filename_template", "{identity_lower}_agi_memory_{timestamp}.jsonl"
+    )
+    timestamp_format_hint = memory.get("timestamp_format", "Ymd-THMS")
+
     return {
         "raw": data,
-        "allow_topics": allow_topics,
-        "deny_tags": deny_tags,
-        "drop_if_topic_missing": filters.get("drop_if_topic_missing", True),
-        "default_topic": filters.get("default_topic"),
-        "policy_version": data.get("policy_version", "unknown"),
-        "schema_version": data.get("schema_version", "unknown"),
-        "exporter_version": data.get("exporter_version", "unknown"),
-        "file_pattern": data.get("file_pattern", "{identity}_agi_memory_{timestamp}.jsonl"),
-        "ledger": data.get("anchoring", {}).get(
-            "ledger", "memory/agi_memory/anchors_ledger.jsonl"
-        ),
+        "allow_topics": tuple(memory.get("allow_topics", ())),
+        "deny_tags": tuple(memory.get("deny_tags", ())),
+        "drop_if_topic_missing": bool(memory.get("drop_if_topic_missing", False)),
+        "default_topic": memory.get("default_topic"),
+        "policy_version": data.get("version", "unknown"),
+        "schema_version": memory.get("schema", "unknown"),
+        "exporter_version": data.get("version", "unknown"),
+        "filename_template": filename_template,
+        "timestamp_format": translate_timestamp_format(timestamp_format_hint),
+        "path_template": memory.get("path_template"),
+        "identity_source": memory.get("identity_source"),
+        "ledger": memory.get("audit", {}).get("ledger_path"),
+        "audit": memory.get("audit", {}),
     }
+
+
+def translate_timestamp_format(pattern: str) -> str:
+    mapping = {
+        "Y": "%Y",
+        "m": "%m",
+        "d": "%d",
+        "H": "%H",
+        "M": "%M",
+        "S": "%S",
+        "T": "T",
+    }
+    translated: List[str] = []
+    for char in pattern:
+        translated.append(mapping.get(char, char))
+    return "".join(translated)
 
 
 def collect_candidate_messages(payload: Any) -> List[Dict[str, Any]]:
@@ -258,26 +315,41 @@ def resolve_topic(
         if isinstance(tag_list, list):
             candidates.extend(str(tag) for tag in tag_list)
     allowed_lower = {topic.lower(): topic for topic in allow_topics}
+    deny = {tag.lower() for tag in deny_tags}
+
+    if allow_topics:
+        for candidate in candidates:
+            normalized = candidate.strip().lower()
+            if normalized in allowed_lower and normalized not in deny:
+                return allowed_lower[normalized]
+        if default_topic and default_topic.lower() in allowed_lower:
+            return allowed_lower[default_topic.lower()]
+        if drop_if_missing:
+            return None
+        return allow_topics[0]
+
     for candidate in candidates:
-        normalized = candidate.strip().lower()
-        if normalized in allowed_lower:
-            return allowed_lower[normalized]
-    if default_topic and default_topic.lower() in allowed_lower:
-        return allowed_lower[default_topic.lower()]
-    if drop_if_missing:
-        return None
-    # fallback to first allowed topic
-    return allow_topics[0]
+        normalized = candidate.strip()
+        if normalized and normalized.lower() not in deny:
+            return normalized
+    if default_topic:
+        return default_topic
+    return "general"
 
 
 def generate_filename(
     identity_name: str,
     timestamp: dt.datetime,
-    pattern: str,
+    template: str,
+    timestamp_format: str,
 ) -> str:
-    sanitized_identity = identity_name.lower().replace(" ", "_")
-    stamp = timestamp.strftime("%Y-%m-%dT%H-%M-%S")
-    return pattern.format(identity=sanitized_identity, timestamp=stamp)
+    normalized = identity_name.replace(" ", "_")
+    context = {
+        "identity": normalized,
+        "identity_lower": normalized.lower(),
+        "timestamp": timestamp.strftime(timestamp_format),
+    }
+    return template.format(**context)
 
 
 def validate_line(entry: Dict[str, Any]) -> None:
@@ -338,11 +410,9 @@ def migrate_file(
         print(f"[skip] no message payloads detected in {input_path}")
         return None
 
-    allow_topics = policy["allow_topics"]
-    deny_tags = policy["deny_tags"]
-    drop_if_missing = policy["raw"].get("filters", {}).get(
-        "drop_if_topic_missing", True
-    )
+    allow_topics = policy.get("allow_topics", ())
+    deny_tags = policy.get("deny_tags", ())
+    drop_if_missing = bool(policy.get("drop_if_topic_missing", False))
     if default_topic:
         drop_if_missing = False
     default_topic = default_topic or policy.get("default_topic")
@@ -401,17 +471,24 @@ def migrate_file(
     anchor_time = first_timestamp or dt.datetime.utcnow().replace(tzinfo=dt.timezone.utc)
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    filename = generate_filename(identity["active_name"], anchor_time, policy["file_pattern"])
+    filename = generate_filename(
+        identity["active_name"],
+        anchor_time,
+        policy["filename_template"],
+        policy["timestamp_format"],
+    )
     output_path = output_dir / filename
     write_jsonl(output_path, lines)
     checksum = write_checksum(output_path)
-    ledger_path = ROOT / policy["ledger"]
-    append_anchor_record(
-        ledger_path,
-        filename=str(output_path.relative_to(ROOT)),
-        checksum=checksum,
-        policy_version=policy["policy_version"],
-    )
+    ledger_path_value = policy.get("ledger")
+    if ledger_path_value:
+        ledger_path = ROOT / ledger_path_value
+        append_anchor_record(
+            ledger_path,
+            filename=str(output_path.relative_to(ROOT)),
+            checksum=checksum,
+            policy_version=policy["policy_version"],
+        )
     print(f"[ok] migrated {input_path} -> {output_path}")
     return output_path
 
@@ -438,6 +515,10 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         help="Override path to agi_identity_manager.json",
     )
     parser.add_argument(
+        "--identity-key",
+        help="Identity key from agi_identity_manager.json to bind exports",
+    )
+    parser.add_argument(
         "--policy",
         default=str(POLICY_FILE),
         help="Override path to agi_export_policy.json",
@@ -454,7 +535,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     input_path = Path(args.input).resolve()
     output_dir = Path(args.output_dir).resolve()
 
-    identity = load_identity(Path(args.identity))
+    identity = load_identity(Path(args.identity), args.identity_key)
     policy = load_policy(Path(args.policy))
 
     migrated_any = False
