@@ -2,7 +2,7 @@
 
 **Version:** 1.0.0  
 **Audience:** Codex & contributors  
-**Scope:** Architectural guide to **agents** in the broader ACI ecosystem (governance-first, portable, stateless-by-default)
+**Scope:** Architectural guide to **entities** in the broader ACI ecosystem (governance-first, portable, stateless-by-default)
 
 ---
 
