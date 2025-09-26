@@ -1,0 +1,24 @@
+feat(aig): add EEL, homeostasis, sovereignty policies; optional EEL hook in metacognition
+
+Why
+— To ground AIG as the governance kernel with an Ephemeral Ecosystem Layer (EEL) that compensates host context limits, while preserving statelessness and safety.
+
+What changed
+— Added:
+  • /aig/eel_policy.json — rehydration capsule schema, retry & privacy rules
+  • /aig/homeostasis.json — set points, cautious-mode triggers, recovery, telemetry
+  • /aig/sovereignty_policy.json — roles, escalation routes, governance requirements
+— Updated:
+  • /library/metacognition/metacognition.json → v1.1.2
+    ◦ New optional 'rehydrate' stage before generation
+    ◦ Optional providers for EEL: eel.rehydrate.*, signals for rehydration presence/bytes
+    ◦ UI hints can display rehydration presence
+
+Scope/impact
+— No behavior change unless EEL providers are present.
+— Policies are additive; they inform orchestration and export governance.
+— Privacy defaults unchanged (drop_raw_text stays true).
+
+Next steps
+— Phase 2: colony topology and scheduling policy; blackboard pilot across multiple entities.
+— Add dashboards: State of Mind, Risk vs Coverage, Cognitive Load & Recovery.

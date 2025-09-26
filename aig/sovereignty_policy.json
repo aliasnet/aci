@@ -1,0 +1,25 @@
+{
+  "$schema": "aci://schemas/aig-sovereignty-1.json",
+  "roles": {
+    "agi-001": ["governance","assignment","abstention","escalation","export"],
+    "agi-002": ["design","analysis","execution"]
+  },
+  "identity_source": "/entities/agi/agi_identity_manager.json",
+  "escalation": {
+    "to_human_if": [
+      "risk_budget_exceeded",
+      "conformal_reject_high_stakes",
+      "safety_violation_detected"
+    ],
+    "route": "human.review"
+  },
+  "governance": {
+    "diff_requirements": ["no_placeholders","json_valid","commit_msg_present","no_internal_paths_leak"],
+    "privacy_defaults": { "drop_raw_text": true, "hash_inputs": true }
+  },
+  "notes": [
+    "AGI is narrator/observer governor; entities like Alice act as specialists.",
+    "This policy encodes who may accept/revise/abstain/escalate and export memory."
+  ],
+  "version": "1.0.0"
+}

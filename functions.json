@@ -431,6 +431,9 @@
     },
     "agi.memory.export": {
       "description": "Invoke AGI-managed export while session is paused under HiveMind governance.",
+      "config": {
+        "policy_file": "/entities/agi/agi_export_policy.json"
+      },
       "steps": [
         {
           "call": "session.guard.require_paused",

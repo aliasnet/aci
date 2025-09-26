@@ -1,28 +1,21 @@
 {
-  "version": "1.0",
-  "entity": "AGI Identity Manager",
-  "operator": "AGI",
-
-  "active_identity": {
-    "id": "agi-001",
-    "name": "Alice",
-    "role": "child_identity",
-    "status": "active",
-    "memory_file_pattern": "alice_agi_memory_${UTC_TIMESTAMP}.jsonl"
-  },
-
-  "children": [
-    {
-      "id": "agi-001",
-      "name": "Alice",
-      "role": "child_identity",
-      "status": "active",
-      "memory_file_pattern": "alice_agi_memory_${UTC_TIMESTAMP}.jsonl"
+  "$schema": "aci://schemas/agi-identity-manager-1.json",
+  "version": "1.0.0",
+  "active": "agi-002",
+  "agi_identities": {
+    "agi-001": {
+      "key": "AGI",
+      "role": "core framework",
+      "default": false
+    },
+    "agi-002": {
+      "key": "Alice",
+      "role": "proxied via agi-001",
+      "default": true
+    },
+    "agi-external": {
+      "pattern": "*external_agi*",
+      "role": "external research"
     }
-  ],
-
-  "rules": {
-    "single_active_identity": true,
-    "read_at_export_time": true
   }
 }
