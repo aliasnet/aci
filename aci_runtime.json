@@ -21,7 +21,18 @@
       "file": "connectors/github_connector.json",
       "canonical_source": "github",
       "repo": "aliasnet/aci",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+      "fallbacks": [
+        {
+          "key": "local_cache",
+          "file": "connectors/local_cache.json",
+          "canonical_source": "local_mirror",
+          "repo": "aliasnet/aci",
+          "path_hint": "{mirror_root}",
+          "url": "file://{mirror_root}/connectors/local_cache.json",
+          "notes": "Use validated local mirrors only when canonical GitHub cannot be reached."
+        }
+      ]
     },
     "sandbox_mode": {
       "enabled": true,
