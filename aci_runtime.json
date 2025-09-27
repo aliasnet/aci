@@ -16,6 +16,13 @@
       "path": "entities/nexus_core/nexus_core.json",
       "priority": 95
     },
+    "mirror_resolution_policy": {
+      "key": "github_connector",
+      "file": "connectors/github_connector.json",
+      "canonical_source": "github",
+      "repo": "aliasnet/aci",
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
+    },
     "sandbox_mode": {
       "enabled": true,
       "core_files": [
