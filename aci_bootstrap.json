@@ -10,6 +10,9 @@
       },
       "bootstrap": {
         "path": "aci_bootstrap.json"
+      },
+      "sanity_protocol": {
+        "path": "sanity.md"
       }
     },
     "remote_core": {
