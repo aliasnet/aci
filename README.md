@@ -88,8 +88,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
   ```
   {identity_lower}_agi_memory_{timestamp}.jsonl
-  # timestamp format: Ymd-THMS, e.g., 20250926-T192000
-  # example: alice_agi_memory_20250926-T192000.jsonl
+  # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
+  # example: alice_agi_memory_20250926-T192000Z.jsonl
   ```
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)

@@ -173,7 +173,7 @@ def load_policy(policy_path: Path = POLICY_FILE) -> Dict[str, Any]:
     filename_template = memory.get(
         "filename_template", "{identity_lower}_agi_memory_{timestamp}.jsonl"
     )
-    timestamp_format_hint = memory.get("timestamp_format", "Ymd-THMS")
+    timestamp_format_hint = memory.get("timestamp_format", "Ymd-THMSZ")
 
     return {
         "raw": data,

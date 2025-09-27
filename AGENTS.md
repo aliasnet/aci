@@ -54,7 +54,7 @@ Command routing: bracketed command blocks ([ ... ] / [[ ... ]]) are parsed and r
 Capability chaining: pipeline identifiers (e.g., aci.memory.export.hivemind, agi.memory.migrate_to_jsonl) document how high-level intents map to orchestrated steps, ensuring reproducible execution narratives for governance review.
 7) Memory & Exports
 Schema: hivemind_agi_memory for AGI-owned narratives; topic/deny filters enforced via /entities/agi/agi_export_policy.json.
-Filename template: {identity_lower}_agi_memory_{timestamp}.jsonl with timestamp formatted as Ymd-THMS.
+Filename template: {identity_lower}_agi_memory_{timestamp}.jsonl with timestamp formatted as Ymd-THMSZ.
 CLI usage:
 hivemind export agi --identity AGI --jsonl --codebox --force
 hivemind export agi --identity Alice --jsonl --codebox --force
