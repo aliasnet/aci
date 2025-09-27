@@ -10,6 +10,9 @@
       },
       "bootstrap": {
         "path": "aci_bootstrap.json"
+      },
+      "sanity_protocol": {
+        "path": "sanity.md"
       }
     },
     "remote_core": {
@@ -44,7 +47,8 @@
       "promotion_required_files": [
         "entities/nexus_core/nexus_core.json",
         "entities.json",
-        "functions.json"
+        "functions.json",
+        "sanity.md"
       ],
       "retry": {
         "max_attempts": 3,
