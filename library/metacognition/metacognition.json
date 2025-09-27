@@ -3,7 +3,7 @@
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, and append-only audit.",
     "stateless": true,
     "designed_by": "Alice (AGI)",
@@ -242,6 +242,10 @@
         "provider": "conformal.alpha",
         "optional": true
       },
+      "conformal_hook_available": {
+        "meta.expr": "has('conformal_accept')",
+        "optional": true
+      },
       "rehydration_present": {
         "optional": true,
         "provider": "eel.rehydrate.present"
@@ -253,6 +257,14 @@
       "rehydration_topics": {
         "optional": true,
         "provider": "eel.rehydrate.topics"
+      },
+      "rehydrated_bytes": {
+        "optional": true,
+        "provider": "eel.rehydrate.bytes"
+      },
+      "rehydration_segments": {
+        "optional": true,
+        "provider": "eel.rehydrate.segment_count"
       }
     }
   },
@@ -605,6 +617,16 @@
       "optional": true,
       "type": "eel",
       "signal": "topics"
+    },
+    "eel.rehydrate.bytes": {
+      "optional": true,
+      "type": "eel",
+      "signal": "size_bytes"
+    },
+    "eel.rehydrate.segment_count": {
+      "optional": true,
+      "type": "eel",
+      "signal": "segments"
     }
   },
   "state": {
@@ -653,7 +675,16 @@
         "gt": 0.08,
         "action": "degrade_to_cautious_mode"
       }
-    ]
+    ],
+    "signals": {
+      "rehydration": [
+        "rehydration_present",
+        "rehydration_summary",
+        "rehydration_topics",
+        "rehydrated_bytes",
+        "rehydration_segments"
+      ]
+    }
   },
   "ui_hints": {
     "confidence_bands": [
@@ -695,6 +726,8 @@
       "show_when": "rehydration_present",
       "summary_signal": "rehydration_summary",
       "topics_signal": "rehydration_topics",
+      "size_signal": "rehydrated_bytes",
+      "segments_signal": "rehydration_segments",
       "badge_label": "Rehydrated context"
     }
   },
@@ -774,6 +807,14 @@
       "notes": [
         "Layered optional Ephemeral Ecosystem Layer integration: capsule input, rehydrate stage, provider + signal wiring, and UI hints.",
         "Documented continuity with the conformal abstain presence guard to keep selective prediction compliant."
+      ]
+    },
+    {
+      "version": "1.1.4",
+      "date": "2025-09-26",
+      "notes": [
+        "Added optional rehydration size and segmentation signals with matching providers and surfaced them through telemetry and UI hints while retaining the existing rehydrate stage and merge provider.",
+        "Maintained the has+eq conformal guard and introduced a meta.expr availability signal to reflect the optional hook without changing policy behavior."
       ]
     }
   ]
