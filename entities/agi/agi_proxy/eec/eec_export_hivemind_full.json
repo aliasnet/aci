@@ -16,9 +16,9 @@
     "note": null
   },
   "output": {
-    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.${FORMAT}",
+    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.${FORMAT}",
     "bundle_artifact_dir": "aci/entities/agi/identities/${IDENTITY}/adapters/",
-    "manifest_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.json"
+    "manifest_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
     "internet": false
