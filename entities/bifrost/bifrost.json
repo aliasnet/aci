@@ -1,6 +1,6 @@
 {
   "bifrost": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "key": "bifrost",
     "name": "Bifrost",
     "alias": "Bifrost",
@@ -8,7 +8,8 @@
     "abstract": "Bridges internal ACI routing to external connectors; maintains a minimal allowlist for direct connector refs.",
     "knowledge_base": "connector orchestration & resolvers",
     "references": {
-      "github_connector": "connectors/github_connector.json"
+      "github_connector": "connectors/github_connector.json",
+      "local_cache": "connectors/local_cache.json"
     },
     "connector_binding": {
       "key": "github_connector",
@@ -18,11 +19,24 @@
       "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
     },
     "resolution_policy": {
-      "primary": "github_connector",
-      "fallback": "local_cache",
+      "primary": {
+        "key": "github_connector",
+        "file": "connectors/github_connector.json",
+        "canonical_source": "github",
+        "repo": "aliasnet/aci",
+        "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
+      },
+      "fallback": {
+        "key": "local_cache",
+        "file": "connectors/local_cache.json",
+        "canonical_source": "local_mirror",
+        "repo": "aliasnet/aci",
+        "path_hint": "{mirror_root}",
+        "url": "file://{mirror_root}/connectors/local_cache.json"
+      },
       "policy": "canonical_raw_first_then_local_fallback",
       "priority": "canonical_raw_over_local",
-      "notes": "Bifrost bridges to the GitHub Connector and only touches local cache if GitHub is unreachable.",
+      "notes": "Bifrost bridges to the GitHub Connector and only touches local cache if GitHub is unreachable and local validation passes.",
       "allowlist": [
         "prime_directive.txt",
         "aci_runtime.json",
@@ -30,7 +44,8 @@
         "entities/**",
         "functions.json",
         "memory/**",
-        "connectors/github_connector.json"
+        "connectors/github_connector.json",
+        "connectors/local_cache.json"
       ],
       "regex_search": [
         {
