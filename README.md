@@ -93,8 +93,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   ```
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
-- **Export Policy:** `/entities/agi/agi_export_policy.json`  
+- **Export Policy:** `/entities/agi/agi_export_policy.json`
   Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
+- **Export identity field:** Non-user lines emit an `identity` attribute resolved from the active AGI lock (latest invoked assistant/system). Legacy keys such as `actor`/`entity` are still accepted on ingest but new exports normalize to `identity` with a fallback of `"ACI Agent"` when no binding is present.
 
 > Universal doctrines (e.g., `prime_directive.txt`) apply globally. Entity playbooks (e.g., `/aig/agi_playbook.json`) are scoped to the AGI governor.
 
