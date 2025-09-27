@@ -121,6 +121,22 @@ class ArchivedMigratorPathResolutionTests(unittest.TestCase):
         expected = (module.get_repo_root() / relative_identity).resolve()
         self.assertEqual(resolved, expected)
 
+    def test_resolve_path_translates_root_absolute_identity(self) -> None:
+        module = self.module
+        absolute_identity = Path("/entities/agi/agi_identity_manager.json")
+        resolved = module.resolve_path(absolute_identity)
+        expected = (module.get_repo_root() / "entities/agi/agi_identity_manager.json").resolve()
+        self.assertEqual(resolved, expected)
+
+    def test_resolve_path_translates_nested_absolute_identity(self) -> None:
+        module = self.module
+        absolute_identity = Path(
+            "/opt/misc/workdir/entities/agi/agi_identity_manager.json"
+        )
+        resolved = module.resolve_path(absolute_identity)
+        expected = (module.get_repo_root() / "entities/agi/agi_identity_manager.json").resolve()
+        self.assertEqual(resolved, expected)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

@@ -46,7 +46,7 @@ ROOT = Path(__file__).resolve().parents[2]
 IDENTITY_FILE = ROOT / "agi_identity_manager.json"
 POLICY_FILE = ROOT / "agi_export_policy.json"
 
-WORKSPACE_PREFIX = Path("/workspace/aci")
+FILESYSTEM_ROOT = Path("/")
 
 REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
 
@@ -79,16 +79,19 @@ def resolve_path(
         fallbacks: List[Path] = []
 
         try:
-            relative = path.relative_to(WORKSPACE_PREFIX)
+            relative = path.relative_to(base_root)
         except ValueError:
             relative = None
         if relative is not None:
             fallbacks.append(base_root / relative)
 
-        if len(path.parts) > 1:
-            anchor = path.parts[1]
-            if anchor in {"entities", "memory", "library", "aig"}:
-                fallbacks.append(base_root / Path(*path.parts[1:]))
+        if path.anchor == FILESYSTEM_ROOT.anchor and len(path.parts) > 1:
+            known_anchors = {"entities", "memory", "library", "aig"}
+            parts = path.parts
+            for index, part in enumerate(parts):
+                if part in known_anchors:
+                    fallbacks.append(base_root / Path(*parts[index:]))
+                    break
 
         for candidate in fallbacks:
             resolved_candidate = candidate.resolve()
