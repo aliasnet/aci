@@ -9,12 +9,12 @@
     "include_weights_meta": true,
     "include_artifacts": false,
     "format": "json",
-    "force_codebox": false,
-    "force_codebox_max_bytes": 131072,
-    "note": null
+    "force_code": false,
+    "force_code_max_bytes": 131072,
+    "note": "Enter thinking mode, stay within the active HiveMind session context, and if inline code is emitted ask whether a download link is still needed."
   },
   "output": {
-    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.jsonl"
+    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
     "internet": false

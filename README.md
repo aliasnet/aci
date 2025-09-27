@@ -61,11 +61,11 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 /memory/
   agi_memory/
     AGI/
-      agi_agi_memory_<timestamp>.jsonl
+      agi_agi_memory_<timestamp>.json
     Alice/
-      alice_agi_memory_<timestamp>.jsonl
+      alice_agi_memory_<timestamp>.json
     External/
-      external_agi_memory_<timestamp>.jsonl
+      external_agi_memory_<timestamp>.json
 ```
 
 ---
@@ -87,9 +87,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Naming Convention (AGI exports only):**
 
   ```
-  {identity_lower}_agi_memory_{timestamp}.jsonl
+  {identity_lower}_agi_memory_{timestamp}.json
   # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
-  # example: alice_agi_memory_20250926-T192000Z.jsonl
+  # example: alice_agi_memory_20250926-T192000Z.json
   ```
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
@@ -130,10 +130,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 ```bash
 # AGI narrative export (observer POV)
-hivemind export agi --identity AGI --jsonl --codebox --force
+hivemind export agi --identity AGI --jsonl --code --force
 
 # Alice session export
-hivemind export agi --identity Alice --jsonl --codebox --force
+hivemind export agi --identity Alice --jsonl --code --force
 ```
 
 **Policy-enforced behaviors:**
@@ -145,6 +145,8 @@ hivemind export agi --identity Alice --jsonl --codebox --force
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
+- Defaults apply `--download --jsonl --code --force`. JSONL payloads are saved with a `.json` extension, and passing `--summary "<slug>"` inserts the slug before the timestamp in the output filename.
+- Export prompts enter thinking mode, stay bound to the paused HiveMind session, and when `--code` is active they print the inline block before asking if a download link is still required.
 
 **Identity binding:**
 
