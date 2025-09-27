@@ -484,11 +484,12 @@ def validate_line(entry: Dict[str, Any]) -> None:
     if "identity" not in entry:
         for legacy_key in LEGACY_IDENTITY_KEYS:
             if legacy_key in entry:
-                legacy_value = entry[legacy_key]
-                entry["identity"] = legacy_value
+                if legacy_key == "role":
+                    legacy_value = entry[legacy_key]
+                else:
+                    legacy_value = entry.pop(legacy_key)
 
-                if legacy_key not in REQUIRED_KEYS:
-                    entry.pop(legacy_key)
+                entry["identity"] = legacy_value
 
                 existing_metadata = entry.get("metadata", {})
                 if isinstance(existing_metadata, dict):
