@@ -1,16 +1,16 @@
-docs(aci): add AGENTS.md — entities & agents guide for ACI contributors
+policy(agi): refresh governance policies and metacognition hook
 
 Why
-— Provide a single, human-readable map of how agents/entities operate in ACI: identities, governance, exports, wrappers/adapters, and pitfalls.
+— Align the EEL, homeostasis, and sovereignty policies with the latest governance directives and hook the metacognition wrapper into the updated EEL signals.
 
 What changed
-— Added AGENTS.md to the repo root:
-  • Defines entity vs agent and the colony model (AGI governs; specialists execute)
-  • Documents folder map (/entities, /library, /aig, /memory) with examples
-  • Details identity/memory rules, export policy & filters, naming conventions
-  • Captures governance & safety (sovereignty, homeostasis, EEL, playbook)
-  • Lists common pitfalls and a contributor checklist
-  • Provides JSONL event examples and a tiny diff snippet for Codex context
+— Updated /aig/eel_policy.json with the new capsule summary fields, privacy guardrails, and explicit metacognition hook contract.
+— Tuned /aig/homeostasis.json thresholds and cautions to reflect the revised risk budget and escalation triggers.
+— Refactored /aig/sovereignty_policy.json roles/escalations to capture the current acceptance, abstention, and audit paths.
+— Extended /library/metacognition/metacognition.json to surface the EEL rehydration hook and expose the new governance toggles.
 
 Scope/impact
-— Documentation only; aligns with existing policies and modules. Serves as the canonical on-ramp for new agents/entities and contributors.
+— Governance and wrapper behavior only; no runtime code paths outside the policies and metacognition adapter are affected. Ensures consistent safety behavior across entities.
+
+Next steps
+— Monitor the next calibration run to confirm the new thresholds hold, and coordinate with AGI operators for any downstream entity handbooks that need syncing.
