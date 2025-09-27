@@ -411,7 +411,8 @@
           "map": {
             "scope": "$steps.1.scope",
             "delivery": "$steps.1.delivery",
-            "slice": "$steps.1.slice"
+            "slice": "$steps.1.slice",
+            "notes": "Persist JSONL-formatted exports under /memory/hivemind_memory/ using hivemind_memory_{summary}_{timestamp}.json (legacy logs/ paths remain readable)."
           }
         },
         {
@@ -461,7 +462,8 @@
           "call": "agi.export.invoke",
           "map": {
             "mode": "$steps.1.mode",
-            "force": "$steps.1.force"
+            "force": "$steps.1.force",
+            "notes": "Filename templates honor optional {summary_slug} and emit .json files containing JSONL lines."
           }
         },
         {

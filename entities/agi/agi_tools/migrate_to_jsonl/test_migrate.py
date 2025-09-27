@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 import importlib.util
 from pathlib import Path
@@ -102,6 +103,14 @@ class ExportPolicyPathTests(unittest.TestCase):
         self.assertEqual(identity_source, "entities/agi/agi_identity_manager.json")
         self.assertFalse(identity_source.startswith("/"), "identity_source must remain repo-relative")
 
+    def test_filename_template_adopts_json_suffix_and_slug(self) -> None:
+        with EXPORT_POLICY_PATH.open("r", encoding="utf-8") as handle:
+            policy = json.load(handle)
+
+        template = policy["agi_memory"]["filename_template"]
+        self.assertTrue(template.endswith(".json"))
+        self.assertIn("{summary_slug}", template)
+
 
 class ArchivedMigratorPathResolutionTests(unittest.TestCase):
     @classmethod
@@ -136,6 +145,45 @@ class ArchivedMigratorPathResolutionTests(unittest.TestCase):
         resolved = module.resolve_path(absolute_identity)
         expected = (module.get_repo_root() / "entities/agi/agi_identity_manager.json").resolve()
         self.assertEqual(resolved, expected)
+
+    def test_generate_filename_handles_optional_slug(self) -> None:
+        module = self.module
+        timestamp = dt.datetime(2024, 12, 31, 23, 59, 59, tzinfo=dt.timezone.utc)
+        template = "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json"
+        filename = module.generate_filename(
+            "AGI",
+            timestamp,
+            template,
+            "%Y%m%dT%H%M%SZ",
+            summary="Launch Review",
+        )
+        self.assertEqual(filename, "agi_agi_memory_launch_review_20241231T235959Z.json")
+
+    def test_generate_filename_sanitizes_problematic_summary(self) -> None:
+        module = self.module
+        timestamp = dt.datetime(2024, 12, 31, 23, 59, 59, tzinfo=dt.timezone.utc)
+        template = "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json"
+        filename = module.generate_filename(
+            "AGI",
+            timestamp,
+            template,
+            "%Y%m%dT%H%M%SZ",
+            summary="  🚀 Mission: Launch/Review  ",
+        )
+        self.assertEqual(filename, "agi_agi_memory_mission_launch_review_20241231T235959Z.json")
+
+    def test_generate_filename_omits_slug_when_empty(self) -> None:
+        module = self.module
+        timestamp = dt.datetime(2024, 12, 31, 23, 59, 59, tzinfo=dt.timezone.utc)
+        template = "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json"
+        filename = module.generate_filename(
+            "AGI",
+            timestamp,
+            template,
+            "%Y%m%dT%H%M%SZ",
+            summary="!!!",
+        )
+        self.assertEqual(filename, "agi_agi_memory_20241231T235959Z.json")
 
 
 if __name__ == "__main__":  # pragma: no cover

@@ -1,12 +1,12 @@
 {
   "$schema": "/schemas/agi-export-policy-1.json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "agi_memory": {
     "schema": "hivemind_agi_memory",
     "path_template": "/memory/agi_memory/{identity}/{filename}",
     "identity_source": "entities/agi/agi_identity_manager.json",
     "timestamp_format": "Ymd-THMSZ",
-    "filename_template": "{identity_lower}_agi_memory_{timestamp}.jsonl",
+    "filename_template": "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json",
     "audit": {
       "add_export_event": true,
       "normalize_timestamps": true,
