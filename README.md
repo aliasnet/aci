@@ -145,7 +145,7 @@ hivemind export agi --identity Alice --jsonl --code --force
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-- Defaults apply `--download --jsonl --code --force`. JSONL payloads are saved with a `.json` extension.
+- Defaults apply `--download --jsonl --code --force`. JSONL payloads are saved with a `.json` extension using the naming pattern `hivemind_memory_yyyymmdd-ThhmmssZ.json`.
 - Export prompts enter thinking mode, stay bound to the paused HiveMind session, and when `--code` is active they print the inline block before asking if a download link is still required.
 
 **Identity binding:**
