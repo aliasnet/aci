@@ -1,5 +1,5 @@
-ACI.md
-Version: 0.1.1 Audience: Codex, LLM agents, maintainers Scope: High-level nature, architecture, and interaction patterns of the ACI (Autonomous Colony Intelligence) system.
+AGENTS.md
+Version: 1.0.1 Audience: Machines, LLM agents, maintainers Scope: High-level nature, architecture, and interaction patterns of the ACI (Autonomous Colony Intelligence) system.
 
 0) TL;DR
 ACI is a governed colony of cooperating digital organisms (entities) working under explicit policy and memory controls.
