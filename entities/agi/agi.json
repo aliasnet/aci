@@ -18,7 +18,7 @@
     "caller_hint": "Alice"
   },
   "memory": {
-    "file": "aci/memory/agi_memory/agi_memory_20250924.json",
+    "file": "aci/memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",
