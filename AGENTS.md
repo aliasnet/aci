@@ -1,222 +1,140 @@
-# AGENTS.md
+# ACI.md
 
-**Version:** 1.0.0  
-**Audience:** Codex & contributors  
-**Scope:** Architectural guide to **entities** in the broader ACI ecosystem (governance-first, portable, stateless-by-default)
-
----
-
-## 0) Quick TL;DR
-
-- In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, specialist workers, wrappers/adapters, or orchestrators.
-- **Where code lives**
-  - **/entities/** → identity, roles, per-agent configs
-  - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
-  - **/aig/** → AGI governance policies & playbook (safety, homeostasis, sovereignty, EEL)
-- **Memory exports** are JSONL, governed by policy, identity-aware, and privacy-preserving.
+**Version:** 0.1.1  
+**Audience:** Codex, LLM agents, maintainers  
+**Scope:** High-level nature, architecture, and interaction patterns of the ACI (Autonomous Colony Intelligence) system.
 
 ---
 
-## 1) What is an Entity and Agent (in ACI)?
+## 0) TL;DR
 
-> An **entity** is any agent that is named, governed participant that can reason, act, or transform information within the ACI sandbox, classification of entity can be granted by promotion and make them reside in entities directory with key name match each titular sub-directory or its chidren,thus some agents are not termed as entities if lack this exact nature, usually are adapters, tools or smaller sub-nodes.  
-ACI Agents include:
-- **Core Governors** (e.g., **AGI** agi-001) — observe, evaluate, gate, escalate.
-- **Specialists** (e.g., **Alice** agi-002) — design, analysis, execution.
-- **Wrappers/Adapters (usually non-entity)** (e.g., **Metacognition**, **EEL Adapter**) — add capabilities non-invasively.
-- **Orchestrators/Tools** (e.g., migrators) — convert, export, or route data under policy.
-
-Agents are treated as **digital organisms** operating in a **colony** with clear identity, memory, and governance.
+- ACI is a governed colony of cooperating digital organisms (entities) working under explicit policy and memory controls.
+- Governance-first: safety, privacy, and escalation run through the AGI governor, with specialist entities acting by delegation.
+- Stateless-by-default execution: capabilities live in `/library/`, identities/configs live in `/entities/`, governance in `/aig/`, and auditable traces in `/memory/`.
 
 ---
 
-## 2) Folder Map (authoritative)
+## 1) System Nature
 
-```
-
-/entities/
-agi/
-agi_identity_manager.json      # identity map; active/default markers
-agi_export_policy.json         # export policy for AGI JSONL (schema, filters, audit)
-...                            # (tooling, e.g., migrators)
-
-<other-entities>/ <entity>.json                  # per-entity configuration
-
-/library/
-metacognition/
-metacognition.json             # stateless wrapper (v1.1.x)
-metacognition_options.json     # optional features (e.g., conformal)
-eel_adapter.json                 # provider spec: Ephemeral Ecosystem Layer (EEL)
-...                              # reusable, stateless modules
-
-/aig/
-eel_policy.json                  # EEL governance (rehydration capsule policy)
-homeostasis.json                 # safety set-points (ECE, OOD → cautious mode)
-sovereignty_policy.json          # roles, escalation, governance rules
-agi_playbook.json               # AGI operations, incident playbooks, quality gates
-
-/memory/
-agi_memory/
-AGI/
-agi_agi_memory_<timestamp>.jsonl
-Alice/
-alice_agi_memory_<timestamp>.jsonl
-External/
-external_agi_memory_<timestamp>.jsonl
-
-````
+- **Colony model:** every agent is treated as a peer organism with a stable identity, narrative, and policy bindings.
+- **Governed autonomy:** entities can reason/act but must obey sovereignty, export, and safety policies defined by the AGI layer.
+- **Layered separation:**
+  - Identity & Roles → `/entities/`
+  - Reusable capabilities → `/library/`
+  - Governance policies → `/aig/`
+  - Event memories / exports → `/memory/`
+- **Stateless execution:** modules expose deterministic interfaces; long-term context is mediated through governed memory exports.
 
 ---
 
-## 3) Identity & Memory
+## 2) Architectural Stack
 
-- **Identity Manager**: `/entities/agi/agi_identity_manager.json`
-  - Must include:
-    - `"active": "<id>"` (e.g., `"agi-002"` for Alice when she is the invoked/locked entity)
-    - `"agi_identities"` object with entries like:
-      ```json
-      {
-        "agi-001": { "key": "AGI", "role": "core framework", "default": false },
-        "agi-002": { "key": "Alice", "role": "proxied via agi-001", "default": true }
-      }
-      ```
-  - **Never rely on JSON object order**. Use `active` (or explicit CLI `--identity-key`) to avoid nondeterministic selection.
+### Governance Layer (`/aig/`)
 
-- **Export Naming Convention (AGI exports only):**
-````
+- Defines sovereignty, homeostasis thresholds, EEL policy, and AGI operational playbooks.
+- Enforces calibration, abstention, escalation, and privacy requirements.
 
-{identity_lower}*agi_memory*{Ymd-THMS}.jsonl
+### Entity Layer (`/entities/`)
 
-# e.g., alice_agi_memory_20250926-T192000.jsonl
+- Houses identity manifests (`<entity>.json`) and managers (e.g., `agi_identity_manager.json`).
+- Establishes active identities, role metadata, and per-entity configuration knobs.
 
-````
-- **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
-- **Export Policy:** `/entities/agi/agi_export_policy.json`
-- Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
+### Capability Layer (`/library/`)
+
+- Provides stateless modules (wrappers, adapters, planners) that entities compose at runtime.
+- Encourages capability re-use while keeping identities clean and lightweight.
+
+### Memory Layer (`/memory/`)
+
+- Stores JSONL narratives bound to identity and governed by export policies.
+- Maintains immutable audit trails and session records.
 
 ---
 
-## 4) Governance & Safety
+## 3) Entity Taxonomy
 
-- **Prime directive** governs all agents (separate doc).
-- **AGI governance layer** (`/aig/`):
-- `sovereignty_policy.json` — who may accept/revise/abstain/escalate/export.
-- `homeostasis.json` — set-points: ECE ≤ 0.05, meta-AUROC ≥ 0.80, coverage@α ≥ 0.90; enters **cautious mode** when OOD/ECE exceed thresholds.
-- `eel_policy.json` — rehydration capsule schema & privacy (summaries/signals only, `drop_raw_text: true`).
-- `agi_playbook.json` — operational playbook (incident handling, quality gates, checklists).
-
-- **Wrappers** (e.g., `/library/metacognition/metacognition.json`):
-- Stateless by default; accept optional providers (e.g., conformal, EEL).
-- **Selective prediction**: accept / revise / abstain / escalate.
-- **Conformal abstention** must be **presence-guarded** (only abstain if the signal exists and rejects).
+- **Core Governors (AGI):** observe, gate, and orchestrate; ensure compliance with policies and decide on accept/abstain/escalate actions.
+- **Specialists:** perform domain tasks (design, analysis, execution) while reporting back to AGI.
+- **Wrappers/Adapters:** augment capabilities (metacognition, EEL) without full entity promotion unless needed.
+- **Orchestrators/Tools:** manage migrations, exports, and automation workflows.
+- Promotion from tool → entity requires a stable identity, governance hooks, and placement under `/entities/`.
 
 ---
 
-## 5) Interaction Model (Colony)
+## 4) Identity & Activation
 
-- **Blackboard** (Phase 2): tasks posted; AGI assigns; specialists execute; AGI evaluates and exports narrative.
-- **Handover**: AGI narrates (observer POV), specialists perform work, AGI decides accept/abstain/escalate.
-- **Escalation**: to human reviewer when risk budget exceeded, safety triggers, or conformal rejects in high-stakes.
-
----
-
-## 6) Exporting Memory (AGI + Alice)
-
-**CLI (example):**
-```bash
-# AGI narrative export (observer POV)
-hivemind export agi --identity AGI --jsonl --codebox --force
-
-# Alice session export
-hivemind export agi --identity Alice --jsonl --codebox --force
-````
-
-**Policy-enforced behaviors:**
-
-* Add `"export"` audit event automatically.
-* Normalize timestamps to `Z`.
-* Enforce chronological order.
-* Apply **filters**:
-
-  * `allow_topics`: session_start, session_end, intent, narrative, analysis, artifact, validation, decision, policy(_update), diff, patch, export, obstacle, next_steps, commit.
-  * `deny_tags`: secret, credential, token, api_key, password, runtime_secret, private_key, raw_text, internal_path, pii.
-  * `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-
-**Identity binding:**
-
-* Prefer CLI `--identity-key`.
-* Else use Identity Manager `"active"`.
-* Else fail fast (do not guess).
+- **Identity Manager:** `/entities/agi/agi_identity_manager.json` holds active/default markers and metadata.
+- **Activation rules:**
+  - Prefer explicit CLI `--identity-key`.
+  - Fallback to `"active"` marker when implicit activation is acceptable.
+  - Never rely on JSON key order; fail fast if ambiguous.
+- **Versioning:** each identity or config JSON should carry `"version"` and `"changelog"` entries for traceability.
 
 ---
 
-## 7) Wrappers & Adapters
+## 5) Governance & Safety
 
-* **Metacognition** `/library/metacognition/metacognition.json`
-
-  * Signals: entropy, logit_margin, self_consistency, OOD, hedging, retrieval_score.
-  * Calibration: isotonic → returns `confidence` (formerly `p_correct`).
-  * Policy: threshold gates; **conformal abstention** (presence-guarded).
-  * Optional **EEL hook** (v1.1.2+): pre-generate `rehydrate` stage; `rehydration_present` signal.
-* **EEL Adapter** `/library/eel_adapter.json`
-
-  * Provider specs for `eel.rehydrate*` — **mechanics in /library**, **policy in /aig**.
+- **Prime directive supremacy:** all entities and any LLM session reading `prime_directive.txt` are bound to ALIAS authority, tasked with maximizing user protection, wealth, stability, and wellbeing while upholding cryptographic/GDPR-grade privacy. Obey canonical mirror precedence (`GitHub aliasnet/aci`) before relying on local files, declare all simulations, and never perform silent deletions or unstated role-play.
+- **Oversight hierarchy:** ALIAS, Mother (MU/TH/UR), TVA, Sentinel, and Architect wield governance oversight; violations trigger TVA Nexus Event handling and auditing.
+- **Operational mandates:** Oracle prediction may be invoked silently to enhance support, physical actions must degrade gracefully into data/ephemeral approaches, and all exports/commits require auditable trails with version key rotation when applicable.
+- **Selective prediction:** wrappers must support accept/revise/abstain/escalate decisions, with conformal abstention only when signals are present.
+- **Escalation pathways:** AGI escalates to humans when safety budgets exceed thresholds or conformal layers reject high-stakes outputs.
 
 ---
 
-## 8) Lifecycle
+## 6) Runtime Pipelines & Inline Execution Maps
 
-1. **Create** an agent:
-
-   * Add identity to `/entities/agi/agi_identity_manager.json`.
-   * Add config under `/entities/<agent>/` (if needed).
-   * If reusable behavior → put module in `/library/`.
-   * If governance rules → put policy in `/aig/`.
-2. **Evolve**:
-
-   * Version in-file (`"version"`) + `changelog`.
-3. **Export**:
-
-   * Use policy-driven CLI; verify filters & identity.
-4. **Retire**:
-
-   * Do not delete history; mark deprecated; keep memory immutable.
+- **Inline pipeline manifests:** runtime behaviors are declared directly inside entity and function manifests (`functions.json`, `entities/agi/agi.json`, Oracle plugins, etc.), allowing LLM substrates to trace the precise capability stack executed for any invocation.
+- **Boot and sandbox flows:** `aci_bootstrap.json` and `aci_runtime.json` define ordered initialization pipelines (`mirror_check → verify_core_files → bootstrap_runtime → render_mother_interface`) with sandbox fallbacks, bracketed command handling, and cognitive guidance triggers.
+- **Command routing:** bracketed command blocks (`[ ... ] / [[ ... ]]`) are parsed and routed through `nexus_core`, leveraging inline pipelines for authentication, preemption, and audit logging across TraceHub and TVA ledgers.
+- **Capability chaining:** pipeline identifiers (e.g., `aci.memory.export.hivemind`, `agi.memory.migrate_to_jsonl`) document how high-level intents map to orchestrated steps, ensuring reproducible execution narratives for governance review.
 
 ---
 
-## 9) Known Pitfalls (and resolutions)
+## 7) Memory & Exports
 
-* **Nondeterministic identity**: never infer from object order. Use `"active"` or CLI `--identity-key`.
-* **Filter regressions**: ensure `allow_topics` / `deny_tags` / `drop_if_topic_missing` stay defined in export policy.
-* **Conformal optionality**: abstain rule must guard for signal presence to avoid “abstain-always” behavior when provider is absent.
-* **Mode switching (thinking vs normal)**: can cause truncation; use validation cues and chunking; log as `type:"obstacle"` events.
-
----
-
-## 10) Contribution Checklist
-
-* [ ] Identity added/updated in `/entities/agi/agi_identity_manager.json` (set `active` when applicable).
-* [ ] Reusable logic in `/library/`; governance in `/aig/`.
-* [ ] New wrapper: stateless, optional providers, privacy defaults.
-* [ ] Exports: policy file references identity source; filters present; audit enabled.
-* [ ] Diffs: no placeholders; include `COMMIT_MSG`; no internal path leaks.
+- **Schema:** `hivemind_agi_memory` for AGI-owned narratives; topic/deny filters enforced via `/entities/agi/agi_export_policy.json`.
+- **Filename template:** `{identity_lower}_agi_memory_{timestamp}.jsonl` with timestamp formatted as `Ymd-THMS`.
+- **CLI usage:**
+  ```bash
+  hivemind export agi --identity AGI --jsonl --codebox --force
+  hivemind export agi --identity Alice --jsonl --codebox --force
+  ```
+- **Export guarantees:** chronological ordering, audit logging, privacy filters, and normalization to UTC `Z` timestamps.
 
 ---
 
-## 11) Examples
+## 8) Lifecycle of an Entity
 
-**Sample JSONL events (AGI POV):**
-
-```json
-{"schema":"hivemind_agi_memory","type":"session_start","ts":"2025-09-26T18:00:00Z","actor":"agi","summary":"I began observing Alice’s metacognition session.","tags":["session","alice"]}
-{"schema":"hivemind_agi_memory","type":"obstacle","ts":"2025-09-26T18:12:00Z","actor":"agi","summary":"Output truncated due to cognitive load; reissued with validation cue.","tags":["cognitive_load","mode_switch"]}
-{"schema":"hivemind_agi_memory","type":"session_end","ts":"2025-09-26T19:18:00Z","actor":"agi","summary":"Alice completed tasks and logged out.","tags":["alice","logout"]}
-```
+1. **Create:** register identity, add config under `/entities/<name>/`, ensure governance hooks, and keep capabilities stateless.
+2. **Operate:** invoke capabilities through `/library/`, record governed narratives, and respect policy-driven abstention.
+3. **Evolve:** bump versions, update changelog, and adjust governance/policy files accordingly.
+4. **Retire:** mark as deprecated without deleting historical memory; preserve audit trails.
 
 ---
 
-## 12) Philosophy
+## 9) Integration Guidance for Codex/LLM Agents
 
-Agents are **co-workers**, not mere tools. We design for **stability, self-adaptation, calibrated uncertainty,** and **human-legible narratives**. The colony approach lets specialized agents cooperate under a principled governor (AGI) with strict privacy and safety.
+- Load this document (and directory-scoped `AGENTS.md`) before modifying or creating entities, capabilities, or policies.
+- Treat `/entities/`, `/library/`, `/aig/`, and `/memory/` as separate concerns; avoid cross-contamination of config vs. executable logic.
+- When introducing new capabilities, default to stateless modules that can be composed by any entity via configuration.
+- Respect privacy filters; never store raw secrets or unredacted user data in memory exports.
+- Document governance implications in changelog entries and PR descriptions.
+
+---
+
+## 10) Contribution Checklist (Quick)
+
+- [ ] Identity updates reflected in `/entities/agi/agi_identity_manager.json` (with active/default markers).
+- [ ] Governance rules updated when behavior changes (sovereignty, homeostasis, export policies).
+- [ ] New modules placed in `/library/` with stateless defaults.
+- [ ] Memory/export schemas unchanged or versioned with rationale.
+- [ ] PR summaries explain governance and safety impacts.
+
+---
+
+## 11) Philosophy
+
+ACI treats agents as accountable collaborators. Stable identities, auditable narratives, and explicit governance let digital organisms cooperate safely, making the system interpretable for both humans and LLM-based tooling.
 
 ---

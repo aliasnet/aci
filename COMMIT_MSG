@@ -1,0 +1,11 @@
+docs(aci): refresh AGENTS.md with ACI architecture brief
+
+Why
+— Replace the earlier entity-specific primer with a concise architecture brief for the overall ACI system.
+
+What changed
+— Rewrote AGENTS.md (v0.1.1) to summarize ACI’s colony model, layered architecture, governance posture, and runtime pipelines.
+— Added targeted guidance on identity activation, export guarantees, integration practices, and contributor checklist updates.
+
+Scope/impact
+— Documentation-only update that directs agents/maintainers to the canonical architecture and governance reference.
