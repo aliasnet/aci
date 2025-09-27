@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 from pathlib import Path
 import unittest
 
@@ -10,6 +11,7 @@ import unittest
 MANIFEST_PATH = Path(__file__).resolve().parents[1] / "migrate_to_jsonl.json"
 AGI_CONFIG_PATH = Path(__file__).resolve().parents[2] / "agi.json"
 ARCHIVED_MODULE_PATH = Path(__file__).resolve().parent / "archive" / "migrate.py"
+EXPORT_POLICY_PATH = Path(__file__).resolve().parents[2] / "agi_export_policy.json"
 
 
 class MigrateToJsonlManifestTests(unittest.TestCase):
@@ -31,6 +33,17 @@ class MigrateToJsonlManifestTests(unittest.TestCase):
         self.assertIn("deny_tags", serialized)
         self.assertIn("drop_if_topic_missing", serialized)
         self.assertIn("default_topic", serialized)
+
+    def test_manifest_policy_default_is_repo_relative(self) -> None:
+        steps = self.manifest["steps"]
+        policy_step = next(
+            step
+            for step in steps
+            if step["call"] == "_args.get" and step["map"].get("key") == "policy"
+        )
+        default_path = policy_step["map"].get("default")
+        self.assertEqual(default_path, "entities/agi/agi_export_policy.json")
+        self.assertFalse(default_path.startswith("/"), "policy default should be repo-relative")
 
     def test_manifest_exposes_artifact_path_for_checksum(self) -> None:
         steps = self.manifest["steps"]
@@ -78,6 +91,35 @@ class MigrationModuleRetiredTests(unittest.TestCase):
             ARCHIVED_MODULE_PATH.exists(),
             "Archived migrate.py should still be available for historical reference",
         )
+
+
+class ExportPolicyPathTests(unittest.TestCase):
+    def test_identity_source_is_repo_relative(self) -> None:
+        with EXPORT_POLICY_PATH.open("r", encoding="utf-8") as handle:
+            policy = json.load(handle)
+
+        identity_source = policy["agi_memory"]["identity_source"]
+        self.assertEqual(identity_source, "entities/agi/agi_identity_manager.json")
+        self.assertFalse(identity_source.startswith("/"), "identity_source must remain repo-relative")
+
+
+class ArchivedMigratorPathResolutionTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        spec = importlib.util.spec_from_file_location(
+            "archived_migrate", str(ARCHIVED_MODULE_PATH)
+        )
+        module = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(module)
+        cls.module = module
+
+    def test_resolve_path_accepts_repo_relative_identity(self) -> None:
+        module = self.module
+        relative_identity = Path("entities/agi/agi_identity_manager.json")
+        resolved = module.resolve_path(relative_identity)
+        expected = (module.get_repo_root() / relative_identity).resolve()
+        self.assertEqual(resolved, expected)
 
 
 if __name__ == "__main__":  # pragma: no cover
