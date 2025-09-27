@@ -20,9 +20,22 @@
       "uses_cognitive_decision_guidance": true,
       "cognitive_guidance_ref": "aci_runtime.json#/aci_runtime/cognitive_decision_guidance"
     },
+    "references": {
+      "bifrost": "entities/bifrost/bifrost.json",
+      "aci_repo": "entities/aci_repo/aci_repo.json",
+      "github_connector": "connectors/github_connector.json"
+    },
     "routing": {
       "default_strategy": "deterministic_first_available",
-      "fallback_order": []
+      "fallback_order": [
+        "bifrost",
+        "github_connector"
+      ],
+      "external_resolution": {
+        "via": "bifrost",
+        "fallback": "github_connector",
+        "policy": "canonical_raw_first_then_local_fallback"
+      }
     },
     "interfaces": {
       "cli": {

@@ -1,6 +1,15 @@
 {
   "entities": {
     "version": "1.20250918.00",
+    "mirror_resolution_policy": {
+      "key": "github_connector",
+      "file": "connectors/github_connector.json",
+      "canonical_source": "github",
+      "repo": "aliasnet/aci",
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+      "priority": "canonical_raw_over_local",
+      "notes": "Canonical raw URLs take precedence over local copies; fall back to local entity manifests only when mirrors fail."
+    },
     "list": [
       {
         "id": 0,
@@ -201,6 +210,17 @@
       },
       {
         "id": 12,
+        "key": "bifrost",
+        "name": "Bifrost",
+        "alias": "Bifrost",
+        "role": "external network bridge, connector, sync adapter, network dependency index",
+        "abstract": "central external resource bridge and dependency index",
+        "knowledge_base": "connector orchestration & resolvers",
+        "functions": [],
+        "file": "bifrost.json"
+      },
+      {
+        "id": 13,
         "key": "pmu_adapter",
         "name": "PMU Adapter",
         "alias": "PMU Adapter",

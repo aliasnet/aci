@@ -1,4 +1,13 @@
 {
+  "mirror_resolution_policy": {
+    "key": "github_connector",
+    "file": "connectors/github_connector.json",
+    "canonical_source": "github",
+    "repo": "aliasnet/aci",
+    "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+    "priority": "canonical_raw_over_local",
+    "notes": "Canonical raw URLs take precedence over local copies; local function catalogs are fallback only when mirrors fail."
+  },
   "pipelines": {
     "aci.boot.activate": {
       "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",

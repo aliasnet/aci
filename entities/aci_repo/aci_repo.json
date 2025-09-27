@@ -3,6 +3,10 @@
   "entity": "ACI Repo",
   "role": "package_manager",
   "notes": "Standalone, mirror-agnostic package manager for ACI. All instructions inline; only external state file is aci_repo_manifest.",
+  "references": {
+    "connector": "connectors/github_connector.json",
+    "bifrost": "entities/bifrost/bifrost.json"
+  },
   "rules": {
     "safety": [
       "Sentinel audits all repo activity.",

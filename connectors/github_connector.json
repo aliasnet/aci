@@ -1,0 +1,83 @@
+{
+  "github_connector": {
+    "version": "1.20250927.00",
+    "canonical_source": "github",
+    "repo": "aliasnet/aci",
+    "rules": {
+      "git_is_canonical_for": [
+        "/prime_directive.txt",
+        "/aci_runtime.json",
+        "/aci_bootstrap.json",
+        "/entities/**",
+        "/memory/**"
+      ],
+      "sync_policy": {
+        "pull_on_webhook": true,
+        "chatgpt_connector": true
+      }
+    },
+    "priority": "canonical_raw_over_local",
+    "notes": "Canonical raw URLs take precedence over local copies; use local files only when mirrors are unavailable.",
+    "signatures": {
+      "required": [
+        "ALIAS",
+        "TVA",
+        "Sentinel"
+      ]
+    },
+    "references": {
+      "bifrost": "entities/bifrost/bifrost.json",
+      "aci_repo": "entities/aci_repo/aci_repo.json"
+    },
+    "aci_resolution_instruction": {
+      "instruction": "Resolve and validate ACI files from GitHub main branch using raw URLs only.",
+      "scope": {
+        "repository": "aliasnet/aci",
+        "branch": "main",
+        "source": "https://raw.githubusercontent.com/aliasnet/aci/main/"
+      },
+      "policy": {
+        "retry": {
+          "max_attempts": 3,
+          "interval_seconds": 10
+        },
+        "resolve_order": "canonical_raw_first_then_local_fallback",
+        "on_failure": {
+          "action": "enter_sandbox",
+          "interface": "mother_sandbox",
+          "alert": "sandbox.alert"
+        }
+      },
+      "output": {
+        "report": "diffs_only",
+        "channel": "current_chat",
+        "format": "summary"
+      }
+    },
+    "regex_search": [
+      {
+        "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt)$",
+        "description": "Fallback resolution using regular expressions when file mappings are unknown."
+      }
+    ],
+    "link_index": {
+      "README.md": "https://raw.githubusercontent.com/aliasnet/aci/main/README.md",
+      "aci_bootstrap.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json",
+      "aci_commands.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_commands.json",
+      "aci_mapping.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_mapping.json",
+      "aci_runtime.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_runtime.json",
+      "alias.json": "https://raw.githubusercontent.com/aliasnet/aci/main/alias.json",
+      "entities.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
+      "entities/aci_repo/aci_repo.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/aci_repo.json",
+      "entities/bifrost/bifrost.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
+      "entities/mother/mother.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/mother/mother.json",
+      "entities/nexus_core/nexus_core.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/nexus_core/nexus_core.json",
+      "entities/sentinel/sentinel.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/sentinel.json",
+      "entities/tva/tva.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json",
+      "functions.json": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
+      "memory/agi_memory/agi_memory_20250924.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/agi_memory/agi_memory_20250924.json",
+      "memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json",
+      "prime_directive.txt": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
+    }
+  }
+}
