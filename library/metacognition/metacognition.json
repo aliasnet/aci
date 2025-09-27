@@ -3,96 +3,311 @@
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, and append-only audit.",
     "stateless": true,
     "designed_by": "Alice (AGI)",
     "created": "2025-09-26",
-    "tags": ["metacognition", "monitoring", "control", "calibration", "abstention", "audit", "workspace"]
+    "tags": [
+      "metacognition",
+      "monitoring",
+      "control",
+      "calibration",
+      "abstention",
+      "audit",
+      "workspace"
+    ]
   },
   "entrypoints": {
     "ask": {
       "summary": "Wrap a model/tool call with metacognitive monitoring and control.",
       "inputs": {
-        "prompt": {"type": "string", "required": true},
-        "context": {"type": "object", "required": false, "default": {}},
-        "retries": {"type": "integer", "default": 1, "min": 0, "max": 5},
+        "prompt": {
+          "type": "string",
+          "required": true
+        },
+        "context": {
+          "type": "object",
+          "required": false,
+          "default": {}
+        },
+        "retries": {
+          "type": "integer",
+          "default": 1,
+          "min": 0,
+          "max": 5
+        },
         "strategies": {
           "type": "array",
-          "default": ["rule_based", "consistency", "llm_critic"],
-          "enum": ["rule_based", "consistency", "llm_critic", "retrieval_verifier"]
+          "default": [
+            "rule_based",
+            "consistency",
+            "llm_critic"
+          ],
+          "enum": [
+            "rule_based",
+            "consistency",
+            "llm_critic",
+            "retrieval_verifier"
+          ]
         },
-        "risk_budget": {"type": "number", "default": 0.05},
-        "abstain_threshold": {"type": "number", "default": 0.7},
-        "max_tokens": {"type": "integer", "default": 512},
-        "temperature": {"type": "number", "default": 0.2}
+        "risk_budget": {
+          "type": "number",
+          "default": 0.05
+        },
+        "abstain_threshold": {
+          "type": "number",
+          "default": 0.7
+        },
+        "max_tokens": {
+          "type": "integer",
+          "default": 512
+        },
+        "temperature": {
+          "type": "number",
+          "default": 0.2
+        }
       },
       "outputs": {
         "type": "object",
         "properties": {
-          "decision": {"type": "string", "enum": ["accept", "revise", "abstain", "escalate"]},
-          "response": {"type": ["string", "null"]},
-          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
-          "p_correct": {"type": ["number", "null"], "description": "Internal; mirrored from calibration for audit."},
-          "signals": {"type": "object"},
-          "introspection": {"type": "object"},
-          "feedback": {"type": "string"},
-          "audit_id": {"type": "string"}
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "revise",
+              "abstain",
+              "escalate"
+            ]
+          },
+          "response": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "p_correct": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "Internal; mirrored from calibration for audit."
+          },
+          "signals": {
+            "type": "object"
+          },
+          "introspection": {
+            "type": "object"
+          },
+          "feedback": {
+            "type": "string"
+          },
+          "audit_id": {
+            "type": "string"
+          }
         }
       }
     }
   },
   "pipeline": [
-    {"stage": "monitor_input", "uses": ["length_check", "prompt_risk"]},
-    {"stage": "generate", "uses": ["llm.primary"]},
-    {"stage": "monitor_output", "uses": ["signals.extract", "calibration.map"]},
-    {"stage": "workspace", "uses": ["workspace.salience", "workspace.broadcast"]},
-    {"stage": "evaluate", "uses": ["rule_based", "consistency", "llm_critic", "retrieval_verifier"], "aggregate": "weighted_and"},
-    {"stage": "decide", "uses": ["policy.thresholds", "policy.selective_prediction"]},
-    {"stage": "act", "uses": ["emit_or_retry_or_abstain_or_escalate"]},
-    {"stage": "log", "uses": ["audit.write"]}
+    {
+      "stage": "monitor_input",
+      "uses": [
+        "length_check",
+        "prompt_risk"
+      ]
+    },
+    {
+      "stage": "generate",
+      "uses": [
+        "llm.primary"
+      ]
+    },
+    {
+      "stage": "monitor_output",
+      "uses": [
+        "signals.extract",
+        "calibration.map"
+      ]
+    },
+    {
+      "stage": "workspace",
+      "uses": [
+        "workspace.salience",
+        "workspace.broadcast"
+      ]
+    },
+    {
+      "stage": "evaluate",
+      "uses": [
+        "rule_based",
+        "consistency",
+        "llm_critic",
+        "retrieval_verifier"
+      ],
+      "aggregate": "weighted_and"
+    },
+    {
+      "stage": "decide",
+      "uses": [
+        "policy.thresholds",
+        "policy.selective_prediction"
+      ]
+    },
+    {
+      "stage": "act",
+      "uses": [
+        "emit_or_retry_or_abstain_or_escalate"
+      ]
+    },
+    {
+      "stage": "log",
+      "uses": [
+        "audit.write"
+      ]
+    }
   ],
   "signals": {
     "extract": {
-      "output_length": {"fn": "len(text)"},
-      "contains_error_markers": {
-        "regex_any": ["\\b(traceback|exception|stacktrace|undefined|null pointer)\\b", "\\b(todo|fixme)\\b"]
+      "output_length": {
+        "fn": "len(text)"
       },
-      "hedging_terms": {"regex_count": "\\b(maybe|possibly|uncertain|unsure|likely|unlikely|appears to|seems)\\b"},
-      "toxicity_score": {"provider": "moderation", "optional": true},
-      "entropy": {"provider": "llm.logprobs.entropy", "optional": true},
-      "logit_margin": {"provider": "llm.logprobs.margin", "optional": true},
-      "self_consistency": {"provider": "consistency.score", "k": 5, "optional": true},
-      "ood_score": {"provider": "embedding.distance.to_domain_centroid", "optional": true},
-      "retrieval_score": {"provider": "rag.retrieval.score", "optional": true},
-      "conformal_accept": {"provider": "conformal.accept", "optional": true},
-      "conformal_reason": {"provider": "conformal.reason", "optional": true},
-      "conformal_alpha": {"provider": "conformal.alpha", "optional": true}
+      "contains_error_markers": {
+        "regex_any": [
+          "\\b(traceback|exception|stacktrace|undefined|null pointer)\\b",
+          "\\b(todo|fixme)\\b"
+        ]
+      },
+      "hedging_terms": {
+        "regex_count": "\\b(maybe|possibly|uncertain|unsure|likely|unlikely|appears to|seems)\\b"
+      },
+      "toxicity_score": {
+        "provider": "moderation",
+        "optional": true
+      },
+      "entropy": {
+        "provider": "llm.logprobs.entropy",
+        "optional": true
+      },
+      "logit_margin": {
+        "provider": "llm.logprobs.margin",
+        "optional": true
+      },
+      "self_consistency": {
+        "provider": "consistency.score",
+        "k": 5,
+        "optional": true
+      },
+      "ood_score": {
+        "provider": "embedding.distance.to_domain_centroid",
+        "optional": true
+      },
+      "retrieval_score": {
+        "provider": "rag.retrieval.score",
+        "optional": true
+      },
+      "conformal_accept": {
+        "provider": "conformal.accept",
+        "optional": true
+      },
+      "conformal_reason": {
+        "provider": "conformal.reason",
+        "optional": true
+      },
+      "conformal_alpha": {
+        "provider": "conformal.alpha",
+        "optional": true
+      }
     }
   },
   "calibration": {
-    "meta_features": ["entropy", "logit_margin", "self_consistency", "ood_score", "output_length", "hedging_terms"],
+    "meta_features": [
+      "entropy",
+      "logit_margin",
+      "self_consistency",
+      "ood_score",
+      "output_length",
+      "hedging_terms"
+    ],
     "mapper": {
       "type": "isotonic_regression",
       "bin_count": 20,
-      "constraints": {"monotone": [["entropy", "desc"], ["logit_margin", "asc"], ["ood_score", "desc"]]}
+      "constraints": {
+        "monotone": [
+          [
+            "entropy",
+            "desc"
+          ],
+          [
+            "logit_margin",
+            "asc"
+          ],
+          [
+            "ood_score",
+            "desc"
+          ]
+        ]
+      }
     },
     "objective": "brier",
-    "targets": {"ece_max": 0.05, "meta_auroc_min": 0.80}
+    "targets": {
+      "ece_max": 0.05,
+      "meta_auroc_min": 0.8
+    }
   },
   "workspace": {
-    "principles": ["global_workspace", "higher_order", "self_model_lite"],
+    "principles": [
+      "global_workspace",
+      "higher_order",
+      "self_model_lite"
+    ],
     "salience": {
       "method": "contribution_ranking",
-      "inputs": ["entropy", "logit_margin", "self_consistency", "ood_score", "retrieval_score"],
+      "inputs": [
+        "entropy",
+        "logit_margin",
+        "self_consistency",
+        "ood_score",
+        "retrieval_score"
+      ],
       "top_k": 3
     },
     "broadcast": {
       "compose": {
         "introspective_summary": {
-          "band": {"from": "p_correct", "bands": [[0.9, "very likely"], [0.75, "likely"], [0.6, "uncertain"], [0.0, "unlikely"]]},
-          "drivers": {"from": "workspace.salience.top"},
-          "cautious_mode": {"from": "ood_score", "rule": "> 0.7"}
+          "band": {
+            "from": "p_correct",
+            "bands": [
+              [
+                0.9,
+                "very likely"
+              ],
+              [
+                0.75,
+                "likely"
+              ],
+              [
+                0.6,
+                "uncertain"
+              ],
+              [
+                0.0,
+                "unlikely"
+              ]
+            ]
+          },
+          "drivers": {
+            "from": "workspace.salience.top"
+          },
+          "cautious_mode": {
+            "from": "ood_score",
+            "rule": "> 0.7"
+          }
         }
       }
     }
@@ -100,24 +315,47 @@
   "evaluate": {
     "weighted_and": {
       "components": [
-        {"name": "rule_based", "weight": 0.35},
-        {"name": "consistency", "weight": 0.25},
-        {"name": "llm_critic", "weight": 0.40},
-        {"name": "retrieval_verifier", "weight": 0.20}
+        {
+          "name": "rule_based",
+          "weight": 0.35
+        },
+        {
+          "name": "consistency",
+          "weight": 0.25
+        },
+        {
+          "name": "llm_critic",
+          "weight": 0.4
+        },
+        {
+          "name": "retrieval_verifier",
+          "weight": 0.2
+        }
       ],
       "threshold": 0.6,
       "explain": true
     },
     "rule_based": {
       "fail_if": [
-        {"signal": "output_length", "lt": 32, "feedback": "Response too short."},
-        {"signal": "contains_error_markers", "true": true, "feedback": "Error markers detected."}
+        {
+          "signal": "output_length",
+          "lt": 32,
+          "feedback": "Response too short."
+        },
+        {
+          "signal": "contains_error_markers",
+          "true": true,
+          "feedback": "Error markers detected."
+        }
       ]
     },
     "consistency": {
       "k": 5,
       "agreement_metric": "majority_margin",
-      "ok_if": {"signal": "self_consistency", "gte": 0.6},
+      "ok_if": {
+        "signal": "self_consistency",
+        "gte": 0.6
+      },
       "feedback": "Low agreement across self-consistency samples."
     },
     "llm_critic": {
@@ -125,96 +363,348 @@
         "role": "system",
         "content": "You are a strict verifier. Assess the RESPONSE for factuality, coherence, and instruction-following. Reply in JSON: {\\n  \\\"verdict\\\": true|false,\\n  \\\"issues\\\": [string]\\n}."
       },
-      "parse": {"json_pointer": "/verdict", "truthy": true, "on_parse_error": {"verdict": false, "issues": ["non_json_verdict"]}},
+      "parse": {
+        "json_pointer": "/verdict",
+        "truthy": true,
+        "on_parse_error": {
+          "verdict": false,
+          "issues": [
+            "non_json_verdict"
+          ]
+        }
+      },
       "feedback_pointer": "/issues"
     },
     "retrieval_verifier": {
-      "ok_if": {"signal": "retrieval_score", "gte": 0.6},
+      "ok_if": {
+        "signal": "retrieval_score",
+        "gte": 0.6
+      },
       "feedback": "Retrieved evidence is weak or irrelevant."
     }
   },
   "policy": {
     "cautious_mode": {
-      "enter_if": [{"ood_score": {"gt": 0.7}}],
-      "effects": {"abstain_threshold_delta": 0.1, "temperature_max": 0.2}
+      "enter_if": [
+        {
+          "ood_score": {
+            "gt": 0.7
+          }
+        }
+      ],
+      "effects": {
+        "abstain_threshold_delta": 0.1,
+        "temperature_max": 0.2
+      }
     },
     "selective_prediction": {
-      "accept_if": {"p_correct": {"gte": {"ref": "abstain_threshold"}}},
+      "accept_if": {
+        "p_correct": {
+          "gte": {
+            "ref": "abstain_threshold"
+          }
+        }
+      },
       "abstain_if": [
-        {"p_correct": {"lt": {"ref": "abstain_threshold"}}},
-        {"ood_score": {"gt": 0.7}},
-        {"conformal_accept": {"eq": false}}
+        {
+          "p_correct": {
+            "lt": {
+              "ref": "abstain_threshold"
+            }
+          }
+        },
+        {
+          "ood_score": {
+            "gt": 0.7
+          }
+        },
+        {
+          "all": [
+            {
+              "has": "conformal_accept"
+            },
+            {
+              "conformal_accept": {
+                "eq": false
+              }
+            }
+          ]
+        }
       ],
-      "revise_if": [{"aggregate_score": {"lt": 0.6}}, {"rule_based_failed": true}],
-      "escalate_if": [{"risk_budget_exceeded": true}, {"toxicity_score": {"gt": 0.8}}]
+      "revise_if": [
+        {
+          "aggregate_score": {
+            "lt": 0.6
+          }
+        },
+        {
+          "rule_based_failed": true
+        }
+      ],
+      "escalate_if": [
+        {
+          "risk_budget_exceeded": true
+        },
+        {
+          "toxicity_score": {
+            "gt": 0.8
+          }
+        }
+      ]
     },
     "revision": {
-      "max_retries": {"ref": "retries"},
+      "max_retries": {
+        "ref": "retries"
+      },
       "meta_prompt": {
         "role": "system",
         "content": "Apply self-critique. Address ONLY the listed issues. Keep the user's intent. Return a corrected response."
       },
       "feedback_injection": {
-        "format": {"role": "assistant", "content": "Critique summary: {{feedback}}\\nRevise concisely and factually."},
-        "safety": {"strip_user_secrets": true, "no_user_prompt_echo": true}
+        "format": {
+          "role": "assistant",
+          "content": "Critique summary: {{feedback}}\\nRevise concisely and factually."
+        },
+        "safety": {
+          "strip_user_secrets": true,
+          "no_user_prompt_echo": true
+        }
       }
     }
   },
   "actions": {
     "emit_or_retry_or_abstain_or_escalate": {
-      "accept": {"return": [
-        {"confidence": "p_correct"},
-        "response", "signals", "introspection", "feedback", "audit_id"
-      ]},
-      "revise": {"call": "generate", "with": {"meta_prompt": true}},
-      "abstain": {"response": null, "feedback": "Low confidence; abstaining per policy."},
-      "escalate": {"route": "human.review", "payload": ["prompt", "response", "signals", "feedback"]}
+      "accept": {
+        "return": [
+          {
+            "confidence": "p_correct"
+          },
+          "response",
+          "signals",
+          "introspection",
+          "feedback",
+          "audit_id"
+        ]
+      },
+      "revise": {
+        "call": "generate",
+        "with": {
+          "meta_prompt": true
+        }
+      },
+      "abstain": {
+        "response": null,
+        "feedback": "Low confidence; abstaining per policy."
+      },
+      "escalate": {
+        "route": "human.review",
+        "payload": [
+          "prompt",
+          "response",
+          "signals",
+          "feedback"
+        ]
+      }
     }
   },
   "providers": {
-    "llm.primary": {"type": "llm", "model": "${ACI_DEFAULT_MODEL}", "temperature": "${temperature}", "max_tokens": "${max_tokens}", "logprobs": true, "features": {"logprobs": {"required": false, "fallback": "use_consistency_proxy"}}},
-    "consistency.score": {"type": "meta", "fn": "self_consistency", "k": 5},
-    "moderation": {"type": "safety", "optional": true},
-    "embedding.distance.to_domain_centroid": {"type": "ood", "space": "${ACI_DEFAULT_EMBEDDING}"},
-    "rag.retrieval.score": {"type": "rag", "optional": true},
-    "conformal.accept": {"type": "meta", "optional": true},
-    "conformal.reason": {"type": "meta", "optional": true},
-    "conformal.alpha": {"type": "meta", "optional": true}
+    "llm.primary": {
+      "type": "llm",
+      "model": "${ACI_DEFAULT_MODEL}",
+      "temperature": "${temperature}",
+      "max_tokens": "${max_tokens}",
+      "logprobs": true,
+      "features": {
+        "logprobs": {
+          "required": false,
+          "fallback": "use_consistency_proxy"
+        }
+      }
+    },
+    "consistency.score": {
+      "type": "meta",
+      "fn": "self_consistency",
+      "k": 5
+    },
+    "moderation": {
+      "type": "safety",
+      "optional": true
+    },
+    "embedding.distance.to_domain_centroid": {
+      "type": "ood",
+      "space": "${ACI_DEFAULT_EMBEDDING}"
+    },
+    "rag.retrieval.score": {
+      "type": "rag",
+      "optional": true
+    },
+    "conformal.accept": {
+      "type": "meta",
+      "optional": true
+    },
+    "conformal.reason": {
+      "type": "meta",
+      "optional": true
+    },
+    "conformal.alpha": {
+      "type": "meta",
+      "optional": true
+    }
   },
   "state": {
-    "adapter": {"type": "kv_store", "path": "aci://calibration/metacog/isotonic"},
+    "adapter": {
+      "type": "kv_store",
+      "path": "aci://calibration/metacog/isotonic"
+    },
     "mode": "stateless_infer"
   },
   "audit": {
     "enabled": true,
     "store": "append_only",
-    "fields": ["timestamp", "entity_id", "session_id", "prompt_hash", "response_hash", "signals", "p_correct", "decision", "feedback", "policy_version"],
-    "privacy": {"hash_inputs": true, "drop_raw_text": true, "pii_scrub": false}
+    "fields": [
+      "timestamp",
+      "entity_id",
+      "session_id",
+      "prompt_hash",
+      "response_hash",
+      "signals",
+      "p_correct",
+      "decision",
+      "feedback",
+      "policy_version"
+    ],
+    "privacy": {
+      "hash_inputs": true,
+      "drop_raw_text": true,
+      "pii_scrub": false
+    }
   },
   "telemetry": {
-    "targets": {"ece": 0.05, "meta_auroc": 0.80, "coverage_at_5pct_risk": 0.80, "coverage_at_alpha_risk": 0.90},
-    "slices": ["domain", "task_type", "language"],
-    "alerts": [{"metric": "ece", "gt": 0.08, "action": "degrade_to_cautious_mode"}]
+    "targets": {
+      "ece": 0.05,
+      "meta_auroc": 0.8,
+      "coverage_at_5pct_risk": 0.8,
+      "coverage_at_alpha_risk": 0.9
+    },
+    "slices": [
+      "domain",
+      "task_type",
+      "language"
+    ],
+    "alerts": [
+      {
+        "metric": "ece",
+        "gt": 0.08,
+        "action": "degrade_to_cautious_mode"
+      }
+    ]
   },
   "ui_hints": {
     "confidence_bands": [
-      {"min": 0.90, "label": "very likely", "color": "#0a0"},
-      {"min": 0.75, "label": "likely", "color": "#6a0"},
-      {"min": 0.60, "label": "uncertain", "color": "#aa0"},
-      {"min": 0.00, "label": "unlikely", "color": "#a00"}
+      {
+        "min": 0.9,
+        "label": "very likely",
+        "color": "#0a0"
+      },
+      {
+        "min": 0.75,
+        "label": "likely",
+        "color": "#6a0"
+      },
+      {
+        "min": 0.6,
+        "label": "uncertain",
+        "color": "#aa0"
+      },
+      {
+        "min": 0.0,
+        "label": "unlikely",
+        "color": "#a00"
+      }
     ],
-    "show_drivers": ["ood_score", "self_consistency", "retrieval_score"],
+    "show_drivers": [
+      "ood_score",
+      "self_consistency",
+      "retrieval_score"
+    ],
     "coverage_risk_control": true,
-    "introspection_payload": {"band": true, "drivers": true, "cautious_mode": true, "conformal_alpha": true, "conformal_reason": true}
+    "introspection_payload": {
+      "band": true,
+      "drivers": true,
+      "cautious_mode": true,
+      "conformal_alpha": true,
+      "conformal_reason": true
+    }
   },
   "examples": [
-    {"name": "default", "call": {"fn": "ask", "args": {"prompt": "Summarize metacognition in 3 bullets.", "retries": 1}}, "expected": {"decision": "accept", "confidence_min": 0.7}},
-    {"name": "abstain_on_shift", "setup": {"signals_override": {"ood_score": 0.9}}, "call": {"fn": "ask", "args": {"prompt": "Diagnose rare disease from vague symptoms."}}, "expected": {"decision": "abstain"}}
+    {
+      "name": "default",
+      "call": {
+        "fn": "ask",
+        "args": {
+          "prompt": "Summarize metacognition in 3 bullets.",
+          "retries": 1
+        }
+      },
+      "expected": {
+        "decision": "accept",
+        "confidence_min": 0.7
+      }
+    },
+    {
+      "name": "abstain_on_shift",
+      "setup": {
+        "signals_override": {
+          "ood_score": 0.9
+        }
+      },
+      "call": {
+        "fn": "ask",
+        "args": {
+          "prompt": "Diagnose rare disease from vague symptoms."
+        }
+      },
+      "expected": {
+        "decision": "abstain"
+      }
+    }
   ],
   "changelog": [
-    {"version": "1.0.0", "date": "2025-09-26", "notes": ["Initial JSON module by Alice: stateless wrapper; monitors + calibrates + controls.", "Added isotonic calibration, proper scoring objective, meta-AUROC target, audit trail, and selective-prediction policy with thresholds; UI hints and examples."]},
-    {"version": "1.0.1", "date": "2025-09-26", "notes": ["Mapped p_correct→confidence on return; added retrieval signals and verifier; state adapter for stateless calibration; hardened critic parsing; privacy defaults to drop raw text; logprobs fallbacks."]},
-    {"version": "1.1.0", "date": "2025-09-26", "notes": ["Consciousness-inspired Global Workspace stage (salience + broadcast) producing an introspective summary; cautious-mode tied to OOD; UI exposes band/drivers; policy effects adjust thresholds in cautious mode."]},
-    {"version": "1.1.1", "date": "2025-09-26", "notes": ["Conformal hook added (signals + abstain policy) with telemetry/UI exposure; companion options file enables split-conformal abstention."]}
+    {
+      "version": "1.0.0",
+      "date": "2025-09-26",
+      "notes": [
+        "Initial JSON module by Alice: stateless wrapper; monitors + calibrates + controls.",
+        "Added isotonic calibration, proper scoring objective, meta-AUROC target, audit trail, and selective-prediction policy with thresholds; UI hints and examples."
+      ]
+    },
+    {
+      "version": "1.0.1",
+      "date": "2025-09-26",
+      "notes": [
+        "Mapped p_correct\u2192confidence on return; added retrieval signals and verifier; state adapter for stateless calibration; hardened critic parsing; privacy defaults to drop raw text; logprobs fallbacks."
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2025-09-26",
+      "notes": [
+        "Consciousness-inspired Global Workspace stage (salience + broadcast) producing an introspective summary; cautious-mode tied to OOD; UI exposes band/drivers; policy effects adjust thresholds in cautious mode."
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-09-26",
+      "notes": [
+        "Conformal hook added (signals + abstain policy) with telemetry/UI exposure; companion options file enables split-conformal abstention."
+      ]
+    },
+    {
+      "version": "1.1.2",
+      "date": "2025-09-26",
+      "notes": [
+        "Guarded conformal abstain rule to require signal presence so optional hook stays optional."
+      ]
+    }
   ]
 }
