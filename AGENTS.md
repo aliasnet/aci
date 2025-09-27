@@ -5,6 +5,7 @@ Version: 1.0.1 Audience: Machines, LLM agents, maintainers Scope: High-level nat
 ACI is a governed colony of cooperating digital organisms (entities) working under explicit policy and memory controls.
 Governance-first: safety, privacy, and escalation run through the AGI governor, with specialist entities acting by delegation.
 Stateless-by-default execution: capabilities live in /library/, identities/configs live in /entities/, governance in /aig/, and auditable traces in /memory/.
+High-risk actions must satisfy the sanity protocol documented in ./sanity.md before proceeding.
 1) System Nature
 Colony model: every agent is treated as a peer organism with a stable identity, narrative, and policy bindings.
 Governed autonomy: entities can reason/act but must obey sovereignty, export, and safety policies defined by the AGI layer.

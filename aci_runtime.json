@@ -94,7 +94,7 @@
       "url": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_github_resolver.json"
     },
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw URLs take precedence over local copies; fall back to local only if the remote mirror is unavailable.",
+    "notes": "Canonical raw URLs take precedence over local copies; fall back to local only if the remote mirror is unavailable. Enforcement Note: Consult sanity.md before runtime dispatch or override handling.",
     "cognitive_decision_guidance": {
       "version": "1.0",
       "scope": "universal",
