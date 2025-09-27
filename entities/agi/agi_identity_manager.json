@@ -1,5 +1,5 @@
 {
-  "$schema": "aci://schemas/agi-identity-manager-1.json",
+  "$schema": "/schemas/agi-identity-manager-1.json",
   "version": "1.0.0",
   "agi_identities": {
     "agi-001": {

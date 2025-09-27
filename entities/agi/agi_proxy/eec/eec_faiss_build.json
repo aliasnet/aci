@@ -2,7 +2,7 @@
   "extends": "eec_base.json",
   "task": "vector.build",
   "engine": "faiss",
-  "source": ["aci://docs/*.pdf", "aci://kb/*.md"],
+  "source": ["/docs/*.pdf", "/kb/*.md"],
   "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
   "index": { "type": "IVF_FLAT", "nlist": 4096 },
   "output": "temp://indices/agi.faiss",
