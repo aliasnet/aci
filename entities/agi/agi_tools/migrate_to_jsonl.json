@@ -1,0 +1,341 @@
+{
+  "version": "1.0",
+  "pipeline": "agi.memory.migrate_to_jsonl",
+  "description": "Migrate legacy HiveMind exports into the policy-compliant AGI JSONL memory artifact, applying identity and governance checks.",
+  "trigger": {
+    "type": "cli",
+    "pattern": "^aci\\s+memory\\s+migrate\\b",
+    "notes": "Invoke via: aci memory migrate --input <legacy.json> --output-dir <memory/agi_memory/...>"
+  },
+  "pipelines": {
+    "migrate.collect_messages": {
+      "description": "Load a legacy HiveMind export payload and surface the message-like records for downstream normalization.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "input_path",
+            "notes": "Capture the caller-supplied path to the legacy export artifact."
+          }
+        },
+        {
+          "call": "hivemind.read",
+          "map": {
+            "filename": "$steps.0.value",
+            "store_as": "migrate.raw_payload",
+            "notes": "Read the legacy export into memory without mutating the source file."
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "messages": "${migrate.raw_payload.messages?:migrate.raw_payload}",
+            "source_path": "$steps.0.value",
+            "instructions": [
+              "If the payload is a dict, prefer the `messages` field; otherwise treat the entire payload as an iterable of records.",
+              "Preserve original ordering; do not drop null or malformed entries yet—later stages handle validation."
+            ]
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    },
+    "migrate.normalize_messages": {
+      "description": "Normalize heterogeneous legacy message structures into the AGI JSONL schema.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "messages",
+            "notes": "Messages emitted from migrate.collect_messages."
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "messages": "$steps.0.value",
+            "instructions": [
+              "Ensure each message exposes `timestamp`, `role`, `entity`, `content`, and `metadata` keys.",
+              "Convert timestamps to UTC ISO-8601 with a trailing Z; infer missing metadata.topic via default_topic fallback.",
+              "Promote legacy keys such as `ts`, `actor`, or `text` into the canonical schema fields."
+            ]
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    },
+    "migrate.apply_filters": {
+      "description": "Apply policy-driven allow/deny topic filters across normalized messages.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "messages",
+            "notes": "Normalized messages waiting for governance filters."
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "policy_filters",
+            "notes": "Filter directives sourced from agi_export_policy.json."
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "messages": "$steps.0.value",
+            "policy": "$steps.1.value",
+            "instructions": [
+              "Retain only records whose metadata.topic exists in allow_topics (when defined).",
+              "Drop any entry containing tags from deny_tags while keeping an audit trail of removed items.",
+              "When drop_if_topic_missing is true, remove entries lacking metadata.topic after applying default_topic." 
+            ]
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    },
+    "migrate.apply_audit_requirements": {
+      "description": "Enforce policy audit requirements such as ordering, export markers, and ledger hints.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "messages",
+            "notes": "Filtered messages ready for audit enrichment."
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "audit",
+            "notes": "Audit section from the policy (may define ledger_path, required markers, etc.)."
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "messages": "$steps.0.value",
+            "audit": "$steps.1.value",
+            "instructions": [
+              "Sort messages chronologically by timestamp; break ties using original ordering.",
+              "Inject an `export` audit event if not already present, tagging it with exporter and policy versions.",
+              "Collect any ledger metadata required for downstream anchoring (checksum, counts, time range)."
+            ]
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    },
+    "migrate.write_jsonl": {
+      "description": "Render the vetted messages to disk using the policy's filename and path templates.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "messages"
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "output_dir"
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "policy"
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "identity"
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "artifact": {
+              "directory": "$steps.1.value",
+              "filename": "${policy.filename_template}",
+              "path_template": "${policy.path_template}",
+              "messages": "$steps.0.value",
+              "identity": "$steps.3.value",
+              "notes": [
+                "Materialize the output path by combining output_dir with policy.path_template when provided.",
+                "Render filename_template with identity metadata (identity_lower, timestamp formatted per timestamp_format).",
+                "Write the JSONL file in UTF-8 with one normalized message per line in chronological order."
+              ]
+            }
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    },
+    "migrate.write_checksum": {
+      "description": "Generate a SHA-256 checksum companion file for the exported JSONL artifact.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "artifact"
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "checksum": {
+              "algorithm": "sha256",
+              "artifact_path": "$steps.0.value.filename?:$steps.0.value.path",
+              "notes": [
+                "Read the rendered JSONL artifact from disk without mutating it.",
+                "Compute the SHA-256 digest and write it to <artifact>.sha256 with a trailing newline.",
+                "Return the checksum hex digest for ledger anchoring."
+              ]
+            }
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    },
+    "migrate.append_ledger": {
+      "description": "Append an audit ledger entry when the policy configures a ledger_path.",
+      "steps": [
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "artifact"
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "checksum"
+          }
+        },
+        {
+          "call": "_args.get",
+          "map": {
+            "key": "ledger_path"
+          }
+        },
+        {
+          "call": "_derive",
+          "map": {
+            "ledger": {
+              "path": "$steps.2.value",
+              "checksum": "$steps.1.value",
+              "artifact": "$steps.0.value",
+              "instructions": [
+                "If ledger_path is null or empty, skip ledger mutation.",
+                "Otherwise append a JSON line capturing artifact filename, checksum, identity, and timestamp range.",
+                "Treat the ledger as append-only and ensure writes are atomic (open in append mode, flush, fsync)."
+              ]
+            }
+          }
+        },
+        { "call": "_format.json" }
+      ]
+    }
+  },
+  "steps": [
+    {
+      "call": "_args.require",
+      "map": {
+        "key": "input",
+        "notes": "Path to the legacy export artifact that requires migration."
+      }
+    },
+    {
+      "call": "_args.require",
+      "map": {
+        "key": "output_dir",
+        "notes": "Destination directory where the JSONL artifact and checksum should be written."
+      }
+    },
+    {
+      "call": "_args.get",
+      "map": {
+        "key": "policy",
+        "default": "entities/agi/agi_export_policy.json",
+        "notes": "Allow callers to override the export policy; defaults to agi_export_policy.json."
+      }
+    },
+    {
+      "call": "policy.load",
+      "map": {
+        "path": "$steps.2.value",
+        "store_as": "policy",
+        "notes": "Load agi_export_policy.json so downstream steps can use agi_memory metadata, filters, and audit requirements."
+      }
+    },
+    {
+      "call": "identity.resolve",
+      "map": {
+        "policy": "$state.policy",
+        "identity_argument": "${args.identity}",
+        "notes": "Resolve identity via agi_identity_manager.json honoring explicit --identity overrides and policy identity_source."
+      }
+    },
+    {
+      "call": "migrate.collect_messages",
+      "map": {
+        "input_path": "$steps.0.value"
+      }
+    },
+    {
+      "call": "migrate.normalize_messages",
+      "map": {
+        "messages": "$steps.5.value.messages"
+      }
+    },
+    {
+      "call": "migrate.apply_filters",
+      "map": {
+        "messages": "$steps.6.value.messages",
+        "policy_filters": "$state.policy.agi_memory"
+      }
+    },
+    {
+      "call": "migrate.apply_audit_requirements",
+      "map": {
+        "messages": "$steps.7.value.messages",
+        "audit": "$state.policy.agi_memory.audit"
+      }
+    },
+    {
+      "call": "migrate.write_jsonl",
+      "map": {
+        "messages": "$steps.8.value.messages",
+        "output_dir": "$steps.1.value",
+        "policy": "$state.policy.agi_memory",
+        "identity": "$steps.4.value"
+      }
+    },
+    {
+      "call": "migrate.write_checksum",
+      "map": {
+        "artifact": "$steps.9.value.artifact"
+      }
+    },
+    {
+      "call": "migrate.append_ledger",
+      "map": {
+        "artifact": "$steps.9.value.artifact",
+        "checksum": "$steps.10.value.checksum",
+        "ledger_path": "$state.policy.agi_memory.audit.ledger_path"
+      }
+    },
+    {
+      "call": "_format.json",
+      "map": {
+        "artifact": "$steps.9.value",
+        "checksum": "$steps.10.value",
+        "notes": "Return a machine-readable summary of the migration results."
+      }
+    }
+  ]
+}
