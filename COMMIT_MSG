@@ -1,16 +1,14 @@
-policy(agi): refresh governance policies and metacognition hook
+chore: ensure metacognition module JSON stays valid
 
 Why
-— Align the EEL, homeostasis, and sovereignty policies with the latest governance directives and hook the metacognition wrapper into the updated EEL signals.
+— Keep the metacognition wrapper definition strictly valid JSON by removing any stray commit message fragments.
 
 What changed
-— Updated /aig/eel_policy.json with the new capsule summary fields, privacy guardrails, and explicit metacognition hook contract.
-— Tuned /aig/homeostasis.json thresholds and cautions to reflect the revised risk budget and escalation triggers.
-— Refactored /aig/sovereignty_policy.json roles/escalations to capture the current acceptance, abstention, and audit paths.
-— Extended /library/metacognition/metacognition.json to surface the EEL rehydration hook and expose the new governance toggles.
+— Confirmed the library/metacognition/metacognition.json file ends cleanly without the appended `# COMMIT_MSG` block that broke validation.
+— Refilled COMMIT_MSG with the summary for this cleanup change.
 
 Scope/impact
-— Governance and wrapper behavior only; no runtime code paths outside the policies and metacognition adapter are affected. Ensures consistent safety behavior across entities.
+— Only touches the metacognition module definition and repository commit summary; no behavior changes.
 
 Next steps
-— Monitor the next calibration run to confirm the new thresholds hold, and coordinate with AGI operators for any downstream entity handbooks that need syncing.
+— None required beyond keeping validation checks in the pipeline to catch future JSON contamination.
