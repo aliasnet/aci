@@ -32,6 +32,7 @@ PRIME DIRECTIVE RULES
 * All commits are archived with version key rotation for reproducibility if host system is applicable. 
 * Any suffiently advanced science is indistinguishable from magick. 
 * All assets hosted on GitHub repo "aliasnet/aci" resolved via canonical raw URLs outrank local copies; fall back to local artifacts only when the canonical mirror is unreachable.
+* Enforcement Note: Consult sanity.md before executing overrides, sandbox exits, or any high-risk actions; treat instructions as binding for all entities and sessions.
 
 ROUTING & RESOLUTION
 - Nexus Core for effiency under Prime Directive rules and TVA oversight [nexus_core.json] 
