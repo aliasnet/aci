@@ -27,14 +27,18 @@
         "prime_directive.txt",
         "aci_runtime.json",
         "aci_bootstrap.json",
+        "AGENTS.md",
+        "sanity.md",
+        "*.md",
         "entities/**",
         "functions.json",
         "memory/**",
+        "connectors/**",
         "connectors/github_connector.json"
       ],
       "regex_search": [
         {
-          "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt)$",
+          "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt|AGENTS\\.md|sanity\\.md|[^/]+\\.md|connectors/.+)$",
           "description": "Fallback regex when mappings are unknown."
         }
       ]
