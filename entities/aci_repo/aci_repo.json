@@ -4,8 +4,14 @@
   "role": "package_manager",
   "notes": "Standalone, mirror-agnostic package manager for ACI. All instructions inline; only external state file is aci_repo_manifest.",
   "references": {
-    "connector": "connectors/github_connector.json",
-    "bifrost": "entities/bifrost/bifrost.json"
+    "bifrost": "entities/bifrost/bifrost.json",
+    "github_connector": "connectors/github_connector.json"
+  },
+  "resolution_policy": {
+    "primary": "bifrost",
+    "fallback": "github_connector",
+    "policy": "canonical_raw_first_then_local_fallback",
+    "notes": "All external resolution flows through Bifrost first; connector is fallback for direct GitHub access."
   },
   "rules": {
     "safety": [

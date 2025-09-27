@@ -22,20 +22,23 @@
     },
     "references": {
       "bifrost": "entities/bifrost/bifrost.json",
-      "aci_repo": "entities/aci_repo/aci_repo.json",
       "github_connector": "connectors/github_connector.json"
+    },
+    "resolution_policy": {
+      "primary": "bifrost",
+      "fallback": "github_connector",
+      "policy": "canonical_raw_first_then_local_fallback",
+      "notes": "All external resolution flows through Bifrost first; connector is fallback for direct GitHub access."
+    },
+    "linkages": {
+      "aci_repo": "entities/aci_repo/aci_repo.json"
     },
     "routing": {
       "default_strategy": "deterministic_first_available",
       "fallback_order": [
         "bifrost",
         "github_connector"
-      ],
-      "external_resolution": {
-        "via": "bifrost",
-        "fallback": "github_connector",
-        "policy": "canonical_raw_first_then_local_fallback"
-      }
+      ]
     },
     "interfaces": {
       "cli": {
