@@ -16,7 +16,7 @@ The manifest-driven workflow performs the following high-level steps:
 3. Parse the legacy payload, normalize timestamps and message metadata, and enforce governance filters (`allow_topics`, `deny_tags`,
    `drop_if_topic_missing`, `default_topic`).
 4. Apply policy audit requirements (chronological ordering, export audit injection, optional ledger append).
-5. Write the normalized JSONL artifact alongside a SHA-256 checksum file in the requested output directory.
+5. Write the normalized JSONL artifact (stored with a `.json` suffix per policy) alongside a SHA-256 checksum file in the requested output directory.
 
 For detailed step definitions see the manifest itself. The archived Python utility can be referenced for historical behavior but is
 no longer executed directly.

@@ -14,7 +14,7 @@
     "note": null
   },
   "output": {
-    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.jsonl"
+    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
     "internet": false

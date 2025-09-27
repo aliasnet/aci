@@ -18,7 +18,7 @@
         "default_parameter": "--download --standard",
         "parameters": "--standard (semantic export baseline), --download (persist to file), --codebox (render in chat codebox), --weight (training-ready JSONL), --slice:<type> (session_only/full/range:<ts>/entity:<name>), --force (pause + export even if safeguards protest)",
         "description": "Exports the current HiveMind session snapshot with TVA + Sentinel oversight",
-        "output_default": "hivemind_memory_yyyymmdd-ThhmmssZ.jsonl"
+        "output_default": "hivemind_memory_summary_yyyymmdd-ThhmmssZ.json"
       },
       {
         "command": "hivemind export agi",
@@ -26,7 +26,7 @@
         "default_parameter": "--download --standard",
         "parameters": "Delegates to AGI export policies; see entities/agi/agi.json for schema.",
         "description": "Invokes the AGI-managed export pipeline under HiveMind governance",
-        "output_default": "agi_memory/<identity>/<identity>_agi_memory_yyyymmdd-ThhmmssZ.jsonl"
+        "output_default": "agi_memory/<identity>/<identity>_agi_memory_summary_yyyymmdd-ThhmmssZ.json"
       },
       {
         "command": ":hivemind help",

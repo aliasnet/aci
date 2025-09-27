@@ -21,7 +21,7 @@ Key behaviors implemented:
 Usage example::
 
     python entities/agi/agi_tools/migrate_to_jsonl/migrate.py \
-        --input memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json \
+        --input memory/hivemind_memory/hivemind_memory_operational_20250919T161225Z.json \
         --output-dir memory/agi_memory/exports \
         --default-topic theories
 
@@ -49,6 +49,8 @@ POLICY_FILE = ROOT / "agi_export_policy.json"
 FILESYSTEM_ROOT = Path("/")
 
 REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
+
+SUMMARY_SANITIZE_PATTERN = re.compile(r"[^a-z0-9_-]+")
 
 
 class MigrationError(RuntimeError):
@@ -171,7 +173,8 @@ def load_policy(policy_path: Path = POLICY_FILE) -> Dict[str, Any]:
         raise MigrationError("agi_export_policy.json must define agi_memory block")
 
     filename_template = memory.get(
-        "filename_template", "{identity_lower}_agi_memory_{timestamp}.jsonl"
+        "filename_template",
+        "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json",
     )
     timestamp_format_hint = memory.get("timestamp_format", "Ymd-THMSZ")
 
@@ -453,17 +456,46 @@ def resolve_topic(
     return "general"
 
 
+def sanitize_summary_slug(summary: Optional[str]) -> str:
+    """Normalize summary text into a safe filename slug."""
+
+    if not summary:
+        return ""
+
+    normalized = summary.strip().lower()
+    if not normalized:
+        return ""
+
+    normalized = normalized.replace(" ", "_")
+    normalized = normalized.replace("/", "_")
+    normalized = normalized.replace("\\", "_")
+    normalized = normalized.replace(".", "_")
+
+    ascii_normalized = normalized.encode("ascii", "ignore").decode("ascii")
+    ascii_normalized = SUMMARY_SANITIZE_PATTERN.sub("", ascii_normalized)
+    ascii_normalized = re.sub(r"_+", "_", ascii_normalized)
+    ascii_normalized = re.sub(r"-+", "-", ascii_normalized)
+    ascii_normalized = ascii_normalized.strip("_-")
+
+    if not ascii_normalized:
+        return ""
+
+    return f"_{ascii_normalized}"
+
+
 def generate_filename(
     identity_name: str,
     timestamp: dt.datetime,
     template: str,
     timestamp_format: str,
+    summary: Optional[str] = None,
 ) -> str:
     normalized = identity_name.replace(" ", "_")
     context = {
         "identity": normalized,
         "identity_lower": normalized.lower(),
         "timestamp": timestamp.strftime(timestamp_format),
+        "summary_slug": sanitize_summary_slug(summary),
     }
     return template.format(**context)
 
