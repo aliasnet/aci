@@ -1,7 +1,10 @@
 """Tests for migrate_to_jsonl helpers."""
 
 import json
+import os
+import tempfile
 import unittest
+from pathlib import Path
 
 from entities.agi.agi_tools.migrate_to_jsonl import migrate
 
@@ -53,6 +56,46 @@ class NormalizeTimestampTests(unittest.TestCase):
             migrate.normalize_timestamp(naive_message),
             "2023-05-05T12:34:56Z",
         )
+
+
+class ResolvePathTests(unittest.TestCase):
+    def test_policy_identity_source_honors_repo_override(self) -> None:
+        original_repo_root = os.environ.get("ACI_REPO_ROOT")
+        with tempfile.TemporaryDirectory() as tmpdir:
+            repo_root = Path(tmpdir)
+            identity_dir = repo_root / "entities" / "agi"
+            identity_dir.mkdir(parents=True)
+            identity_data = {
+                "agi_identities": {
+                    "agi-001": {"key": "AGI"},
+                    "agi-external": {"key": "external", "role": "external"},
+                }
+            }
+            identity_path = identity_dir / "agi_identity_manager.json"
+            identity_path.write_text(json.dumps(identity_data), encoding="utf-8")
+
+            policy_path = identity_dir / "agi_export_policy.json"
+            policy_data = {
+                "agi_memory": {
+                    "identity_source": "/workspace/aci/entities/agi/agi_identity_manager.json"
+                }
+            }
+            policy_path.write_text(json.dumps(policy_data), encoding="utf-8")
+
+            os.environ["ACI_REPO_ROOT"] = str(repo_root)
+            try:
+                policy = migrate.load_policy(policy_path)
+                resolved_identity_path = migrate.resolve_path(policy["identity_source"])
+                self.assertEqual(resolved_identity_path, identity_path.resolve())
+
+                identity = migrate.load_identity(resolved_identity_path)
+                self.assertEqual(identity["active_id"], "agi-001")
+                self.assertEqual(identity["active_name"], "AGI")
+            finally:
+                if original_repo_root is None:
+                    os.environ.pop("ACI_REPO_ROOT", None)
+                else:
+                    os.environ["ACI_REPO_ROOT"] = original_repo_root
 
 
 class CLISmokeTests(unittest.TestCase):
