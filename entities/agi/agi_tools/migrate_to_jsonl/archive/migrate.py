@@ -49,7 +49,15 @@ POLICY_FILE = ROOT / "agi_export_policy.json"
 FILESYSTEM_ROOT = Path("/")
 
 REQUIRED_KEYS = ("timestamp", "role", "identity", "content", "metadata")
-LEGACY_IDENTITY_KEYS = ("entity",)
+LEGACY_IDENTITY_KEYS = (
+    "entity",
+    "actor",
+    "speaker",
+    "author",
+    "by",
+    "name",
+    "role",
+)
 
 
 class MigrationError(RuntimeError):
