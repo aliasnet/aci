@@ -48,7 +48,16 @@ POLICY_FILE = ROOT / "agi_export_policy.json"
 
 FILESYSTEM_ROOT = Path("/")
 
-REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
+REQUIRED_KEYS = ("timestamp", "role", "identity", "content", "metadata")
+LEGACY_IDENTITY_KEYS = (
+    "entity",
+    "actor",
+    "speaker",
+    "author",
+    "by",
+    "name",
+    "role",
+)
 
 SUMMARY_SANITIZE_PATTERN = re.compile(r"[^a-z0-9_-]+")
 
@@ -230,7 +239,7 @@ def collect_candidate_messages(payload: Any) -> List[Dict[str, Any]]:
 
 
 MESSAGE_TEXT_KEYS = ("content", "text", "message", "body")
-MESSAGE_ROLE_KEYS = ("role", "entity", "speaker", "author", "by", "name")
+MESSAGE_ROLE_KEYS = ("role", "identity", "entity", "actor", "speaker", "author", "by", "name")
 MESSAGE_TIMESTAMP_KEYS = (
     "timestamp",
     "ts",
@@ -343,7 +352,9 @@ def normalize_role_entity(
     identity: Dict[str, Any],
 ) -> Tuple[str, str, bool, str]:
     original = str(
-        message.get("entity")
+        message.get("identity")
+        or message.get("actor")
+        or message.get("entity")
         or message.get("role")
         or message.get("speaker")
         or message.get("author")
@@ -501,6 +512,24 @@ def generate_filename(
 
 
 def validate_line(entry: Dict[str, Any]) -> None:
+    if "identity" not in entry:
+        for legacy_key in LEGACY_IDENTITY_KEYS:
+            if legacy_key in entry:
+                legacy_value = entry[legacy_key]
+                entry["identity"] = legacy_value
+
+                if legacy_key not in REQUIRED_KEYS:
+                    entry.pop(legacy_key)
+
+                existing_metadata = entry.get("metadata", {})
+                if isinstance(existing_metadata, dict):
+                    metadata = existing_metadata
+                else:
+                    metadata = {"legacy_metadata": existing_metadata}
+                metadata.setdefault("legacy_identity_key", legacy_key)
+                entry["metadata"] = metadata
+                break
+
     missing = [key for key in REQUIRED_KEYS if key not in entry]
     if missing:
         raise MigrationError(f"Export line missing required keys: {missing}")
@@ -603,12 +632,12 @@ def migrate_file(
         entry = {
             "timestamp": timestamp_str,
             "role": role,
-            "entity": entity,
+            "identity": entity,
             "content": normalize_content(message),
             "metadata": metadata,
         }
         validate_line(entry)
-        dedup_key = (entry["timestamp"], entry["entity"], entry["content"])
+        dedup_key = (entry["timestamp"], entry["identity"], entry["content"])
         if dedup_key in dedup:
             continue
         dedup.add(dedup_key)
