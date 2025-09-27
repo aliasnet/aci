@@ -32,6 +32,22 @@ class MigrateToJsonlManifestTests(unittest.TestCase):
         self.assertIn("drop_if_topic_missing", serialized)
         self.assertIn("default_topic", serialized)
 
+    def test_manifest_exposes_artifact_path_for_checksum(self) -> None:
+        steps = self.manifest["steps"]
+        write_step = next(step for step in steps if step["call"] == "migrate.write_jsonl")
+        write_map = write_step["map"]
+        self.assertIn("path_template", write_map)
+        self.assertIn("filename_template", write_map)
+        self.assertIn("timestamp_format", write_map)
+
+        checksum_step = next(step for step in steps if step["call"] == "migrate.write_checksum")
+        checksum_map = checksum_step["map"]
+        self.assertEqual(checksum_map["path"], "$steps.9.value.path")
+        self.assertEqual(checksum_map["artifact"], "$steps.9.value")
+
+        ledger_step = next(step for step in steps if step["call"] == "migrate.append_ledger")
+        self.assertEqual(ledger_step["map"]["artifact"], "$steps.9.value")
+
     def test_manifest_sequences_checksum_and_ledger(self) -> None:
         calls = [step["call"] for step in self.manifest["steps"]]
         self.assertIn("migrate.write_checksum", calls)

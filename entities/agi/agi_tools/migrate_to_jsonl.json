@@ -83,14 +83,18 @@
         "output_dir": "$steps.1.value",
         "policy": "$state.policy.agi_memory",
         "identity": "$steps.4.value",
-        "notes": "Render the JSONL artifact using the path_template, filename_template, and timestamp_format defined in agi_memory."
+        "path_template": "$state.policy.agi_memory.path_template",
+        "filename_template": "$state.policy.agi_memory.filename_template",
+        "timestamp_format": "$state.policy.agi_memory.timestamp_format",
+        "notes": "Render the JSONL artifact using the path_template, filename_template, and timestamp_format defined in agi_memory and expose the absolute artifact.path for downstream checksum and ledger steps."
       }
     },
     {
       "call": "migrate.write_checksum",
       "map": {
         "artifact": "$steps.9.value",
-        "notes": "Emit a SHA-256 checksum companion file for the generated JSONL artifact."
+        "path": "$steps.9.value.path",
+        "notes": "Emit a SHA-256 checksum companion file for the generated JSONL artifact using the absolute artifact.path."
       }
     },
     {
