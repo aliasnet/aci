@@ -35,20 +35,72 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Union
 
+DEFAULT_REPO_ROOT = Path(__file__).resolve().parents[4]
 ROOT = Path(__file__).resolve().parents[2]
 IDENTITY_FILE = ROOT / "agi_identity_manager.json"
 POLICY_FILE = ROOT / "agi_export_policy.json"
+
+WORKSPACE_PREFIX = Path("/workspace/aci")
 
 REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
 
 
 class MigrationError(RuntimeError):
     """Raised when validation fails during migration."""
+
+
+def get_repo_root() -> Path:
+    """Return the repository root, honoring ``ACI_REPO_ROOT`` overrides."""
+
+    env_root = os.environ.get("ACI_REPO_ROOT")
+    if not env_root:
+        return DEFAULT_REPO_ROOT
+    candidate = Path(env_root).expanduser()
+    if not candidate.is_absolute():
+        candidate = (DEFAULT_REPO_ROOT / candidate).resolve()
+    return candidate
+
+
+def resolve_path(
+    reference: Union[str, Path], *, repo_root: Optional[Path] = None
+) -> Path:
+    """Resolve ``reference`` against the active repository root."""
+
+    path = Path(reference).expanduser()
+    base_root = repo_root or get_repo_root()
+
+    if path.is_absolute():
+        fallbacks: List[Path] = []
+
+        try:
+            relative = path.relative_to(WORKSPACE_PREFIX)
+        except ValueError:
+            relative = None
+        if relative is not None:
+            fallbacks.append(base_root / relative)
+
+        if len(path.parts) > 1:
+            anchor = path.parts[1]
+            if anchor in {"entities", "memory", "library", "aig"}:
+                fallbacks.append(base_root / Path(*path.parts[1:]))
+
+        for candidate in fallbacks:
+            resolved_candidate = candidate.resolve()
+            if resolved_candidate.exists():
+                return resolved_candidate
+        if fallbacks:
+            return fallbacks[0].resolve()
+        if path.exists():
+            return path
+        return path
+
+    return (base_root / path).resolve()
 
 
 def load_json(path: Path) -> Any:
@@ -600,8 +652,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     output_dir = Path(args.output_dir).resolve()
 
     try:
-        identity = load_identity(Path(args.identity), args.identity_key)
-        policy = load_policy(Path(args.policy))
+        identity_path = resolve_path(args.identity)
+        policy_path = resolve_path(args.policy)
+        identity = load_identity(identity_path, args.identity_key)
+        policy = load_policy(policy_path)
 
         migrated_any = False
         for file_path in discover_input_files(input_path):
