@@ -106,6 +106,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ## 4) Governance & Safety
 
 - **Prime directive** governs all agents (separate doc).
+- **Sanity protocol** (`./sanity.md`) — checklist for high-risk actions and mitigation of Codex-reported bugs before any override or sandbox exit.
 - **AGI governance layer** (`/aig/`):
   - `sovereignty_policy.json` — who may accept/revise/abstain/escalate/export.
   - `homeostasis.json` — set-points: **ECE ≤ 0.05**, **meta-AUROC ≥ 0.80**, **coverage@α ≥ 0.90**; enters **cautious mode** when OOD/ECE exceed thresholds.
