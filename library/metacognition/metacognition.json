@@ -1,5 +1,5 @@
 {
-  "$schema": "aci://schemas/metacognition-module-1.json",
+  "$schema": "/schemas/metacognition-module-1.json",
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
@@ -632,7 +632,7 @@
   "state": {
     "adapter": {
       "type": "kv_store",
-      "path": "aci://calibration/metacog/isotonic"
+      "path": "/calibration/metacog/isotonic"
     },
     "mode": "stateless_infer"
   },

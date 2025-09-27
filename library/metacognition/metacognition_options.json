@@ -1,5 +1,5 @@
 {
-  "$schema": "aci://schemas/metacognition-library-1.json",
+  "$schema": "/schemas/metacognition-library-1.json",
   "library": {
     "id": "aci.metacog.options",
     "name": "MetacognitionOptions",
@@ -16,7 +16,7 @@
     "conformal.alpha": {"spec": {"inputs": [], "output": {"alpha": "number"}}}
   },
   "calibration": {
-    "isotonic_map": {"format": {"bins": "array[number]", "probs": "array[number]"}, "storage": "aci://calibration/metacog/isotonic"},
+    "isotonic_map": {"format": {"bins": "array[number]", "probs": "array[number]"}, "storage": "/calibration/metacog/isotonic"},
     "trainer_stub": {"objective": "brier", "slices": ["domain", "task_type", "language"], "note": "Offline trainer only; not required for inference."}
   },
   "workspace": {

@@ -10,7 +10,7 @@
     "target_modules": ["q_proj", "v_proj"]
   },
   "train": {
-    "dataset": "aci://datasets/curriculum_v1.jsonl",
+    "dataset": "/datasets/curriculum_v1.jsonl",
     "epochs": 1,
     "bsz": 4,
     "lr": 0.0002,

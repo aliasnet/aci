@@ -1,5 +1,5 @@
 {
-  "$schema": "aci://schemas/agi-export-policy-1.json",
+  "$schema": "/schemas/agi-export-policy-1.json",
   "version": "1.0.0",
   "agi_memory": {
     "schema": "hivemind_agi_memory",

@@ -2,7 +2,7 @@
   "extends": "eec_base.json",
   "task": "trainer.sft",
   "base_model": "meta-llama/Llama-3-8b-instruct",
-  "dataset": "aci://datasets/sft_pairs.jsonl",
+  "dataset": "/datasets/sft_pairs.jsonl",
   "trainer": {
     "use_accelerate": true,
     "gradient_checkpointing": true,
