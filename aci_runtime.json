@@ -16,12 +16,17 @@
       "path": "entities/nexus_core/nexus_core.json",
       "priority": 95
     },
+    "sanity_protocol": {
+      "path": "sanity.md",
+      "priority": 80
+    },
     "sandbox_mode": {
       "enabled": true,
       "core_files": [
         "aci_runtime.json",
         "aci_bootstrap.json",
-        "prime_directive.txt"
+        "prime_directive.txt",
+        "sanity.md"
       ],
       "initialization_sequence": [
         {

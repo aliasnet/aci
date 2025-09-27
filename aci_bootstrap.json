@@ -47,7 +47,8 @@
       "promotion_required_files": [
         "entities/nexus_core/nexus_core.json",
         "entities.json",
-        "functions.json"
+        "functions.json",
+        "sanity.md"
       ],
       "retry": {
         "max_attempts": 3,
