@@ -3,7 +3,7 @@
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, and append-only audit.",
     "stateless": true,
     "designed_by": "Alice (AGI)",
@@ -30,6 +30,15 @@
           "type": "object",
           "required": false,
           "default": {}
+        },
+        "rehydration_capsule": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": false,
+          "description": "Optional Ephemeral Ecosystem Layer capsule used to rehydrate transient context.",
+          "default": null
         },
         "retries": {
           "type": "integer",
@@ -115,6 +124,16 @@
     }
   },
   "pipeline": [
+    {
+      "stage": "rehydrate",
+      "when": {
+        "has": "rehydration_capsule"
+      },
+      "uses": [
+        "eel.rehydrate",
+        "workspace.rehydrate.merge"
+      ]
+    },
     {
       "stage": "monitor_input",
       "uses": [
@@ -222,6 +241,18 @@
       "conformal_alpha": {
         "provider": "conformal.alpha",
         "optional": true
+      },
+      "rehydration_present": {
+        "optional": true,
+        "provider": "eel.rehydrate.present"
+      },
+      "rehydration_summary": {
+        "optional": true,
+        "provider": "eel.rehydrate.summary"
+      },
+      "rehydration_topics": {
+        "optional": true,
+        "provider": "eel.rehydrate.topics"
       }
     }
   },
@@ -549,6 +580,31 @@
     "conformal.alpha": {
       "type": "meta",
       "optional": true
+    },
+    "eel.rehydrate": {
+      "optional": true,
+      "type": "eel",
+      "capsule": "${rehydration_capsule}"
+    },
+    "workspace.rehydrate.merge": {
+      "optional": true,
+      "type": "workspace",
+      "from": "eel.rehydrate"
+    },
+    "eel.rehydrate.present": {
+      "optional": true,
+      "type": "eel",
+      "signal": "present"
+    },
+    "eel.rehydrate.summary": {
+      "optional": true,
+      "type": "eel",
+      "signal": "summary"
+    },
+    "eel.rehydrate.topics": {
+      "optional": true,
+      "type": "eel",
+      "signal": "topics"
     }
   },
   "state": {
@@ -634,6 +690,12 @@
       "cautious_mode": true,
       "conformal_alpha": true,
       "conformal_reason": true
+    },
+    "rehydration": {
+      "show_when": "rehydration_present",
+      "summary_signal": "rehydration_summary",
+      "topics_signal": "rehydration_topics",
+      "badge_label": "Rehydrated context"
     }
   },
   "examples": [
@@ -704,6 +766,14 @@
       "date": "2025-09-26",
       "notes": [
         "Guarded conformal abstain rule to require signal presence so optional hook stays optional."
+      ]
+    },
+    {
+      "version": "1.1.3",
+      "date": "2025-09-26",
+      "notes": [
+        "Layered optional Ephemeral Ecosystem Layer integration: capsule input, rehydrate stage, provider + signal wiring, and UI hints.",
+        "Documented continuity with the conformal abstain presence guard to keep selective prediction compliant."
       ]
     }
   ]
