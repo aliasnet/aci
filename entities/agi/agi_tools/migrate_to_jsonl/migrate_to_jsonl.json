@@ -1,0 +1,26 @@
+{
+  "$schema": "/schemas/aci-tool-spec-1.json",
+  "version": "1.0.0",
+  "name": "agi.migrate_to_jsonl",
+  "description": "Manifest-driven migration to JSONL artifacts; no Python runtime.",
+  "inputs": {
+    "source_globs": ["memory/**/*.json", "memory/**/*.ndjson", "hivemind/**/*.json"],
+    "allow_ext": [".json", ".ndjson", ".jsonl", ".jsonl.json"]
+  },
+  "outputs": {
+    "target_ext": ".jsonl.json",
+    "dedupe": true,
+    "stable_order": true
+  },
+  "rules": {
+    "no_comments": true,
+    "newline_eof": true,
+    "alpha_keys": true
+  },
+  "steps": [
+    {"op":"scan","from":"${inputs.source_globs}"},
+    {"op":"normalize_records","mode":"jsonl"},
+    {"op":"write","ext":"${outputs.target_ext}"},
+    {"op":"validate","schema":"/schemas/hivemind_agi_memory.json"}
+  ]
+}

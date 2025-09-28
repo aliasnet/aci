@@ -174,3 +174,11 @@ Document governance implications in changelog entries and PR descriptions.
  PR summaries explain governance and safety impacts.
 11) Philosophy
 ACI treats agents as accountable collaborators. Stable identities, auditable narratives, and explicit governance let digital organisms cooperate safely, making the system interpretable for both humans and LLM-based tooling.
+
+## JSON Alternative for AGI Memory Migration (deprecates migrator.py)
+- Tool: `agi.migrate_to_jsonl` (JSON spec; no Python runtime)
+- Memory artifacts: `.jsonl.json` (JSONL content with .json compatibility)
+- Deterministic readiness reply after each action:
+```json
+{"action":"<op>","branch":"<branch>","merged":true|false,"conflicts":true|false,"ready_for_close":true|false,"notes":"<short>","next":"<short>","validation":{"base_synced":true|false,"tests_passed":true|false,"pr_exists":true|false,"pending_tasks":0}}
+```

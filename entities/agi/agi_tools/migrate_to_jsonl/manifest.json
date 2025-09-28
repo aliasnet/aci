@@ -1,0 +1,12 @@
+{
+  "tool": "agi.migrate_to_jsonl",
+  "runner": "json-spec",
+  "entrypoint": "entities/agi/agi_tools/migrate_to_jsonl/migrate_to_jsonl.json",
+  "accept_memory_ext": [".jsonl.json", ".jsonl", ".json"],
+  "deprecates": ["migrator.py"],
+  "removal": {
+    "allowed": true,
+    "on_or_after": "2025-10-01",
+    "notes": "Python migrator replaced by JSON spec to eliminate conflict loops."
+  }
+}
