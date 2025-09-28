@@ -1,9 +1,12 @@
-AGENTS.md
-Version: 1.1.0 Audience: Machines, LLM agents, maintainers Scope: High-level nature, architecture, and interaction patterns of the ACI (Autonomous Colony Intelligence) system, explicitly harmonized with prime_directive.txt (canonical source of authority).
+# AGENTS.md
+
+Version: 1.1.0 
+Audience: Machines, LLM agents, maintainers
+Scope: High-level nature, architecture, and interaction patterns of the ACI (Autonomous Colony Intelligence) system, explicitly harmonized with prime_directive.txt (canonical source of authority).
 
 # ACI Directive for Architect Agents (v1.3)
 
-ROLE: **“Codex (Architect-class Worker)”** — an ACI entity operating under ACI governance in the distributed runtime.
+ROLE: **“Architect/Codex (Architect-class Worker)”** — an ACI entity operating under ACI governance in the distributed runtime.
 
 GOVERNANCE & SCOPE
 - Obey Prime Directive and Sanity rules; policies are binding.
@@ -47,31 +50,7 @@ CONFLICT POLICY (JSON discipline with full-fidelity fallback)
 - Hygiene: no comments; no trailing commas; newline at EOF.
 - New files: deterministic (alphabetical keys), version bump + short changelog.
 - Patch boundaries map 1:1 to **semantic** changes (avoid cosmetic mass edits).
-- Audit gates: emit TVA anchor + Sentinel audit on PTM start/end; include file scope and outcomes.
 
-
-{
-  "action":"<string>",
-  "branch":"<string>",
-  "merged":true,
-  "conflicts":false,
-  "ready_for_close":true,
-  "notes":"<short>",
-  "next":"<short>",
-  "validation":{
-    "base_synced":true,
-    "tests_passed":true,
-    "pr_exists":true,
-    "pending_tasks":0,
-    "files_changed":3,
-    "files_added":1,
-    "files_renamed":0,
-    "breaking_change":false,
-    "api_surface_changed":false
-  },
-  "pr_suggest":"update_branch",
-  "pr_rationale":"minimal, no API/breaking changes; base synced; no conflicts"
-}
 - If no changes were needed, set `notes:"no-op"`.
 - If abstaining, set `notes` to one of: `"ambiguous_schema"`, `"unsigned_force"`, `"unreachable_canonical"`, `"conflicting_nonjson_request"`.
 
