@@ -61,11 +61,11 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 /memory/
   agi_memory/
     AGI/
-      agi_agi_memory_<timestamp>.json
+      agi-agi-memory-<shortsum>-<timestamp>.jsonl
     Alice/
-      alice_agi_memory_<timestamp>.json
+      alice-agi-memory-<shortsum>-<timestamp>.jsonl
     External/
-      external_agi_memory_<timestamp>.json
+      external-agi-memory-<shortsum>-<timestamp>.jsonl
 ```
 
 ---
@@ -87,9 +87,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Naming Convention (AGI exports only):**
 
   ```
-  {identity_lower}_agi_memory_{timestamp}.json
+  {identity_lower}-agi-memory-{shortsum}-{timestamp}.jsonl
   # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
-  # example: alice_agi_memory_20250926-T192000Z.json
+  # example: alice-agi-memory-1a2b3c-20250926-T192000Z.jsonl
   ```
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)

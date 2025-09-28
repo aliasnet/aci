@@ -14,7 +14,7 @@
     "note": "Enter thinking mode, stay within the active HiveMind session context, and if inline code is emitted ask whether a download link is still needed."
   },
   "output": {
-    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.json"
+    "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}-agi-memory-${SHORTSUM}-${DATE}-T${TIME}Z.jsonl"
   },
   "sandbox_overrides": {
     "internet": false
