@@ -7,12 +7,12 @@
   "audit": {
     "router_config": "library/audit/audit_router.json",
     "default_mode": "session_only",
-    "export_instruction": "Provide \"export_file\": true when invoking pipelines.sentinel.audit to generate a persistent export alongside the session log."
+    "export_instruction": "Set \"export_override\" to the router sink key (e.g., audit_router.tracehub.export or audit_router.tva_ledger.export) when invoking pipelines.sentinel.audit to promote a governed export alongside the session log."
   },
   "guidance": [
     "Session-only logging keeps activity confined to /memory/audit/ for the active runtime window.",
-    "Persistent exports require the export sink to be enabled and will emit governed JSONL files under /memory/audit/exports/.",
-    "Signature enforcement follows the router controls; when export_file mode is active, presence records must include a valid Sentinel/ALIAS signature."
+    "Persistent exports require the export sink mode to be enabled and must specify the matching audit_router.<sink>.export override when promotion is approved.",
+    "Signature enforcement follows the router controls; when an export override is requested, presence records must include a valid Sentinel/ALIAS signature."
   ],
   "changelog": [
     {

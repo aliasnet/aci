@@ -33,7 +33,7 @@
             "actor": "$params.actor",
             "payload": "$steps.1.payload",
             "signature": "$params.signature",
-            "export_override": "$params.export_file",
+            "export_override": "$params.export_override",
             "timestamp": "$now"
           }
         },
