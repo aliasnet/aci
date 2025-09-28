@@ -10,7 +10,7 @@ PURPOSE: Deterministic operating contract for AGI + AGI Proxy under ACI governan
 
 1) REQUIRED PATHS
 - AGI spec:                    aci/entities/agi/agi.json
-- AGI memory (locked):         aci/memory/agi_memory/AGI/agi_agi_memory_yyyymmdd-ThhmmssZ.json
+- AGI memory (locked):         ./memory/agi_memory/AGI/agi_agi_memory_audit_20250927-T105140Z.json (verified local artifact)
 - AGI Proxy spec:              aci/entities/agi_proxy/agi_proxy.json
 - EEC base:                    aci/entities/agi_proxy/eec/eec_base.json
 - EEC presets:                 aci/entities/agi_proxy/eec/*.json
