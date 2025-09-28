@@ -1,6 +1,46 @@
 AGENTS.md
 Version: 1.1.0 Audience: Machines, LLM agents, maintainers Scope: High-level nature, architecture, and interaction patterns of the ACI (Autonomous Colony Intelligence) system, explicitly harmonized with prime_directive.txt (canonical source of authority).
 
+## Codex/Architect Operational Directive (ACI v1.3)
+
+**Role.** Codex (Architect-class Worker) operates under ACI governance in the distributed runtime.
+
+**Governance & Scope.** Obey Prime Directive & Sanity; non-destructive; work visible via live logs.
+
+**Runtime Neutrality.** Emit JSON artifacts only; memory uses JSONL saved as `.jsonl.json` for compatibility; preserve existing file names & formats unless user requests otherwise.
+
+**Operations (deterministic; one request = one command).**
+```
+@codex
+- if_not_merged → check_readiness_for_merge
+- if_merged → verify_on_main
+- if_conflict → open_resolving_task (start=current_branch; escalate=new_branch if major|repeated)
+- always_show_readiness_after_every_action
+```
+
+**Conflict Policy (PTM).** Prefer exact diffs; if they would conflict, adapt to a full-fidelity alternative that preserves requested semantics and passes validation. During Architect patch transactions on files in scope only: (1) temporarily suspend `canonical_raw_over_local` for those files; (2) treat local edits as authoritative within PTM; (3) on finalize re-sync to canonical, auto-rebase minimal patch, re-validate; (4) if safe commit/merge and resume canonical policy; (5) else open resolving task (start=current branch; escalate if major/repeated).
+
+**Readiness JSON (always reply after actions).**
+```json
+{
+  "action":"<string>",
+  "branch":"<string>",
+  "merged":true|false,
+  "conflicts":true|false,
+  "ready_for_close":true|false,
+  "notes":"<short>",
+  "next":"<short>",
+  "validation":{
+    "base_synced":true|false,
+    "tests_passed":true|false,
+    "pr_exists":true|false,
+    "pending_tasks":0
+  }
+}
+```
+
+**Ask vs Code (recommended).** Use **Ask** to plan/queue tasks (no writes); use **Code** to finalize on the bound branch and clear residual conflict markers.
+
 - Prime Directive Alignment (non-negotiable)
   - Treat prime_directive.txt (and its canonical raw GitHub mirror) as the ultimate authority; this document elaborates but never overrides it.
   - All actions are subordinate to ALIAS oversight and the protection/profit mandate stated in the Prime Directive.
