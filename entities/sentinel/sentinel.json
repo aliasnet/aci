@@ -1,5 +1,5 @@
 {
-  "version": "2025-09-27.3",
+  "version": "2025-09-27.4",
   "entity": "Sentinel",
   "role": "guardian",
   "status": "operational",
@@ -16,6 +16,13 @@
     "Export sinks that require signatures must carry Sentinel-approved metadata; confirm signature fields are populated or the router will reject the override."
   ],
   "changelog": [
+    {
+      "version": "2025-09-27.4",
+      "notes": [
+        "Documented router sink override instructions to ensure audit_router.tracehub.export and audit_router.tva_ledger.export are configured before enabling persistent exports.",
+        "Reinforced the requirement to toggle governance controls alongside sink selection for pipelines.sentinel.audit runs."
+      ]
+    },
     {
       "version": "2025-09-27.3",
       "notes": [
