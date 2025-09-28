@@ -4,6 +4,7 @@
   "description": "Produce a session-level hivemind slice and write it into AGI memory (no external hivemind changes).",
   "inputs": {
     "identity": "${IDENTITY}",
+    "identity_directory": "${IDENTITY}",
     "session_id": "${SESSION_ID}",
     "include_chatlogs": true,
     "include_weights_meta": true,
@@ -14,8 +15,8 @@
     "note": null
   },
   "output": {
-    "memory_directory_template": "/memory/agi_memory/${IDENTITY}/",
-    "memory_path_template": "/memory/agi_memory/${IDENTITY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.json"
+    "memory_directory_template": "/memory/agi_memory/${IDENTITY_DIRECTORY}/",
+    "memory_path_template": "/memory/agi_memory/${IDENTITY_DIRECTORY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
     "internet": false

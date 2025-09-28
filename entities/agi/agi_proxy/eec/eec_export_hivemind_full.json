@@ -4,6 +4,7 @@
   "description": "Produce a full AGI-local export bundle (session hivemind slice + artifacts + signed manifest) under AGI memory.",
   "inputs": {
     "identity": "${IDENTITY}",
+    "identity_directory": "${IDENTITY}",
     "session_id": "${SESSION_ID}",
     "source_jobs": ["${JOB_ID}"],
     "include_chatlogs": true,
@@ -16,10 +17,10 @@
     "note": null
   },
   "output": {
-    "memory_directory_template": "/memory/agi_memory/${IDENTITY}/",
-    "memory_path_template": "/memory/agi_memory/${IDENTITY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.${FORMAT}",
-    "bundle_artifact_dir": "aci/entities/agi/identities/${IDENTITY}/adapters/",
-    "manifest_template": "/memory/agi_memory/${IDENTITY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.json"
+    "memory_directory_template": "/memory/agi_memory/${IDENTITY_DIRECTORY}/",
+    "memory_path_template": "/memory/agi_memory/${IDENTITY_DIRECTORY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.${FORMAT}",
+    "bundle_artifact_dir": "aci/entities/agi/identities/${IDENTITY_DIRECTORY}/adapters/",
+    "manifest_template": "/memory/agi_memory/${IDENTITY_DIRECTORY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
     "internet": false
