@@ -117,8 +117,8 @@
       {
         "call": "chat.deliver",
         "map": {
-          "message": "Auto-learn mode paused. Run 'hivemind export AGI --code --identity=${active_identity}' to export the session?",
-          "suggested_command": "hivemind export AGI --code --identity=${active_identity}"
+          "message": "Auto-learn mode paused. Run 'hivemind export AGI --codebox --identity=${active_identity}' to export the session?",
+          "suggested_command": "hivemind export AGI --codebox --identity=${active_identity}"
         }
       }
     ]

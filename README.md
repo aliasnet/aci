@@ -134,10 +134,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 ```bash
 # AGI narrative export (observer POV)
-hivemind export agi --identity AGI --code --force
+hivemind export agi --identity AGI --codebox --force
 
 # Alice session export
-hivemind export agi --identity Alice --code --force
+hivemind export agi --identity Alice --codebox --force
 
 # Optional summary slug example (sanitized to `_launch_review`)
 hivemind export session --summary "Launch Review" --download
