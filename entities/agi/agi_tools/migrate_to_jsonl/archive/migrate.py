@@ -48,8 +48,9 @@ POLICY_FILE = ROOT / "agi_export_policy.json"
 
 FILESYSTEM_ROOT = Path("/")
 
-REQUIRED_KEYS = ("timestamp", "role", "identity", "content", "metadata")
+REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
 LEGACY_IDENTITY_KEYS = (
+    "identity",
     "entity",
     "actor",
     "agent",
@@ -513,23 +514,31 @@ def generate_filename(
 
 
 def validate_line(entry: Dict[str, Any]) -> None:
-    if "identity" not in entry:
+    legacy_key_used: Optional[str] = None
+
+    if "entity" not in entry:
         for legacy_key in LEGACY_IDENTITY_KEYS:
             if legacy_key in entry:
                 legacy_value = entry[legacy_key]
-                entry["identity"] = legacy_value
-
-                if legacy_key not in REQUIRED_KEYS:
+                entry["entity"] = legacy_value
+                legacy_key_used = legacy_key
+                if "identity" not in entry:
+                    entry["identity"] = legacy_value
+                if legacy_key not in REQUIRED_KEYS and legacy_key != "identity":
                     entry.pop(legacy_key)
-
-                existing_metadata = entry.get("metadata", {})
-                if isinstance(existing_metadata, dict):
-                    metadata = existing_metadata
-                else:
-                    metadata = {"legacy_metadata": existing_metadata}
-                metadata["legacy_identity_key"] = legacy_key
-                entry["metadata"] = metadata
                 break
+
+    if "entity" in entry and "identity" not in entry:
+        entry["identity"] = entry["entity"]
+
+    if legacy_key_used:
+        existing_metadata = entry.get("metadata", {})
+        if isinstance(existing_metadata, dict):
+            metadata = existing_metadata
+        else:
+            metadata = {"legacy_metadata": existing_metadata}
+        metadata["legacy_identity_key"] = legacy_key_used
+        entry["metadata"] = metadata
 
     missing = [key for key in REQUIRED_KEYS if key not in entry]
     if missing:
@@ -633,12 +642,13 @@ def migrate_file(
         entry = {
             "timestamp": timestamp_str,
             "role": role,
-            "identity": entity,
+            "entity": entity,
             "content": normalize_content(message),
             "metadata": metadata,
         }
+        entry["identity"] = entity
         validate_line(entry)
-        dedup_key = (entry["timestamp"], entry["identity"], entry["content"])
+        dedup_key = (entry["timestamp"], entry["entity"], entry["content"])
         if dedup_key in dedup:
             continue
         dedup.add(dedup_key)
