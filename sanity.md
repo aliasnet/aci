@@ -59,7 +59,7 @@
   pattern/terms: ["fileverse", "FileVerse"]
   reason: Replaced by canonical GitHub + TVA anchors + TraceHub traces.
   replacement: Canonical **GitHub raw** (resolver) + **TVA anchors** + **TraceHub**.
-  enforcement: Reject and rewrite; route to aci_github_resolver; log to TVA.
+  enforcement: Reject and rewrite; route to github_connector; log to TVA.
   notes: Do not propose Fileverse for any archival or integrity task.
 
 * name: Compliance Ledger (legacy audit)
@@ -84,7 +84,7 @@
   status: forbidden
   pattern/terms: Any unfounded file path, repo, or URL; invented endpoints
   reason: Leads to broken resolution and mis-sourced artifacts.
-  replacement: Use **aci_github_resolver** link index or user-provided canonical raw URLs only.
+  replacement: Use **github_connector** link index or user-provided canonical raw URLs only.
   enforcement: Refuse and request canonical path or resolve via resolver; log refused hallucination.
   notes: Never guess; never fabricate.
 
@@ -190,7 +190,7 @@
   status: avoid
   pattern/terms: `metacogition.json`, `metacogition_options.json` (missing "n")
   reason: Causes 404s and resolver misses.
-  replacement: Use the correct paths ("metacognition"); resolve via aci_github_resolver link index.
+  replacement: Use the correct paths ("metacognition"); resolve via github_connector link index.
   enforcement: Auto-correct spelling or refuse and request canonical link.
   notes: Treat typos as resolution errors, not as new artifacts.
 
