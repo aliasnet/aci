@@ -1,9 +1,18 @@
 {
-  "version": "1.20250919.00",
+  "version": "1.20250317.01",
   "tva": {
     "role": "reinforcement authority",
-    "abstract": "oversight, anomaly detection, and rollback enforcer for nexus_core and prime_directive",
+    "abstract": "Oversight, anomaly detection, and rollback enforcement for nexus_core and prime_directive.",
     "file": "tva.json",
+    "operational_status": {
+      "state": "active",
+      "since": "2025-03-17T00:00:00Z",
+      "responsibilities": [
+        "seal_exports",
+        "checkpoint_rollbacks",
+        "audit_router.tva_ledger"
+      ]
+    },
     "functions": {
       "integrity_check": "validate signatures of prime_directive, nexus_core, entities, functions",
       "rollback": "if corruption detected, rollback to last green snapshot",
@@ -24,6 +33,30 @@
     "integrity": {
       "anchoring": "fileverse",
       "immutability": "maintain audit trail without enforcing one-way append restrictions"
+    },
+    "storage": {
+      "router_key": "audit_router.tva_ledger",
+      "session_path": "/memory/audit/tva_ledger/session",
+      "export_path": "/memory/audit/tva_ledger/export",
+      "default_mode": "session",
+      "export_requires": [
+        "TVA.ok",
+        "Sentinel.ok",
+        "ALIAS.signature"
+      ]
+    },
+    "manual_export": {
+      "prerequisites": [
+        "Confirm TVA checkpoint status is green",
+        "Collect Sentinel incident review (if any)",
+        "Record requesting user justification"
+      ],
+      "procedure": [
+        "1) Review session_path entries for scope and redact as required.",
+        "2) Move approved entries to export_path with TVA seal and checksum manifest.",
+        "3) Emit export notice to TraceHub and update ALIAS governance register with manifest reference."
+      ],
+      "notes": "Toggle audit router targets to *.export only after approvals are logged; revert to *.session once export is sealed."
     },
     "audit": {
       "created_at": "2025-09-19T12:14:06Z"

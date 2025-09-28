@@ -1,13 +1,38 @@
 {
-  "version": "BASELINE-2025-09-21",
+  "version": "2025-03-17.01",
   "entity": "TraceHub",
   "role": "tracing_module",
-  "status": "placeholder",
-  "description": "TraceHub placeholder manifest for correlated tracing across the Temporal Loom.",
-  "todo": [
-    "Specify instrumentation coverage for functions 6243-6268.",
-    "Define storage, retention, and redaction policies for trace data.",
-    "Describe integration with Nexus Core heartbeat and TVA anomaly workflows."
-  ],
-  "notes": "Substitute with production TraceHub manifest when observability design is finalized."
+  "status": "operational",
+  "description": "TraceHub coordinates correlated tracing across the Temporal Loom with governed audit storage and export controls.",
+  "operational_status": {
+    "state": "active",
+    "since": "2025-03-17T00:00:00Z",
+    "coverage": [
+      "session_traces",
+      "router.audit.tracehub",
+      "nexus_core_heartbeat"
+    ]
+  },
+  "storage": {
+    "router_key": "audit_router.tracehub",
+    "session_path": "/memory/audit/tracehub/session",
+    "export_path": "/memory/audit/tracehub/export",
+    "default_mode": "session",
+    "export_requires": [
+      "TVA.ok",
+      "Sentinel.ok"
+    ]
+  },
+  "manual_export": {
+    "prerequisites": [
+      "Obtain TVA + Sentinel approval for persistent retention",
+      "Freeze active TraceHub writers"
+    ],
+    "procedure": [
+      "1) Flush session buffers to the session_path and compute SHA-256 manifests.",
+      "2) Copy approved entries to export_path with TVA seal metadata (ledger id, approver, timestamp).",
+      "3) Update TVA ledger with export manifest reference and release TraceHub writers."
+    ],
+    "notes": "Use audit router toggle_semantics to switch store_in targets from *.session to *.export when fulfilling user export requests."
+  }
 }

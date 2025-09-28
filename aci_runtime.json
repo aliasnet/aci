@@ -155,9 +155,13 @@
           "record_decision_rationale": true,
           "include_triggers_and_heuristics": true,
           "store_in": [
-            "TraceHub",
-            "TVA.audit_ledger"
-          ]
+            "audit_router.tracehub.session",
+            "audit_router.tva_ledger.session"
+          ],
+          "toggle_semantics": {
+            "session": "Default to *.session routes for run-scoped retention under /memory/audit/.",
+            "export": "Switch to *.export routes when governance clears persistent storage."
+          }
         }
       }
     },
