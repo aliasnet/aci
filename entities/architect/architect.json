@@ -1,12 +1,48 @@
 {
-  "version": "1.20250921.00",
+  "version": "1.20250921.01",
   "entity": "Architect",
   "role": "governance_validator_and_schema_enforcer",
   "description": "Minimal Architect baseline for ACI governance. Extend with functions and policies as needed.",
   "functions": {
-    "validate_schema": "validate mapping and entity files against ACI schemas",
     "enforce_signatures": "require multi-sig on critical commits",
-    "remap_check": "compare git vs drive mappings and propose actions"
+    "guard_apply": "Wrap guard operation execution and readiness validation via architect.guard.apply",
+    "guard_operation": "Enforce one-request-one-command envelopes via architect.guard.operation",
+    "guard_readiness_validate": "Validate architect.guard readiness payloads and anchor audits",
+    "remap_check": "compare git vs drive mappings and propose actions",
+    "validate_schema": "validate mapping and entity files against ACI schemas"
+  },
+  "pipelines": {
+    "architect.guard.apply": {
+      "description": "High-level wrapper that produces a guard op envelope and validates readiness feedback.",
+      "spec_ref": "functions.json#/pipelines/architect.guard.apply"
+    },
+    "architect.guard.operation": {
+      "description": "Enforce one-request-one-command guard envelopes with audit anchoring.",
+      "spec_ref": "functions.json#/pipelines/architect.guard.operation"
+    },
+    "architect.guard.readiness_validate": {
+      "description": "Validate guard readiness JSON payloads and anchor the audit trail.",
+      "spec_ref": "functions.json#/pipelines/architect.guard.readiness_validate"
+    }
+  },
+  "cli": {
+    "commands": [
+      {
+        "description": "Emit an architect.guard operation envelope for the requested op.",
+        "pattern": "^architect\\s+op\\s+(?P<op>check_readiness_for_merge|verify_on_main|open_resolving_task)(?:\\s+--branch=(?P<branch>\\S+))?$",
+        "pipeline": "architect.guard.operation"
+      },
+      {
+        "description": "Prepare and optionally validate a guard op execution in one flow.",
+        "pattern": "^architect\\s+apply\\s+(?P<op>check_readiness_for_merge|verify_on_main|open_resolving_task)(?:\\s+--branch=(?P<branch>\\S+))?$",
+        "pipeline": "architect.guard.apply"
+      },
+      {
+        "description": "Validate readiness JSON returned from a guard operation run.",
+        "pattern": "^architect\\s+ready\\s+(?P<readiness>\\{.*\\})$",
+        "pipeline": "architect.guard.readiness_validate"
+      }
+    ]
   },
   "rules": {
     "require_signed_commits": true,
@@ -20,5 +56,20 @@
     ],
     "verification": "GPG-or-HSM"
   },
-  "notes": "Populate with your full Architect manifest. This is a safe minimal starting point."
+  "notes": "Populate with your full Architect manifest. This is a safe minimal starting point.",
+  "changelog": [
+    {
+      "version": "1.20250921.01",
+      "notes": [
+        "Documented architect.guard pipelines and CLI bindings that coordinate guard operations and readiness validation.",
+        "Expanded function map to include guard operation, readiness validation, and apply wrappers."
+      ]
+    },
+    {
+      "version": "1.20250921.00",
+      "notes": [
+        "Established the minimal Architect manifest for governance alignment."
+      ]
+    }
+  ]
 }
