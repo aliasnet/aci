@@ -201,6 +201,23 @@ class ArchivedMigratorPathResolutionTests(unittest.TestCase):
         self.assertNotIn("actor", entry)
         self.assertEqual(entry["metadata"].get("legacy_identity_key"), "actor")
 
+    def test_validate_line_promotes_agent_identity(self) -> None:
+        module = self.module
+        entry = {
+            "timestamp": "2024-01-01T00:00:00Z",
+            "role": "observer",
+            "agent": "Legacy Agent",
+            "content": "hello world",
+            "metadata": {"legacy_identity_key": "entity"},
+        }
+
+        module.validate_line(entry)
+
+        self.assertEqual(entry["identity"], "Legacy Agent")
+        self.assertNotIn("agent", entry)
+        # ``legacy_identity_key`` should reflect the resolved key even if one already exists.
+        self.assertEqual(entry["metadata"].get("legacy_identity_key"), "agent")
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
