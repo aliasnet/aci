@@ -18,7 +18,7 @@
     "caller_hint": "Alice"
   },
   "memory": {
-    "file": "aci/memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
+    "file": "aci/memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.json",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",
@@ -102,8 +102,8 @@
           "include_weights_meta": { "type": "boolean", "default": true },
           "include_artifacts": { "type": "boolean", "default": false },
           "format": { "type": "string", "enum": ["json", "tar"], "default": "json" },
-          "force_codebox": { "type": "boolean", "default": false, "description": "Inline export into chat/codebox (subject to size/redaction limits)." },
-          "force_codebox_max_bytes": { "type": "integer", "default": 131072, "description": "Max bytes to inline (default 128KB)." },
+          "force_code": { "type": "boolean", "default": false, "description": "Inline export into chat code fence (subject to size/redaction limits)." },
+          "force_code_max_bytes": { "type": "integer", "default": 131072, "description": "Max bytes to inline (default 128KB)." },
           "note": { "type": "string" }
         },
         "required": ["identity"]
@@ -129,9 +129,9 @@
           "include_weights_meta": { "type": "boolean", "default": true },
           "include_artifacts": { "type": "boolean", "default": false },
           "format": { "type": "string", "enum": ["json", "tar"], "default": "tar" },
-          "force_codebox": { "type": "boolean", "default": false, "description": "Inline small bundle manifest into chat/codebox (safer 64KB cap)." },
-          "force_codebox_max_bytes": { "type": "integer", "default": 65536, "description": "Max bytes to inline (default 64KB)." },
-          "human_id": { "type": "string", "description": "Human approver required if include_artifacts or force_codebox are true." },
+          "force_code": { "type": "boolean", "default": false, "description": "Inline small bundle manifest into chat code fence (safer 64KB cap)." },
+          "force_code_max_bytes": { "type": "integer", "default": 65536, "description": "Max bytes to inline (default 64KB)." },
+          "human_id": { "type": "string", "description": "Human approver required if include_artifacts or force_code are true." },
           "note": { "type": "string" }
         },
         "required": ["identity"]

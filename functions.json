@@ -393,14 +393,15 @@
           "map": {
             "parameter": "$args.param",
             "defaults": [
+              "jsonl",
               "download",
-              "standard"
+              "code",
+              "force"
             ],
             "allowed": [
-              "standard",
+              "jsonl",
               "download",
-              "codebox",
-              "weight",
+              "code",
               "force"
             ],
             "slice_prefix": "slice"
@@ -454,7 +455,19 @@
         {
           "call": "agi.export.configure",
           "map": {
-            "parameter": "$args.param"
+            "parameter": "$args.param",
+            "defaults": [
+              "jsonl",
+              "download",
+              "code",
+              "force"
+            ],
+            "allowed": [
+              "jsonl",
+              "download",
+              "code",
+              "force"
+            ]
           }
         },
         {

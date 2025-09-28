@@ -54,10 +54,10 @@ Command routing: bracketed command blocks ([ ... ] / [[ ... ]]) are parsed and r
 Capability chaining: pipeline identifiers (e.g., aci.memory.export.hivemind, agi.memory.migrate_to_jsonl) document how high-level intents map to orchestrated steps, ensuring reproducible execution narratives for governance review.
 7) Memory & Exports
 Schema: hivemind_agi_memory for AGI-owned narratives; topic/deny filters enforced via /entities/agi/agi_export_policy.json.
-Filename template: {identity_lower}_agi_memory_{timestamp}.jsonl with timestamp formatted as Ymd-THMSZ.
+Filename template: {identity_lower}_agi_memory_{timestamp}.json with timestamp formatted as Ymd-THMSZ.
 CLI usage:
-hivemind export agi --identity AGI --jsonl --codebox --force
-hivemind export agi --identity Alice --jsonl --codebox --force
+hivemind export agi --identity AGI --jsonl --code --force
+hivemind export agi --identity Alice --jsonl --code --force
 Export guarantees: chronological ordering, audit logging, privacy filters, and normalization to UTC Z timestamps.
 8) Lifecycle of an Entity
 Create: register identity, add config under /entities/<name>/, ensure governance hooks, and keep capabilities stateless.

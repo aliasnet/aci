@@ -10,15 +10,15 @@
     "include_weights_meta": true,
     "include_artifacts": true,
     "format": "tar",
-    "force_codebox": false,
-    "force_codebox_max_bytes": 65536,
+    "force_code": false,
+    "force_code_max_bytes": 65536,
     "human_id": null,
-    "note": null
+    "note": "Enter thinking mode, stay within the active HiveMind session context, and if inline code is emitted ask whether a download link is still needed."
   },
   "output": {
     "memory_path_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.${FORMAT}",
     "bundle_artifact_dir": "aci/entities/agi/identities/${IDENTITY}/adapters/",
-    "manifest_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.jsonl"
+    "manifest_template": "aci/memory/agi_memory/${IDENTITY}/${IDENTITY}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
     "internet": false

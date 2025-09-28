@@ -74,7 +74,7 @@
       "entities/sentinel/sentinel.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/sentinel.json",
       "entities/tva/tva.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json",
       "functions.json": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-      "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
+      "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.json",
       "memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json",
       "prime_directive.txt": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
     }
