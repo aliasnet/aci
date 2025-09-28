@@ -61,11 +61,11 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 /memory/
   agi_memory/
     AGI/
-      agi_agi_memory_<timestamp>.jsonl.json
+      agi_agi_memory_<timestamp>.json
     Alice/
-      alice_agi_memory_<timestamp>.jsonl.json
+      alice_agi_memory_<timestamp>.json
     External/
-      external_agi_memory_<timestamp>.jsonl.json
+      external_agi_memory_<timestamp>.json
 ```
 
 ---
@@ -87,14 +87,13 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Naming Convention (AGI exports only):**
 
   ```
-  {identity_lower}_agi_memory{summary_slug}_{timestamp}.jsonl.json
+  {identity_lower}_agi_memory{summary_slug}_{timestamp}.json
   # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
-  # example: alice_agi_memory_strategy_sync_20250926-T192000Z.jsonl.json
+  # example: alice_agi_memory_strategy_sync_20250926-T192000Z.json
   ```
 
   - `{summary_slug}` is optional; when present it is sanitized (lowercase, ASCII, `_` separators) and prefixed with `_`.
-  - Artifacts remain line-delimited JSON (JSONL) for streaming compatibility; the `.jsonl.json` suffix preserves JSONL framing
-    while satisfying connector `.json` expectations.
+  - Artifacts are exported as JSON payloads with deterministic ordering for connector compatibility.
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
@@ -135,10 +134,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 ```bash
 # AGI narrative export (observer POV)
-hivemind export agi --identity AGI --jsonl --code --force
+hivemind export agi --identity AGI --code --force
 
 # Alice session export
-hivemind export agi --identity Alice --jsonl --code --force
+hivemind export agi --identity Alice --code --force
 
 # Optional summary slug example (sanitized to `_launch_review`)
 hivemind export session --summary "Launch Review" --download
@@ -153,7 +152,7 @@ hivemind export session --summary "Launch Review" --download
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-  - New exports write to `/memory/hivemind_memory/` using `hivemind_memory_{summary}_{timestamp}.jsonl.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
+  - New exports write to `/memory/hivemind_memory/` using `hivemind_memory_{summary}_{timestamp}.json`; historical `/memory/hivemind_memory/logs/*.json` files remain valid for legacy review.
 
 **Identity binding:**
 
