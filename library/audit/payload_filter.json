@@ -1,0 +1,43 @@
+{
+  "function": {
+    "name": "audit.payload.filter",
+    "version": "0.1.0",
+    "status": "draft",
+    "summary": "Derive an audit payload from invocation parameters while stripping transport metadata fields.",
+    "inputs": {
+      "params": {
+        "type": "object",
+        "description": "Raw parameter map supplied to sentinel.audit pipelines."
+      }
+    },
+    "outputs": {
+      "payload": {
+        "type": "object",
+        "description": "Filtered payload containing all contextual keys provided by the caller except transport metadata."
+      }
+    },
+    "algorithm": [
+      "Start with a shallow copy of the provided params object (or an empty object when params is null).",
+      "Remove transport metadata keys: action, session_id, actor, signature, export_file.",
+      "Return the remaining object verbatim so contextual fields such as presence_file, migration_index, query, packages, or custom keys persist in the payload."
+    ],
+    "notes": [
+      "Do not drop null-valued contextual keys; downstream audit processors expect parity with caller intent.",
+      "This helper intentionally performs a shallow copy to avoid mutating the original parameter map shared with other pipeline steps."
+    ],
+    "examples": [
+      {
+        "params": {
+          "action": "legacy_adopt",
+          "session_id": "1234",
+          "presence_file": "presence/1234.json",
+          "migration_index": "legacy/migration_index_2025-09-26.json"
+        },
+        "payload": {
+          "presence_file": "presence/1234.json",
+          "migration_index": "legacy/migration_index_2025-09-26.json"
+        }
+      }
+    ]
+  }
+}
