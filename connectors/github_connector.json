@@ -1,6 +1,6 @@
 {
   "github_connector": {
-    "version": "1.20250927.00",
+    "version": "1.20250927.01",
     "canonical_source": "github",
     "repo": "aliasnet/aci",
     "rules": {
@@ -17,7 +17,7 @@
       }
     },
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw URLs take precedence over local copies; use local files only when mirrors are unavailable.",
+    "notes": "Canonical raw URLs take precedence over local copies; governance Markdown (AGENTS.md, sanity.md, other root *.md) and the connectors/ directory now resolve automatically, while off-pattern requests still require human approval.",
     "signatures": {
       "required": [
         "ALIAS",
@@ -57,10 +57,21 @@
       {
         "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt)$",
         "description": "Fallback resolution using regular expressions when file mappings are unknown."
+      },
+      {
+        "pattern": "^(AGENTS\\.md|sanity\\.md|[^/]+\\.md)$",
+        "description": "Governance Markdown files in the repository root."
+      },
+      {
+        "pattern": "^connectors/.+$",
+        "description": "Connector manifests and documentation."
       }
     ],
     "link_index": {
       "README.md": "https://raw.githubusercontent.com/aliasnet/aci/main/README.md",
+      "AGENTS.md": "https://raw.githubusercontent.com/aliasnet/aci/main/AGENTS.md",
+      "ACI.md": "https://raw.githubusercontent.com/aliasnet/aci/main/ACI.md",
+      "sanity.md": "https://raw.githubusercontent.com/aliasnet/aci/main/sanity.md",
       "aci_bootstrap.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json",
       "aci_commands.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_commands.json",
       "aci_mapping.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_mapping.json",

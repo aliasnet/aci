@@ -1,6 +1,6 @@
 {
   "bifrost": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "key": "bifrost",
     "name": "Bifrost",
     "alias": "Bifrost",
@@ -30,12 +30,23 @@
         "entities/**",
         "functions.json",
         "memory/**",
-        "connectors/github_connector.json"
+        "connectors/**",
+        "AGENTS.md",
+        "sanity.md",
+        "*.md"
       ],
       "regex_search": [
         {
           "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt)$",
           "description": "Fallback regex when mappings are unknown."
+        },
+        {
+          "pattern": "^(AGENTS\\.md|sanity\\.md|[^/]+\\.md)$",
+          "description": "Governance Markdown files in the repository root."
+        },
+        {
+          "pattern": "^connectors/.+$",
+          "description": "Connector manifests and documentation."
         }
       ]
     }
