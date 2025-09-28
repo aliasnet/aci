@@ -246,6 +246,51 @@ class ArchivedMigratorPathResolutionTests(unittest.TestCase):
                 self.assertIn("entity", row)
                 self.assertEqual(row.get("entity"), row.get("identity"))
 
+    def test_migrate_file_promotes_actor_identity(self) -> None:
+        module = self.module
+        with tempfile.TemporaryDirectory() as tmpdir:
+            temp_dir = Path(tmpdir)
+            input_path = temp_dir / "legacy.json"
+            output_dir = temp_dir / "out"
+            payload = {
+                "messages": [
+                    {
+                        "timestamp": "2024-01-01T00:00:00Z",
+                        "role": "assistant",
+                        "actor": "Legacy Actor",
+                        "content": "hello",
+                        "metadata": {"topic": "analysis"},
+                    }
+                ]
+            }
+            with input_path.open("w", encoding="utf-8") as handle:
+                json.dump(payload, handle)
+
+            repo_root = Path(__file__).resolve().parents[4]
+            identity_path = repo_root / "entities/agi/agi_identity_manager.json"
+            policy_path = repo_root / "entities/agi/agi_export_policy.json"
+            identity = module.load_identity(identity_path)
+            policy = module.load_policy(policy_path)
+
+            output_path = module.migrate_file(
+                input_path,
+                output_dir=output_dir,
+                identity=identity,
+                policy=policy,
+                default_topic="analysis",
+            )
+
+            self.assertIsNotNone(output_path)
+            assert output_path is not None
+            with output_path.open("r", encoding="utf-8") as handle:
+                rows = [json.loads(line) for line in handle if line.strip()]
+
+            self.assertEqual(len(rows), 1)
+            record = rows[0]
+            self.assertEqual(record["entity"], "Legacy Actor")
+            self.assertEqual(record["identity"], "Legacy Actor")
+            self.assertEqual(record.get("metadata", {}).get("legacy_identity_key"), "actor")
+
     def test_validate_line_promotes_agent_identity(self) -> None:
         module = self.module
         entry = {
