@@ -19,7 +19,7 @@
   },
   "memory": {
     "file": "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
-    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity.",
+    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity. Repository paths drop the aci/ prefix to match on-disk layout.",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",
