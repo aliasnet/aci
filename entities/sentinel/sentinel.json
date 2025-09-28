@@ -1,13 +1,27 @@
 {
-  "version": "BASELINE-2025-09-21",
+  "version": "2025-09-27.1",
   "entity": "Sentinel",
   "role": "guardian",
-  "status": "placeholder",
-  "description": "Sentinel Protocol placeholder manifest. Define privacy, security, and resilience guardianship policies here.",
-  "todo": [
-    "Implement risk scoring and mitigation pipelines for functions 6232-6263.",
-    "Document signature requirements and incident response procedures.",
-    "Integrate with TVA anomaly reporting and Nexus Core telemetry feeds."
+  "status": "operational",
+  "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
+  "audit": {
+    "router_config": "library/audit/audit_router.json",
+    "default_mode": "session_only",
+    "export_instruction": "Provide \"export_file\": true when invoking pipelines.sentinel.audit to generate a persistent export alongside the session log."
+  },
+  "guidance": [
+    "Session-only logging keeps activity confined to /memory/audit/ for the active runtime window.",
+    "Persistent exports require the export sink to be enabled and will emit governed JSONL files under /memory/audit/exports/.",
+    "Signature enforcement follows the router controls; when export_file mode is active, presence records must include a valid Sentinel/ALIAS signature."
   ],
-  "notes": "Created to satisfy entity index references until the full Sentinel manifest is authored."
+  "changelog": [
+    {
+      "version": "2025-09-27.1",
+      "notes": [
+        "Promoted Sentinel from placeholder to operational guardian.",
+        "Linked the audit router configuration and documented export vs session-only behavior.",
+        "Clarified signature enforcement expectations tied to export-enabled runs."
+      ]
+    }
+  ]
 }

@@ -9,6 +9,56 @@
     "notes": "Canonical raw URLs take precedence over local copies; local function catalogs are fallback only when mirrors fail."
   },
   "pipelines": {
+    "sentinel.audit": {
+      "description": "Route Sentinel audit events according to the audit router configuration.",
+      "steps": [
+        {
+          "call": "audit.router.load",
+          "map": {
+            "file": "library/audit/audit_router.json"
+          }
+        },
+        {
+          "call": "audit.event.compose",
+          "map": {
+            "router": "$steps.0.router",
+            "action": "$params.action",
+            "session_id": "$params.session_id",
+            "actor": "$params.actor",
+            "payload": "$params.payload",
+            "signature": "$params.signature",
+            "export_override": "$params.export_file",
+            "timestamp": "$now"
+          }
+        },
+        {
+          "call": "audit.router.dispatch",
+          "map": {
+            "router": "$steps.0.router",
+            "event": "$steps.1.event"
+          }
+        }
+      ]
+    },
+    "sentinel.verify_signatures": {
+      "description": "Validate presence file signatures when the router requires it.",
+      "steps": [
+        {
+          "call": "audit.router.load",
+          "map": {
+            "file": "library/audit/audit_router.json"
+          }
+        },
+        {
+          "call": "audit.signatures.check",
+          "map": {
+            "router": "$steps.0.router",
+            "files": "$params.files",
+            "key_id": "$params.key_id"
+          }
+        }
+      ]
+    },
     "aci.boot.activate": {
       "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",
       "steps": [
