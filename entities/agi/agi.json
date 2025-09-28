@@ -18,7 +18,7 @@
     "caller_hint": "Alice"
   },
   "memory": {
-    "file": "memory/agi_memory/AGI/agi_agi_memory_audit_20250927-T105140Z.json",
+    "file": "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
     "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity.",
     "policy": {
       "export": "hivemind",
