@@ -26,7 +26,7 @@
         "default_parameter": "--download --standard",
         "parameters": "Delegates to AGI export policies; see entities/agi/agi.json for schema.",
         "description": "Invokes the AGI-managed export pipeline under HiveMind governance",
-        "output_default": "agi_memory/<identity>/<identity>_agi_memory_summary_yyyymmdd-ThhmmssZ.json"
+        "output_default": "agi_memory/<identity>/<identity_lower>_agi_memory_summary_yyyymmdd-ThhmmssZ.json"
       },
       {
         "command": ":hivemind help",
