@@ -1,5 +1,5 @@
 {
-  "version": "2025-09-27.2",
+  "version": "2025-09-27.3",
   "entity": "Sentinel",
   "role": "guardian",
   "status": "operational",
@@ -7,14 +7,22 @@
   "audit": {
     "router_config": "library/audit/audit_router.json",
     "default_mode": "audit_router.tracehub.session",
-    "export_instruction": "Enable the appropriate router keys (e.g., audit_router.tracehub.export or audit_router.tva_ledger.export) before invoking pipelines.sentinel.audit when persistent exports are required."
+    "export_instruction": "Before invoking pipelines.sentinel.audit for persistent exports, set the router sink key to audit_router.tracehub.export or audit_router.tva_ledger.export and enable the corresponding governance toggle so signature enforcement can engage."
   },
   "guidance": [
-    "TraceHub session retention is governed by audit_router.tracehub.session and remains scoped to /memory/audit/tracehub/session for the active runtime window.",
-    "TVA ledger checkpoints follow audit_router.tva_ledger.session and will stage provisional records under /memory/audit/tva_ledger/session until export toggles change.",
-    "Persistent exports activate when audit_router.tracehub.export or audit_router.tva_ledger.export are enabled, emitting governed JSONL artifacts under /memory/audit/tracehub/export and /memory/audit/tva_ledger/export with signature enforcement engaged."
+    "TraceHub session retention remains anchored to audit_router.tracehub.session with output scoped to /memory/audit/tracehub/session for the active runtime window.",
+    "TVA ledger checkpoints continue to use audit_router.tva_ledger.session and stay provisional under /memory/audit/tva_ledger/session until export overrides are approved.",
+    "When persistent exports are required, set the router sink key to the desired export mode (audit_router.tracehub.export or audit_router.tva_ledger.export) and enable the matching governance toggle before invoking pipelines.sentinel.audit.",
+    "Export sinks that require signatures must carry Sentinel-approved metadata; confirm signature fields are populated or the router will reject the override."
   ],
   "changelog": [
+    {
+      "version": "2025-09-27.3",
+      "notes": [
+        "Clarified export overrides to reference explicit router sink key selection prior to running pipelines.sentinel.audit.",
+        "Documented signature enforcement expectations for export sinks and aligned guidance messaging with the router configuration."
+      ]
+    },
     {
       "version": "2025-09-27.1",
       "notes": [
