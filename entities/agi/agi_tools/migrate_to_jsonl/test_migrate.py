@@ -185,6 +185,22 @@ class ArchivedMigratorPathResolutionTests(unittest.TestCase):
         )
         self.assertEqual(filename, "agi_agi_memory_20241231T235959Z.json")
 
+    def test_validate_line_promotes_actor_identity(self) -> None:
+        module = self.module
+        entry = {
+            "timestamp": "2024-01-01T00:00:00Z",
+            "role": "observer",
+            "actor": "Legacy Actor",
+            "content": "hello world",
+            "metadata": {},
+        }
+
+        module.validate_line(entry)
+
+        self.assertEqual(entry["identity"], "Legacy Actor")
+        self.assertNotIn("actor", entry)
+        self.assertEqual(entry["metadata"].get("legacy_identity_key"), "actor")
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

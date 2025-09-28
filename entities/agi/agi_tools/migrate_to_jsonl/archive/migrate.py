@@ -52,6 +52,7 @@ REQUIRED_KEYS = ("timestamp", "role", "identity", "content", "metadata")
 LEGACY_IDENTITY_KEYS = (
     "entity",
     "actor",
+    "agent",
     "speaker",
     "author",
     "by",
@@ -526,7 +527,7 @@ def validate_line(entry: Dict[str, Any]) -> None:
                     metadata = existing_metadata
                 else:
                     metadata = {"legacy_metadata": existing_metadata}
-                metadata.setdefault("legacy_identity_key", legacy_key)
+                metadata["legacy_identity_key"] = legacy_key
                 entry["metadata"] = metadata
                 break
 
