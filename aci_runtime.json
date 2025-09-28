@@ -159,8 +159,10 @@
             "audit_router.tva_ledger.session"
           ],
           "toggle_semantics": {
-            "session": "Default to *.session routes for run-scoped retention under /memory/audit/.",
-            "export": "Switch to *.export routes when governance clears persistent storage."
+            "audit_router.tracehub.session": "Default TraceHub sink writing to /memory/audit/tracehub/session/${session_id}.jsonl.",
+            "audit_router.tva_ledger.session": "Default TVA ledger sink writing to /memory/audit/tva_ledger/session/${session_id}.jsonl.",
+            "audit_router.tracehub.export": "When toggled on, promote TraceHub routing to /memory/audit/tracehub/export/tracehub_${session_id}_${timestamp}.jsonl after TVA + Sentinel approval.",
+            "audit_router.tva_ledger.export": "When toggled on, promote TVA ledger routing to /memory/audit/tva_ledger/export/tva_ledger_${session_id}_${timestamp}.jsonl once a sealed ledger snapshot is authorized."
           }
         }
       }
