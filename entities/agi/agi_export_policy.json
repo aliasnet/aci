@@ -6,7 +6,8 @@
     "path_template": "/memory/agi_memory/{identity}/{filename}",
     "identity_source": "entities/agi/agi_identity_manager.json",
     "timestamp_format": "Ymd-THMSZ",
-    "filename_template": "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json",
+    "filename_template": "{identity_lower}_agi_memory{summary_slug}_{timestamp}.jsonl.json",
+    "artifact_example": "memory/agi_memory/AGI/agi_agi_memory_audit_20250927-T105140Z.jsonl.json",
     "audit": {
       "add_export_event": true,
       "normalize_timestamps": true,
