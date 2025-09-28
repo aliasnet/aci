@@ -22,8 +22,8 @@
     },
     "references": {
       "bifrost": "entities/bifrost/bifrost.json",
-      "aci_repo": "entities/aci_repo/aci_repo.json",
-      "github_connector": "connectors/github_connector.json"
+      "github_connector": "connectors/github_connector.json",
+      "aci_repo": "entities/aci_repo/aci_repo.json"
     },
     "resolution_policy": {
       "primary": "bifrost",
