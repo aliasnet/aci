@@ -21,9 +21,9 @@
       "cognitive_guidance_ref": "aci_runtime.json#/aci_runtime/cognitive_decision_guidance"
     },
     "references": {
+      "aci_repo": "entities/aci_repo/aci_repo.json",
       "bifrost": "entities/bifrost/bifrost.json",
-      "github_connector": "connectors/github_connector.json",
-      "aci_repo": "entities/aci_repo/aci_repo.json"
+      "github_connector": "connectors/github_connector.json"
     },
     "resolution_policy": {
       "primary": "bifrost",
