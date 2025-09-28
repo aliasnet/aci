@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "router": {
+    "name": "sentinel.audit_router",
+    "description": "Routes Sentinel audit events either to session-only memory or to governed export files based on runtime toggles.",
+    "default_sink": "session_only",
+    "sinks": {
+      "session_only": {
+        "enabled": true,
+        "mode": "in_session",
+        "path_template": "/memory/audit/session_${session_id}.jsonl",
+        "rotation": "per_session",
+        "notes": "Keeps audit events inside the current runtime session under /memory/audit/."
+      },
+      "export_file": {
+        "enabled": false,
+        "mode": "export",
+        "path_template": "/memory/audit/exports/audit_${session_id}_${timestamp}.jsonl",
+        "requires_signature": true,
+        "notes": "When enabled, emit immutable exports suitable for transfer or archival."
+      }
+    },
+    "controls": {
+      "allow_unsigned_events": true,
+      "enforce_signatures_when_enabled": true,
+      "metadata_keys": [
+        "action",
+        "session_id",
+        "actor",
+        "signature"
+      ],
+      "export_opt_in_flag": "export_file"
+    }
+  }
+}
