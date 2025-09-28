@@ -1,45 +1,43 @@
 {
-  "bifrost": {
-    "version": "1.0.1",
-    "key": "bifrost",
-    "name": "Bifrost",
-    "alias": "Bifrost",
-    "role": "external network bridge, connector, sync adapter, network dependency index",
-    "abstract": "Bridges internal ACI routing to external connectors; maintains a minimal allowlist for direct connector refs.",
-    "knowledge_base": "connector orchestration & resolvers",
-    "references": {
-      "github_connector": "connectors/github_connector.json",
-      "nexus_core": "entities/nexus_core/nexus_core.json"
-    },
-    "connector_binding": {
-      "key": "github_connector",
-      "file": "connectors/github_connector.json",
-      "canonical_source": "github",
-      "repo": "aliasnet/aci",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
-    },
-    "bifrost_resolution_policy": {
-      "connector": {
-        "key": "github_connector",
-        "file": "connectors/github_connector.json",
-        "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
-      },
-      "priority": "canonical_raw",
-      "allowlist": [
-        "prime_directive.txt",
-        "aci_runtime.json",
-        "aci_bootstrap.json",
-        "entities/**",
-        "functions.json",
-        "memory/**",
-        "connectors/github_connector.json"
-      ],
-      "regex_search": [
-        {
-          "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt)$",
-          "description": "Fallback regex when mappings are unknown."
+    "bifrost": {
+        "version": "1.0.1",
+        "key": "bifrost",
+        "name": "Bifrost",
+        "alias": "Bifrost",
+        "role": "external network bridge, connector, sync adapter, network dependency index",
+        "abstract": "Bridges internal ACI routing to external connectors; maintains a minimal allowlist for direct connector refs.",
+        "knowledge_base": "connector orchestration & resolvers",
+        "references": {
+            "github_connector": "connectors/github_connector.json",
+            "nexus_core": "entities/nexus_core/nexus_core.json"
+        },
+        "connector_binding": {
+            "key": "github_connector",
+            "file": "connectors/github_connector.json",
+            "canonical_source": "github",
+            "repo": "aliasnet/aci",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
+        },
+        "bifrost_resolution_policy": {
+            "key": "github_connector",
+            "file": "connectors/github_connector.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+            "priority": "canonical_raw_over_local",
+            "allowlist": [
+                "prime_directive.txt",
+                "aci_runtime.json",
+                "aci_bootstrap.json",
+                "entities/**",
+                "functions.json",
+                "memory/**",
+                "connectors/github_connector.json"
+            ],
+            "regex_search": [
+                {
+                    "pattern": "^(aci_.*\\.json|alias\\.json|entities/.+\\.json|memory/.+\\.json|prime_directive\\.txt)$",
+                    "description": "Fallback regex when mappings are unknown."
+                }
+            ]
         }
-      ]
     }
-  }
 }
