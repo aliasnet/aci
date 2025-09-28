@@ -49,7 +49,7 @@ POLICY_FILE = ROOT / "agi_export_policy.json"
 FILESYSTEM_ROOT = Path("/")
 
 REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
-LEGACY_IDENTITY_KEYS = (
+IDENTITY_ALIAS_KEYS: Tuple[str, ...] = (
     "identity",
     "entity",
     "actor",
@@ -58,8 +58,8 @@ LEGACY_IDENTITY_KEYS = (
     "author",
     "by",
     "name",
-    "role",
 )
+LEGACY_IDENTITY_KEYS: Tuple[str, ...] = IDENTITY_ALIAS_KEYS + ("role",)
 
 SUMMARY_SANITIZE_PATTERN = re.compile(r"[^a-z0-9_-]+")
 
@@ -241,7 +241,7 @@ def collect_candidate_messages(payload: Any) -> List[Dict[str, Any]]:
 
 
 MESSAGE_TEXT_KEYS = ("content", "text", "message", "body")
-MESSAGE_ROLE_KEYS = ("role", "identity", "entity", "actor", "speaker", "author", "by", "name")
+MESSAGE_ROLE_KEYS = ("role",) + IDENTITY_ALIAS_KEYS
 MESSAGE_TIMESTAMP_KEYS = (
     "timestamp",
     "ts",
@@ -639,6 +639,19 @@ def migrate_file(
             original_entity=original_entity,
             deny_tags=deny_tags,
         )
+        legacy_identity_key: Optional[str] = None
+        legacy_identity_value: Optional[str] = None
+        for candidate in IDENTITY_ALIAS_KEYS:
+            if candidate == "identity":
+                continue
+            raw_value = message.get(candidate)
+            if raw_value is None:
+                continue
+            candidate_value = str(raw_value).strip()
+            if candidate_value:
+                legacy_identity_key = candidate
+                legacy_identity_value = candidate_value
+                break
         entry = {
             "timestamp": timestamp_str,
             "role": role,
@@ -647,6 +660,14 @@ def migrate_file(
             "metadata": metadata,
         }
         entry["identity"] = entity
+        if legacy_identity_key and legacy_identity_value is not None:
+            entry[legacy_identity_key] = legacy_identity_value
+            if (
+                legacy_identity_key not in {"entity"}
+                and entry.get("entity") == identity["fallback_name"]
+            ):
+                entry.pop("entity", None)
+                entry.pop("identity", None)
         validate_line(entry)
         dedup_key = (entry["timestamp"], entry["entity"], entry["content"])
         if dedup_key in dedup:
