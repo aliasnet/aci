@@ -1,6 +1,6 @@
 {
   "github_connector": {
-    "version": "1.20250927.01",
+    "version": "1.20250927.02",
     "canonical_source": "github",
     "repo": "aliasnet/aci",
     "rules": {
@@ -68,10 +68,9 @@
       }
     ],
     "link_index": {
-      "README.md": "https://raw.githubusercontent.com/aliasnet/aci/main/README.md",
-      "AGENTS.md": "https://raw.githubusercontent.com/aliasnet/aci/main/AGENTS.md",
       "ACI.md": "https://raw.githubusercontent.com/aliasnet/aci/main/ACI.md",
-      "sanity.md": "https://raw.githubusercontent.com/aliasnet/aci/main/sanity.md",
+      "AGENTS.md": "https://raw.githubusercontent.com/aliasnet/aci/main/AGENTS.md",
+      "README.md": "https://raw.githubusercontent.com/aliasnet/aci/main/README.md",
       "aci_bootstrap.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json",
       "aci_commands.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_commands.json",
       "aci_mapping.json": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_mapping.json",
@@ -85,9 +84,13 @@
       "entities/sentinel/sentinel.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/sentinel.json",
       "entities/tva/tva.json": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json",
       "functions.json": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
+      "memory/agi_memory/AGI/agi_agi_memory_audit_20250927-T105140Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/agi_memory/AGI/agi_agi_memory_audit_20250927-T105140Z.json",
       "memory/agi_memory/AGI/agi_agi_memory_operational_20250927-T105140Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/agi_memory/AGI/agi_agi_memory_operational_20250927-T105140Z.json",
       "memory/hivemind_memory/hivemind_memory_operational_20250919T161225Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind_memory/hivemind_memory_operational_20250919T161225Z.json",
-      "prime_directive.txt": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
+      "memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json",
+      "memory/hivemind_memory/logs/hivemind_memory_2025-09-25T13-44-27_0001.json": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind_memory/logs/hivemind_memory_2025-09-25T13-44-27_0001.json",
+      "prime_directive.txt": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt",
+      "sanity.md": "https://raw.githubusercontent.com/aliasnet/aci/main/sanity.md"
     }
   }
 }
