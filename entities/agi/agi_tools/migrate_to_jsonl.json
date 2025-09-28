@@ -50,14 +50,14 @@
       "call": "migrate.collect_messages",
       "map": {
         "input_path": "$steps.0.value",
-        "notes": "Parse the legacy payload and collect message-like records regardless of historical schema drift."
+        "notes": "Prefer the JSON-native migrate.collect_messages capability when available; parse the legacy payload and collect message-like records regardless of historical schema drift, falling back to the archived Python behavior only when required."
       }
     },
     {
       "call": "migrate.normalize_messages",
       "map": {
         "messages": "$steps.5.value",
-        "notes": "Normalize timestamps, roles, and metadata, emitting UTC timestamps with Z suffixes and schema-aligned keys."
+        "notes": "Prefer the JSON-native migrate.normalize_messages capability when available so timestamps, roles, and metadata normalize into UTC Z-format schema-aligned keys, reserving the archived Python implementation as a compatibility fallback."
       }
     },
     {
@@ -65,7 +65,7 @@
       "map": {
         "messages": "$steps.6.value",
         "policy_filters": "$state.policy.agi_memory",
-        "notes": "Honor agi_memory allow_topics, deny_tags, drop_if_topic_missing, and default_topic directives before writing output."
+        "notes": "Prefer the JSON-native migrate.apply_filters capability when available and honor agi_memory allow_topics, deny_tags, drop_if_topic_missing, and default_topic directives before writing output, retaining the archived Python fallback solely for legacy environments."
       }
     },
     {
@@ -73,7 +73,7 @@
       "map": {
         "messages": "$steps.7.value",
         "audit": "$state.policy.agi_memory.audit",
-        "notes": "Enforce chronological ordering, inject export audit events, and prepare ledger metadata if required."
+        "notes": "Prefer the JSON-native migrate.apply_audit_requirements capability when available to enforce chronological ordering, inject export audit events, and prepare ledger metadata if required, relying on the archived Python implementation only when JSON support is unavailable."
       }
     },
     {
@@ -86,7 +86,7 @@
         "path_template": "$state.policy.agi_memory.path_template",
         "filename_template": "$state.policy.agi_memory.filename_template",
         "timestamp_format": "$state.policy.agi_memory.timestamp_format",
-        "notes": "Render the JSONL artifact using the path_template, filename_template, and timestamp_format defined in agi_memory and expose the absolute artifact.path for downstream checksum and ledger steps."
+        "notes": "Prefer the JSON-native migrate.write_jsonl capability when available to render the JSONL artifact using the path_template, filename_template, and timestamp_format defined in agi_memory, exposing the absolute artifact.path for downstream checksum and ledger steps while keeping the archived Python variant as a fallback."
       }
     },
     {
@@ -94,7 +94,7 @@
       "map": {
         "artifact": "$steps.9.value",
         "path": "$steps.9.value.path",
-        "notes": "Emit a SHA-256 checksum companion file for the generated JSONL artifact using the absolute artifact.path."
+        "notes": "Prefer the JSON-native migrate.write_checksum capability when available to emit a SHA-256 checksum companion file for the generated JSONL artifact using the absolute artifact.path, deferring to the archived Python routine only when necessary."
       }
     },
     {
@@ -103,7 +103,7 @@
         "artifact": "$steps.9.value",
         "checksum": "$steps.10.value",
         "ledger_path": "$state.policy.agi_memory.audit.ledger_path",
-        "notes": "Append an anchoring record to the configured ledger when audit.ledger_path is present."
+        "notes": "Prefer the JSON-native migrate.append_ledger capability when available to append an anchoring record to the configured ledger when audit.ledger_path is present, using the archived Python logic only when JSON replacements are unavailable."
       }
     },
     {

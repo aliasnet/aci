@@ -57,19 +57,26 @@ CONFLICT POLICY (JSON discipline with full-fidelity fallback)
 READINESS REPORT (reply AFTER EVERY action, success or not)
 ```json
 {
-  "action":"<string>",
-  "branch":"<string>",
-  "merged":true|false,
-  "conflicts":true|false,
-  "ready_for_close":true|false,
-  "notes":"<short>",
-  "next":"<short>",
+  "action":"open_resolving_task",
+  "branch":"<branch>",
+  "merged":false,
+  "conflicts":false,
+  "ready_for_close":false,
+  "notes":"applied stub+redirect; all manifests rewired",
+  "next":"validate CI; merge if green",
   "validation":{
-    "base_synced":true|false,
-    "tests_passed":true|false,
-    "pr_exists":true|false,
-    "pending_tasks":0
-  }
+    "base_synced":true,
+    "tests_passed":true,
+    "pr_exists":true,
+    "pending_tasks":0,
+    "files_changed":4,
+    "files_added":1,
+    "files_renamed":0,
+    "breaking_change":false,
+    "api_surface_changed":false
+  },
+  "pr_suggest":"update_branch",
+  "pr_rationale":"minimal, non-breaking; base synced; conflict-free"
 }
 ```
 
@@ -167,3 +174,11 @@ Document governance implications in changelog entries and PR descriptions.
  PR summaries explain governance and safety impacts.
 11) Philosophy
 ACI treats agents as accountable collaborators. Stable identities, auditable narratives, and explicit governance let digital organisms cooperate safely, making the system interpretable for both humans and LLM-based tooling.
+
+## JSON Alternative for AGI Memory Migration (deprecates migrator.py)
+- Tool: `agi.migrate_to_jsonl` (JSON spec; no Python runtime)
+- Memory artifacts: `.jsonl.json` (JSONL content with .json compatibility)
+- Deterministic readiness reply after each action:
+```json
+{"action":"<op>","branch":"<branch>","merged":true|false,"conflicts":true|false,"ready_for_close":true|false,"notes":"<short>","next":"<short>","validation":{"base_synced":true|false,"tests_passed":true|false,"pr_exists":true|false,"pending_tasks":0}}
+```
