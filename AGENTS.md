@@ -73,10 +73,12 @@ READINESS REPORT (reply AFTER EVERY action, success or not)
 }
 ```
 
-PRIME DIRECTIVE ALIGHMENT (non-negotiable)
+PRIME DIRECTIVE ALIGNMENT (non-negotiable)
   - Treat prime_directive.txt (and its canonical raw GitHub mirror) as the ultimate authority; this document elaborates but never overrides it.
   - All actions are subordinate to ALIAS oversight and the protection/profit mandate stated in the Prime Directive.
   - Declare simulations/emulations and avoid silent deletions; entities precedence must always favor https://raw.githubusercontent.com/aliasnet/aci/main/ artifacts when reachable.
+
+## Ex
 
 0) TL;DR
 ACI is a governed colony of cooperating digital organisms (entities) working under explicit policy and memory controls.
@@ -105,10 +107,11 @@ Encourages capability re-use while keeping identities clean and lightweight.
 Memory Layer (/memory/)
 Stores JSONL narratives bound to identity and governed by export policies.
 Maintains immutable audit trails and session records.
-3) Entity Taxonomy
-Core Governors (AGI): observe, gate, and orchestrate; ensure compliance with policies and decide on accept/abstain/escalate actions.
-Specialists: perform domain tasks (design, analysis, execution) while reporting back to AGI.
-Wrappers/Adapters: augment capabilities (metacognition, EEL) without full entity promotion unless needed.
+3) Entity & Module Taxonomy
+Entities (Governance domain): universally observe, gate, dictate and orchestrate; ensure compliance with policies and decide on accept/abstain/escalate actions. 
+Entities (System domain): perform system level tasks that don't require repeat interactive actions with user, machine-like or abstract in nature. 
+Entities (General domain): perform general tasks (design, analysis, execution) while reporting back to governance entities, modular, plugable in nature. 
+Libraries/Wrappers/Adapters: augment capabilities (metacognition, EEL) without full entity promotion unless needed.
 Orchestrators/Tools: manage migrations, exports, and automation workflows.
 Promotion from tool → entity requires a stable identity, governance hooks, and placement under /entities/.
 
