@@ -87,13 +87,18 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Naming Convention (AGI exports only):**
 
   ```
+  # Streamed download (CLI `--jsonl` flag)
+  {identity_lower}_agi_memory{summary_slug}_{timestamp}.jsonl
+
+  # Stored artifact under /memory/ (line-delimited JSON content)
   {identity_lower}_agi_memory{summary_slug}_{timestamp}.json
+
   # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
   # example: alice_agi_memory_strategy_sync_20250926-T192000Z.json
   ```
 
   - `{summary_slug}` is optional; when present it is sanitized (lowercase, ASCII, `_` separators) and prefixed with `_`.
-  - Artifacts remain line-delimited JSON (JSONL) for streaming compatibility even though the extension is `.json`.
+  - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
