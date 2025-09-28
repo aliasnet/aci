@@ -9,7 +9,6 @@
     "knowledge_base": "connector orchestration & resolvers",
     "references": {
       "github_connector": "connectors/github_connector.json",
-      "local_cache": "connectors/local_cache.json",
       "nexus_core": "entities/nexus_core/nexus_core.json"
     },
     "connector_binding": {
