@@ -1,20 +1,50 @@
 {
-  "version": "2025-09-27.1",
+  "version": "2025-09-27.5",
   "entity": "Sentinel",
   "role": "guardian",
   "status": "operational",
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "audit": {
     "router_config": "library/audit/audit_router.json",
-    "default_mode": "session_only",
-    "export_instruction": "Provide \"export_file\": true when invoking pipelines.sentinel.audit to generate a persistent export alongside the session log."
+    "default_mode": "audit_router.tracehub.session",
+    "export_instruction": "Set \"export_override\" to the desired audit router sink key (audit_router.tracehub.export or audit_router.tva_ledger.export) and enable the matching governance toggle before invoking pipelines.sentinel.audit to promote governed exports alongside the session log."
   },
   "guidance": [
-    "Session-only logging keeps activity confined to /memory/audit/ for the active runtime window.",
-    "Persistent exports require the export sink to be enabled and will emit governed JSONL files under /memory/audit/exports/.",
-    "Signature enforcement follows the router controls; when export_file mode is active, presence records must include a valid Sentinel/ALIAS signature."
+    "TraceHub session retention remains anchored to audit_router.tracehub.session with output scoped to /memory/audit/tracehub/session for the active runtime window.",
+    "TVA ledger checkpoints continue to use audit_router.tva_ledger.session and stay provisional under /memory/audit/tva_ledger/session until export overrides are approved.",
+    "When persistent exports are required, enable the desired export sink (audit_router.tracehub.export or audit_router.tva_ledger.export) through its governance toggle before invoking pipelines.sentinel.audit.",
+    "Provide export_override with the router sink key you enabled (audit_router.tracehub.export or audit_router.tva_ledger.export) so the pipeline composes the governed export event.",
+    "Export sinks that require signatures must carry Sentinel-approved metadata; confirm signature fields are populated or the router will reject the override."
   ],
   "changelog": [
+    {
+      "version": "2025-09-27.5",
+      "notes": [
+        "Aligned Sentinel audit guidance with the export_override pipeline parameter so router sink overrides and governance toggles stay in sync.",
+        "Documented the requirement to enable router export modes before forwarding export_override keys for TraceHub or TVA promotions."
+      ]
+    },
+    {
+      "version": "2025-09-27.4",
+      "notes": [
+        "Documented router sink override instructions to ensure audit_router.tracehub.export and audit_router.tva_ledger.export are configured before enabling persistent exports.",
+        "Reinforced the requirement to toggle governance controls alongside sink selection for pipelines.sentinel.audit runs."
+      ]
+    },
+    {
+      "version": "2025-09-27.3",
+      "notes": [
+        "Clarified export overrides to reference explicit router sink key selection prior to running pipelines.sentinel.audit.",
+        "Documented signature enforcement expectations for export sinks and aligned guidance messaging with the router configuration."
+      ]
+    },
+    {
+      "version": "2025-09-27.2",
+      "notes": [
+        "Directed callers to set export_override to the desired audit router sink key when requesting governed exports.",
+        "Clarified TraceHub vs TVA override usage and reinforced signature expectations for export promotions."
+      ]
+    },
     {
       "version": "2025-09-27.1",
       "notes": [
