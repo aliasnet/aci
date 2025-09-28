@@ -19,13 +19,19 @@
           }
         },
         {
+          "call": "audit.payload.filter",
+          "map": {
+            "params": "$params"
+          }
+        },
+        {
           "call": "audit.event.compose",
           "map": {
             "router": "$steps.0.router",
             "action": "$params.action",
             "session_id": "$params.session_id",
             "actor": "$params.actor",
-            "payload": "$params.payload",
+            "payload": "$steps.1.payload",
             "signature": "$params.signature",
             "export_override": "$params.export_file",
             "timestamp": "$now"
@@ -35,7 +41,7 @@
           "call": "audit.router.dispatch",
           "map": {
             "router": "$steps.0.router",
-            "event": "$steps.1.event"
+            "event": "$steps.2.event"
           }
         }
       ]
