@@ -1,5 +1,5 @@
 {
-  "version": "2025-09-27.4",
+  "version": "2025-09-27.5",
   "entity": "Sentinel",
   "role": "guardian",
   "status": "operational",
@@ -7,15 +7,21 @@
   "audit": {
     "router_config": "library/audit/audit_router.json",
     "default_mode": "audit_router.tracehub.session",
-    "export_instruction": "Before invoking pipelines.sentinel.audit for persistent exports, set the router sink key to audit_router.tracehub.export or audit_router.tva_ledger.export and enable the corresponding governance toggle so signature enforcement can engage."
+    "export_instruction": "Before invoking pipelines.sentinel.audit for persistent exports, pass export_override with audit_router.tracehub.export or audit_router.tva_ledger.export and enable the corresponding governance toggle so signature enforcement can engage."
   },
   "guidance": [
     "TraceHub session retention remains anchored to audit_router.tracehub.session with output scoped to /memory/audit/tracehub/session for the active runtime window.",
     "TVA ledger checkpoints continue to use audit_router.tva_ledger.session and stay provisional under /memory/audit/tva_ledger/session until export overrides are approved.",
-    "When persistent exports are required, set the router sink key to the desired export mode (audit_router.tracehub.export or audit_router.tva_ledger.export) and enable the matching governance toggle before invoking pipelines.sentinel.audit.",
+    "When persistent exports are required, set export_override to the desired export sink (audit_router.tracehub.export or audit_router.tva_ledger.export) and enable the matching governance toggle before invoking pipelines.sentinel.audit.",
     "Export sinks that require signatures must carry Sentinel-approved metadata; confirm signature fields are populated or the router will reject the override."
   ],
   "changelog": [
+    {
+      "version": "2025-09-27.5",
+      "notes": [
+        "Renamed the pipelines.sentinel.audit export parameter to export_override and aligned guidance with the required governance toggles."
+      ]
+    },
     {
       "version": "2025-09-27.4",
       "notes": [
