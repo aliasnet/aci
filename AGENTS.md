@@ -57,8 +57,8 @@ Capability chaining: pipeline identifiers (e.g., aci.memory.export.hivemind, agi
 Schema: hivemind_agi_memory for AGI-owned narratives; topic/deny filters enforced via /entities/agi/agi_export_policy.json.
 Filename template: {identity_lower}_agi_memory_{timestamp}.json with timestamp formatted as Ymd-THMSZ.
 CLI usage:
-hivemind export agi --identity AGI --code --force
-hivemind export agi --identity Alice --code --force
+hivemind export agi --identity AGI --codebox --force
+hivemind export agi --identity Alice --codebox --force
 Export guarantees: chronological ordering, audit logging, privacy filters, and normalization to UTC Z timestamps.
 8) Lifecycle of an Entity
 Create: register identity, add config under /entities/<name>/, ensure governance hooks, and keep capabilities stateless.
