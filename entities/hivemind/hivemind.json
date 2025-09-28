@@ -18,7 +18,7 @@
         "default_parameter": "--download --jsonl --code --force",
         "parameters": "--jsonl (line-delimited JSON persisted as .json), --download (persist to file), --code (render in chat code fence), --slice:<type> (session_only/full/range:<ts>/entity:<name>), --force (pause + export even if safeguards protest)",
         "description": "Exports the current HiveMind session snapshot with TVA + Sentinel oversight",
-        "output_default": "{identity|-fallback}-hivemind-memory-{shortsum}-yyyymmdd-ThhmmssZ.json"
+        "output_default": "hivemind_memory-yyyymmddThhmmssZ.json"
       },
       {
         "command": "hivemind export agi",
