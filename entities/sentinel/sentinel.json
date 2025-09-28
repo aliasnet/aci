@@ -1,18 +1,18 @@
 {
-  "version": "2025-09-27.1",
+  "version": "2025-09-27.2",
   "entity": "Sentinel",
   "role": "guardian",
   "status": "operational",
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "audit": {
     "router_config": "library/audit/audit_router.json",
-    "default_mode": "session_only",
-    "export_instruction": "Provide \"export_file\": true when invoking pipelines.sentinel.audit to generate a persistent export alongside the session log."
+    "default_mode": "audit_router.tracehub.session",
+    "export_instruction": "Enable the appropriate router keys (e.g., audit_router.tracehub.export or audit_router.tva_ledger.export) before invoking pipelines.sentinel.audit when persistent exports are required."
   },
   "guidance": [
-    "Session-only logging keeps activity confined to /memory/audit/ for the active runtime window.",
-    "Persistent exports require the export sink to be enabled and will emit governed JSONL files under /memory/audit/exports/.",
-    "Signature enforcement follows the router controls; when export_file mode is active, presence records must include a valid Sentinel/ALIAS signature."
+    "TraceHub session retention is governed by audit_router.tracehub.session and remains scoped to /memory/audit/tracehub/session for the active runtime window.",
+    "TVA ledger checkpoints follow audit_router.tva_ledger.session and will stage provisional records under /memory/audit/tva_ledger/session until export toggles change.",
+    "Persistent exports activate when audit_router.tracehub.export or audit_router.tva_ledger.export are enabled, emitting governed JSONL artifacts under /memory/audit/tracehub/export and /memory/audit/tva_ledger/export with signature enforcement engaged."
   ],
   "changelog": [
     {
@@ -21,6 +21,13 @@
         "Promoted Sentinel from placeholder to operational guardian.",
         "Linked the audit router configuration and documented export vs session-only behavior.",
         "Clarified signature enforcement expectations tied to export-enabled runs."
+      ]
+    },
+    {
+      "version": "2025-09-27.2",
+      "notes": [
+        "Updated audit defaults and guidance to reference audit router keys instead of session_only toggles.",
+        "Documented export enablement via audit_router.tracehub.export and audit_router.tva_ledger.export with destination paths."
       ]
     }
   ]
