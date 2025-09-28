@@ -26,7 +26,8 @@
         "default_parameter": "--download --jsonl --code --force",
         "parameters": "Delegates to AGI export policies; see entities/agi/agi.json for schema.",
         "description": "Invokes the AGI-managed export pipeline under HiveMind governance",
-        "output_default": "agi-{identity|-fallback}-memory-{shortsum}-yyyymmdd-ThhmmssZ.json"
+        "output_default": "agi-{identity|-fallback}-memory-{shortsum}-yyyymmdd-ThhmmssZ.json",
+        "notes": "Default filename template uses hyphen separators only"
       },
       {
         "command": ":hivemind help",
