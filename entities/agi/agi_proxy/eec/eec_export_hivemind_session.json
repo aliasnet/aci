@@ -14,6 +14,7 @@
     "note": null
   },
   "output": {
+    "memory_directory_template": "/memory/agi_memory/${IDENTITY}/",
     "memory_path_template": "/memory/agi_memory/${IDENTITY}/${IDENTITY_LOWER}_agi_memory_${DATE}-T${TIME}Z.json"
   },
   "sandbox_overrides": {
