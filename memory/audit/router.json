@@ -1,0 +1,29 @@
+{
+  "version": "2025-03-17",
+  "router": {
+    "tracehub": {
+      "description": "Primary session tracing sink managed by TraceHub with optional export promotion.",
+      "paths": {
+        "session": "/memory/audit/tracehub/session",
+        "export": "/memory/audit/tracehub/export"
+      },
+      "flags": {
+        "session_default": true,
+        "allow_export": true
+      },
+      "notes": "Use the session path for run-scoped transcripts. Promote to export path only when TVA+Sentinel approve persistent retention."
+    },
+    "tva_ledger": {
+      "description": "Governed ledger entries maintained by TVA for compliance and rollback review.",
+      "paths": {
+        "session": "/memory/audit/tva_ledger/session",
+        "export": "/memory/audit/tva_ledger/export"
+      },
+      "flags": {
+        "session_default": true,
+        "allow_export": true
+      },
+      "notes": "Session entries hold provisional checkpoints. Export path stores sealed ledgers cleared for long-term storage."
+    }
+  }
+}
