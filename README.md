@@ -99,6 +99,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
   - `{summary_slug}` is optional; when present it is sanitized (lowercase, ASCII, `_` separators) and prefixed with `_`.
   - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
+  - Include the `--codebox` flag with streamed exports so downstream audits match the governed `.json` artifacts stored under `/memory/`.
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
 - **Export Policy:** `/entities/agi/agi_export_policy.json`

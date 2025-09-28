@@ -61,6 +61,7 @@ Filename templates (stream vs stored artifacts):
 CLI usage:
 hivemind export agi --identity AGI --jsonl --codebox --force
 hivemind export agi --identity Alice --jsonl --codebox --force
+Note: Always include the `--codebox` flag so streamed exports align with governed `.json` storage expectations when audited downstream.
 Export guarantees: chronological ordering, audit logging, privacy filters, and normalization to UTC Z timestamps.
 8) Lifecycle of an Entity
 Create: register identity, add config under /entities/<name>/, ensure governance hooks, and keep capabilities stateless.
