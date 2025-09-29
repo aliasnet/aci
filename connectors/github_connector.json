@@ -26,8 +26,7 @@
       ]
     },
     "references": {
-      "bifrost": "entities/bifrost/bifrost.json",
-      "aci_repo": "entities/aci_repo/aci_repo.json"
+      "bifrost": "entities/bifrost/bifrost.json"
     },
     "aci_resolution_instruction": {
       "instruction": "Resolve and validate ACI files from GitHub main branch using raw URLs only.",
