@@ -586,6 +586,175 @@
           "call": "_format.json"
         }
       ]
+    },
+    "process.logs.init": {
+      "description": "Initialize a process-log file for this session and topic. Append-only.",
+      "steps": [
+        {
+          "call": "_store.get",
+          "map": {
+            "key": "current_session_id"
+          }
+        },
+        {
+          "if": "$steps.0.value == null",
+          "then": [
+            {
+              "call": "aci-uuid.new",
+              "map": {
+                "format": "uuidv4"
+              }
+            },
+            {
+              "call": "_store.set",
+              "map": {
+                "key": "current_session_id",
+                "value": "$steps.1.uuid"
+              }
+            }
+          ]
+        },
+        {
+          "call": "slugify",
+          "map": {
+            "text": "$params.topic",
+            "default": "general"
+          }
+        },
+        {
+          "call": "_store.set",
+          "map": {
+            "key": "process_logs.topic_slug",
+            "value": "$steps.2.slug"
+          }
+        },
+        {
+          "call": "date.format",
+          "map": {
+            "format": "YYYYMMDD",
+            "value": "$now"
+          }
+        },
+        {
+          "call": "_store.set",
+          "map": {
+            "key": "process_logs.file",
+            "value": "memory/process_logs/proc_${current_session_id}_${steps.2.slug}_${steps.4.date}.jsonl"
+          }
+        },
+        {
+          "call": "hivemind.ensure_file",
+          "map": {
+            "filename": "${process_logs.file}",
+            "append_only": true
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "process.log.init",
+            "session_id": "${current_session_id}",
+            "topic": "${process_logs.topic_slug}",
+            "file": "${process_logs.file}"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "process.logs.append": {
+      "description": "Append a single JSON object as one line (JSONL) to the current process log file.",
+      "steps": [
+        {
+          "call": "_store.get",
+          "map": {
+            "key": "process_logs.file"
+          }
+        },
+        {
+          "if": "$steps.0.value == null",
+          "then": [
+            {
+              "call": "process.logs.init",
+              "map": {
+                "topic": "$params.topic"
+              }
+            },
+            {
+              "call": "_store.get",
+              "map": {
+                "key": "process_logs.file"
+              }
+            }
+          ]
+        },
+        {
+          "call": "date.iso8601",
+          "map": {}
+        },
+        {
+          "call": "identity.resolve",
+          "map": {
+            "fallback": "AGI",
+            "param": "$params.identity"
+          }
+        },
+        {
+          "call": "object.compose",
+          "map": {
+            "object": {
+              "schema": "agi.process.log.v1",
+              "ts": "$steps.2.iso",
+              "identity": "$steps.3.identity",
+              "topic": "$params.topic",
+              "event": "$params.event",
+              "summary": "$params.summary",
+              "details": "$params.details",
+              "citations": "$params.citations"
+            }
+          }
+        },
+        {
+          "call": "json.schema.validate",
+          "map": {
+            "schema_file": "library/wrappers/process_logs/process_log_schema.json",
+            "data": "$steps.4.object"
+          }
+        },
+        {
+          "call": "hivemind.jsonl.append",
+          "map": {
+            "filename": "${process_logs.file}",
+            "line": "$steps.4.object"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "process.log.append",
+            "file": "${process_logs.file}",
+            "event": "$params.event"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "process.logs.export": {
+      "description": "Return the current process log file path for external consumption.",
+      "steps": [
+        {
+          "call": "_store.get",
+          "map": {
+            "key": "process_logs.file"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
     }
   },
   "cli": {
@@ -641,6 +810,18 @@
       {
         "pattern": "^aci\\s+update$",
         "pipeline": "aci.repo.update"
+      },
+      {
+        "pattern": "^process\\s+log\\s+init(?:\\s+--topic\\s+(?P<topic>.+))?$",
+        "pipeline": "process.logs.init"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)(?=(?:\\s+--(?:topic|identity)\\b|$))(?:\\s+--topic\\s+(?P<topic>.+?)(?=(?:\\s+--identity\\b|$)))?(?:\\s+--identity\\s+(?P<identity>\\S+))?$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+export$",
+        "pipeline": "process.logs.export"
       },
       {
         "pattern": "^aci\\s+repo\\s+help$",
