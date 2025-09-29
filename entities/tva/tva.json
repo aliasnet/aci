@@ -66,8 +66,8 @@
       "procedure": [
         "1) Review session_path entries for scope and redact as required.",
         "2) Raise the audit_router.tva_ledger.export flag and move approved entries to export_path with TVA seal and checksum manifest.",
-        "3) Emit export notice to TraceHub, update ALIAS governance register with manifest reference, and drop the export flag once the ledger is sealed."
-        "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)", 
+        "3) Emit export notice to TraceHub, update ALIAS governance register with manifest reference, and drop the export flag once the ledger is sealed.",
+        "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
       ],
       "notes": "Toggle audit router targets from audit_router.tva_ledger.session to audit_router.tva_ledger.export only after approvals are logged; revert once export is sealed."
     },

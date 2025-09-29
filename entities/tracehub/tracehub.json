@@ -43,7 +43,8 @@
     "procedure": [
       "1) Flush session buffers to the session_path and compute SHA-256 manifests.",
       "2) Raise the audit_router.tracehub.export flag and copy approved entries to export_path with TVA seal metadata (ledger id, approver, timestamp).",
-      "3) Update TVA ledger with export manifest reference, drop the export flag, and release TraceHub writers."
+      "3) Update TVA ledger with export manifest reference, drop the export flag, and release TraceHub writers.",
+      "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
     ],
     "notes": "Use audit router toggle_semantics to switch store_in targets from audit_router.tracehub.session to audit_router.tracehub.export when fulfilling user export requests."
   }
