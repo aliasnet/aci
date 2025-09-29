@@ -1,7 +1,7 @@
 {
   "function": {
     "name": "audit.payload.filter",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "status": "draft",
     "summary": "Derive an audit payload from invocation parameters while stripping transport metadata fields.",
     "inputs": {
@@ -18,7 +18,7 @@
     },
     "algorithm": [
       "Start with a shallow copy of the provided params object (or an empty object when params is null).",
-      "Remove transport metadata keys: action, session_id, actor, signature, export_file.",
+      "Remove transport metadata keys: action, session_id, actor, signature, export_override.",
       "Return the remaining object verbatim so contextual fields such as presence_file, migration_index, query, packages, or custom keys persist in the payload."
     ],
     "notes": [
@@ -31,7 +31,8 @@
           "action": "legacy_adopt",
           "session_id": "1234",
           "presence_file": "presence/1234.json",
-          "migration_index": "legacy/migration_index_2025-09-26.json"
+          "migration_index": "legacy/migration_index_2025-09-26.json",
+          "export_override": "audit_router.tracehub.export"
         },
         "payload": {
           "presence_file": "presence/1234.json",
