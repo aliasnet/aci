@@ -8,8 +8,7 @@
         "abstract": "Bridges internal ACI routing to external connectors; maintains a minimal allowlist for direct connector refs.",
         "knowledge_base": "connector orchestration & resolvers",
         "references": {
-            "github_connector": "connectors/github_connector.json",
-            "nexus_core": "entities/nexus_core/nexus_core.json"
+            "github_connector": "connectors/github_connector.json"
         },
         "connector_binding": {
             "key": "github_connector",
