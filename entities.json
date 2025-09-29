@@ -21,6 +21,7 @@
         }
       ]
     },
+    "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
     "list": [
       {
         "id": 0,
