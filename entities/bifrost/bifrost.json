@@ -1,6 +1,9 @@
 {
     "bifrost": {
-        "version": "1.0.1",
+        "version": "1.0.2",
+        "changelog": [
+            "Removed nexus_core reference so Bifrost only tracks github_connector."
+        ],
         "key": "bifrost",
         "name": "Bifrost",
         "alias": "Bifrost",
