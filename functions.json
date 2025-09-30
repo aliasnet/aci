@@ -587,6 +587,22 @@
         }
       ]
     },
+    "hivemind.jsonl.append": {
+      "description": "Append a JSON object as a single JSONL line to a HiveMind-managed file, creating the file when absent.",
+      "steps": [
+        {
+          "call": "hivemind.write",
+          "map": {
+            "filename": "$params.filename",
+            "content": "$params.line",
+            "mode": "append_jsonl"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
     "process.logs.init": {
       "description": "Initialize a process-log file for this session and topic. Append-only.",
       "steps": [
