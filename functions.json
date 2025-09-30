@@ -5,8 +5,11 @@
     "canonical_source": "github",
     "repo": "aliasnet/aci",
     "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+    "mirrors": [
+      "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json"
+    ],
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw URLs take precedence over local copies; local function catalogs are fallback only when mirrors fail."
+    "notes": "Canonical raw URLs or their jsDelivr mirrors take precedence over local copies; local function catalogs are fallback only when canonical sources fail."
   },
   "pipelines": {
     "sentinel.audit": {

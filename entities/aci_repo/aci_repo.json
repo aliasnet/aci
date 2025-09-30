@@ -11,7 +11,10 @@
     "primary": "bifrost",
     "fallback": "github_connector",
     "policy": "canonical_raw_first_then_local_fallback",
-    "notes": "All external resolution flows through Bifrost first; connector is fallback for direct GitHub access."
+    "canonical_mirrors": [
+      "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/"
+    ],
+    "notes": "All external resolution flows through Bifrost first; connector provides direct GitHub or jsDelivr access as canonical sources."
   },
   "rules": {
     "safety": [

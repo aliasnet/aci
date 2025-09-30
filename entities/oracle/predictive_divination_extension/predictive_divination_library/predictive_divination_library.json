@@ -3,27 +3,42 @@
     {
       "name": "astro_tables.json",
       "file": "astro_tables.json",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json"
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json"
+      ]
     },
     {
       "name": "tarot_rws.json",
       "file": "tarot_rws.json",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
+      ]
     },
     {
       "name": "tarot_expansions.json",
       "file": "tarot_expansions.json",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json"
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json"
+      ]
     },
     {
       "name": "sefirot.json",
       "file": "sefirot.json",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json"
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json"
+      ]
     },
     {
       "name": "runes_futhark.json",
       "file": "runes_futhark.json",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json"
+      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json"
+      ]
     }
   ]
 }

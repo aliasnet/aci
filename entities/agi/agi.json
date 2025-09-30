@@ -149,12 +149,18 @@
     "agi.memory.migrate_to_jsonl": {
       "description": "Migrate legacy HiveMind exports into the policy-compliant AGI JSONL memory artifact via manifest-driven steps.",
       "spec_ref": "entities/agi/agi_tools/migrate_to_jsonl.json",
-      "raw_url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/agi_tools/migrate_to_jsonl.json"
+      "raw_url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/agi_tools/migrate_to_jsonl.json",
+      "mirror_urls": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/agi/agi_tools/migrate_to_jsonl.json"
+      ]
     },
     "agi.mode.auto_learn": {
       "description": "Engage AGI auto-learn mode with hourly scheduled research and iterative article refinement.",
       "spec_ref": "entities/agi/agi_tools/autolearn.json",
-      "raw_url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/agi_tools/autolearn.json"
+      "raw_url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/agi_tools/autolearn.json",
+      "mirror_urls": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/agi/agi_tools/autolearn.json"
+      ]
     }
   },
   "signatures": ["ALIAS", "Sentinel", "TVA"]
