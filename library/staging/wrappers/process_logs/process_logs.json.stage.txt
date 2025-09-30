@@ -1,0 +1,47 @@
+# STAGING COPY - Nonfunctional stub
+
+{
+  "abstract": "Emits structured JSONL process logs for any identity (AGI, Alice, Architect, etc.). Optimized for append-only, audit-friendly traces.",
+  "alias": "Process Logs",
+  "auto_export": false,
+  "changelog": [
+    {
+      "date": "2025-10-01",
+      "notes": [
+        "Normalize optional CLI parameters with governed defaults before schema validation to keep append flow resilient."
+      ],
+      "version": "1.0.2"
+    },
+    {
+      "date": "2025-09-30",
+      "notes": [
+        "Return structured JSON responses from init/append/export pipelines for predictable CLI consumption."
+      ],
+      "version": "1.0.1"
+    },
+    {
+      "date": "2025-09-29",
+      "notes": [
+        "Initial wrapper specification enabling append-only process log JSONL lines with agi.process.log.v1 schema enforcement."
+      ],
+      "version": "1.0.0"
+    }
+  ],
+  "functions": [
+    "process.logs.init",
+    "process.logs.append",
+    "process.logs.export"
+  ],
+  "key": "process_logs",
+  "knowledge_base": "observability & audit pipelines",
+  "name": "Process Logs",
+  "notes": "Identity is a required field; default is 'AGI' when unspecified.",
+  "role": "append-only process logging",
+  "schema": "library/wrappers/process_logs/process_log_schema.json",
+  "storage": {
+    "append_only": true,
+    "file_naming": "proc_${session_id}_${topic_slug}_${date}.jsonl.json",
+    "root": "memory/process_logs"
+  },
+  "version": "1.0.2"
+}

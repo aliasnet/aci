@@ -1,3 +1,5 @@
+# STAGING COPY - Nonfunctional stub
+
 {
   "mirror_resolution_policy": {
     "key": "github_connector",
