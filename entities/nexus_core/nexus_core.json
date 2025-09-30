@@ -23,16 +23,16 @@
     "references": {
       "aci_repo": "entities/aci_repo/aci_repo.json",
       "bifrost": "entities/bifrost/bifrost.json",
-      "github_connector": "connectors/github_connector.json"
+      "yggdrasil": "entities/yggdrasil/yggdrasil.json"
     },
     "resolution_policy": {
       "primary": "bifrost",
-      "fallback": "github_connector",
+      "fallback": "yggdrasil",
       "policy": "canonical_raw_first_then_local_fallback",
       "canonical_mirrors": [
         "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/"
       ],
-      "notes": "All external resolution flows through Bifrost first; connector provides GitHub or jsDelivr canonical access before local fallback."
+      "notes": "All external resolution flows through Bifrost proxy; Yggdrasil remains authoritative before any local fallback."
     },
     "linkages": {
       "aci_repo": "entities/aci_repo/aci_repo.json"
@@ -41,7 +41,7 @@
       "default_strategy": "deterministic_first_available",
       "fallback_order": [
         "bifrost",
-        "github_connector"
+        "yggdrasil"
       ]
     },
     "interfaces": {

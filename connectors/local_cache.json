@@ -81,7 +81,7 @@
         "resolve_order": "validate_local_then_return",
         "on_failure": {
           "action": "fallback_to_connector",
-          "target": "github_connector",
+          "target": "aci://entities/bifrost/bifrost.json#bifrost_resource_resolution_policy",
           "alert": "mirror.validation_failed"
         }
       },
@@ -94,8 +94,9 @@
     "link_index": {
       "README.md": "{mirror_root}/README.md",
       "aci_runtime.json": "{mirror_root}/aci_runtime.json",
-      "entities.json": "{mirror_root}/entities.json",
       "connectors/github_connector.json": "{mirror_root}/connectors/github_connector.json",
+      "connectors/yggdrasil.json": "{mirror_root}/connectors/yggdrasil.json",
+      "entities.json": "{mirror_root}/entities.json",
       "entities/bifrost/bifrost.json": "{mirror_root}/entities/bifrost/bifrost.json"
     },
     "signatures": {

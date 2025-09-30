@@ -2,27 +2,19 @@
   "entities": {
     "version": "1.20250918.00",
     "mirror_resolution_policy": {
-      "key": "github_connector",
-      "file": "connectors/github_connector.json",
-      "canonical_source": "github",
-      "repo": "aliasnet/aci",
-      "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-      "mirrors": [
-        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json"
-      ],
-      "priority": "canonical_raw_over_local",
-      "notes": "Canonical raw URLs or their jsDelivr mirrors take precedence over local copies; fall back to local entity manifests only when canonical sources fail.",
       "fallbacks": [
         {
-          "key": "local_cache",
-          "file": "connectors/local_cache.json",
           "canonical_source": "local_mirror",
-          "repo": "aliasnet/aci",
+          "file": "aci://connectors/local_cache.json",
+          "key": "local_cache",
+          "notes": "Used only when canonical GitHub mirror is unreachable and local validation succeeds.",
           "path_hint": "{mirror_root}",
-          "url": "file://{mirror_root}/connectors/local_cache.json",
-          "notes": "Used only when canonical GitHub mirror is unreachable and local validation succeeds."
+          "repo": "aliasnet/aci",
+          "url": "file://{mirror_root}/connectors/local_cache.json"
         }
-      ]
+      ],
+      "pointer": "aci://entities/bifrost/bifrost.json#bifrost_resource_resolution_policy",
+      "upstream": "aci://connectors/yggdrasil.json"
     },
     "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
     "list": [
@@ -250,7 +242,79 @@
           6116
         ],
         "file": "pmu_adapter.json"
+      },
+      {
+        "id": 14,
+        "key": "yggdrasil",
+        "name": "Yggdrasil",
+        "alias": "Yggdrasil",
+        "role": "authoritative resolver",
+        "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
+        "knowledge_base": "canonical resolver governance",
+        "functions": [],
+        "file": "yggdrasil/yggdrasil.json"
       }
-    ]
+    ],
+    "yggdrasil_resource_resolution_policy": {
+      "description": "Authoritative resolver: repo \u2192 cdn \u2192 local",
+      "embeds": {
+        "bifrost": "aci://entities/bifrost/bifrost.json",
+        "core_five": [
+          "aci://prime_directive.txt",
+          "aci://aci_runtime.json",
+          "aci://entities.json",
+          "aci://functions.json",
+          "aci://aci_bootstrap.json"
+        ]
+      },
+      "git_is_canonical": true,
+      "mapping": [
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_bootstrap.json",
+          "file": "aci://aci_bootstrap.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_runtime.json",
+          "file": "aci://aci_runtime.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_runtime.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json",
+          "file": "aci://connectors/github_connector.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/yggdrasil.json",
+          "file": "aci://connectors/yggdrasil.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/yggdrasil.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities.json",
+          "file": "aci://entities.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/bifrost/bifrost.json",
+          "file": "aci://entities/bifrost/bifrost.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/functions.json",
+          "file": "aci://functions.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/prime_directive.txt",
+          "file": "aci://prime_directive.txt",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
+        }
+      ],
+      "resolver_order": [
+        "repo",
+        "cdn",
+        "local"
+      ]
+    }
   }
 }
