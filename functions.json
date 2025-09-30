@@ -864,7 +864,7 @@
         "pipeline": "process.logs.init"
       },
       {
-        "pattern": "^process\\s+log\\s+add$",
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.*?)(?=\\s*(?:--topic\\s+\\S+|--identity\\s+\\S+)?\\s*(?:--topic\\s+\\S+|--identity\\s+\\S+)?\\s*$)(?:(?=.*\\s--topic\\s+(?P<topic>[^\"\\s]+)\\s*(?:--identity\\s+[^\"\\s]+)?\\s*$))?(?:(?=.*\\s--identity\\s+(?P<identity>[^\"\\s]+)\\s*(?:--topic\\s+[^\"\\s]+)?\\s*$))?(?:\\s+--(?:topic|identity)\\s+[^\"\\s]+){0,2}$",
         "pipeline": "process.logs.append"
       },
       {
