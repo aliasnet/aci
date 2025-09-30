@@ -4,6 +4,13 @@
   "auto_export": false,
   "changelog": [
     {
+      "date": "2025-10-02",
+      "notes": [
+        "Allow CLI optional flags before or after the summary token and slugify per-entry topics while composing structured responses."
+      ],
+      "version": "1.0.3"
+    },
+    {
       "date": "2025-10-01",
       "notes": [
         "Normalize optional CLI parameters with governed defaults before schema validation to keep append flow resilient."
@@ -41,5 +48,5 @@
     "file_naming": "proc_${session_id}_${topic_slug}_${date}.jsonl.json",
     "root": "memory/process_logs"
   },
-  "version": "1.0.2"
+  "version": "1.0.3"
 }

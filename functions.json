@@ -720,23 +720,18 @@
           }
         },
         {
-          "call": "_store.set",
+          "call": "slugify",
           "map": {
-            "key": "process_logs.entry_topic",
-            "value": "${process_logs.topic_slug}"
+            "text": "$params.topic",
+            "default": "${process_logs.topic_slug}"
           }
         },
         {
-          "if": "$params.topic != null",
-          "then": [
-            {
-              "call": "_store.set",
-              "map": {
-                "key": "process_logs.entry_topic",
-                "value": "$params.topic"
-              }
-            }
-          ]
+          "call": "_store.set",
+          "map": {
+            "key": "process_logs.entry_topic",
+            "value": "$steps.4.slug"
+          }
         },
         {
           "call": "_store.set",
@@ -916,11 +911,39 @@
         "pipeline": "process.logs.init"
       },
       {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)(?:\\s+--topic\\s+(?P<topic>\\S+))?(?:\\s+--identity\\s+(?P<identity>\\S+))?\\s+--summary\\s+(?P<summary>.+)$",
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s*$",
         "pipeline": "process.logs.append"
       },
       {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)(?:\\s+--identity\\s+(?P<identity>\\S+))?(?:\\s+--topic\\s+(?P<topic>\\S+))?\\s+--summary\\s+(?P<summary>.+)$",
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s*$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s*$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s*$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--topic\\s+(?P<topic>\\S+)\\s+--identity\\s+(?P<identity>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--identity\\s+(?P<identity>\\S+)\\s+--topic\\s+(?P<topic>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--topic\\s+(?P<topic>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
+        "pipeline": "process.logs.append"
+      },
+      {
+        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--identity\\s+(?P<identity>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
         "pipeline": "process.logs.append"
       },
       {
