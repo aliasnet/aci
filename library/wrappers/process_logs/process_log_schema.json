@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ACI Process Log Line (JSONL)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "ts",
+    "identity",
+    "event",
+    "summary"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "agi.process.log.v1"
+    },
+    "ts": {
+      "type": "string",
+      "description": "ISO-8601 UTC timestamp"
+    },
+    "identity": {
+      "type": "string",
+      "description": "Logical actor (e.g., AGI, Alice, Architect)"
+    },
+    "topic": {
+      "type": "string",
+      "description": "Optional topical thread name/slug"
+    },
+    "event": {
+      "type": "string",
+      "description": "Event key (e.g., init, constraints, notation.audit)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-line human/machine friendly synopsis"
+    },
+    "details": {
+      "type": "object",
+      "description": "Structured payload, free-form JSON"
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Compact names/years strings; no links"
+    }
+  }
+}
