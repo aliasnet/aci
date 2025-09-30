@@ -1,18 +1,36 @@
 {
-  "bifrost": {
-    "alias": "Bifrost",
-    "bifrost_resource_resolution_policy": {
-      "description": "Proxy for agents: consult Yggdrasil; mirror mapping kept in sync",
+  "yggdrasil": {
+    "alias": "Yggdrasil",
+    "changelog": [
+      {
+        "changes": [
+          "Introduced Yggdrasil authoritative resolver entity with inline policy mapping."
+        ],
+        "date": "2024-10-31",
+        "version": "1.0.0"
+      }
+    ],
+    "key": "yggdrasil",
+    "knowledge_base": "canonical resolver governance",
+    "name": "Yggdrasil",
+    "references": {
+      "policy": "connectors/yggdrasil.json"
+    },
+    "role": "authoritative repository and CDN resolver",
+    "version": "1.0.0",
+    "yggdrasil_resource_resolution_policy": {
+      "description": "Authoritative resolver: repo \u2192 cdn \u2192 local",
       "embeds": {
+        "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
           "aci://prime_directive.txt",
           "aci://aci_runtime.json",
           "aci://entities.json",
           "aci://functions.json",
           "aci://aci_bootstrap.json"
-        ],
-        "yggdrasil": "aci://connectors/yggdrasil.json"
+        ]
       },
+      "git_is_canonical": true,
       "mapping": [
         {
           "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_bootstrap.json",
@@ -55,50 +73,11 @@
           "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
         }
       ],
-      "optional": {
-        "cache": {
-          "enabled": true,
-          "max_entries": 256,
-          "ttl_seconds": 300
-        },
-        "log_level": "info",
-        "sync": {
-          "last_synced_utc": "",
-          "mapping_etag": "",
-          "source_of_truth": "aci://connectors/yggdrasil.json"
-        }
-      },
       "resolver_order": [
         "repo",
         "cdn",
         "local"
-      ],
-      "rule": "Agents/entities must resolve via Bifrost",
-      "upstream": "aci://connectors/yggdrasil.json"
-    },
-    "changelog": [
-      {
-        "changes": [
-          "Mirrored Yggdrasil mapping and pointed upstream to aci://connectors/yggdrasil.json."
-        ],
-        "date": "2024-10-31",
-        "version": "1.1.0"
-      }
-    ],
-    "connector_binding": {
-      "canonical_source": "aci",
-      "file": "aci://entities/bifrost/bifrost.json",
-      "key": "bifrost_resource_resolution_policy",
-      "repo": "aliasnet/aci",
-      "upstream": "aci://connectors/yggdrasil.json"
-    },
-    "key": "bifrost",
-    "knowledge_base": "connector orchestration & resolvers",
-    "name": "Bifrost",
-    "references": {
-      "yggdrasil": "entities/yggdrasil/yggdrasil.json"
-    },
-    "role": "external network bridge, connector, sync adapter, network dependency index",
-    "version": "1.1.0"
+      ]
+    }
   }
 }
