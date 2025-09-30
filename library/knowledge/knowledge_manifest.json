@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "generated": "2024-05-10",
+  "description": "Index of knowledge assets maintained under library/knowledge/",
+  "files": [
+    {
+      "id": "QMX-0",
+      "title": "ACI-SPEC-001-Quantum Mechanics Universal Offline Corpus (ACI-QM-UOC)",
+      "path": "library/knowledge/QMX-0/quantum_mechanics_corpus.md",
+      "type": "specification",
+      "tags": ["quantum_mechanics", "corpus", "offline", "governance"],
+      "version": "0.1.0",
+      "checksum": "TBD",
+      "notes": "Draft specification for universal quantum mechanics corpus with reconstruction prompt."
+    }
+  ]
+}
