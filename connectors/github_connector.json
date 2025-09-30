@@ -1,15 +1,15 @@
 {
   "github_connector": {
-    "alias": "aci://connectors/yggdrasil.json",
+    "alias": "aci://entities/yggdrasil/yggdrasil.json",
     "changelog": [
       {
         "changes": [
-          "Converted github_connector into compatibility alias pointing to Yggdrasil resolver."
+          "Retargeted compatibility alias to entities/yggdrasil/yggdrasil.json."
         ],
-        "date": "2024-10-31",
-        "version": "2.0.0"
+        "date": "2024-11-05",
+        "version": "2.1.0"
       }
     ],
-    "version": "2.0.0"
+    "version": "2.1.0"
   }
 }

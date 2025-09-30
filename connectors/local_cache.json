@@ -95,7 +95,7 @@
       "README.md": "{mirror_root}/README.md",
       "aci_runtime.json": "{mirror_root}/aci_runtime.json",
       "connectors/github_connector.json": "{mirror_root}/connectors/github_connector.json",
-      "connectors/yggdrasil.json": "{mirror_root}/connectors/yggdrasil.json",
+      "entities/yggdrasil/yggdrasil.json": "{mirror_root}/entities/yggdrasil/yggdrasil.json",
       "entities.json": "{mirror_root}/entities.json",
       "entities/bifrost/bifrost.json": "{mirror_root}/entities/bifrost/bifrost.json"
     },

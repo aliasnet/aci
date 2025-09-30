@@ -28,8 +28,8 @@
           "url": "file://{mirror_root}/connectors/local_cache.json"
         }
       ],
-      "pointer": "aci://entities/bifrost/bifrost.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://connectors/yggdrasil.json",
+      "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
+      "upstream": "aci://entities/yggdrasil/yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: repo \u2192 cdn \u2192 local",
         "embeds": {
@@ -60,11 +60,6 @@
             "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
           },
           {
-            "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/yggdrasil.json",
-            "file": "aci://connectors/yggdrasil.json",
-            "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/yggdrasil.json"
-          },
-          {
             "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities.json",
             "file": "aci://entities.json",
             "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
@@ -73,6 +68,11 @@
             "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/bifrost/bifrost.json",
             "file": "aci://entities/bifrost/bifrost.json",
             "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json"
+          },
+          {
+            "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/yggdrasil/yggdrasil.json",
+            "file": "aci://entities/yggdrasil/yggdrasil.json",
+            "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json"
           },
           {
             "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/functions.json",
