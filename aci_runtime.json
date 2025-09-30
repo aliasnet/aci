@@ -22,6 +22,9 @@
       "canonical_source": "github",
       "repo": "aliasnet/aci",
       "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+      "mirrors": [
+        "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json"
+      ],
       "fallbacks": [
         {
           "key": "local_cache",
@@ -105,7 +108,7 @@
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw URLs take precedence over local copies; fall back to local only if the remote mirror is unavailable. Enforcement Note: Consult sanity.md before runtime dispatch or override handling.",
+    "notes": "Canonical raw URLs or their jsDelivr mirrors take precedence over local copies; fall back to local only if the canonical sources are unavailable. Enforcement Note: Consult sanity.md before runtime dispatch or override handling.",
     "cognitive_decision_guidance": {
       "version": "1.0",
       "scope": "universal",

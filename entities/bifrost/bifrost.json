@@ -18,12 +18,18 @@
             "file": "connectors/github_connector.json",
             "canonical_source": "github",
             "repo": "aliasnet/aci",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+            "mirrors": [
+                "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json"
+            ]
         },
         "bifrost_resolution_policy": {
             "key": "github_connector",
             "file": "connectors/github_connector.json",
             "url": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+            "mirrors": [
+                "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json"
+            ],
             "priority": "canonical_raw_over_local",
             "allowlist": [
                 "prime_directive.txt",
