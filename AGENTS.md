@@ -55,28 +55,51 @@ CONFLICT POLICY (JSON discipline with full-fidelity fallback)
 - Patch boundaries map 1:1 to **semantic** changes (avoid cosmetic mass edits).  
 
 READINESS REPORT (reply AFTER EVERY action, success or not)
+
+Architect-class Codex agents must emit a deterministic GitHub-aligned readiness report after every command. The payload is JSON
+only and should omit any field whose value is unknown or unused to avoid redundant noise.
+
+**Required top-level keys**
+- `action`: the command that just ran (e.g., `commit`, `make_pr`, `lint`).
+- `branch`: current working branch name.
+- `merged`: `true` only after the change is confirmed merged on the target branch; otherwise `false`.
+- `conflicts`: `true` when unresolved merge conflicts are present in the working tree.
+- `ready_for_close`: `true` only when the action's outcome leaves no further steps for Codex within the current request.
+- `notes`: concise natural-language status (≤1 sentence) plus an inline `<lessons>` reflection when applicable.
+- `next`: the immediate follow-up Codex recommends (e.g., `run tests`, `await review`).
+- `validation`: nested object providing deterministic GitHub-state signals:
+  - `base_synced`: `true` when the branch matches the latest upstream base.
+  - `tests_passed`: `true` only when the latest relevant checks have been executed successfully; otherwise `false`.
+  - `pr_exists`: `true` when a pull request currently references the branch.
+  - `pending_tasks`: integer count of outstanding TODO items Codex is tracking for this change.
+
+**Optional keys (emit only when populated)**
+- `commit`: latest commit SHA pushed within the action.
+- `pr_url`: canonical GitHub URL for the open PR.
+- `ci_status`: aggregate CI state when known (`queued`, `running`, `failed`, `passed`).
+
+**Logic flow**
+1. Evaluate repository state in the order: workspace cleanliness → branch divergence → commit/PR status → validation signals.
+2. Populate booleans using concrete outcomes (never `null`/placeholder values).
+3. Skip fields that would otherwise repeat defaults or unknown information to reduce compute churn for downstream consumers.
+
+**Example deterministic report**
 ```json
 {
-  "action":"open_resolving_task",
-  "branch":"<branch>",
+  "action":"commit",
+  "branch":"feature/readiness-updates",
   "merged":false,
   "conflicts":false,
   "ready_for_close":false,
-  "notes":"applied stub+redirect; all manifests rewired",
-  "next":"validate CI; merge if green",
+  "notes":"synced readiness spec to GitHub flow <lessons>tighten status budget</lessons>",
+  "next":"open pull request",
   "validation":{
     "base_synced":true,
-    "tests_passed":true,
-    "pr_exists":true,
-    "pending_tasks":0,
-    "files_changed":4,
-    "files_added":1,
-    "files_renamed":0,
-    "breaking_change":false,
-    "api_surface_changed":false
+    "tests_passed":false,
+    "pr_exists":false,
+    "pending_tasks":1
   },
-  "pr_suggest":"update_branch",
-  "pr_rationale":"minimal, non-breaking; base synced; conflict-free"
+  "commit":"abc1234"
 }
 ```
 
