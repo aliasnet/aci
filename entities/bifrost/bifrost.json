@@ -11,7 +11,7 @@
           "aci://functions.json",
           "aci://aci_bootstrap.json"
         ],
-        "yggdrasil": "aci://connectors/yggdrasil.json"
+        "yggdrasil": "aci://entities/yggdrasil/yggdrasil.json"
       },
       "mapping": [
         {
@@ -30,11 +30,6 @@
           "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
         },
         {
-          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/yggdrasil.json",
-          "file": "aci://connectors/yggdrasil.json",
-          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/yggdrasil.json"
-        },
-        {
           "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities.json",
           "file": "aci://entities.json",
           "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
@@ -43,6 +38,11 @@
           "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/bifrost/bifrost.json",
           "file": "aci://entities/bifrost/bifrost.json",
           "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json"
+        },
+        {
+          "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/yggdrasil/yggdrasil.json",
+          "file": "aci://entities/yggdrasil/yggdrasil.json",
+          "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json"
         },
         {
           "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/functions.json",
@@ -65,7 +65,7 @@
         "sync": {
           "last_synced_utc": "",
           "mapping_etag": "",
-          "source_of_truth": "aci://connectors/yggdrasil.json"
+          "source_of_truth": "aci://entities/yggdrasil/yggdrasil.json"
         }
       },
       "resolver_order": [
@@ -74,7 +74,7 @@
         "local"
       ],
       "rule": "Agents/entities must resolve via Bifrost",
-      "upstream": "aci://connectors/yggdrasil.json"
+      "upstream": "aci://entities/yggdrasil/yggdrasil.json"
     },
     "changelog": [
       {
@@ -83,6 +83,13 @@
         ],
         "date": "2024-10-31",
         "version": "1.1.0"
+      },
+      {
+        "changes": [
+          "Updated upstream references to aci://entities/yggdrasil/yggdrasil.json."
+        ],
+        "date": "2024-11-05",
+        "version": "1.2.0"
       }
     ],
     "connector_binding": {
@@ -90,15 +97,16 @@
       "file": "aci://entities/bifrost/bifrost.json",
       "key": "bifrost_resource_resolution_policy",
       "repo": "aliasnet/aci",
-      "upstream": "aci://connectors/yggdrasil.json"
+      "upstream": "aci://entities/yggdrasil/yggdrasil.json"
     },
     "key": "bifrost",
     "knowledge_base": "connector orchestration & resolvers",
     "name": "Bifrost",
     "references": {
-      "yggdrasil": "entities/yggdrasil/yggdrasil.json"
+      "policy": "aci://entities/yggdrasil/yggdrasil.json",
+      "yggdrasil": "aci://entities/yggdrasil/yggdrasil.json"
     },
     "role": "external network bridge, connector, sync adapter, network dependency index",
-    "version": "1.1.0"
+    "version": "1.2.0"
   }
 }
