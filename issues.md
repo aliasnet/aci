@@ -9,6 +9,9 @@
 - Automation toggle: currently manual-only; if automation becomes available, document the toggle details here.
 
 ## Log
+### 2025-09-30T13:36:30Z [open] Improve aci_runtime preflight coverage
+- summary: Reported that entities remain unaware of new updates, often skipping critical pipelines or failing to load shared functions (e.g., library/) due to insufficient preflight validation in aci_runtime.json; requires enhanced synchronization and resolver handling.
+- resolution: Pending design of a more comprehensive preflight algorithm for aci_runtime.json to enforce pipeline execution and resolver awareness.
 ### 2025-09-30T13:15:22Z [resolved] Initialize append-only issues.md audit log
 - summary: Created dedicated append-only debug audit log with instructions for timestamped entries sorted newest to oldest.
 - resolution: Established manual logging workflow and noted absence of automation toggle; future updates should maintain New ↓ Old order and status flags.
