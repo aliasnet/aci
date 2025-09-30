@@ -1,6 +1,6 @@
 {
   "local_cache": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "canonical_source": "local_mirror",
     "description": "Offline mirror cache for ACI core artifacts used when canonical GitHub endpoints are unreachable.",
     "repo": "aliasnet/aci",
@@ -10,20 +10,20 @@
         "required": false,
         "notes": "When set, ${ACI_LOCAL_MIRROR_ROOT}/aliasnet/aci is treated as the root directory for synchronized local mirrors."
       },
-      "relative_paths": [
-        {
-          "base": "{repo_root}",
-          "path": "memory/local_cache/aliasnet/aci",
-          "requires_provisioning": true,
-          "notes": "Provisioned by the mirror sync job; ignored until populated with validated artifacts."
-        }
-      ],
+      "alias": {
+        "name": "aci://cache",
+        "default_path": "/mnt/data",
+        "path_template": "{alias_root}/{repo}",
+        "notes": "Ephemeral cache root used when no environment override is set. Agents should treat this as a temporary write location without persistence guarantees."
+      },
       "resolution_order": [
         "environment_variable",
-        "relative_paths"
+        "alias"
       ],
       "template_tokens": {
-        "mirror_root": "Resolved absolute path to the mirror root derived from the environment variable or provisioned relative path."
+        "cache_alias": "aci://cache",
+        "alias_root": "Absolute path resolved for the aci://cache alias (default /mnt/data).",
+        "mirror_root": "Resolved absolute path derived from the environment override or the aci://cache alias default (/mnt/data) with repo scoping appended."
       }
     },
     "rules": {
@@ -39,7 +39,7 @@
       ]
     },
     "priority": "local_only_when_canonical_unavailable",
-    "notes": "Local cache is a last resort fallback. Canonical GitHub remains the source of truth per sanity.md governance rules.",
+    "notes": "Local cache is a last resort fallback resolved via environment override or the aci://cache alias. Canonical GitHub remains the source of truth per sanity.md governance rules.",
     "sanity": {
       "checksum_validation": {
         "hash_algorithm": "sha256",
@@ -70,8 +70,8 @@
       "instruction": "Resolve artifacts from synchronized local mirrors only after verifying checksum and freshness. If validation fails, escalate to canonical resolver.",
       "scope": {
         "repository": "aliasnet/aci",
-        "mirror_hint": "Use the environment-configured mirror root or provisioned memory/local_cache path when available.",
-        "source": "file://local_mirror"
+        "mirror_hint": "Use the environment-configured mirror root or resolve via the aci://cache alias (defaults to /mnt/data) before accessing cached artifacts.",
+        "source": "aci://cache"
       },
       "policy": {
         "retry": {
@@ -107,6 +107,14 @@
       "notes": "Local cache must be signed by TVA and Sentinel to ensure governance oversight before activation."
     },
     "changelog": [
+      {
+        "version": "1.1.0",
+        "date": "2024-11-05",
+        "changes": [
+          "Replaced relative path provisioning with an aci://cache alias resolved to an ephemeral default path.",
+          "Documented alias-based resolution semantics for agents while preserving environment overrides."
+        ]
+      },
       {
         "version": "1.0.0",
         "date": "2024-10-24",

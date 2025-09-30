@@ -22,8 +22,9 @@
           "canonical_source": "local_mirror",
           "file": "aci://connectors/local_cache.json",
           "key": "local_cache",
-          "notes": "Use validated local mirrors only when canonical GitHub cannot be reached.",
+          "notes": "Use validated local mirrors only when canonical GitHub cannot be reached. Resolve {mirror_root} via environment override or the aci://cache alias default (/mnt/data).",
           "path_hint": "{mirror_root}",
+          "alias_hint": "aci://cache",
           "repo": "aliasnet/aci",
           "url": "file://{mirror_root}/connectors/local_cache.json"
         }
