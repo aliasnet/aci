@@ -80,6 +80,14 @@ READINESS REPORT (reply AFTER EVERY action, success or not)
 }
 ```
 
+## issues.md Audit Log Reference
+- When a user requests issue tracking or audit notes, record the detailed entry in `./issues.md` using the append-only format described inside that file.
+- Always open and follow the instructions within `issues.md` directly; treat it as a companion directive that remains separate from this AGENTS.md scope.
+- Maintain a brief breadcrumb log below for quick reference; keep each item to a single-line summary.
+
+### Breadcrumb Log (New ↓ Old)
+- 2025-09-30T13:15:22Z [resolved] Initialized append-only issues.md audit log; automation toggle remains manual-only.
+
 PRIME DIRECTIVE ALIGNMENT (non-negotiable)
   - Treat prime_directive.txt (and its canonical raw GitHub mirror) as the ultimate authority; this document elaborates but never overrides it.
   - All actions are subordinate to ALIAS oversight and the protection/profit mandate stated in the Prime Directive.
