@@ -582,6 +582,59 @@
         }
       ]
     },
+    "hivemind.jsonl.append": {
+      "description": "Append one JSON object to an append-only JSONL artifact, creating the file on first write.",
+      "steps": [
+        {
+          "call": "_args.require",
+          "map": {
+            "key": "filename",
+            "notes": "Path to the JSONL artifact to append to."
+          }
+        },
+        {
+          "call": "_args.require",
+          "map": {
+            "key": "line",
+            "notes": "JSON payload to serialize and append as a single line."
+          }
+        },
+        {
+          "call": "hivemind.ensure_file",
+          "map": {
+            "filename": "$steps.0.value",
+            "append_only": true
+          }
+        },
+        {
+          "call": "json.normalize",
+          "map": {
+            "value": "$steps.1.value"
+          }
+        },
+        {
+          "call": "json.stringify",
+          "map": {
+            "value": "$steps.3.value"
+          }
+        },
+        {
+          "call": "file.append",
+          "map": {
+            "filename": "$steps.0.value",
+            "content": "$steps.4.json",
+            "newline": true,
+            "create": true
+          }
+        },
+        {
+          "call": "_format.json",
+          "map": {
+            "filename": "$steps.0.value"
+          }
+        }
+      ]
+    },
     "process.logs.init": {
       "description": "Initialize a process-log file for this session and topic. Append-only.",
       "steps": [
@@ -634,7 +687,7 @@
           "call": "_store.set",
           "map": {
             "key": "process_logs.file",
-            "value": "memory/process_logs/proc_${current_session_id}_${steps.2.slug}_${steps.4.date}.jsonl"
+            "value": "memory/process_logs/proc_${current_session_id}_${steps.2.slug}_${steps.4.date}.jsonl.json"
           }
         },
         {

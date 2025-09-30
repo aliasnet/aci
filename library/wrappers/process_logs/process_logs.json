@@ -15,7 +15,7 @@
   "schema": "library/wrappers/process_logs/process_log_schema.json",
   "storage": {
     "root": "memory/process_logs",
-    "file_naming": "proc_${session_id}_${topic_slug}_${date}.jsonl",
+    "file_naming": "proc_${session_id}_${topic_slug}_${date}.jsonl.json",
     "append_only": true
   },
   "notes": "Identity is a required field; default is 'AGI' when unspecified."
