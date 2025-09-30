@@ -720,17 +720,74 @@
           }
         },
         {
+          "call": "_store.set",
+          "map": {
+            "key": "process_logs.entry_topic",
+            "value": "${process_logs.topic_slug}"
+          }
+        },
+        {
+          "if": "$params.topic != null",
+          "then": [
+            {
+              "call": "_store.set",
+              "map": {
+                "key": "process_logs.entry_topic",
+                "value": "$params.topic"
+              }
+            }
+          ]
+        },
+        {
+          "call": "_store.set",
+          "map": {
+            "key": "process_logs.entry_details",
+            "value": {}
+          }
+        },
+        {
+          "if": "$params.details != null",
+          "then": [
+            {
+              "call": "_store.set",
+              "map": {
+                "key": "process_logs.entry_details",
+                "value": "$params.details"
+              }
+            }
+          ]
+        },
+        {
+          "call": "_store.set",
+          "map": {
+            "key": "process_logs.entry_citations",
+            "value": []
+          }
+        },
+        {
+          "if": "$params.citations != null",
+          "then": [
+            {
+              "call": "_store.set",
+              "map": {
+                "key": "process_logs.entry_citations",
+                "value": "$params.citations"
+              }
+            }
+          ]
+        },
+        {
           "call": "object.compose",
           "map": {
             "object": {
               "schema": "agi.process.log.v1",
               "ts": "$steps.2.iso",
               "identity": "$steps.3.identity",
-              "topic": "$params.topic",
+              "topic": "${process_logs.entry_topic}",
               "event": "$params.event",
               "summary": "$params.summary",
-              "details": "$params.details",
-              "citations": "$params.citations"
+              "details": "${process_logs.entry_details}",
+              "citations": "${process_logs.entry_citations}"
             }
           }
         },
@@ -738,14 +795,14 @@
           "call": "json.schema.validate",
           "map": {
             "schema_file": "library/wrappers/process_logs/process_log_schema.json",
-            "data": "$steps.4.object"
+            "data": "$steps.10.object"
           }
         },
         {
           "call": "hivemind.jsonl.append",
           "map": {
             "filename": "${process_logs.file}",
-            "line": "$steps.4.object"
+            "line": "$steps.10.object"
           }
         },
         {
@@ -761,7 +818,7 @@
           "map": {
             "object": {
               "file": "${process_logs.file}",
-              "entry": "$steps.4.object"
+              "entry": "$steps.10.object"
             }
           }
         },

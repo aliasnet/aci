@@ -4,6 +4,13 @@
   "auto_export": false,
   "changelog": [
     {
+      "date": "2025-10-01",
+      "notes": [
+        "Normalize optional CLI parameters with governed defaults before schema validation to keep append flow resilient."
+      ],
+      "version": "1.0.2"
+    },
+    {
       "date": "2025-09-30",
       "notes": [
         "Return structured JSON responses from init/append/export pipelines for predictable CLI consumption."
@@ -34,5 +41,5 @@
     "file_naming": "proc_${session_id}_${topic_slug}_${date}.jsonl.json",
     "root": "memory/process_logs"
   },
-  "version": "1.0.1"
+  "version": "1.0.2"
 }

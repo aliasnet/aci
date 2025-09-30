@@ -12,6 +12,23 @@
         "oracle": "oracle.json",
         "hivemind": "entities/hivemind/hivemind.json"
       }
+    },
+    ":process.log": {
+      "description": "Pseudo-CLI wrapper for session-scoped process log workflows (init, add, export).",
+      "usage": [
+        ":process.log init [--topic <topic>]",
+        ":process.log add --event <event> --summary <summary> [--topic <topic>] [--identity <identity>]",
+        ":process.log export"
+      ],
+      "pipelines": {
+        "add": "process.logs.append",
+        "export": "process.logs.export",
+        "init": "process.logs.init"
+      },
+      "notes": [
+        "Acts as a difference-encoded prompt wrapper so LLM agents can call the governed pipelines without regex conflicts.",
+        "Optional fields (topic, details, citations) default through storage when omitted; event and summary remain required."
+      ]
     }
   }
 }
