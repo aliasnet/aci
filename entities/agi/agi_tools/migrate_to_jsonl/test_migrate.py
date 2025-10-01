@@ -137,6 +137,22 @@ class ArchivedMigratorPathResolutionTests(unittest.TestCase):
         expected = (module.get_repo_root() / "entities/agi/agi_identity_manager.json").resolve()
         self.assertEqual(resolved, expected)
 
+    def test_validate_line_promotes_actor_alias(self) -> None:
+        module = self.module
+        entry = {
+            "timestamp": "2025-01-01T00:00:00Z",
+            "role": "AGI",
+            "actor": "AGI",
+            "content": "legacy record",
+            "metadata": {},
+        }
+
+        module.validate_line(entry)
+
+        self.assertNotIn("actor", entry)
+        self.assertEqual(entry["identity"], "AGI")
+        self.assertEqual(entry["metadata"].get("legacy_identity_key"), "actor")
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

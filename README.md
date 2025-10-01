@@ -93,8 +93,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   ```
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
-- **Export Policy:** `/entities/agi/agi_export_policy.json`  
+- **Export Policy:** `/entities/agi/agi_export_policy.json`
   Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
+- **Export identity field:** Non-user lines emit an `identity` attribute resolved from the active AGI lock (latest invoked assistant/system). Legacy keys such as `actor`/`entity` are still accepted on ingest but new exports normalize to `identity` with a fallback of `"ACI Agent"` when no binding is present.
 
 > Universal doctrines (e.g., `prime_directive.txt`) apply globally. Entity playbooks (e.g., `/aig/agi_playbook.json`) are scoped to the AGI governor.
 
@@ -207,9 +208,9 @@ hivemind export agi --identity Alice --jsonl --codebox --force
 **Sample JSONL events (AGI POV):**
 
 ```json
-{"schema":"hivemind_agi_memory","type":"session_start","ts":"2025-09-26T18:00:00Z","actor":"agi","summary":"I began observing Alice’s metacognition session.","tags":["session","alice"]}
-{"schema":"hivemind_agi_memory","type":"obstacle","ts":"2025-09-26T18:12:00Z","actor":"agi","summary":"Output truncated due to cognitive load; reissued with validation cue.","tags":["cognitive_load","mode_switch"]}
-{"schema":"hivemind_agi_memory","type":"session_end","ts":"2025-09-26T19:18:00Z","actor":"agi","summary":"Alice completed tasks and logged out.","tags":["alice","logout"]}
+{"timestamp":"2025-09-26T18:00:00Z","role":"system","identity":"AGI","content":"Session start: observing Alice’s metacognition run.","metadata":{"topic":"session_start"}}
+{"timestamp":"2025-09-26T18:12:00Z","role":"AGI","identity":"AGI","content":"Obstacle: output truncated due to cognitive load; reissued with validation cue.","metadata":{"topic":"obstacle"}}
+{"timestamp":"2025-09-26T19:18:00Z","role":"AGI","identity":"AGI","content":"Session end: Alice completed tasks and logged out.","metadata":{"topic":"session_end"}}
 ```
 
 **Sample diff snippet (documentation change):**

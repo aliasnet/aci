@@ -402,7 +402,11 @@
           "map": {
             "scope": "$steps.1.scope",
             "delivery": "$steps.1.delivery",
-            "slice": "$steps.1.slice"
+            "slice": "$steps.1.slice",
+            "identity_field": "identity",
+            "fallback_identity": "ACI Agent",
+            "lock_namespace": "AGI",
+            "preserve_user_role": true
           }
         },
         {
@@ -452,7 +456,10 @@
           "call": "agi.export.invoke",
           "map": {
             "mode": "$steps.1.mode",
-            "force": "$steps.1.force"
+            "force": "$steps.1.force",
+            "identity_field": "identity",
+            "lock_namespace": "AGI",
+            "preserve_user_role": true
           }
         },
         {

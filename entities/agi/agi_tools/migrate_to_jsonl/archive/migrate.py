@@ -48,7 +48,8 @@ POLICY_FILE = ROOT / "agi_export_policy.json"
 
 FILESYSTEM_ROOT = Path("/")
 
-REQUIRED_KEYS = ("timestamp", "role", "entity", "content", "metadata")
+REQUIRED_KEYS = ("timestamp", "role", "identity", "content", "metadata")
+LEGACY_IDENTITY_KEYS = ("actor", "entity")
 
 
 class MigrationError(RuntimeError):
@@ -227,7 +228,7 @@ def collect_candidate_messages(payload: Any) -> List[Dict[str, Any]]:
 
 
 MESSAGE_TEXT_KEYS = ("content", "text", "message", "body")
-MESSAGE_ROLE_KEYS = ("role", "entity", "speaker", "author", "by", "name")
+MESSAGE_ROLE_KEYS = ("identity", "actor", "role", "entity", "speaker", "author", "by", "name")
 MESSAGE_TIMESTAMP_KEYS = (
     "timestamp",
     "ts",
@@ -335,32 +336,32 @@ def normalize_content(message: Dict[str, Any]) -> str:
     return json.dumps(message, ensure_ascii=False)
 
 
-def normalize_role_entity(
+def normalize_role_identity(
     message: Dict[str, Any],
     identity: Dict[str, Any],
-) -> Tuple[str, str, bool, str]:
-    original = str(
-        message.get("entity")
-        or message.get("role")
-        or message.get("speaker")
-        or message.get("author")
-        or message.get("by")
-        or message.get("name")
-        or ""
-    ).strip()
+) -> Tuple[str, str, bool, str, Optional[str]]:
+    original = ""
+    source_key: Optional[str] = None
+    for key in ("identity", "actor", "entity", "role", "speaker", "author", "by", "name"):
+        value = message.get(key)
+        if isinstance(value, str) and value.strip():
+            original = value.strip()
+            source_key = key
+            break
+
     normalized = original.lower()
     active_name = identity["active_name"]
     fallback_name = identity["fallback_name"]
 
     if normalized in {"user", "human", "alias"}:
-        return "User", "User", False, original or "User"
+        return "User", "User", False, original or "User", source_key
     if normalized in {active_name.lower(), "assistant", "agi", "system"}:
-        return active_name, active_name, True, original or active_name
+        return active_name, active_name, True, original or active_name, source_key
     if not normalized:
         # default to user if unspecified and content starts with user-like prompt
-        return "User", "User", False, original or "User"
-    # fallback external entity path
-    return fallback_name, fallback_name, False, original or fallback_name
+        return "User", "User", False, original or "User", source_key
+    # fallback external identity path
+    return fallback_name, fallback_name, False, original or fallback_name, source_key
 
 
 DENY_TAG_DEFAULTS = {"ops", "admin", "automation", "scheduler", "system"}
@@ -373,7 +374,8 @@ def normalize_metadata(
     exporter_version: str,
     schema_version: str,
     agi_entity: bool,
-    original_entity: str,
+    original_identity: str,
+    identity_source: Optional[str],
     deny_tags: Sequence[str],
 ) -> Dict[str, Any]:
     metadata = {}
@@ -393,9 +395,11 @@ def normalize_metadata(
             "schema_version": schema_version,
             "exporter_version": exporter_version,
             "agi_entity": agi_entity,
-            "original_entity": original_entity,
+            "original_identity": original_identity,
         }
     )
+    if identity_source and identity_source != "identity":
+        metadata.setdefault("legacy_identity_key", identity_source)
     deny = set(tag.lower() for tag in deny_tags) | DENY_TAG_DEFAULTS
     if metadata.get("tags"):
         metadata["tags"] = [
@@ -469,6 +473,18 @@ def generate_filename(
 
 
 def validate_line(entry: Dict[str, Any]) -> None:
+    if "identity" not in entry:
+        for legacy_key in LEGACY_IDENTITY_KEYS:
+            if legacy_key in entry:
+                entry["identity"] = entry.pop(legacy_key)
+                existing_metadata = entry.get("metadata", {})
+                if isinstance(existing_metadata, dict):
+                    metadata = existing_metadata
+                else:
+                    metadata = {"legacy_metadata": existing_metadata}
+                metadata.setdefault("legacy_identity_key", legacy_key)
+                entry["metadata"] = metadata
+                break
     missing = [key for key in REQUIRED_KEYS if key not in entry]
     if missing:
         raise MigrationError(f"Export line missing required keys: {missing}")
@@ -554,10 +570,16 @@ def migrate_file(
         timestamp_dt = dt.datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
         if first_timestamp is None:
             first_timestamp = timestamp_dt
-        role, entity, is_agi, original_entity = normalize_role_entity(message, identity)
-        if is_agi and entity != identity["active_name"]:
+        (
+            role,
+            identity_name,
+            is_agi,
+            original_identity,
+            identity_source,
+        ) = normalize_role_identity(message, identity)
+        if is_agi and identity_name != identity["active_name"]:
             # enforce identity binding strictly
-            entity = identity["active_name"]
+            identity_name = identity["active_name"]
             role = identity["active_name"]
         metadata = normalize_metadata(
             message,
@@ -565,18 +587,19 @@ def migrate_file(
             exporter_version=policy["exporter_version"],
             schema_version=policy["schema_version"],
             agi_entity=is_agi,
-            original_entity=original_entity,
+            original_identity=original_identity,
+            identity_source=identity_source,
             deny_tags=deny_tags,
         )
         entry = {
             "timestamp": timestamp_str,
             "role": role,
-            "entity": entity,
+            "identity": identity_name,
             "content": normalize_content(message),
             "metadata": metadata,
         }
         validate_line(entry)
-        dedup_key = (entry["timestamp"], entry["entity"], entry["content"])
+        dedup_key = (entry["timestamp"], entry["identity"], entry["content"])
         if dedup_key in dedup:
             continue
         dedup.add(dedup_key)

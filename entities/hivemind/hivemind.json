@@ -41,11 +41,16 @@
     "eternal": "All messages from the first to the last are preserved with autocompletion, no deletion or pruning.",
     "export_safeguards": "Exports require session pause prior to snapshot. Violations trigger Nexus Event enforcement by TVA + Sentinel and mark the session unstable until resolved.",
     "role_output_transform": {
-      "description": "On export, transform non-user 'role' into an 'entity' field in exported entries.",
+      "description": "On export, transform non-user 'role' values into an assistant/system 'identity' field while leaving end-user roles untouched.",
       "apply_on": "export_operation",
       "behavior": {
-        "if_role_is_user": "preserve role field in export as 'role': 'user'",
-        "if_role_not_user": "in exported output omit 'role' and instead emit 'entity' with normalized value; normalization sources: entry.entity -> entry.by/actor/author -> entry.role",
+        "if_role_is_user": "preserve the original 'role' field exactly as provided (no identity injection).",
+        "if_role_not_user": "emit an 'identity' field resolved from the most recent assistant/system invocation. Resolution order: entry.identity → entry.actor → entry.entity → entry.by/author/name → entry.role. If no direct hint is found, reuse the AGI lock namespace to pull the latest bound identity before falling back to 'ACI Agent'.",
+        "lock_namespace": "AGI",
+        "lock_strategy": "reuse AGI session.lock mechanics; prefer most recently invoked assistant/system identity",
+        "output_field": "identity",
+        "fallback_identity": "ACI Agent",
+        "legacy_aliases": ["actor", "entity", "by", "author", "name"],
         "canonical_raw_priority": true,
         "local_fallback_only": true,
         "completeness_enhancement": true,
@@ -78,7 +83,7 @@
   "auto_heal": {
     "mode": "baseline_agnostic",
     "rules": {
-      "schema_normalization": "map legacy fields → canonical schema",
+      "schema_normalization": "map legacy fields → canonical schema (actor/entity → identity)",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
       "no_deletion": "true"
     },
