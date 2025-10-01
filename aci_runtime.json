@@ -332,6 +332,75 @@
         "sandbox_mode_handling": "bracketed commands can be accepted in sandbox if signed by ALIAS; otherwise sandbox on_unresolved behavior applies",
         "resolution_hooks": "runtime should include on_bracket_override hooks in resolution_instruction flow"
       },
+      "preemption_and_sanity": {
+        "preemptive_stop": true,
+        "mandatory_sanity_check_on_force": true,
+        "sanity_check_action": "validate_entity_state (check for runaway loops, hallucination markers, corrupted state)",
+        "preempt_flow": [
+          "emit preempt event to targeted entity",
+          "quiesce or pause non-essential tasks",
+          "perform mandatory sanity_check before continuing with remaining units"
+        ]
+      },
+      "priority_and_weighting": {
+        "high_cap_mid_priority": "ALL_CAPS (outside brackets) is considered HIGH_CAP and increases enforcement weight but is not a Level-2 override",
+        "large_cap_weight_boost": 1.25,
+        "note": "LARGE_CAP inside brackets raises intent weight used by scheduler/intent-mapper but does not escalate bracket level"
+      },
+      "registry_bypass": {
+        "allow_registry_bypass": true,
+        "constraints": [
+          "only when issuer authenticated as root authority (ALIAS)",
+          "all bypassed executions must produce immutable audit entries",
+          "sensitive resources may require multi-party approval as configured by TVA"
+        ]
+      },
+      "security": {
+        "allowed_issuers": [
+          {
+            "role": "ALIAS",
+            "requirement": "root_authority_signature"
+          }
+        ],
+        "authentication": {
+          "method": "session_signature OR multi-factor root token",
+          "unauthenticated_behavior": "reject_and_log",
+          "replay_protection": "timestamp_nonce"
+        },
+        "force_override_roles": [
+          "ALIAS"
+        ],
+        "audit": {
+          "log_to": [
+            "TraceHub",
+            "TVA.audit_ledger"
+          ],
+          "fields": [
+            "issuer",
+            "role",
+            "notation_level",
+            "payload",
+            "timestamp",
+            "execution_result",
+            "tva_seal"
+          ],
+          "require_tva_seal_for_force": true
+        }
+      },
+      "processing_steps": [
+        "1) Detect bracket syntax and notation level.",
+        "2) Authenticate issuer (must be ALIAS for bypass actions).",
+        "3) Parse payload: split on top-level && and :: preserving nesting.",
+        "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
+        "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
+        "6) Route to nexus_core (registry bypass allowed if authenticated).",
+        "7) Emit audit entry to TraceHub and TVA at start and completion of the block.",
+        "8) Return structured execution result and emit 'invocation.block.result' event."
+      ],
+      "compatibility": {
+        "sandbox_mode_handling": "bracketed commands can be accepted in sandbox if signed by ALIAS; otherwise sandbox on_unresolved behavior applies",
+        "resolution_hooks": "runtime should include on_bracket_override hooks in resolution_instruction flow"
+      },
       "cognitive_guidance_ref": "#/aci_runtime/cognitive_decision_guidance",
       "uses_cognitive_decision_guidance": true
     }
