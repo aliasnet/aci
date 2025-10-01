@@ -250,14 +250,36 @@
         "name": "Yggdrasil",
         "alias": "Yggdrasil",
         "role": "authoritative resolver",
-        "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
+        "abstract": "maintains authoritative repo→cdn→local mapping",
         "knowledge_base": "canonical resolver governance",
         "functions": [],
         "file": "yggdrasil/yggdrasil.json"
+      },
+      {
+        "id": 15,
+        "key": "alice",
+        "name": "Alice",
+        "alias": "Alice",
+        "role": "agi_child",
+        "abstract": "child identity of AGI; conversational agent persona",
+        "knowledge_base": "persona & session heuristics",
+        "functions": [],
+        "file": "agi/alice.json"
+      },
+      {
+        "id": 16,
+        "key": "hivemind",
+        "name": "HiveMind",
+        "alias": "HiveMind",
+        "role": "collective_memory_core",
+        "abstract": "unified memory export & registry hub",
+        "knowledge_base": "memory governance & export policies",
+        "functions": [],
+        "file": "hivemind/hivemind.json"
       }
     ],
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: repo \u2192 cdn \u2192 local",
+      "description": "Authoritative resolver: repo → cdn → local",
       "embeds": {
         "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
