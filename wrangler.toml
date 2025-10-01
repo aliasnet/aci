@@ -1,4 +1,3 @@
 name = "aci-worker"
 main = "src/index.js"
 compatibility_date = "2025-10-01"
-routes = [{ pattern = "aci.aliasnet. workers.dev/*", custom_domain = true }]
