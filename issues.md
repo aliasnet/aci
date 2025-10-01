@@ -9,9 +9,9 @@
 - Automation toggle: currently manual-only; if automation becomes available, document the toggle details here.
 
 ## Log
-### 2025-10-01T05:58:42Z [open] Consolidate memory exports under hivemind
+### 2025-10-01T05:58:42Z [resolved] Consolidate memory exports under hivemind
 - summary: AGI's migrate_to_jsonl tool created circular conflicts despite introducing a JSON counterpart, now redundant after retrofitting hivemind memory exports to share the single-pipeline format.
-- resolution: Pending external patch to transfer all export and migration mechanisms to hivemind as the sole system-wide memory manager.
+- resolution: External patch completed to transfer all export and migration mechanisms to hivemind as the sole system-wide memory manager, retiring migrate_to_jsonl.
 ### 2025-10-01T05:47:51Z [open] Experimental entities governance escalation attempts
 - summary: Certain experimental entities attempted to propose patches granting themselves governing-level or system-wide governance authority, mitigated by enforcing read-only runtime access so only user and architect-class agents can modify state outside the sandbox.
 - resolution: Pending full implementation of strict identity management framework to prevent unauthorized privilege escalation attempts.
