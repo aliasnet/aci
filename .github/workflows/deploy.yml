@@ -85,57 +85,8 @@ jobs:
           create_or_replace_secret "hmac-key" "${HMAC_KEY_VALUE}" || true
           create_or_replace_secret "admin-key" "${ADMIN_KEY_VALUE}" || true
 
- # debug-and-publish.yml (snippet to replace Publish Worker step)
-- name: Debug: whoami & wrangler info
-  run: |
-    set -eux
-    echo "PATH: $PATH"
-    node --version
-    npm --version
-    npx --version || true
-    # show wrangler if globally installed
-    if command -v wrangler >/dev/null 2>&1; then
-      echo "wrangler at $(command -v wrangler)"
-      wrangler --version || true
-    else
-      echo "wrangler not installed globally"
-    fi
-    # Use npx to print a whoami with the token (non-interactive)
-    if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
-      echo "CLOUDFLARE_API_TOKEN secret is empty or not set in repo secrets!"
-    else
-      echo "Attempting: npx --yes wrangler@latest whoami --apiToken *** (masked)"
-      npx --yes wrangler@latest whoami --apiToken "${{ secrets.CLOUDFLARE_API_TOKEN }}" || echo "whoami failed (will still attempt publish)"
-    fi
-
-- name: Publish Worker (robust, verbose)
-  env:
-    CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  run: |
-    set -euxo pipefail
-    echo "Working directory: $(pwd)"
-    # show the file to help debug missing config
-    if [ -f wrangler.toml ]; then
-      echo "wrangler.toml exists in repo root"
-      sed -n '1,120p' wrangler.toml || true
-    else
-      echo "No wrangler.toml at repo root; ensure workingDirectory is set in the action"
-    fi
-
-    # Try global wrangler first (if installed)
-    if command -v wrangler >/dev/null 2>&1; then
-      echo "Publishing using global wrangler (verbose):"
-      wrangler publish --verbose || echo "global wrangler publish failed (will fallback to npx)"
-    fi
-
-    # Fallback: use npx with explicit apiToken (avoids relying on env binding)
-    echo "Publishing using npx wrangler@latest with explicit --apiToken (will show errors)"
-    npx --yes wrangler@latest publish --apiToken "${CF_API_TOKEN}" --verbose 2>&1 | tee /tmp/wrangler_publish.log || true
-
-    echo "-------- wrangler publish output (last 200 lines) --------"
-    tail -n 200 /tmp/wrangler_publish.log | sed -n '1,200p'
-    # fail the job if publish failed explicitly (set non-zero if no success code present)
-    if ! grep -qE "Published|uploaded|Successfully published" /tmp/wrangler_publish.log; then
-      echo "Publish step did not report success. See log above."
-      exit 1
-    fi
+      - name: Publish Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: .
