@@ -1,3 +1,8 @@
+# Minimal wrangler config (v3.88.0+), workers.dev deploy, Smart Placement ON
 name = "aci"
 main = "src/index.js"
 compatibility_date = "2025-10-01"
+workers_dev = true
+
+[placement]
+mode = "smart"
