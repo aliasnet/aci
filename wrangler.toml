@@ -1,0 +1,6 @@
+name = "aci-worker"
+main = "src/index.js"
+compatibility_date = "2025-10-01"
+
+# optional: custom domain binding if you set it in Cloudflare later
+# routes = [{ pattern = "aci.aliasmgmt.worker.dev/*", custom_domain = true }]
