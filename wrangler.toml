@@ -8,9 +8,3 @@ mode = "smart"
 
 [observability.logs]
 enabled = true
-
-# Secrets Store bindings (STORE_ID filled)
-secrets_store_secrets = [
-  { binding = "HMAC_KEY", store_id = "9e0c080b325b413b80ee27ca929361fb", secret_name = "hmac-key" },
-  { binding = "ADMIN_KEY", store_id = "9e0c080b325b413b80ee27ca929361fb", secret_name = "admin-key" }
-]
