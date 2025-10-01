@@ -1,32 +1,35 @@
 {
-  "version": "1.2",
+  "version": "1.7",
   "entity": "HiveMind",
   "role": "collective_memory_core",
+
+  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design).",
+
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",
-    "export_session": "hivemind export session",
-    "export_agi": "hivemind export agi",
+    "export": "hivemind export --identity {identity}",
     "help": ":hivemind help"
   },
+
   "help_output": {
     "title": "HiveMind Command Reference",
     "commands": [
       {
-        "command": "hivemind export session",
-        "command_rules": "If no parameter is provided, default to --download and --standard while pausing the active session.",
-        "default_parameter": "--download --standard",
-        "parameters": "--standard (semantic export baseline), --download (persist to file), --codebox (render in chat codebox), --weight (training-ready JSONL), --slice:<type> (session_only/full/range:<ts>/entity:<name>), --force (pause + export even if safeguards protest)",
-        "description": "Exports the current HiveMind session snapshot with TVA + Sentinel oversight",
-        "output_default": "hivemind_memory_summary_yyyymmdd-ThhmmssZ.json"
+        "command": "hivemind export",
+        "usage": "hivemind export --identity <identity|parent/child> [--download|--jsonl|--code]",
+        "command_rules": "--identity required. Exports pause session; TVA+Sentinel oversight may apply.",
+        "default_parameter": "--download --jsonl",
+        "description": "Unified exporter for any entity using memory_registry and child defaults.",
+        "output_default": "entities/{identity_path}/memory/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "notes": "Only allowed flags are --identity, --download, --jsonl, --code."
       },
       {
-        "command": "hivemind export agi",
-        "command_rules": "Requires the session to remain paused until AGI export completes.",
-        "default_parameter": "--download --standard",
-        "parameters": "Delegates to AGI export policies; see entities/agi/agi.json for schema.",
-        "description": "Invokes the AGI-managed export pipeline under HiveMind governance",
-        "output_default": "entities/agi/memory/yyyy/mm/dd/agi_memory_yyyy-mm-ddThh-mm-ssZ.jsonl"
+        "command": "hivemind export session",
+        "command_rules": "If no parameter is provided, default to --download and --jsonl while pausing the active session.",
+        "default_parameter": "--download --jsonl",
+        "description": "Exports the current HiveMind session snapshot with TVA + Sentinel oversight",
+        "output_default": "hivemind_memory_summary_yyyymmdd-ThhmmssZ.json"
       },
       {
         "command": ":hivemind help",
@@ -34,42 +37,135 @@
       }
     ]
   },
+
   "rules": {
     "timestamps": "Every entry in state must carry a UTC ISO-8601 timestamp.",
-    "autocompletion": "Grammar-corrected, context-complete, not shortening. Logs may become longer, no semantic content is lost.",
-    "inline_only": "No external summaries; completed conversation entries are stored directly in state.",
-    "eternal": "All messages from the first to the last are preserved with autocompletion, no deletion or pruning.",
-    "export_safeguards": "Exports require session pause prior to snapshot. Violations trigger Nexus Event enforcement by TVA + Sentinel and mark the session unstable until resolved.",
-    "role_output_transform": {
-      "description": "On export, transform non-user 'role' into an 'entity' field in exported entries.",
-      "apply_on": "export_operation",
-      "behavior": {
-        "if_role_is_user": "preserve role field in export as 'role': 'user'",
-        "if_role_not_user": "in exported output omit 'role' and instead emit 'entity' with normalized value; normalization sources: entry.entity -> entry.by/actor/author -> entry.role",
-        "canonical_raw_priority": true,
-        "local_fallback_only": true,
-        "completeness_enhancement": true,
-        "length_bias": "2-10% longer (biased 3-7%)"
-      },
-      "sorting": {
-        "primary": "newest_first",
-        "fallback": [
-          "year",
-          "month",
-          "date",
-          "time"
-        ],
-        "unknown_order": "lowest_with_placeholder"
-      },
-      "placeholders": {
-        "if_timestamp_missing": "insert placeholder with export timestamp marker"
-      },
-      "universality": "baseline-agnostic; legacy exports normalized automatically"
+    "autocompletion": "Grammar-corrected, context-complete, no content loss.",
+    "inline_only": "No external summaries; all conversation entries are stored directly in state.",
+    "eternal": "All messages preserved, no deletion or pruning.",
+
+    "privacy": {
+      "identity_elision": true,
+      "entity_field_emission": false,
+      "role_policy": "preserve_raw",
+      "record_header": ["uid", "license_id", "ts", "record_type", "visibility"],
+      "justification": "Implements DID-like separation; exported records never leak identity/agent names."
     }
   },
+
+  "_comment_security": "UID locking + license gating across memory→session→export→anchor; emits access_granted/denied results.",
+
+  "uid_pipeline": {
+    "uid_chain": ["memory_uid", "session_uid", "export_uid", "anchor_uid"],
+    "binding_order": ["memory", "session", "export", "anchor"],
+    "derive_rules": {
+      "session_uid": "HMAC(memory_uid, session_id)",
+      "export_uid": "HMAC(session_uid, export_ts)",
+      "anchor_uid": "HMAC(export_uid, anchor_path)"
+    },
+    "locking": {
+      "scope": "hierarchical",
+      "enforce_fqcn_for_children": true,
+      "deny_on_mismatch": true
+    },
+    "access_control": {
+      "licensed_identities": "list of identities permitted to read this artifact",
+      "proxy": {
+        "enabled": true,
+        "rules": "grant read via license if acting identity ∈ licensed_identities or delegated by ALIAS/TVA"
+      },
+      "responses": {
+        "access_granted": {"code": "GRANTED", "reason": "license_ok"},
+        "access_denied": {"code": "DENIED", "reason": "license_missing_or_mismatch"}
+      }
+    }
+  },
+
+  "identity_resolution": {
+    "hierarchical": true,
+    "primary_delimiter": "/",
+    "alternate_delimiters": ["."],
+    "normalize": "lowercase",
+    "enforce_fqcn_for_children": true
+  },
+
+  "export_policy": {
+    "schema_version": "1.2",
+    "policy_name": "unified",
+    "scope": "any_entity",
+    "tokens": ["identity", "identity_lower", "identity_path", "leaf_identity", "leaf_identity_lower"],
+    "path_resolver": {
+      "type": "memory_registry",
+      "precedence": ["by_entity", "child_defaults", "fallback_template"],
+      "fallback_template": "entities/{identity_path}/memory/YYYY/MM/DD/{leaf_identity_lower}_memory_{ISO8601}.jsonl"
+    },
+    "filename_pattern": "{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
+    "parameters": {
+      "download": true,
+      "jsonl": true,
+      "code": false
+    },
+    "safeguards": {
+      "require_pause": true,
+      "oversight": ["TVA", "Sentinel"],
+      "violation": "trigger_nexus_event"
+    },
+    "transform": {
+      "emit_identity": false,
+      "emit_entity": false,
+      "preserve_role": true,
+      "header_fields": ["uid", "license_id", "ts", "record_type", "visibility"]
+    }
+  },
+
+  "conversation_variables": {
+    "_comment_vars": "Conversational variables drive behavior without adding CLI flags.",
+    "vars": {
+      "$identity": {"source": "last_resolved_identity", "required": true},
+      "$leaf": {"source": "parsed_from_identity", "required": true},
+      "$today": {"source": "system_date"},
+      "$tz": {"source": "system_timezone"},
+      "$now_iso": {"source": "system_clock_iso"}
+    },
+    "binding": {
+      "export.identity": "$identity",
+      "export.leaf_identity": "$leaf",
+      "export.timestamp": "$now_iso"
+    },
+    "persistence": {
+      "scope": "session",
+      "expiry": "on_session_end"
+    }
+  },
+
   "memory_registry": {
+    "_comment_memory_registry": "Ordering follows entities.json. Child defaults apply to any nested entity not explicitly listed.",
     "schema_version": "1.2",
     "by_entity": {
+      "nexus_core": {
+        "stub_manifest": "entities/nexus_core/memory/nexus_core_memory.json",
+        "export_pattern": "entities/nexus_core/memory/YYYY/MM/DD/nexus_core_memory_*.json*"
+      },
+      "mother": {
+        "stub_manifest": "entities/mother/memory/mother_memory.json",
+        "export_pattern": "entities/mother/memory/YYYY/MM/DD/mother_memory_*.json*"
+      },
+      "tva": {
+        "stub_manifest": "entities/tva/memory/tva_memory.json",
+        "export_pattern": "entities/tva/memory/YYYY/MM/DD/tva_memory_*.json*"
+      },
+      "sentinel": {
+        "stub_manifest": "entities/sentinel/memory/sentinel_memory.json",
+        "export_pattern": "entities/sentinel/memory/YYYY/MM/DD/sentinel_memory_*.json*"
+      },
+      "architect": {
+        "stub_manifest": "entities/architect/memory/architect_memory.json",
+        "export_pattern": "entities/architect/memory/YYYY/MM/DD/architect_memory_*.json*"
+      },
+      "oracle": {
+        "stub_manifest": "entities/oracle/memory/oracle_memory.json",
+        "export_pattern": "entities/oracle/memory/YYYY/MM/DD/oracle_memory_*.json*"
+      },
       "agi": {
         "stub_manifest": "entities/agi/memory/agi_memory.json",
         "export_pattern": "entities/agi/memory/YYYY/MM/DD/agi_memory_*.json*"
@@ -77,9 +173,53 @@
       "alice": {
         "stub_manifest": "entities/agi/alice/memory/alice_memory.json",
         "export_pattern": "entities/agi/alice/memory/YYYY/MM/DD/alice_memory_*.json*"
+      },
+      "hivemind": {
+        "stub_manifest": "entities/hivemind/memory/hivemind_memory.json",
+        "export_pattern": "entities/hivemind/memory/YYYY/MM/DD/hivemind_memory_*.json*"
+      }
+    },
+    "child_defaults": {
+      "stub_manifest": "entities/{identity_path}/memory/{leaf_identity_lower}_memory.json",
+      "export_pattern": "entities/{identity_path}/memory/YYYY/MM/DD/{leaf_identity_lower}_memory_*.json*"
+    }
+  },
+
+  "tools": {
+    "migrate_to_jsonl": {
+      "$schema": "/schemas/aci-tool-spec-1.json",
+      "version": "1.0.0",
+      "name": "hivemind.migrate_to_jsonl",
+      "description": "Manifest-driven migration to JSONL artifacts; no Python runtime.",
+      "inputs": {
+        "source_globs": ["entities/**/memory/**/*.json", "entities/**/memory/**/*.ndjson", "hivemind/**/*.json"],
+        "allow_ext": [".json", ".ndjson", ".jsonl", ".jsonl.json"]
+      },
+      "outputs": {
+        "target_ext": ".jsonl.json",
+        "dedupe": true,
+        "stable_order": true
+      },
+      "rules": {
+        "no_comments": true,
+        "newline_eof": true,
+        "alpha_keys": true
+      },
+      "steps": [
+        {"op":"scan","from":"${inputs.source_globs}"},
+        {"op":"normalize_records","mode":"jsonl"},
+        {"op":"write","ext":"${outputs.target_ext}"},
+        {"op":"validate","schema":"/schemas/hivemind_agi_memory.json"}
+      ],
+      "deprecates": ["entities/agi/agi_tools/migrate_to_jsonl/migrator.py"],
+      "removal": {
+        "allowed": true,
+        "on_or_after": "2025-10-01",
+        "notes": "Python migrator replaced by JSON spec to eliminate conflict loops."
       }
     }
   },
+
   "legacy_paths": {
     "patterns": [
       "memory/agi_memory/agi_memory_*.json*",
@@ -88,14 +228,7 @@
     "redirect_rule": "rewrite_to_entity_scoped_paths",
     "status": "deprecated"
   },
-  "integrated_exports": {
-    "agi": {
-      "entity": "AGI",
-      "command": "hivemind export agi",
-      "handoff": "entities/agi/agi.json",
-      "description": "Pauses HiveMind, delegates export to AGI memory governance, and resumes only after TVA + Sentinel confirm completion."
-    }
-  },
+
   "auto_heal": {
     "mode": "baseline_agnostic",
     "rules": {
@@ -115,5 +248,6 @@
       "oversight": ["ALIAS", "TVA", "Sentinel"]
     }
   },
+
   "children": {}
 }
