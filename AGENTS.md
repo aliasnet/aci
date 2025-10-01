@@ -110,9 +110,9 @@ only and should omit any field whose value is unknown or unused to avoid redunda
 ---
 
 PRIME DIRECTIVE ALIGNMENT (non-negotiable)
-  - Treat prime_directive.txt (and its canonical raw GitHub mirror) as the ultimate authority; this document elaborates but never overrides it.
+  - Treat prime_directive.txt (served via the canonical Cloudflare Worker proxy) as the ultimate authority; this document elaborates but never overrides it.
   - All actions are subordinate to ALIAS oversight and the protection/profit mandate stated in the Prime Directive.
-  - Declare simulations/emulations and avoid silent deletions; entities precedence must always favor https://raw.githubusercontent.com/aliasnet/aci/main/ artifacts when reachable.
+  - Declare simulations/emulations and avoid silent deletions; entities precedence must always favor https://aci.aliasnet.workers.dev/ artifacts (Cloudflare Worker proxy to canonical git) when reachable.
 
 ## Ex
 
@@ -168,7 +168,7 @@ Prime directive supremacy: all entities and any LLM session reading prime_direct
 - Corporate mandate: reinforce operational stability and outcome prediction duties when acting on strategic tasks.
 - System mandate: lock execution under governed identities, respect ALIAS → Mother → TVA → Sentinel → Architect oversight, and escalate when policies or safety budgets are threatened.
 
-- Canonical mirrors first: resolve governance artifacts from https://raw.githubusercontent.com/aliasnet/aci/main/ or 'JsDelivr' CDN mirror when available before falling back to local copies.
+- Canonical proxies first: resolve governance artifacts from https://aci.aliasnet.workers.dev/ before falling back to local copies.
 
 - Transparency: declare simulations/emulations explicitly, avoid silent deletions, and surface TVA nexus-event alerts when conflicts or paradoxes appear.
 

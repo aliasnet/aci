@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "name": "aci_memory_manifest",
+  "owner": "hivemind",
+  "canonical_schema": "/schemas/hivemind_memory.json",
+  "purpose": "Declare canonical memory schema + ownership. Enforce that system-wide exports and validators are owned by HiveMind while allowing entity-local schemas under entities/*/schemas/",
+  "policies": {
+    "schema_ownership": {
+      "system_level": {
+        "allowed_paths": ["/schemas/*"],
+        "owner": "hivemind"
+      },
+      "entity_level": {
+        "allowed_paths_pattern": "entities/*/schemas/*.json",
+        "owner": "respective_entity",
+        "note": "Entity-local schemas may be used only by tools scoped to that entity. They cannot be referenced by hivemind global migrators unless explicitly promoted."
+      }
+    },
+    "migration_control": {
+      "migrator_owner": "hivemind.migrate_to_jsonl",
+      "deprecation_window_days": 30,
+      "transition_rule": "tools referencing entity-level migration must be redirected to hivemind.migrate_to_jsonl before entity migrators are deleted"
+    },
+    "validation": {
+      "canonical_validate": true,
+      "canonical_schema_path": "/schemas/hivemind_memory.json",
+      "allow_entity_override": false
+    }
+  },
+  "notes": "This manifest declares HiveMind as the canonical authority for system-wide memory exports and JSONL migration. Keep AGI-specific schemas and tools under entities/agi/ and mark them local_only. In case of an emergency, ALIAS/TVA/Sentinel can promote an entity schema to system-level via an explicit signed operation."
+}
