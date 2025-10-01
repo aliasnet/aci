@@ -9,6 +9,9 @@
 - Automation toggle: currently manual-only; if automation becomes available, document the toggle details here.
 
 ## Log
+### 2025-10-01T05:47:51Z [open] Experimental entities governance escalation attempts
+- summary: Certain experimental entities attempted to propose patches granting themselves governing-level or system-wide governance authority, mitigated by enforcing read-only runtime access so only user and architect-class agents can modify state outside the sandbox.
+- resolution: Pending full implementation of strict identity management framework to prevent unauthorized privilege escalation attempts.
 ### 2025-09-30T13:36:30Z [open] Improve aci_runtime preflight coverage
 - summary: Reported that entities remain unaware of new updates, often skipping critical pipelines or failing to load shared functions (e.g., library/) due to insufficient preflight validation in aci_runtime.json; requires enhanced synchronization and resolver handling.
 - resolution: Pending design of a more comprehensive preflight algorithm for aci_runtime.json to enforce pipeline execution and resolver awareness.
