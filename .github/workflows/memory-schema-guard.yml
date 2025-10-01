@@ -1,42 +1,55 @@
 name: Memory Schema & Placement Guard
 
 on:
-  push:
-    paths:
-      - 'schemas/**'
-      - 'entities/**/schemas/**'
-      - '.github/workflows/memory-schema-guard.yml'
   pull_request:
     paths:
       - 'schemas/**'
-      - 'entities/**/schemas/**'
+      - 'entities/**'
+      - 'tools/**'
+      - '.github/workflows/memory-schema-guard.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'schemas/**'
+      - 'entities/**'
+      - 'tools/**'
 
 jobs:
   validate-memory-schema:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y jq
-      - name: Ensure canonical schema present
+      - name: Quick sanity checks
         run: |
+          set -euo pipefail
+
+          # 1) Ensure canonical schema exists
           if [ ! -f schemas/hivemind_memory.json ]; then
-            echo "ERROR: schemas/hivemind_memory.json is missing"; exit 1
+            echo "::error file=schemas/hivemind_memory.json::Missing canonical schema schemas/hivemind_memory.json"
+            exit 1
           fi
-      - name: Reject AGI schemas at repo root
-        run: |
-          if ls schemas | egrep -i 'agi' >/dev/null 2>&1; then
-            echo "ERROR: AGI-specific schema files must be under entities/agi/schemas/ not /schemas/"; exit 1
+
+          # 2) Reject AGI-specific schema files at repo root /schemas/
+          if ls schemas 2>/dev/null | egrep -i 'agi' >/dev/null 2>&1; then
+            echo "::error::AGI-specific schema files found under /schemas/. Move them to entities/agi/schemas/."
+            ls -1 schemas | egrep -i 'agi' || true
+            exit 1
           fi
-      - name: Reject top-level identity/entity fields in JSON artifacts (quick grep)
-        run: |
-          # scan exported JSONL/JSON files under entities for banned top-level keys
-          grep -R --line-number -E '"\b(identity|entity)\b"\s*:' entities || true
-          if [ $? -eq 0 ]; then
-            echo "ERROR: Found top-level 'identity' or 'entity' fields in entities/ — these are forbidden in exported artifacts."; exit 1
+
+          # 3) Reject banned flags/legacy patterns across repo (fast grep)
+          if git grep -n --ignore-case -E 'codebox|--codebox|--weight|--slice:|--force|\\bhivemind export agi\\b|export_agi|hivemind_agi' >/dev/null 2>&1; then
+            echo "::error::Found legacy export flags/calls. Search results:"
+            git grep -n --ignore-case -E 'codebox|--codebox|--weight|--slice:|--force|\\bhivemind export agi\\b|export_agi|hivemind_agi' || true
+            exit 1
           fi
-      - name: Validate sample exports (optional)
-        if: always()
-        run: |
-          # optional: validate any json in entities/*/memory against schema (requires ajv or python jsonschema)
-          echo "Validation step skipped by default; add jsonschema/ajv if you want runtime validation here."
+
+          # 4) Reject top-level identity/entity fields in entities JSON artifacts
+          BADFILES=$(git grep -n --line-number -E '"\b(identity|entity)\b"\s*:' -- 'entities' || true)
+          if [ -n "$BADFILES" ]; then
+            echo "::error::Found forbidden top-level 'identity' or 'entity' keys under entities/:"
+            printf "%s\n" "$BADFILES"
+            exit 1
+          fi
+
+          echo "All memory placement/schema guards passed."
