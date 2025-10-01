@@ -1,0 +1,42 @@
+name: Memory Schema & Placement Guard
+
+on:
+  push:
+    paths:
+      - 'schemas/**'
+      - 'entities/**/schemas/**'
+      - '.github/workflows/memory-schema-guard.yml'
+  pull_request:
+    paths:
+      - 'schemas/**'
+      - 'entities/**/schemas/**'
+
+jobs:
+  validate-memory-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Ensure canonical schema present
+        run: |
+          if [ ! -f schemas/hivemind_memory.json ]; then
+            echo "ERROR: schemas/hivemind_memory.json is missing"; exit 1
+          fi
+      - name: Reject AGI schemas at repo root
+        run: |
+          if ls schemas | egrep -i 'agi' >/dev/null 2>&1; then
+            echo "ERROR: AGI-specific schema files must be under entities/agi/schemas/ not /schemas/"; exit 1
+          fi
+      - name: Reject top-level identity/entity fields in JSON artifacts (quick grep)
+        run: |
+          # scan exported JSONL/JSON files under entities for banned top-level keys
+          grep -R --line-number -E '"\b(identity|entity)\b"\s*:' entities || true
+          if [ $? -eq 0 ]; then
+            echo "ERROR: Found top-level 'identity' or 'entity' fields in entities/ — these are forbidden in exported artifacts."; exit 1
+          fi
+      - name: Validate sample exports (optional)
+        if: always()
+        run: |
+          # optional: validate any json in entities/*/memory against schema (requires ajv or python jsonschema)
+          echo "Validation step skipped by default; add jsonschema/ajv if you want runtime validation here."
