@@ -85,6 +85,22 @@ jobs:
           create_or_replace_secret "hmac-key" "${HMAC_KEY_VALUE}" || true
           create_or_replace_secret "admin-key" "${ADMIN_KEY_VALUE}" || true
 
+- name: Debug whoami + publish attempt
+  env:
+    CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  run: |
+    set -eux
+    echo "Running whoami..."
+    npx --yes wrangler@latest whoami --apiToken "${CF_API_TOKEN}" || true
+    echo "Attempting publish (verbose)..."
+    npx --yes wrangler@latest publish --apiToken "${CF_API_TOKEN}" --verbose 2>&1 | tee /tmp/publish.log || true
+    tail -n 200 /tmp/publish.log || true
+    # fail explicitly if no success string
+    if ! grep -qE "Published|Successfully published|uploaded" /tmp/publish.log; then
+      echo "Publish did not report success; see logs above."
+      exit 1
+    fi
+
       - name: Publish Worker
         uses: cloudflare/wrangler-action@v3
         with:
