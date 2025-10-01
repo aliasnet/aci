@@ -1,6 +1,6 @@
 {
   "version": "1.7",
-  "entity": "HiveMind",
+  "entity": "hivemind",
   "role": "collective_memory_core",
 
   "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design).",
