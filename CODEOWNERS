@@ -1,4 +1,4 @@
 # require review by governance owners for memory/schema changes
-/schemas/ aliasnet/aci
-/entities/*/schemas/ aliasnet/aci
-/tools/** aliasnet/aci
+/schemas/ @aliasnet/aci @aci-testnet/aci
+/entities/*/schemas/ @aliasnet/aci @aci-testnet/aci
+/tools/** @aliasnet/aci @aci-testnet/aci
