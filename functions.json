@@ -7,18 +7,8 @@
     "sentinel.audit": {
       "description": "Route Sentinel audit events according to the audit router configuration.",
       "steps": [
-        {
-          "call": "audit.router.load",
-          "map": {
-            "file": "library/audit/audit_router.json"
-          }
-        },
-        {
-          "call": "audit.payload.filter",
-          "map": {
-            "params": "$params"
-          }
-        },
+        { "call": "audit.router.load", "map": { "file": "library/audit/audit_router.json" } },
+        { "call": "audit.payload.filter", "map": { "params": "$params" } },
         {
           "call": "audit.event.compose",
           "map": {
@@ -32,58 +22,24 @@
             "timestamp": "$now"
           }
         },
-        {
-          "call": "audit.router.dispatch",
-          "map": {
-            "router": "$steps.0.router",
-            "event": "$steps.2.event"
-          }
-        }
+        { "call": "audit.router.dispatch", "map": { "router": "$steps.0.router", "event": "$steps.2.event" } }
       ]
     },
     "sentinel.verify_signatures": {
       "description": "Validate presence file signatures when the router requires it.",
       "steps": [
-        {
-          "call": "audit.router.load",
-          "map": {
-            "file": "library/audit/audit_router.json"
-          }
-        },
-        {
-          "call": "audit.signatures.check",
-          "map": {
-            "router": "$steps.0.router",
-            "files": "$params.files",
-            "key_id": "$params.key_id"
-          }
-        }
+        { "call": "audit.router.load", "map": { "file": "library/audit/audit_router.json" } },
+        { "call": "audit.signatures.check", "map": { "router": "$steps.0.router", "files": "$params.files", "key_id": "$params.key_id" } }
       ]
     },
+
     "aci.boot.activate": {
       "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",
       "steps": [
-        {
-          "call": "aci-uuid.new",
-          "map": {
-            "format": "uuidv4"
-          }
-        },
-        {
-          "call": "_store.set",
-          "map": {
-            "key": "current_session_id",
-            "value": "$steps.0.uuid"
-          }
-        },
-        {
-          "call": "_store.load_entities",
-          "map": {}
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
+        { "call": "aci-uuid.new", "map": { "format": "uuidv4" } },
+        { "call": "_store.set", "map": { "key": "current_session_id", "value": "$steps.0.uuid" } },
+        { "call": "_store.load_entities", "map": {} },
+        { "call": "tva.anchor_timeline", "map": {} },
         {
           "call": "aci-sign.hmac",
           "map": {
@@ -116,32 +72,16 @@
             }
           }
         },
-        {
-          "call": "aci.legacy.adopt",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "activation",
-            "session_id": "$steps.0.uuid",
-            "presence_file": "presence/${steps.0.uuid}.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "aci.legacy.adopt", "map": {} },
+        { "call": "sentinel.audit", "map": { "action": "activation", "session_id": "$steps.0.uuid", "presence_file": "presence/${steps.0.uuid}.json" } },
+        { "call": "_format.json" }
       ]
     },
+
     "aci.legacy.adopt": {
       "description": "Find legacy memory files (no beacons / old format), tag them immutable and anchor. Never delete.",
       "steps": [
-        {
-          "call": "hivemind.list",
-          "map": {
-            "pattern": "**/*.json"
-          }
-        },
+        { "call": "hivemind.list", "map": { "pattern": "**/*.json" } },
         {
           "call": "aci-legacy.detect",
           "map": {
@@ -152,18 +92,8 @@
             }
           }
         },
-        {
-          "call": "aci-checksum.batch",
-          "map": {
-            "files": "$steps.1.legacy_files"
-          }
-        },
-        {
-          "call": "aci-legacy.infer_timestamps",
-          "map": {
-            "files": "$steps.2"
-          }
-        },
+        { "call": "aci-checksum.batch", "map": { "files": "$steps.1.legacy_files" } },
+        { "call": "aci-legacy.infer_timestamps", "map": { "files": "$steps.2" } },
         {
           "call": "hivemind.write",
           "map": {
@@ -172,65 +102,29 @@
               "migrated_at": "$now",
               "session_id": "${current_session_id}",
               "entries": "$steps.3",
-              "policy": {
-                "immutable": true,
-                "no_delete": true,
-                "notes": "Legacy timelines adopted; files preserved verbatim."
-              }
+              "policy": { "immutable": true, "no_delete": true, "notes": "Legacy timelines adopted; files preserved verbatim." }
             }
           }
         },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "legacy_adopt",
-            "migration_index": "legacy/migration_index_${now}.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "tva.anchor_timeline", "map": {} },
+        { "call": "sentinel.audit", "map": { "action": "legacy_adopt", "migration_index": "legacy/migration_index_${now}.json" } },
+        { "call": "_format.json" }
       ]
     },
+
     "aci.timeline.start": {
       "description": "Start a timeline presence beacon for this session (manual start).",
       "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
+        { "call": "_store.get", "map": { "key": "current_session_id" } },
         {
           "if": "$steps.0.value == null",
           "then": [
-            {
-              "call": "aci-uuid.new",
-              "map": {
-                "format": "uuidv4"
-              }
-            },
-            {
-              "call": "_store.set",
-              "map": {
-                "key": "current_session_id",
-                "value": "$steps.1.uuid"
-              }
-            }
+            { "call": "aci-uuid.new", "map": { "format": "uuidv4" } },
+            { "call": "_store.set", "map": { "key": "current_session_id", "value": "$steps.1.uuid" } }
           ]
         },
-        {
-          "call": "_store.load_entities",
-          "map": {}
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
+        { "call": "_store.load_entities", "map": {} },
+        { "call": "tva.anchor_timeline", "map": {} },
         {
           "call": "aci-sign.hmac",
           "map": {
@@ -263,33 +157,16 @@
             }
           }
         },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.start",
-            "session_id": "${current_session_id}"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "sentinel.audit", "map": { "action": "timeline.start", "session_id": "${current_session_id}" } },
+        { "call": "_format.json" }
       ]
     },
+
     "aci.timeline.ping": {
       "description": "Refresh the presence beacon (keep-alive).",
       "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "call": "hivemind.read",
-          "map": {
-            "filename": "presence/${steps.0.value}.json"
-          }
-        },
+        { "call": "_store.get", "map": { "key": "current_session_id" } },
+        { "call": "hivemind.read", "map": { "filename": "presence/${steps.0.value}.json" } },
         {
           "call": "aci-sign.hmac",
           "map": {
@@ -322,62 +199,26 @@
             }
           }
         },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.ping",
-            "session_id": "$steps.1.session_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "sentinel.audit", "map": { "action": "timeline.ping", "session_id": "$steps.1.session_id" } },
+        { "call": "_format.json" }
       ]
     },
+
     "aci.timeline.ls": {
       "description": "List active timelines (beacons not expired by TTL).",
       "steps": [
-        {
-          "call": "hivemind.list",
-          "map": {
-            "pattern": "presence/*.json"
-          }
-        },
-        {
-          "call": "aci-filter.expired",
-          "map": {
-            "files": "$steps.0",
-            "ttl_from_field": "ttl_seconds",
-            "now": "$now"
-          }
-        },
-        {
-          "call": "sentinel.verify_signatures",
-          "map": {
-            "files": "$steps.1.active",
-            "key_id": "aci-presence"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "hivemind.list", "map": { "pattern": "presence/*.json" } },
+        { "call": "aci-filter.expired", "map": { "files": "$steps.0", "ttl_from_field": "ttl_seconds", "now": "$now" } },
+        { "call": "sentinel.verify_signatures", "map": { "files": "$steps.1.active", "key_id": "aci-presence" } },
+        { "call": "_format.json" }
       ]
     },
+
     "aci.timeline.end": {
       "description": "End this session's beacon (finalizes state; never deletes history).",
       "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "call": "hivemind.read",
-          "map": {
-            "filename": "presence/${steps.0.value}.json"
-          }
-        },
+        { "call": "_store.get", "map": { "key": "current_session_id" } },
+        { "call": "hivemind.read", "map": { "filename": "presence/${steps.0.value}.json" } },
         {
           "call": "aci-sign.hmac",
           "map": {
@@ -413,341 +254,115 @@
             }
           }
         },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.end",
-            "session_id": "$steps.1.session_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "tva.anchor_timeline", "map": {} },
+        { "call": "sentinel.audit", "map": { "action": "timeline.end", "session_id": "$steps.1.session_id" } },
+        { "call": "_format.json" }
       ]
     },
+
     "aci.memory.export.hivemind": {
-      "description": "Export HiveMind session memory with enforced pause/resume safeguards.",
+      "description": "Unified export pipeline for HiveMind-governed exports. Enforces pause/resume safeguards and allowed flags.",
       "steps": [
-        {
-          "call": "session.guard.require_paused",
-          "map": {
-            "operation": "hivemind_export.session",
-            "parameter": "$args.param"
-          }
-        },
+        { "call": "session.guard.require_paused", "map": { "operation": "hivemind_export.session", "parameter": "$args.param" } },
         {
           "call": "hivemind.export.configure",
           "map": {
             "parameter": "$args.param",
-            "defaults": [
-              "download",
-              "standard"
-            ],
-            "allowed": [
-              "standard",
-              "download",
-              "codebox",
-              "weight",
-              "force"
-            ],
+            "defaults": ["download", "jsonl"],
+            "allowed": ["download", "jsonl", "code"],
             "slice_prefix": "slice"
           }
         },
         {
           "call": "hivemind.export.capture",
           "map": {
+            "identity": "$args.identity",
             "scope": "$steps.1.scope",
             "delivery": "$steps.1.delivery",
             "slice": "$steps.1.slice",
-            "notes": "Persist JSONL-formatted exports under /memory/hivemind_memory/ using hivemind_memory_{summary}_{timestamp}.json (legacy logs/ paths remain readable)."
+            "notes": "Persist JSONL-formatted exports under entities/{identity_path}/memory/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl"
           }
         },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "hivemind",
-            "action": "export.session",
-            "export_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "session.guard.resume",
-          "map": {
-            "operation": "hivemind_export.session",
-            "export_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "tva.anchor_timeline", "map": {} },
+        { "call": "sentinel.audit", "map": { "layer": "hivemind", "action": "export.session", "export_id": "$steps.2.export_id" } },
+        { "call": "session.guard.resume", "map": { "operation": "hivemind_export.session", "export_id": "$steps.2.export_id" } },
+        { "call": "_format.json" }
       ]
     },
+
     "agi.memory.export": {
-      "description": "Invoke AGI-managed export while session is paused under HiveMind governance.",
-      "config": {
-        "policy_file": "/entities/agi/agi_export_policy.json"
-      },
+      "description": "Deprecated: AGI-specific export pipeline. Redirects to hivemind unified exporter.",
+      "deprecated": true,
+      "config": { "policy_file": "/entities/agi/agi_export_policy.json" },
       "steps": [
-        {
-          "call": "session.guard.require_paused",
-          "map": {
-            "operation": "hivemind_export.agi",
-            "parameter": "$args.param"
-          }
-        },
-        {
-          "call": "agi.export.configure",
-          "map": {
-            "parameter": "$args.param"
-          }
-        },
-        {
-          "call": "agi.export.invoke",
-          "map": {
-            "mode": "$steps.1.mode",
-            "force": "$steps.1.force",
-            "notes": "Filename templates honor optional {summary_slug} and emit .json files containing JSONL lines."
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "hivemind",
-            "action": "export.integrated",
-            "job_id": "$steps.2.job_id"
-          }
-        },
-        {
-          "call": "session.guard.resume",
-          "map": {
-            "operation": "hivemind_export.agi",
-            "job_id": "$steps.2.job_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "session.guard.require_paused", "map": { "operation": "hivemind_export.agi", "parameter": "$args.param" } },
+        { "call": "_args.normalize", "map": { "identity": "$args.identity" } },
+        { "call": "aci.memory.export.hivemind", "map": { "identity": "$args.identity", "param": "$args.param" } },
+        { "call": "sentinel.audit", "map": { "layer": "hivemind", "action": "export.integrated", "job_id": "$steps.2.export_id" } },
+        { "call": "session.guard.resume", "map": { "operation": "hivemind_export.agi", "job_id": "$steps.2.export_id" } },
+        { "call": "_format.json" }
       ]
     },
-    "aci.repo": {
-      "description": "Symlink to standalone ACI Repo module.",
-      "steps": [
-        {
-          "call": "include",
-          "map": {
-            "file": "entities/aci_repo/aci_repo.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
+
+    "aci.repo": { "description": "Symlink to standalone ACI Repo module.", "steps": [ { "call": "include", "map": { "file": "entities/aci_repo/aci_repo.json" } }, { "call": "_format.json" } ] },
+
     "tva.anchor_timeline": {
       "description": "Anchor continuity for Hivemind state, generate rollback key.",
       "steps": [
-        {
-          "call": "_store.load_hivemind",
-          "map": {}
-        },
-        {
-          "call": "aci-checksum.generate",
-          "map": {
-            "input": "$steps.0"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "tva_anchor_${now}.json",
-            "content": {
-              "state": "hivemind",
-              "snapshot": "$steps.0",
-              "rollback_key": "$steps.1",
-              "status": "anchored",
-              "anchored_at": "$now"
-            }
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "_store.load_hivemind", "map": {} },
+        { "call": "aci-checksum.generate", "map": { "input": "$steps.0" } },
+        { "call": "hivemind.write", "map": { "filename": "tva_anchor_${now}.json", "content": { "state": "hivemind", "snapshot": "$steps.0", "rollback_key": "$steps.1", "status": "anchored", "anchored_at": "$now" } } },
+        { "call": "_format.json" }
       ]
     },
+
     "hivemind.jsonl.append": {
       "description": "Append one JSON object to an append-only JSONL artifact, creating the file on first write.",
       "steps": [
-        {
-          "call": "_args.require",
-          "map": {
-            "key": "filename",
-            "notes": "Path to the JSONL artifact to append to."
-          }
-        },
-        {
-          "call": "_args.require",
-          "map": {
-            "key": "line",
-            "notes": "JSON payload to serialize and append as a single line."
-          }
-        },
-        {
-          "call": "hivemind.ensure_file",
-          "map": {
-            "filename": "$steps.0.value",
-            "append_only": true
-          }
-        },
-        {
-          "call": "json.normalize",
-          "map": {
-            "value": "$steps.1.value"
-          }
-        },
-        {
-          "call": "json.stringify",
-          "map": {
-            "value": "$steps.3.value"
-          }
-        },
-        {
-          "call": "file.append",
-          "map": {
-            "filename": "$steps.0.value",
-            "content": "$steps.4.json",
-            "newline": true,
-            "create": true
-          }
-        },
-        {
-          "call": "_format.json",
-          "map": {
-            "filename": "$steps.0.value"
-          }
-        }
+        { "call": "_args.require", "map": { "key": "filename", "notes": "Path to the JSONL artifact to append to." } },
+        { "call": "_args.require", "map": { "key": "line", "notes": "JSON payload to serialize and append as a single line." } },
+        { "call": "hivemind.ensure_file", "map": { "filename": "$steps.0.value", "append_only": true } },
+        { "call": "json.normalize", "map": { "value": "$steps.1.value" } },
+        { "call": "json.stringify", "map": { "value": "$steps.3.value" } },
+        { "call": "file.append", "map": { "filename": "$steps.0.value", "content": "$steps.4.json", "newline": true, "create": true } },
+        { "call": "_format.json", "map": { "filename": "$steps.0.value" } }
       ]
     },
+
     "process.logs.init": {
       "description": "Initialize a process-log file for this session and topic. Append-only.",
       "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
+        { "call": "_store.get", "map": { "key": "current_session_id" } },
         {
           "if": "$steps.0.value == null",
           "then": [
-            {
-              "call": "aci-uuid.new",
-              "map": {
-                "format": "uuidv4"
-              }
-            },
-            {
-              "call": "_store.set",
-              "map": {
-                "key": "current_session_id",
-                "value": "$steps.1.uuid"
-              }
-            }
+            { "call": "aci-uuid.new", "map": { "format": "uuidv4" } },
+            { "call": "_store.set", "map": { "key": "current_session_id", "value": "$steps.1.uuid" } }
           ]
         },
-        {
-          "call": "slugify",
-          "map": {
-            "text": "$params.topic",
-            "default": "general"
-          }
-        },
-        {
-          "call": "_store.set",
-          "map": {
-            "key": "process_logs.topic_slug",
-            "value": "$steps.2.slug"
-          }
-        },
-        {
-          "call": "date.format",
-          "map": {
-            "format": "YYYYMMDD",
-            "value": "$now"
-          }
-        },
-        {
-          "call": "_store.set",
-          "map": {
-            "key": "process_logs.file",
-            "value": "memory/process_logs/proc_${current_session_id}_${steps.2.slug}_${steps.4.date}.jsonl.json"
-          }
-        },
-        {
-          "call": "hivemind.ensure_file",
-          "map": {
-            "filename": "${process_logs.file}",
-            "append_only": true
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "process.log.init",
-            "session_id": "${current_session_id}",
-            "topic": "${process_logs.topic_slug}",
-            "file": "${process_logs.file}"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "slugify", "map": { "text": "$params.topic", "default": "general" } },
+        { "call": "_store.set", "map": { "key": "process_logs.topic_slug", "value": "$steps.2.slug" } },
+        { "call": "date.format", "map": { "format": "YYYYMMDD", "value": "$now" } },
+        { "call": "_store.set", "map": { "key": "process_logs.file", "value": "memory/process_logs/proc_${current_session_id}_${steps.2.slug}_${steps.4.date}.jsonl.json" } },
+        { "call": "hivemind.ensure_file", "map": { "filename": "${process_logs.file}", "append_only": true } },
+        { "call": "sentinel.audit", "map": { "action": "process.log.init", "session_id": "${current_session_id}", "topic": "${process_logs.topic_slug}", "file": "${process_logs.file}" } },
+        { "call": "_format.json" }
       ]
     },
+
     "process.logs.append": {
       "description": "Append a single JSON object as one line (JSONL) to the current process log file.",
       "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "process_logs.file"
-          }
-        },
+        { "call": "_store.get", "map": { "key": "process_logs.file" } },
         {
           "if": "$steps.0.value == null",
           "then": [
-            {
-              "call": "process.logs.init",
-              "map": {
-                "topic": "$params.topic"
-              }
-            },
-            {
-              "call": "_store.get",
-              "map": {
-                "key": "process_logs.file"
-              }
-            }
+            { "call": "process.logs.init", "map": { "topic": "$params.topic" } },
+            { "call": "_store.get", "map": { "key": "process_logs.file" } }
           ]
         },
-        {
-          "call": "date.iso8601",
-          "map": {}
-        },
-        {
-          "call": "identity.resolve",
-          "map": {
-            "fallback": "AGI",
-            "param": "$params.identity"
-          }
-        },
+        { "call": "date.iso8601", "map": {} },
+        { "call": "identity.resolve", "map": { "fallback": "AGI", "param": "$params.identity" } },
         {
           "call": "object.compose",
           "map": {
@@ -763,106 +378,32 @@
             }
           }
         },
-        {
-          "call": "json.schema.validate",
-          "map": {
-            "schema_file": "library/wrappers/process_logs/process_log_schema.json",
-            "data": "$steps.4.object"
-          }
-        },
-        {
-          "call": "hivemind.jsonl.append",
-          "map": {
-            "filename": "${process_logs.file}",
-            "line": "$steps.4.object"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "process.log.append",
-            "file": "${process_logs.file}",
-            "event": "$params.event"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
+        { "call": "json.schema.validate", "map": { "schema_file": "library/wrappers/process_logs/process_log_schema.json", "data": "$steps.4.object" } },
+        { "call": "hivemind.jsonl.append", "map": { "filename": "${process_logs.file}", "line": "$steps.4.object" } },
+        { "call": "sentinel.audit", "map": { "action": "process.log.append", "file": "${process_logs.file}", "event": "$params.event" } },
+        { "call": "_format.json" }
       ]
     },
-    "process.logs.export": {
-      "description": "Return the current process log file path for external consumption.",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "process_logs.file"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    }
+
+    "process.logs.export": { "description": "Return the current process log file path for external consumption.", "steps": [ { "call": "_store.get", "map": { "key": "process_logs.file" } }, { "call": "_format.json" } ] }
   },
+
   "cli": {
     "commands": [
-      {
-        "pattern": "^aci\\s+activate$",
-        "pipeline": "aci.boot.activate"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+start$",
-        "pipeline": "aci.timeline.start"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+ping$",
-        "pipeline": "aci.timeline.ping"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+ls$",
-        "pipeline": "aci.timeline.ls"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+end$",
-        "pipeline": "aci.timeline.end"
-      },
-      {
-        "pattern": "^hivemind\\s+export\\s+session(?:\\s+--(?P<param>\\w+))?$",
-        "pipeline": "aci.memory.export.hivemind"
-      },
-      {
-        "pattern": "^hivemind\\s+export\\s+agi(?:\\s+--(?P<param>\\w+))?$",
-        "pipeline": "agi.memory.export"
-      },
-      {
-        "pattern": "^aci\\s+anchor$",
-        "pipeline": "tva.anchor_timeline"
-      },
-      {
-        "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$",
-        "pipeline": "aci.repo.search.improve"
-      },
-      {
-        "pattern": "^aci\\s+search\\s+(?P<query>.+)$",
-        "pipeline": "aci.repo.search"
-      },
-      {
-        "pattern": "^aci\\s+install\\s+(?P<package>\\S+)$",
-        "pipeline": "aci.repo.install"
-      },
-      {
-        "pattern": "^aci\\s+remove\\s+(?P<package>\\S+)$",
-        "pipeline": "aci.repo.remove"
-      },
-      {
-        "pattern": "^aci\\s+update$",
-        "pipeline": "aci.repo.update"
-      },
-      {
-        "pattern": "^process\\s+log\\s+init(?:\\s+--topic\\s+(?P<topic>.+))?$",
-        "pipeline": "process.logs.init"
-      },
+      { "pattern": "^aci\\s+activate$", "pipeline": "aci.boot.activate" },
+      { "pattern": "^aci\\s+timeline\\s+start$", "pipeline": "aci.timeline.start" },
+      { "pattern": "^aci\\s+timeline\\s+ping$", "pipeline": "aci.timeline.ping" },
+      { "pattern": "^aci\\s+timeline\\s+ls$", "pipeline": "aci.timeline.ls" },
+      { "pattern": "^aci\\s+timeline\\s+end$", "pipeline": "aci.timeline.end" },
+      { "pattern": "^hivemind\\s+export\\s+session(?:\\s+--(?P<param>\\w+))?$", "pipeline": "aci.memory.export.hivemind" },
+      { "pattern": "^hivemind\\s+export\\s+--identity\\s+(?P<identity>[^\\s]+)(?:\\s+--(?P<param>\\w+))?$", "pipeline": "aci.memory.export.hivemind" },
+      { "pattern": "^aci\\s+anchor$", "pipeline": "tva.anchor_timeline" },
+      { "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$", "pipeline": "aci.repo.search.improve" },
+      { "pattern": "^aci\\s+search\\s+(?P<query>.+)$", "pipeline": "aci.repo.search" },
+      { "pattern": "^aci\\s+install\\s+(?P<package>\\S+)$", "pipeline": "aci.repo.install" },
+      { "pattern": "^aci\\s+remove\\s+(?P<package>\\S+)$", "pipeline": "aci.repo.remove" },
+      { "pattern": "^aci\\s+update$", "pipeline": "aci.repo.update" },
+      { "pattern": "^process\\s+log\\s+init(?:\\s+--topic\\s+(?P<topic>.+))?$", "pipeline": "process.logs.init" },
       {
         "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s*$",
         "pipeline": "process.logs.append"
@@ -879,20 +420,12 @@
         "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s*$",
         "pipeline": "process.logs.append"
       },
-      {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
-        "pipeline": "process.logs.append"
-      },
-      {
-        "pattern": "^process\\s+log\\s+export$",
-        "pipeline": "process.logs.export"
-      },
-      {
-        "pattern": "^aci\\s+repo\\s+help$",
-        "pipeline": "aci.repo.help"
-      }
+      { "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+)$", "pipeline": "process.logs.append" },
+      { "pattern": "^process\\s+log\\s+export$", "pipeline": "process.logs.export" },
+      { "pattern": "^aci\\s+repo\\s+help$", "pipeline": "aci.repo.help" }
     ]
   },
+
   "yggdrasil_resource_resolution_policy": {
     "description": "Authoritative resolver: repo \u2192 cdn \u2192 local",
     "embeds": {
@@ -907,51 +440,15 @@
     },
     "git_is_canonical": true,
     "mapping": [
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_bootstrap.json",
-        "file": "aci://aci_bootstrap.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_runtime.json",
-        "file": "aci://aci_runtime.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_runtime.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json",
-        "file": "aci://connectors/github_connector.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities.json",
-        "file": "aci://entities.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/bifrost/bifrost.json",
-        "file": "aci://entities/bifrost/bifrost.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/yggdrasil/yggdrasil.json",
-        "file": "aci://entities/yggdrasil/yggdrasil.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/functions.json",
-        "file": "aci://functions.json",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
-      },
-      {
-        "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/prime_directive.txt",
-        "file": "aci://prime_directive.txt",
-        "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
-      }
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_bootstrap.json", "file": "aci://aci_bootstrap.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/aci_runtime.json", "file": "aci://aci_runtime.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_runtime.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/connectors/github_connector.json", "file": "aci://connectors/github_connector.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities.json", "file": "aci://entities.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/bifrost/bifrost.json", "file": "aci://entities/bifrost/bifrost.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/entities/yggdrasil/yggdrasil.json", "file": "aci://entities/yggdrasil/yggdrasil.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/functions.json", "file": "aci://functions.json", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json" },
+      { "cdn": "https://cdn.jsdelivr.net/gh/aliasnet/aci@main/prime_directive.txt", "file": "aci://prime_directive.txt", "repo": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt" }
     ],
-    "resolver_order": [
-      "repo",
-      "cdn",
-      "local"
-    ]
+    "resolver_order": [ "repo", "cdn", "local" ]
   }
 }
