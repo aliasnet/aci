@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      STORE_ID: ${{ secrets.SECRETS_STORE_ID }}    # read from repo secret now
+      STORE_ID: ${{ secrets.SECRETS_STORE_ID }}
       HMAC_KEY_VALUE: ${{ secrets.HMAC_KEY_VALUE }}
       ADMIN_KEY_VALUE: ${{ secrets.ADMIN_KEY_VALUE }}
       ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || '' }}
@@ -27,79 +27,131 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler@latest
 
-      - name: Create hmac-key (wrangler)
+      - name: Verify Wrangler & env
         run: |
-          set -e
-          if [ -z "${{ env.STORE_ID }}" ]; then
-            echo "STORE_ID empty; skipping"
+          set -eux
+          which node || true
+          node --version || true
+          which npx || true
+          npx --version || true
+          echo "USER: $(whoami)"
+          echo "PATH: $PATH"
+          if command -v wrangler >/dev/null 2>&1; then
+            echo "wrangler found at: $(command -v wrangler)"
+            wrangler --version || true
+          else
+            echo "wrangler not found globally (will try npx)"
+          fi
+          # show presence of critical env vars (masked)
+          echo "STORE_ID present: ${STORE_ID:+yes}"
+          echo "CF_API_TOKEN present: ${CF_API_TOKEN:+yes}"
+          echo "HMAC_KEY_VALUE present: ${HMAC_KEY_VALUE:+yes}"
+          echo "ADMIN_KEY_VALUE present: ${ADMIN_KEY_VALUE:+yes}"
+
+      - name: Create hmac-key (robust)
+        run: |
+          set -eux
+          if [ -z "${STORE_ID}" ]; then
+            echo "STORE_ID empty; skipping creation"
             exit 0
           fi
-          npx wrangler secrets-store secret create "${{ env.STORE_ID }}" --name hmac-key --scopes workers --value "${{ env.HMAC_KEY_VALUE }}" --remote || echo "maybe exists, continuing"
 
-      - name: Create admin-key (wrangler)
+          try_cmd() {
+            cmd="$1"
+            echo "Attempting: $cmd"
+            eval "$cmd" && return 0 || return 1
+          }
+
+          CMD1="wrangler secrets-store secret create \"${STORE_ID}\" --name hmac-key --scopes workers --value \"${HMAC_KEY_VALUE}\" --remote"
+          CMD2="npx --yes wrangler@latest secrets-store secret create \"${STORE_ID}\" --name hmac-key --scopes workers --value \"${HMAC_KEY_VALUE}\" --remote"
+
+          if try_cmd "$CMD1"; then
+            echo "Created hmac-key with global wrangler"
+          elif try_cmd "$CMD2"; then
+            echo "Created hmac-key with npx fallback"
+          else
+            echo "wrangler create failed; continuing to API fallback"
+          fi
+
+      - name: Create admin-key (robust)
         run: |
-          set -e
-          npx wrangler secrets-store secret create "${{ env.STORE_ID }}" --name admin-key --scopes workers --value "${{ env.ADMIN_KEY_VALUE }}" --remote || echo "maybe exists, continuing"
+          set -eux
+          if [ -z "${STORE_ID}" ]; then
+            echo "STORE_ID empty; skipping creation"
+            exit 0
+          fi
+
+          CMD1="wrangler secrets-store secret create \"${STORE_ID}\" --name admin-key --scopes workers --value \"${ADMIN_KEY_VALUE}\" --remote"
+          CMD2="npx --yes wrangler@latest secrets-store secret create \"${STORE_ID}\" --name admin-key --scopes workers --value \"${ADMIN_KEY_VALUE}\" --remote"
+
+          if try_cmd "$CMD1"; then
+            echo "Created admin-key with global wrangler"
+          elif try_cmd "$CMD2"; then
+            echo "Created admin-key with npx fallback"
+          else
+            echo "wrangler create failed for admin-key; continuing to API fallback"
+          fi
 
       - name: Fallback upsert via Cloudflare API (idempotent)
         if: always()
         run: |
-          set -e
-          if [ -z "${{ env.STORE_ID }}" ] || [ -z "${{ env.CF_API_TOKEN }}" ]; then
-            echo "Missing STORE_ID or CF_API_TOKEN — skipping fallback"
+          set -eux
+          if [ -z "${STORE_ID}" ] || [ -z "${CF_API_TOKEN}" ]; then
+            echo "Missing STORE_ID or CF_API_TOKEN — skipping API fallback"
             exit 0
           fi
-          sudo apt-get update -y && sudo apt-get install -y jq
+
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+
           create_or_replace_secret() {
-            name="$1"; value="$2"
-            body=$(jq -nc --arg n "$name" --arg v "$value" '[{name:$n, value:$v, scopes:["workers"], comment:"created by github action"}]')
+            name="$1"
+            value="$2"
+            body=$(jq -cn --arg n "$name" --arg v "$value" '[{name:$n, value:$v, scopes:["workers"], comment:"created by github action"}]')
             http_status=$(curl -s -o /tmp/resp.json -w "%{http_code}" \
               -X POST "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" \
               -H "Authorization: Bearer ${CF_API_TOKEN}" \
               -H "Content-Type: application/json" \
               --data "$body" || true)
+
             if [ "$http_status" = "200" ] || [ "$http_status" = "201" ]; then
-              echo "Created $name"
+              echo "Created secret '$name' (status $http_status)."
               return 0
             fi
-            resp=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" -H "Authorization: Bearer ${CF_API_TOKEN}")
+
+            resp=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json")
+
             secret_id=$(echo "$resp" | jq -r --arg NAME "$name" '.result[] | select(.name == $NAME) | .id' | head -n1)
+
             if [ -z "$secret_id" ] || [ "$secret_id" = "null" ]; then
-              echo "Could not find existing secret id for $name; API response:"
+              echo "Could not find existing secret id for $name; create may have failed for another reason. Dumping API response:"
               echo "$resp"
               return 1
             fi
-            curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets/${secret_id}" -H "Authorization: Bearer ${CF_API_TOKEN}" || true
+
+            echo "Found secret id: $secret_id — deleting then recreating"
+            curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets/${secret_id}" \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json" || true
+
             http_status2=$(curl -s -o /tmp/resp2.json -w "%{http_code}" \
               -X POST "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" \
               -H "Authorization: Bearer ${CF_API_TOKEN}" \
               -H "Content-Type: application/json" \
               --data "$body" || true)
+
             if [ "$http_status2" = "200" ] || [ "$http_status2" = "201" ]; then
-              echo "Recreated $name"
+              echo "Recreated secret '$name'"
               return 0
             fi
-            echo "Failed to recreate $name"; cat /tmp/resp2.json || true
+
+            echo "Failed to recreate secret $name. Status: $http_status2"
+            cat /tmp/resp2.json || true
             return 1
           }
+
           create_or_replace_secret "hmac-key" "${HMAC_KEY_VALUE}" || true
           create_or_replace_secret "admin-key" "${ADMIN_KEY_VALUE}" || true
-
-- name: Debug whoami + publish attempt
-  env:
-    CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  run: |
-    set -eux
-    echo "Running whoami..."
-    npx --yes wrangler@latest whoami --apiToken "${CF_API_TOKEN}" || true
-    echo "Attempting publish (verbose)..."
-    npx --yes wrangler@latest publish --apiToken "${CF_API_TOKEN}" --verbose 2>&1 | tee /tmp/publish.log || true
-    tail -n 200 /tmp/publish.log || true
-    # fail explicitly if no success string
-    if ! grep -qE "Published|Successfully published|uploaded" /tmp/publish.log; then
-      echo "Publish did not report success; see logs above."
-      exit 1
-    fi
 
       - name: Publish Worker
         uses: cloudflare/wrangler-action@v3
