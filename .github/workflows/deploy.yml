@@ -13,7 +13,7 @@ jobs:
       STORE_ID: ${{ secrets.SECRETS_STORE_ID }}
       HMAC_KEY_VALUE: ${{ secrets.HMAC_KEY_VALUE }}
       ADMIN_KEY_VALUE: ${{ secrets.ADMIN_KEY_VALUE }}
-      ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || '' }}
+      ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
     steps:
       - name: Checkout
