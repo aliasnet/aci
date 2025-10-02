@@ -42,6 +42,17 @@
       "sentinel": "safeguards privacy, survival, and stability",
       "tva": "enforces anomaly control and runtime authority",
       "mother": "serves as governance interface"
+    },
+    "identity_rules": {
+      "case_sensitive": true,
+      "protected_names": [
+        "ALIAS"
+      ],
+      "deny_persona_as_root": [
+        "AGI",
+        "Alice",
+        "Willow"
+      ]
     }
   },
   "resource_resolution_policy": {
