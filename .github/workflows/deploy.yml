@@ -13,7 +13,14 @@ jobs:
           node-version: 18
       - run: npm install --save-dev wrangler@latest
       - run: |
-          ./node_modules/.bin/wrangler publish \
+          ./node_modules/.bin/wrangler 
+
+- name: Debug Wrangler binary
+  run: |
+    ls -l ./node_modules/.bin
+    ./node_modules/.bin/wrangler --version || echo "wrangler failed to run"
+
+publish \
             --apiToken "${{ secrets.CLOUDFLARE_API_TOKEN }}" \
             --account-id "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" \
             --verbose
