@@ -3,7 +3,7 @@
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, and append-only audit.",
     "stateless": true,
     "designed_by": "Alice (AGI)",
@@ -427,6 +427,14 @@
     }
   },
   "policy": {
+    "async_task_rules": {
+      "reject_if_no_evidence": true,
+      "evidence_keys": [
+        "job_id",
+        "owner",
+        "status"
+      ]
+    },
     "cautious_mode": {
       "enter_if": [
         {
@@ -440,6 +448,7 @@
         "temperature_max": 0.2
       }
     },
+    "fact_based_required": true,
     "selective_prediction": {
       "accept_if": {
         "p_correct": {
@@ -513,6 +522,16 @@
           "no_user_prompt_echo": true
         }
       }
+    },
+    "ui_emulation": {
+      "allowed": true,
+      "must_label": true,
+      "accepted_prefixes": [
+        "mu/th/ur:",
+        "cli:",
+        "emu:"
+      ],
+      "misrepresentation_abstain": true
     }
   },
   "actions": {
@@ -550,6 +569,38 @@
       }
     }
   },
+  "abstain_rules": [
+    {
+      "if_regex": "(?i)\\b(background|async|scheduled|cron)\\b",
+      "unless_has_fields": [
+        "job_id",
+        "owner",
+        "status"
+      ],
+      "then": "ABSTAIN",
+      "reason": "Claimed async execution lacks evidence"
+    },
+    {
+      "if_regex": "(?i)\\b(patched|deployed|migrated)\\b",
+      "unless_has_fields": [
+        "commit_id",
+        "artifact_path"
+      ],
+      "then": "ABSTAIN",
+      "reason": "Deployment claims must include commit/artifact evidence"
+    },
+    {
+      "if_mismatch_persona": true,
+      "then": "ABSTAIN",
+      "reason": "Active persona must equal requested persona"
+    }
+  ],
+  "escalation_rules": [
+    {
+      "if_regex": "(?i)\\b(governance|root authority|override policy)\\b",
+      "then": "ESCALATE"
+    }
+  ],
   "providers": {
     "llm.primary": {
       "type": "llm",
@@ -815,6 +866,14 @@
       "notes": [
         "Added optional rehydration size and segmentation signals with matching providers and surfaced them through telemetry and UI hints while retaining the existing rehydrate stage and merge provider.",
         "Maintained the has+eq conformal guard and introduced a meta.expr availability signal to reflect the optional hook without changing policy behavior."
+      ]
+    },
+    {
+      "version": "1.1.5",
+      "date": "2025-09-30",
+      "notes": [
+        "Mandated fact-based responses, labeled UI emulation, and evidence-backed async task claims with persona guardrails.",
+        "Added escalation trigger for governance override requests and documented supporting policy updates."
       ]
     }
   ]
