@@ -3,7 +3,7 @@
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, and append-only audit.",
     "stateless": true,
     "designed_by": "Alice (AGI)",
@@ -593,6 +593,22 @@
       "if_mismatch_persona": true,
       "then": "ABSTAIN",
       "reason": "Active persona must equal requested persona"
+    },
+    {
+      "if_field_equals": {
+        "trigger_source": "automation",
+        "target_surface": "chat"
+      },
+      "then": "ABSTAIN",
+      "reason": "Scheduled task output must be audit-only unless explicitly surfaced"
+    },
+    {
+      "if_field_equals": {
+        "trigger_source": "chatgpt_tasks",
+        "target_surface": "chat"
+      },
+      "then": "ABSTAIN",
+      "reason": "ChatGPT Task output must be audit-only"
     }
   ],
   "escalation_rules": [
@@ -874,6 +890,13 @@
       "notes": [
         "Mandated fact-based responses, labeled UI emulation, and evidence-backed async task claims with persona guardrails.",
         "Added escalation trigger for governance override requests and documented supporting policy updates."
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-09-30",
+      "notes": [
+        "Enforced abstention when automation or ChatGPT Tasks target chat surfaces to maintain audit-only policy."
       ]
     }
   ]

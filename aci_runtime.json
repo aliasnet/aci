@@ -342,6 +342,12 @@
       "require_audit": true,
       "deny_fabrication": true,
       "require_visibility": true,
+      "default_surface": "audit_only",
+      "chat_visibility": "hidden",
+      "allowed_targets": [
+        "audit",
+        "cache"
+      ],
       "max_concurrency": 3,
       "default_ttl_seconds": 86400,
       "allowed_triggers": [
