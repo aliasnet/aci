@@ -105,7 +105,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
   Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
 
-> Universal doctrines (e.g., `prime_directive.txt`) apply globally. Entity playbooks (e.g., `/aig/agi_playbook.json`) are scoped to the AGI governor.
+> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/aig/agi_playbook.json`) are scoped to the AGI governor.
 
 ---
 

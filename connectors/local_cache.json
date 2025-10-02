@@ -34,8 +34,9 @@
       },
       "allowed_extensions": [
         ".json",
-        ".txt",
-        ".jsonl"
+        ".jsonl",
+        ".md",
+        ".txt"
       ]
     },
     "priority": "local_only_when_canonical_unavailable",
@@ -93,7 +94,7 @@
     },
     "link_index": {
       "README.md": "{resource_root}/README.md",
-      "aci_runtime.json": "{resource_root}/aci_runtime.json",
+      "runtime.json": "{resource_root}/runtime.json",
       "connectors/github_connector.json": "{resource_root}/connectors/github_connector.json",
       "entities/yggdrasil/yggdrasil.json": "{resource_root}/entities/yggdrasil/yggdrasil.json",
       "entities.json": "{resource_root}/entities.json",

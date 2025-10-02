@@ -27,6 +27,6 @@ Design intent:
 - Uphold ACI philosophy: stateless, auditable, modular, human-AI co-governance
 
 Next steps:
-- Validate calibration adapter paths in aci_runtime.json
+- Validate calibration adapter paths in runtime.json
 - Run golden path & OOD abstain tests
 - With conformal enabled, tune alpha per domain (e.g., 0.05 for high-stakes)
