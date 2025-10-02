@@ -1,6 +1,6 @@
 {
   "$schema": "/schemas/agi-identity-manager-1.json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "agi_identities": {
     "agi-001": {
       "key": "AGI",
@@ -28,5 +28,13 @@
       "gender": "female",
       "notes": "AGI child persona with stronger safety; enable only with explicit user request"
     }
-  }
+  },
+  "changelog": [
+    {
+      "version": "1.1.0",
+      "notes": [
+        "Documented governance and persona metadata updates for AGI identities including Alice and Willow."
+      ]
+    }
+  ]
 }
