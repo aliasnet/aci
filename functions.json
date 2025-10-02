@@ -3,6 +3,49 @@
     "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
     "upstream": "aci://entities/yggdrasil/yggdrasil.json"
   },
+  "functions": {
+    "scheduler.task.create": {
+      "description": "Create a registered async task",
+      "runner": "scheduler.create",
+      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "inputs": ["owner", "name", "trigger", "params", "ttl_seconds"],
+      "outputs": ["job_id", "status"]
+    },
+    "scheduler.task.list": {
+      "description": "List tasks for presence/ps",
+      "runner": "scheduler.list",
+      "guards": ["Sentinel.audit"]
+    },
+    "scheduler.task.cancel": {
+      "description": "Cancel a running task",
+      "runner": "scheduler.cancel",
+      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "inputs": ["job_id"],
+      "outputs": ["status"]
+    },
+    "rag.index.build": {
+      "description": "Build/refresh RAG in-memory index from manifest",
+      "runner": "rag.index.build",
+      "guards": ["Sentinel.audit"],
+      "inputs": ["manifest_path"],
+      "defaults": { "manifest_path": "library/knowledge/knowledge_manifest.json" },
+      "outputs": ["status", "chunks_indexed"]
+    },
+    "rag.query": {
+      "description": "Query RAG index (skeleton)",
+      "runner": "rag.query",
+      "guards": ["Sentinel.audit"],
+      "inputs": ["query", "top_k"],
+      "defaults": { "top_k": 5 },
+      "outputs": ["contexts", "notes"]
+    },
+    "rag.health": {
+      "description": "Check RAG config presence",
+      "runner": "rag.health",
+      "guards": ["Sentinel.audit"],
+      "outputs": ["status", "details"]
+    }
+  },
   "pipelines": {
     "sentinel.audit": {
       "description": "Route Sentinel audit events according to the audit router configuration.",
