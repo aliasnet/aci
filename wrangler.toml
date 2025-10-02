@@ -2,7 +2,7 @@ name = "aci"
 main = "src/index.js"
 compatibility_date = "2025-10-01"
 workers_dev = true
-account_id = "2761117165b74819317fa62a0e87737f" 
+
 [placement]
 mode = "smart"
 
