@@ -1,8 +1,6 @@
 name = "aci"
 main = "src/index.js"
 compatibility_date = "2025-10-01"
-
-# no workers_dev anymore since you’ll use your own domain
 workers_dev = false
 
 routes = [
