@@ -106,4 +106,5 @@ jobs:
           echo "Publishing (verbose)..."
           ./node_modules/.bin/wrangler publish \
             --apiToken "${CF_API_TOKEN}" \
+            --account-id "${CF_ACCOUNT_ID}" \
             --verbose
