@@ -3,13 +3,13 @@
     "version": "1.0",
     "local_core": {
       "runtime": {
-        "path": "aci_runtime.json"
+        "path": "runtime.json"
       },
       "prime_directive": {
-        "path": "prime_directive.txt"
+        "path": "prime_directive.md"
       },
       "bootstrap": {
-        "path": "aci_bootstrap.json"
+        "path": "bootstrap.json"
       },
       "sanity_protocol": {
         "path": "sanity.md"
@@ -28,24 +28,24 @@
         "embeds": {
           "bifrost": "aci://entities/bifrost/bifrost.json",
           "core_five": [
-            "aci://prime_directive.txt",
-            "aci://aci_runtime.json",
+            "aci://prime_directive.md",
+            "aci://runtime.json",
             "aci://entities.json",
             "aci://functions.json",
-            "aci://aci_bootstrap.json"
+            "aci://bootstrap.json"
           ]
         },
         "git_is_canonical": true,
         "mapping": [
           {
-            "file": "aci://aci_bootstrap.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json",
-            "fallback": "https://aci.aliasnet.workers.dev/aci_bootstrap.json"
+            "file": "aci://bootstrap.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
+            "fallback": "https://aci.aliasnet.workers.dev/bootstrap.json"
           },
           {
-            "file": "aci://aci_runtime.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_runtime.json",
-            "fallback": "https://aci.aliasnet.workers.dev/aci_runtime.json"
+            "file": "aci://runtime.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
+            "fallback": "https://aci.aliasnet.workers.dev/runtime.json"
           },
           {
             "file": "aci://connectors/github_connector.json",
@@ -73,9 +73,9 @@
             "fallback": "https://aci.aliasnet.workers.dev/functions.json"
           },
           {
-            "file": "aci://prime_directive.txt",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt",
-            "fallback": "https://aci.aliasnet.workers.dev/prime_directive.txt"
+            "file": "aci://prime_directive.md",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md",
+            "fallback": "https://aci.aliasnet.workers.dev/prime_directive.md"
           }
         ],
         "resolver_order": [

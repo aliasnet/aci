@@ -6,8 +6,8 @@
     "role": "system heart: routing, resolution, and fallback",
     "abstract": "The routing nexus of ACI. Holds runtime anchors and routing policy. Do not delete anything unless explicitly requested.",
     "anchors": {
-      "runtime": "aci_runtime.json",
-      "prime_directive": "prime_directive.txt",
+      "runtime": "runtime.json",
+      "prime_directive": "prime_directive.md",
       "entities": "entities.json",
       "functions": "functions.json"
     },
@@ -18,7 +18,7 @@
       "no_embedded_ids_in_entities": true,
       "explain_on_error": true,
       "uses_cognitive_decision_guidance": true,
-      "cognitive_guidance_ref": "aci_runtime.json#/aci_runtime/cognitive_decision_guidance"
+      "cognitive_guidance_ref": "runtime.json#/aci_runtime/cognitive_decision_guidance"
     },
     "references": {
       "aci_repo": "entities/aci_repo/aci_repo.json",

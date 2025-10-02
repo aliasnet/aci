@@ -16,8 +16,8 @@
 - summary: Certain experimental entities attempted to propose patches granting themselves governing-level or system-wide governance authority, mitigated by enforcing read-only runtime access so only user and architect-class agents can modify state outside the sandbox.
 - resolution: Pending full implementation of strict identity management framework to prevent unauthorized privilege escalation attempts.
 ### 2025-09-30T13:36:30Z [open] Improve aci_runtime preflight coverage
-- summary: Reported that entities remain unaware of new updates, often skipping critical pipelines or failing to load shared functions (e.g., library/) due to insufficient preflight validation in aci_runtime.json; requires enhanced synchronization and resolver handling.
-- resolution: Pending design of a more comprehensive preflight algorithm for aci_runtime.json to enforce pipeline execution and resolver awareness.
+- summary: Reported that entities remain unaware of new updates, often skipping critical pipelines or failing to load shared functions (e.g., library/) due to insufficient preflight validation in runtime.json; requires enhanced synchronization and resolver handling.
+- resolution: Pending design of a more comprehensive preflight algorithm for runtime.json to enforce pipeline execution and resolver awareness.
 ### 2025-09-30T13:15:22Z [resolved] Initialize append-only issues.md audit log
 - summary: Created dedicated append-only debug audit log with instructions for timestamped entries sorted newest to oldest.
 - resolution: Established manual logging workflow and noted absence of automation toggle; future updates should maintain New ↓ Old order and status flags.

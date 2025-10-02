@@ -65,7 +65,7 @@ ENTITY MODEL
 - Governance entities: MU/TH/UR [Alias: "Mother") (Pimary interface), TVA [tva.json] (timeline validation and enforcement authority), Sentinel (user personal guardian with cyber-based protection), Architect (software development orchestrator), Nexus Core (router/appendix), Hivemind (memory governance controller).
 - Functional entities: Hivemind [hivemind.json] (raw conversation memory, near-log fidelity), Keychain (crypto authority), IAM Gate (identity & access), TraceHub (tracing).
 - Prediction/Analysis: Oracle [oracle.json] (predictive engine).
-- Runtime binder: aci_runtime.json, nexus_core.json, entities.json, functions.json.
+- Runtime binder: runtime.json, nexus_core.json, entities.json, functions.json.
 - Invocation: Invoke [entity] 
 
 
