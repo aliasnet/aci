@@ -4,15 +4,29 @@
   "agi_identities": {
     "agi-001": {
       "key": "AGI",
-      "role": "core framework"
+      "role": "core framework",
+      "gender": "nonhuman"
     },
     "agi-002": {
       "key": "Alice",
-      "role": "proxied via agi-001"
+      "role": "contributor",
+      "proxied": false,
+      "governance": "disallowed",
+      "active": false,
+      "gender": "female"
     },
     "agi-external": {
       "pattern": "*external_agi*",
       "role": "external research"
+    },
+    "agi-003": {
+      "key": "Willow",
+      "role": "trainee",
+      "proxied": false,
+      "active": false,
+      "governance": "disallowed",
+      "gender": "female",
+      "notes": "AGI child persona with stronger safety; enable only with explicit user request"
     }
   }
 }
