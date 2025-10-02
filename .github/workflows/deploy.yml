@@ -85,11 +85,10 @@ jobs:
           upsert "hmac-key" "${HMAC_KEY_VALUE}" || true
           upsert "admin-key" "${ADMIN_KEY_VALUE}" || true
 
-      # Final publish using repo-local wrangler (no deprecated flags)
-      - name: Publish Worker
+           - name: Publish Worker
         run: |
           set -euo pipefail
           echo "whoami (non-fatal):"
           ./node_modules/.bin/wrangler whoami || true
-          echo "Publishing (verbose)..."
-          ./node_modules/.bin/wrangler publish --verbose
+          echo "Deploying (debug logs)..."
+          ./node_modules/.bin/wrangler deploy --log-level=debug
