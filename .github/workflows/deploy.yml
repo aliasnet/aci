@@ -1,26 +1,58 @@
-name: Minimal Deploy
+name: Deploy Worker + ensure Secrets Store secrets
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      STORE_ID: ${{ secrets.SECRETS_STORE_ID }}
+      HMAC_KEY_VALUE: ${{ secrets.HMAC_KEY_VALUE }}
+      ADMIN_KEY_VALUE: ${{ secrets.ADMIN_KEY_VALUE }}
+      ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: npm install --save-dev wrangler@latest
-      - run: |
-          ./node_modules/.bin/wrangler 
 
-- name: Debug Wrangler binary
-  run: |
-    ls -l ./node_modules/.bin
-    ./node_modules/.bin/wrangler --version || echo "wrangler failed to run"
+      # Always reinstall wrangler fresh (avoid corrupted binary in CI cache)
+      - name: Install wrangler fresh
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --save-dev wrangler@latest
+          ./node_modules/.bin/wrangler --version
 
-publish \
-            --apiToken "${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-            --account-id "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" \
+      - name: Verify secrets presence
+        run: |
+          echo "STORE_ID present: ${STORE_ID:+yes}"
+          echo "ACCOUNT_ID present: ${ACCOUNT_ID:+yes}"
+          echo "CF_API_TOKEN present: ${CF_API_TOKEN:+yes}"
+          echo "HMAC_KEY_VALUE present: ${HMAC_KEY_VALUE:+yes}"
+          echo "ADMIN_KEY_VALUE present: ${ADMIN_KEY_VALUE:+yes}"
+
+      - name: Ensure hmac-key
+        run: |
+          ./node_modules/.bin/wrangler secrets-store secret create "${STORE_ID}" \
+            --name hmac-key --scopes workers --value "${HMAC_KEY_VALUE}" --remote || echo "exists, continuing"
+
+      - name: Ensure admin-key
+        run: |
+          ./node_modules/.bin/wrangler secrets-store secret create "${STORE_ID}" \
+            --name admin-key --scopes workers --value "${ADMIN_KEY_VALUE}" --remote || echo "exists, continuing"
+
+      - name: Publish Worker
+        run: |
+          ./node_modules/.bin/wrangler whoami --apiToken "${CF_API_TOKEN}" --account-id "${ACCOUNT_ID}" || true
+          ./node_modules/.bin/wrangler publish \
+            --apiToken "${CF_API_TOKEN}" \
+            --account-id "${ACCOUNT_ID}" \
             --verbose
