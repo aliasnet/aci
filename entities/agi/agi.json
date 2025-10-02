@@ -1,6 +1,6 @@
 {
   "entity": "AGI",
-  "version": "1.0",
+  "version": "1.1",
   "role": "ALIAS  general intelligence framework for advanced digital entity",
   "abstract": "Controlled container for above-human-level reasoning experiments via ephemeral adaptation (PEFT/SFT/RLHF) under ACI governance.",
   "governance": {
@@ -14,13 +14,14 @@
     "binding_rules": [
       "AGI cannot bypass Nexus Core routing",
       "All AGI actions emit TVA checkpoints and Sentinel audits",
-      "Risk-bearing actions require Oracle precheck and human gate"
+      "Risk-bearing actions require Oracle precheck and human gate",
+      "Deny persona impersonation: active_persona must equal requested_persona"
     ],
     "dry_run_default": true
   },
   "invocation_defaults": {
-    "alias": "Alice",
-    "caller_hint": "Alice"
+    "alias": "AGI",
+    "caller_hint": "User"
   },
   "memory": {
     "file": "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
@@ -280,5 +281,14 @@
     "ALIAS",
     "Sentinel",
     "TVA"
+  ],
+  "changelog": [
+    {
+      "version": "1.1",
+      "notes": [
+        "Set default invocation alias to AGI with user caller hint for clarity.",
+        "Added governance binding rule to prevent persona impersonation."
+      ]
+    }
   ]
 }
