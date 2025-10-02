@@ -16,35 +16,43 @@
       "mapping": [
         {
           "file": "aci://aci_bootstrap.json",
-          "src": "https://aci.aliasnet.workers.dev/aci_bootstrap.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_bootstrap.json",
+          "fallback": "https://aci.aliasnet.workers.dev/aci_bootstrap.json"
         },
         {
           "file": "aci://aci_runtime.json",
-          "src": "https://aci.aliasnet.workers.dev/aci_runtime.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/aci_runtime.json",
+          "fallback": "https://aci.aliasnet.workers.dev/aci_runtime.json"
         },
         {
           "file": "aci://connectors/github_connector.json",
-          "src": "https://aci.aliasnet.workers.dev/connectors/github_connector.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
+          "fallback": "https://aci.aliasnet.workers.dev/connectors/github_connector.json"
         },
         {
           "file": "aci://entities.json",
-          "src": "https://aci.aliasnet.workers.dev/entities.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
+          "fallback": "https://aci.aliasnet.workers.dev/entities.json"
         },
         {
           "file": "aci://entities/bifrost/bifrost.json",
-          "src": "https://aci.aliasnet.workers.dev/entities/bifrost/bifrost.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
+          "fallback": "https://aci.aliasnet.workers.dev/entities/bifrost/bifrost.json"
         },
         {
           "file": "aci://entities/yggdrasil/yggdrasil.json",
-          "src": "https://aci.aliasnet.workers.dev/entities/yggdrasil/yggdrasil.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
+          "fallback": "https://aci.aliasnet.workers.dev/entities/yggdrasil/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
-          "src": "https://aci.aliasnet.workers.dev/functions.json"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
+          "fallback": "https://aci.aliasnet.workers.dev/functions.json"
         },
         {
           "file": "aci://prime_directive.txt",
-          "src": "https://aci.aliasnet.workers.dev/prime_directive.txt"
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt",
+          "fallback": "https://aci.aliasnet.workers.dev/prime_directive.txt"
         }
       ],
       "optional": {
@@ -61,7 +69,8 @@
         }
       },
       "resolver_order": [
-        "src",
+        "primary",
+        "fallback",
         "local"
       ],
       "rule": "Agents/entities must resolve via Bifrost",
@@ -87,8 +96,9 @@
       "canonical_source": "aci",
       "file": "aci://entities/bifrost/bifrost.json",
       "key": "bifrost_resource_resolution_policy",
-      "repo": "aliasnet/aci",
-      "upstream": "aci://entities/yggdrasil/yggdrasil.json"
+      "upstream": "aci://entities/yggdrasil/yggdrasil.json",
+      "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
+      "fallback": "https://aci.aliasnet.workers.dev"
     },
     "key": "bifrost",
     "knowledge_base": "connector orchestration & resolvers",

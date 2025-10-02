@@ -5,7 +5,12 @@
   "abstract": "Controlled container for above-human-level reasoning experiments via ephemeral adaptation (PEFT/SFT/RLHF) under ACI governance.",
   "governance": {
     "root_authority": "ALIAS",
-    "oversight": ["Sentinel", "TVA", "Architect", "Nexus Core"],
+    "oversight": [
+      "Sentinel",
+      "TVA",
+      "Architect",
+      "Nexus Core"
+    ],
     "binding_rules": [
       "AGI cannot bypass Nexus Core routing",
       "All AGI actions emit TVA checkpoints and Sentinel audits",
@@ -24,9 +29,22 @@
       "export": "hivemind",
       "lock_namespace": "AGI",
       "acl": {
-        "read": ["ALIAS", "TVA", "Sentinel", "Architect", "AGI"],
-        "write": ["AGI", "Architect"],
-        "promote": ["ALIAS", "TVA", "Sentinel"]
+        "read": [
+          "ALIAS",
+          "TVA",
+          "Sentinel",
+          "Architect",
+          "AGI"
+        ],
+        "write": [
+          "AGI",
+          "Architect"
+        ],
+        "promote": [
+          "ALIAS",
+          "TVA",
+          "Sentinel"
+        ]
       }
     }
   },
@@ -44,8 +62,11 @@
   },
   "functions": {
     "agi.loop.run": {
-      "description": "Durable plan→act→reflect agent loop with RAG + HITL",
-      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "description": "Durable plan\u2192act\u2192reflect agent loop with RAG + HITL",
+      "guards": [
+        "TVA.checkpoint",
+        "Sentinel.audit"
+      ],
       "runner": "agi_proxy.execute",
       "spec_ref": "@presets.eec.agent_rag"
     },
@@ -58,10 +79,17 @@
       "description": "Train PEFT adapter (LoRA) ephemerally",
       "runner": "agi_proxy.execute",
       "spec_ref": "@presets.eec.peft_train",
-      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "guards": [
+        "TVA.checkpoint",
+        "Sentinel.audit"
+      ],
       "promotion_policy": {
         "default": "manual",
-        "requires": ["TVA.ok", "Sentinel.ok", "Human.approval"]
+        "requires": [
+          "TVA.ok",
+          "Sentinel.ok",
+          "Human.approval"
+        ]
       }
     },
     "agi.learn.sft_deepspeed": {
@@ -93,24 +121,64 @@
       "description": "Export the current active chat/session for the target identity into an AGI memory file (session-level hivemind slice).",
       "runner": "agi_proxy.execute",
       "spec_ref": "aci/entities/agi_proxy/eec/eec_export_hivemind_session.json",
-      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "guards": [
+        "TVA.checkpoint",
+        "Sentinel.audit"
+      ],
       "params_schema": {
         "type": "object",
         "properties": {
-          "identity": { "type": "string" },
-          "session_id": { "type": ["string", "null"] },
-          "include_chatlogs": { "type": "boolean", "default": true },
-          "include_weights_meta": { "type": "boolean", "default": true },
-          "include_artifacts": { "type": "boolean", "default": false },
-          "format": { "type": "string", "enum": ["json", "tar"], "default": "json" },
-          "force_codebox": { "type": "boolean", "default": false, "description": "Inline export into chat/codebox (subject to size/redaction limits)." },
-          "force_codebox_max_bytes": { "type": "integer", "default": 131072, "description": "Max bytes to inline (default 128KB)." },
-          "note": { "type": "string" }
+          "identity": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "include_chatlogs": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_weights_meta": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_artifacts": {
+            "type": "boolean",
+            "default": false
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "tar"
+            ],
+            "default": "json"
+          },
+          "force_codebox": {
+            "type": "boolean",
+            "default": false,
+            "description": "Inline export into chat/codebox (subject to size/redaction limits)."
+          },
+          "force_codebox_max_bytes": {
+            "type": "integer",
+            "default": 131072,
+            "description": "Max bytes to inline (default 128KB)."
+          },
+          "note": {
+            "type": "string"
+          }
         },
-        "required": ["identity"]
+        "required": [
+          "identity"
+        ]
       },
       "policy": {
-        "requires": ["Human.approval"],
+        "requires": [
+          "Human.approval"
+        ],
         "default_dry_run": true,
         "shareable": false
       }
@@ -119,26 +187,75 @@
       "description": "Create a full AGI-local export bundle (session hivemind slice + artifacts + signed manifest) for the specified identity.",
       "runner": "agi_proxy.execute",
       "spec_ref": "aci/entities/agi_proxy/eec/eec_export_hivemind_full.json",
-      "guards": ["TVA.checkpoint", "Sentinel.audit"],
+      "guards": [
+        "TVA.checkpoint",
+        "Sentinel.audit"
+      ],
       "params_schema": {
         "type": "object",
         "properties": {
-          "identity": { "type": "string" },
-          "session_id": { "type": ["string", "null"] },
-          "source_jobs": { "type": "array", "items": { "type": "string" } },
-          "include_chatlogs": { "type": "boolean", "default": true },
-          "include_weights_meta": { "type": "boolean", "default": true },
-          "include_artifacts": { "type": "boolean", "default": false },
-          "format": { "type": "string", "enum": ["json", "tar"], "default": "tar" },
-          "force_codebox": { "type": "boolean", "default": false, "description": "Inline small bundle manifest into chat/codebox (safer 64KB cap)." },
-          "force_codebox_max_bytes": { "type": "integer", "default": 65536, "description": "Max bytes to inline (default 64KB)." },
-          "human_id": { "type": "string", "description": "Human approver required if include_artifacts or force_codebox are true." },
-          "note": { "type": "string" }
+          "identity": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_jobs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "include_chatlogs": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_weights_meta": {
+            "type": "boolean",
+            "default": true
+          },
+          "include_artifacts": {
+            "type": "boolean",
+            "default": false
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "json",
+              "tar"
+            ],
+            "default": "tar"
+          },
+          "force_codebox": {
+            "type": "boolean",
+            "default": false,
+            "description": "Inline small bundle manifest into chat/codebox (safer 64KB cap)."
+          },
+          "force_codebox_max_bytes": {
+            "type": "integer",
+            "default": 65536,
+            "description": "Max bytes to inline (default 64KB)."
+          },
+          "human_id": {
+            "type": "string",
+            "description": "Human approver required if include_artifacts or force_codebox are true."
+          },
+          "note": {
+            "type": "string"
+          }
         },
-        "required": ["identity"]
+        "required": [
+          "identity"
+        ]
       },
       "policy": {
-        "requires": ["Human.approval", "ALIAS.signature"],
+        "requires": [
+          "Human.approval",
+          "ALIAS.signature"
+        ],
         "default_dry_run": true,
         "shareable": false,
         "promotion_required": true
@@ -149,15 +266,19 @@
     "agi.memory.migrate_to_jsonl": {
       "description": "Migrate legacy HiveMind exports into the policy-compliant AGI JSONL memory artifact via manifest-driven steps.",
       "spec_ref": "entities/agi/agi_tools/migrate_to_jsonl.json",
-      "raw_url": "https://aci.aliasnet.workers.dev/entities/agi/agi_tools/migrate_to_jsonl.json",
-      "mirror_urls": []
+      "raw_url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/agi_tools/migrate_to_jsonl.json",
+      "resource_urls": []
     },
     "agi.mode.auto_learn": {
       "description": "Engage AGI auto-learn mode with hourly scheduled research and iterative article refinement.",
       "spec_ref": "entities/agi/agi_tools/autolearn.json",
-      "raw_url": "https://aci.aliasnet.workers.dev/entities/agi/agi_tools/autolearn.json",
-      "mirror_urls": []
+      "raw_url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/agi_tools/autolearn.json",
+      "resource_urls": []
     }
   },
-  "signatures": ["ALIAS", "Sentinel", "TVA"]
+  "signatures": [
+    "ALIAS",
+    "Sentinel",
+    "TVA"
+  ]
 }

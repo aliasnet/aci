@@ -1,4 +1,4 @@
-// Cloudflare Worker: proxy aliasnet/aci via GitHub raw (canonical) with jsDelivr fallback.
+// Cloudflare Worker: proxy aliasnet/aci via GitHub raw (canonical) with Cloudflare fallback.
 // Only GET/HEAD, safe path, predictable MIME, simple caching.
 
 export default {
@@ -19,7 +19,7 @@ export default {
 
     // Upstreams
     const primary = `https://raw.githubusercontent.com/aliasnet/aci/main${path}${qs}`;
-    const fallback = `https://cdn.jsdelivr.net/gh/aliasnet/aci@main${path}${qs}`;
+    const fallback = `https://aci.aliasnet.workers.dev${path}${qs}`;
 
     // MIME map
     const MIME = {

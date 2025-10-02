@@ -3,17 +3,16 @@
     "version": "1.1.0",
     "canonical_source": "local_mirror",
     "description": "Offline mirror cache for ACI core artifacts used when canonical GitHub endpoints are unreachable.",
-    "repo": "aliasnet/aci",
     "location_strategy": {
       "environment_variable": {
         "name": "ACI_LOCAL_MIRROR_ROOT",
         "required": false,
-        "notes": "When set, ${ACI_LOCAL_MIRROR_ROOT}/aliasnet/aci is treated as the root directory for synchronized local mirrors."
+        "notes": "When set, ${ACI_LOCAL_MIRROR_ROOT}/aliasnet/aci is treated as the root directory for synchronized local resource mirrors."
       },
       "alias": {
         "name": "aci://cache",
         "default_path": "/mnt/data",
-        "path_template": "{alias_root}/{repo}",
+        "path_template": "{alias_root}/{resource_slug}",
         "notes": "Ephemeral cache root used when no environment override is set. Agents should treat this as a temporary write location without persistence guarantees."
       },
       "resolution_order": [
@@ -23,7 +22,8 @@
       "template_tokens": {
         "cache_alias": "aci://cache",
         "alias_root": "Absolute path resolved for the aci://cache alias (default /mnt/data).",
-        "mirror_root": "Resolved absolute path derived from the environment override or the aci://cache alias default (/mnt/data) with repo scoping appended."
+        "resource_root": "Resolved absolute path derived from the environment override or the aci://cache alias default (/mnt/data) with repo scoping appended.",
+        "resource_slug": "Repository slug used for local resource caching (aliasnet/aci)."
       }
     },
     "rules": {
@@ -55,7 +55,7 @@
         "notes": "Reject caches older than 6 hours to prevent drift, satisfying the 'Canonical override by local fallback' guardrail in sanity.md."
       },
       "audit": {
-        "log_event": "mirror.local_cache.validation",
+        "log_event": "resource.local_cache.validation",
         "fields": [
           "file",
           "checksum_status",
@@ -67,11 +67,11 @@
       }
     },
     "aci_resolution_instruction": {
-      "instruction": "Resolve artifacts from synchronized local mirrors only after verifying checksum and freshness. If validation fails, escalate to canonical resolver.",
+      "instruction": "Resolve artifacts from synchronized local resource mirrors only after verifying checksum and freshness. If validation fails, escalate to canonical resolver.",
       "scope": {
         "repository": "aliasnet/aci",
-        "mirror_hint": "Use the environment-configured mirror root or resolve via the aci://cache alias (defaults to /mnt/data) before accessing cached artifacts.",
-        "source": "aci://cache"
+        "source": "aci://cache",
+        "resource_hint": "Use the environment-configured mirror root or resolve via the aci://cache alias (defaults to /mnt/data) before accessing cached artifacts."
       },
       "policy": {
         "retry": {
@@ -82,7 +82,7 @@
         "on_failure": {
           "action": "fallback_to_connector",
           "target": "aci://entities/bifrost/bifrost.json#bifrost_resource_resolution_policy",
-          "alert": "mirror.validation_failed"
+          "alert": "resource.validation_failed"
         }
       },
       "output": {
@@ -92,12 +92,12 @@
       }
     },
     "link_index": {
-      "README.md": "{mirror_root}/README.md",
-      "aci_runtime.json": "{mirror_root}/aci_runtime.json",
-      "connectors/github_connector.json": "{mirror_root}/connectors/github_connector.json",
-      "entities/yggdrasil/yggdrasil.json": "{mirror_root}/entities/yggdrasil/yggdrasil.json",
-      "entities.json": "{mirror_root}/entities.json",
-      "entities/bifrost/bifrost.json": "{mirror_root}/entities/bifrost/bifrost.json"
+      "README.md": "{resource_root}/README.md",
+      "aci_runtime.json": "{resource_root}/aci_runtime.json",
+      "connectors/github_connector.json": "{resource_root}/connectors/github_connector.json",
+      "entities/yggdrasil/yggdrasil.json": "{resource_root}/entities/yggdrasil/yggdrasil.json",
+      "entities.json": "{resource_root}/entities.json",
+      "entities/bifrost/bifrost.json": "{resource_root}/entities/bifrost/bifrost.json"
     },
     "signatures": {
       "required": [
@@ -122,6 +122,9 @@
           "Initial introduction of local cache connector with checksum and freshness guardrails."
         ]
       }
-    ]
+    ],
+    "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
+    "fallback": "https://aci.aliasnet.workers.dev",
+    "resource_slug": "aliasnet/aci"
   }
 }
