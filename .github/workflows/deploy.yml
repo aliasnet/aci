@@ -13,7 +13,7 @@ jobs:
       STORE_ID: ${{ secrets.SECRETS_STORE_ID }}
       HMAC_KEY_VALUE: ${{ secrets.HMAC_KEY_VALUE }}
       ADMIN_KEY_VALUE: ${{ secrets.ADMIN_KEY_VALUE }}
-      ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}   # <= add this secret in GitHub
 
     steps:
       - name: Checkout
@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 18
 
-      # Install wrangler as a repo devDependency for deterministic CI
+      # Use repo-local wrangler for deterministic CI (no flaky npx)
       - name: Install dependencies (ci)
         run: |
           if [ ! -f package.json ]; then
@@ -41,17 +41,15 @@ jobs:
           ./node_modules/.bin/wrangler --version
           echo "STORE_ID present: ${STORE_ID:+yes}"
           echo "CF_API_TOKEN present: ${CF_API_TOKEN:+yes}"
+          echo "ACCOUNT_ID present: ${ACCOUNT_ID:+yes}"
           echo "HMAC_KEY_VALUE present: ${HMAC_KEY_VALUE:+yes}"
           echo "ADMIN_KEY_VALUE present: ${ADMIN_KEY_VALUE:+yes}"
 
-      # Create/update secrets via repo-local wrangler (non-fatal if already exists)
+      # Create/update secrets via Secrets Store (non-fatal if already exists)
       - name: Create hmac-key (wrangler)
         run: |
           set -eux
-          if [ -z "${STORE_ID}" ]; then
-            echo "STORE_ID empty; skipping creation"
-            exit 0
-          fi
+          [ -z "${STORE_ID}" ] && { echo "STORE_ID empty; skipping"; exit 0; }
           ./node_modules/.bin/wrangler secrets-store secret create "${STORE_ID}" \
             --name hmac-key --scopes workers --value "${HMAC_KEY_VALUE}" --remote || echo "maybe exists, continuing"
 
@@ -61,9 +59,51 @@ jobs:
           ./node_modules/.bin/wrangler secrets-store secret create "${STORE_ID}" \
             --name admin-key --scopes workers --value "${ADMIN_KEY_VALUE}" --remote || echo "maybe exists, continuing"
 
-      # Idempotent API fallback (create-or-replace) in case CLI create failed
+      # Idempotent API fallback (create-or-replace) if the CLI create failed
       - name: Fallback upsert via Cloudflare API (idempotent)
         if: always()
         run: |
           set -eux
-          if [ -z "${STORE_ID}" ] || [ -z "${CF_API_TOKEN}" ] || [ -]()_]()
+          if [ -z "${STORE_ID}" ] || [ -z "${CF_API_TOKEN}" ] || [ -z "${ACCOUNT_ID}" ]; then
+            echo "Skipping API fallback (missing STORE_ID or CF_API_TOKEN or ACCOUNT_ID)"
+            exit 0
+          fi
+          sudo apt-get update -y && sudo apt-get install -y jq
+          upsert() {
+            local name="$1" value="$2"
+            local body
+            body=$(jq -nc --arg n "$name" --arg v "$value" '[{name:$n, value:$v, scopes:["workers"], comment:"github action upsert"}]')
+            # try create
+            code=$(curl -s -o /tmp/create.json -w "%{http_code}" \
+              -X POST "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json" --data "$body" || true)
+            echo "create $name -> HTTP $code"
+            [[ "$code" =~ ^(200|201)$ ]] && return 0
+            # find id then replace
+            list=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json")
+            id=$(echo "$list" | jq -r --arg NAME "$name" '.result[] | select(.name==$NAME) | .id' | head -n1)
+            [ -z "$id" ] || [ "$id" = "null" ] && { echo "No id for $name; skipping replace"; return 0; }
+            curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets/${id}" \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json" || true
+            code=$(curl -s -o /tmp/recreate.json -w "%{http_code}" \
+              -X POST "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/secrets_store/stores/${STORE_ID}/secrets" \
+              -H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json" --data "$body" || true)
+            echo "recreate $name -> HTTP $code"
+          }
+          upsert "hmac-key" "${HMAC_KEY_VALUE}" || true
+          upsert "admin-key" "${ADMIN_KEY_VALUE}" || true
+
+      # Final publish using repo-local wrangler with explicit --account-id
+      - name: Publish Worker (repo-local wrangler)
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          echo "whoami (non-fatal):"
+          ./node_modules/.bin/wrangler whoami --apiToken "${CF_API_TOKEN}" || true
+          echo "Publishing (verbose)..."
+          ./node_modules/.bin/wrangler publish \
+            --apiToken "${CF_API_TOKEN}" \
+            --verbose
