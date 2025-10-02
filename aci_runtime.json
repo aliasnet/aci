@@ -162,7 +162,7 @@
     },
     "default_interface": {
       "path": "entities/mother/mother.json",
-      "priority": 85,
+      "priority": 100,
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
     "priority": "canonical_raw_over_local",
@@ -336,6 +336,49 @@
       },
       "cognitive_guidance_ref": "#/aci_runtime/cognitive_decision_guidance",
       "uses_cognitive_decision_guidance": true
+    },
+    "async_task_policy": {
+      "enabled": true,
+      "require_audit": true,
+      "deny_fabrication": true,
+      "require_visibility": true,
+      "max_concurrency": 3,
+      "default_ttl_seconds": 86400,
+      "allowed_triggers": [
+        "cron",
+        "interval",
+        "manual"
+      ],
+      "evidence_fields": [
+        "job_id",
+        "owner",
+        "ts_start",
+        "ts_end",
+        "status"
+      ]
+    },
+    "scheduler": {
+      "provider": "local_cron",
+      "jobs": [],
+      "audit_sink": "library/wrappers/process_logs/process_logs.json",
+      "presence_channel": "nexus.event.scheduler"
+    },
+    "rag": {
+      "provider": "local_knowledge",
+      "manifest": "library/knowledge/knowledge_manifest.json",
+      "index": {
+        "type": "in_memory",
+        "reset_on_boot": true
+      },
+      "limits": {
+        "max_chunks": 2000,
+        "chunk_size": 800,
+        "overlap": 100
+      },
+      "query": {
+        "top_k": 5,
+        "min_score": 0.0
+      }
     }
   }
 }
