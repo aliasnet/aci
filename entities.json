@@ -1,6 +1,6 @@
 {
   "entities": {
-    "version": "1.20251004.00",
+    "version": "1.2.0",
     "resource_resolution_policy": {
       "fallbacks": [
         {
@@ -172,7 +172,7 @@
         "file": "oracle.json",
         "library": {
           "src": "oracle_library.json",
-          "version": "1.20160925.03"
+          "version": "1.2.0"
         }
       },
       {
