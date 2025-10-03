@@ -1,0 +1,26 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Oracle",
+  "slug": "oracle",
+  "modules": [
+    {
+      "name": "predictive_engine",
+      "role": "Core prediction engine (LLM + adapters)",
+      "source": "aci://entities/oracle/prediction_engine/predictive_engine.json",
+      "status": "primary"
+    },
+    {
+      "name": "predictive_divination_extension",
+      "role": "Symbolic divination plugins",
+      "source": "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json",
+      "status": "optional"
+    },
+    {
+      "name": "oracle_core",
+      "role": "Orchestration manifest linking prediction modules",
+      "source": "aci://entities/oracle/oracle.json",
+      "status": "meta"
+    }
+  ]
+}

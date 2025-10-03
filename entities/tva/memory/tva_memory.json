@@ -1,0 +1,15 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "TVA",
+  "slug": "tva",
+  "source_manifest": "aci://entities/tva/tva.json",
+  "description": "Oversight, anomaly detection, and rollback enforcement for nexus_core and prime_directive.",
+  "paths": {
+    "root": "aci://entities/tva/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "hivemind",
+  "slug": "hivemind",
+  "modules": [
+    {
+      "name": "hivemind_core",
+      "role": "collective_memory_core",
+      "source": "aci://entities/hivemind/hivemind.json",
+      "status": "primary"
+    }
+  ]
+}

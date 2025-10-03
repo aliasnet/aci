@@ -1,0 +1,15 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Mother",
+  "slug": "mother",
+  "source_manifest": "aci://entities/mother/mother.json",
+  "description": "Primary governance interface with pragmatic, machine-like demeanor. No-nonsense, fact-first; allows MU/TH/UR UI emulation only.",
+  "paths": {
+    "root": "aci://entities/mother/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

@@ -9,6 +9,12 @@
   "tags": ["governance", "oversight", "console", "prime_directive"],
   "changelog": [
     {
+      "version": "2025-10-04.01",
+      "notes": [
+        "Linked memory, playbook, library, and modules manifests for manifest-driven exports."
+      ]
+    },
+    {
       "version": "2025.10.04-governance",
       "notes": [
         "Defined pragmatic machine-like abstract, constrained UI emulation to MU/TH/UR presentation, and recorded the machine_like_codex personality style."
@@ -73,5 +79,11 @@
     "enforce_prime_directive_on_init": true,
     "require_user_acknowledgement": true,
     "log_channel": "nexus_core"
+  },
+  "manifests": {
+    "memory": "aci://entities/mother/memory/mother_memory.json",
+    "playbook": "aci://entities/mother/memory/mother_playbook.json",
+    "library": "aci://entities/mother/library/mother_library.json",
+    "modules": "aci://entities/mother/modules/mother_modules.json"
   }
 }

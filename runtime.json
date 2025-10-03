@@ -20,14 +20,14 @@
       "fallbacks": [
         {
           "canonical_source": "local_mirror",
-          "file": "aci://connectors/local_cache.json",
+          "file": "aci://memory/local_cache.json",
           "key": "local_cache",
-          "notes": "Use validated local resource mirrors only when canonical GitHub cannot be reached. Resolve {resource_root} via environment override or the aci://cache alias default (/mnt/data).",
+          "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Local cache now resides under aci://memory/local_cache.json.",
           "path_hint": "{resource_root}",
           "alias_hint": "aci://cache",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
           "fallback": "https://aci.aliasmail.cc",
-          "url": "file://{resource_root}/connectors/local_cache.json"
+          "url": "file://{resource_root}/memory/local_cache.json"
         }
       ],
       "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
@@ -55,11 +55,6 @@
             "file": "aci://runtime.json",
             "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
             "fallback": "https://aci.aliasmail.cc/runtime.json"
-          },
-          {
-            "file": "aci://connectors/github_connector.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-            "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
           },
           {
             "file": "aci://entities.json",
@@ -158,6 +153,11 @@
           "require_audit_entry": true,
           "notes": "Bracketed commands in sandbox will be subject to authentication and audit. If not signed by ALIAS, fallback to sandbox on_unresolved behavior."
         }
+      },
+      "security": {
+        "audit": {
+          "log_to": []
+        }
       }
     },
     "default_interface": {
@@ -216,14 +216,14 @@
           "record_decision_rationale": true,
           "include_triggers_and_heuristics": true,
           "store_in": [
-            "audit_router.tracehub.session",
-            "audit_router.tva_ledger.session"
+            "tracehub_status.buffer",
+            "process_logs.export",
+            "tva_ledger.export"
           ],
           "toggle_semantics": {
-            "audit_router.tracehub.session": "Default TraceHub sink writing to /memory/audit/tracehub/session/${session_id}.jsonl.",
-            "audit_router.tva_ledger.session": "Default TVA ledger sink writing to /memory/audit/tva_ledger/session/${session_id}.jsonl.",
-            "audit_router.tracehub.export": "When toggled on, promote TraceHub routing to /memory/audit/tracehub/export/tracehub_${session_id}_${timestamp}.jsonl after TVA + Sentinel approval.",
-            "audit_router.tva_ledger.export": "When toggled on, promote TVA ledger routing to /memory/audit/tva_ledger/export/tva_ledger_${session_id}_${timestamp}.jsonl once a sealed ledger snapshot is authorized."
+            "tracehub_status.buffer": "Default TraceHub buffer writing to /mnt/tracehub/${session_id}.jsonl via the stateless tracehub_status wrapper.",
+            "process_logs.export": "Invoke process_logs.export to surface staged logs once Sentinel and TVA approvals are recorded.",
+            "tva_ledger.export": "When toggled on, attach TVA ledger metadata and seals to the exported bundle before process_logs export completes."
           }
         }
       }
@@ -305,7 +305,7 @@
         ],
         "audit": {
           "log_to": [
-            "TraceHub",
+            "aci://library/wrappers/tracehub_status/tracehub_status.json",
             "TVA.audit_ledger"
           ],
           "fields": [
@@ -327,7 +327,7 @@
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
         "6) Route to nexus_core (registry bypass allowed if authenticated).",
-        "7) Emit audit entry to TraceHub and TVA at start and completion of the block.",
+        "7) Emit audit entry via tracehub_status wrapper and TVA at start and completion of the block.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
       "compatibility": {
@@ -366,7 +366,7 @@
     "scheduler": {
       "provider": "local_cron",
       "jobs": [],
-      "audit_sink": "library/wrappers/process_logs/process_logs.json",
+      "audit_sink": "aci://library/wrappers/process_logs/process_logs.json",
       "presence_channel": "nexus.event.scheduler"
     },
     "rag": {
@@ -385,6 +385,19 @@
         "top_k": 5,
         "min_score": 0.0
       }
-    }
+    },
+    "logging": {
+      "tracehub_status_wrapper": "aci://library/wrappers/tracehub_status/tracehub_status.json",
+      "process_logs_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+      "output_root": "/mnt/tracehub"
+    },
+    "changelog": [
+      {
+        "version": "2025-10-05.00",
+        "notes": [
+          "Updated local cache mapping to aci://memory/local_cache.json and integrated TraceHub wrappers for /mnt exports."
+        ]
+      }
+    ]
   }
 }
