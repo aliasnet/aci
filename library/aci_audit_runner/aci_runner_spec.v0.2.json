@@ -3,7 +3,7 @@
   "resolvers": {
     "order": ["primary", "fallback", "local"],
     "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
-    "fallback": "https://aci.aliasnet.workers.dev",
+    "fallback": "https://aci.aliasmail.cc",
     "local_root": "/mnt/data/aci/local"
   },
   "resources": [
