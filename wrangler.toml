@@ -4,11 +4,5 @@ compatibility_date = "2025-10-01"
 workers_dev = true
 
 routes = [
-  { pattern = "aci.aliasmail.cc/*", zone_id = "06cc7a57b0cb8c6926606ee05bc72e6d" }
+  { pattern = "aci.aliasmail.cc/*", zone_name = "aliasmail.cc" }
 ]
-
-[placement]
-mode = "smart"
-
-[observability.logs]
-enabled = true
