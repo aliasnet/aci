@@ -1,15 +1,8 @@
 name = "aci"
 main = "src/index.js"
-compatibility_date = "2025-10-03"  # keep this current.  
+compatibility_date = "2025-10-03"
+workers_dev = true
 
-# ── Production (custom domain, no workers.dev)
-[env.production]
-# Custom Domain: bind the Worker to your hostname (no /*, no zone_name here)
-# Wrangler will create the Custom Domain & certs on deploy.  
-[[env.production.routes]]
+[[routes]]
 pattern = "aci.aliasmail.cc"
 custom_domain = true
-
-# ── Preview (workers.dev only)
-[env.preview]
-workers_dev = true  # deploys as "aci-preview" on your workers.dev subdomain.  
