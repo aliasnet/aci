@@ -397,6 +397,12 @@
         "notes": [
           "Updated local cache mapping to aci://memory/local_cache.json and integrated TraceHub wrappers for /mnt exports."
         ]
+      },
+      {
+        "version": "2025-10-05.00",
+        "notes": [
+          "Updated runtime prime directive references to prime_directive.md canonical resource."
+        ]
       }
     ]
   }
