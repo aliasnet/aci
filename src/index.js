@@ -17,9 +17,12 @@ export default {
 
     const qs = url.search || "";
 
-    // Upstreams
-    const primary = `https://raw.githubusercontent.com/aliasnet/aci/main${path}${qs}`;
-    const fallback = `https://aci.aliasmail.cc${path}${qs}`;
+    // Upstreams (canonical first, then Cloudflare mirrors)
+    const upstreams = [
+      `https://raw.githubusercontent.com/aliasnet/aci/main${path}${qs}`,
+      `https://aci.aliasmail.cc${path}${qs}`,
+      `https://aci.aliasnet.workers.dev${path}${qs}`
+    ];
 
     // MIME map
     const MIME = {
@@ -52,10 +55,16 @@ export default {
       }
     };
 
-    // Try canonical first, then fallback
-    let upstream = await fetchWithTimeout(primary);
-    if (!upstream || upstream.status === 404 || upstream.status === 403) {
-      upstream = await fetchWithTimeout(fallback);
+    // Try canonical first, then fallbacks in order
+    let upstream = null;
+    for (let i = 0; i < upstreams.length; i++) {
+      const candidate = await fetchWithTimeout(upstreams[i]);
+      if (!candidate) continue;
+      if ((candidate.status === 404 || candidate.status === 403) && i < upstreams.length - 1) {
+        continue;
+      }
+      upstream = candidate;
+      break;
     }
 
     if (!upstream) {
