@@ -125,7 +125,7 @@
       }
     ],
     "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
-    "fallback": "https://aci.aliasnet.workers.dev",
+    "fallback": "https://aci.aliasmail.cc",
     "resource_slug": "aliasnet/aci"
   }
 }

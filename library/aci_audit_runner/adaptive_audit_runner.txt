@@ -15,7 +15,7 @@ import argparse, contextlib, datetime as _dt, json, os, random, re, threading, t
 from typing import Any, Dict, List, Optional, Tuple
 
 CANONICAL = "https://raw.githubusercontent.com/aliasnet/aci/main"
-CDN_FALLBACK = "https://aci.aliasnet.workers.dev"
+CDN_FALLBACK = "https://aci.aliasmail.cc"
 LOCAL_ROOT = "/mnt/data/aci/local"
 STATE_DIR = "/mnt/data/aci/state"
 AUDIT_DIR = "/mnt/data/aci/audit/tmp"
