@@ -1,0 +1,26 @@
+{
+  "corpus_id": "ACI-RC-20251003-v0.2",
+  "created": "2025-10-03T00:00:00Z",
+  "files": [
+    {
+      "target": "/mnt/data/aci/library/aci_runner/adaptive_audit_runner.py",
+      "mode": "0644",
+      "sha256": "<sha256-of-runner>",
+      "encoding": "base64",
+      "content": "<BASE64_OF_ADAPTIVE_AUDIT_RUNNER_PY>"
+    },
+    {
+      "target": "/mnt/data/aci/config/aci_runner_spec.json",
+      "mode": "0644",
+      "sha256": "<sha256-of-spec>",
+      "encoding": "utf8",
+      "content": "{...exact_spec_json...}"
+    }
+  ],
+  "restore_instructions": [
+    "Create parent dirs if missing.",
+    "Write each file atomically; set permissions.",
+    "Verify sha256 for each file.",
+    "Run: python /mnt/data/aci/library/aci_runner/adaptive_audit_runner.py --mode once --silent"
+  ]
+}
