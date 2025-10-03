@@ -25,11 +25,6 @@
           "fallback": "https://aci.aliasmail.cc/runtime.json"
         },
         {
-          "file": "aci://connectors/github_connector.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-          "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
-        },
-        {
           "file": "aci://entities.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
           "fallback": "https://aci.aliasmail.cc/entities.json"
@@ -90,6 +85,13 @@
         ],
         "date": "2024-11-05",
         "version": "1.2.0"
+      },
+      {
+        "changes": [
+          "Removed legacy connectors/github mapping and aligned manifests with local entity directories."
+        ],
+        "date": "2025-10-04",
+        "version": "1.3.0"
       }
     ],
     "connector_binding": {
@@ -108,6 +110,12 @@
       "yggdrasil": "aci://entities/yggdrasil/yggdrasil.json"
     },
     "role": "external network bridge, connector, sync adapter, network dependency index",
-    "version": "1.2.0"
+    "version": "1.3.0",
+    "manifests": {
+      "memory": "aci://entities/bifrost/memory/bifrost_memory.json",
+      "playbook": "aci://entities/bifrost/memory/bifrost_playbook.json",
+      "library": "aci://entities/bifrost/library/bifrost_library.json",
+      "modules": "aci://entities/bifrost/modules/bifrost_modules.json"
+    }
   }
 }

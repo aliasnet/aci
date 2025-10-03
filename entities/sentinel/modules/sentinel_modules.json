@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Sentinel",
+  "slug": "sentinel",
+  "modules": [
+    {
+      "name": "sentinel_core",
+      "role": "guardian",
+      "source": "aci://entities/sentinel/sentinel.json",
+      "status": "primary"
+    }
+  ]
+}

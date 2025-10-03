@@ -1,0 +1,11 @@
+{
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "TraceHub",
+  "slug": "tracehub",
+  "source_manifest": "aci://entities/tracehub/tracehub.json",
+  "entries": [],
+  "notes": [
+    "Use this playbook to capture evolving perspectives without altering the core manifest."
+  ]
+}

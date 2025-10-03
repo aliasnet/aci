@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Yggdrasil",
+  "slug": "yggdrasil",
+  "modules": [
+    {
+      "name": "yggdrasil_core",
+      "role": "authoritative repository and CDN resolver",
+      "source": "aci://entities/yggdrasil/yggdrasil.json",
+      "status": "primary"
+    }
+  ]
+}

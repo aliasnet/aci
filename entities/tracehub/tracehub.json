@@ -15,24 +15,16 @@
     "last_health_check": {
       "timestamp": "2025-03-17T08:00:00Z",
       "result": "green",
-      "notes": "Session pipeline and export toggles validated against audit_router 1.1.0."
+      "notes": "Session pipeline and export toggles validated against tracehub_status 1.0.0 with process_logs mediation."
     }
   },
-  "storage": {
-    "router_key_root": "audit_router.tracehub",
-    "routes": {
-      "session": "audit_router.tracehub.session",
-      "export": "audit_router.tracehub.export"
-    },
-    "session_path": "/memory/audit/tracehub/session",
-    "export_path": "/memory/audit/tracehub/export",
-    "default_mode": "session",
-    "toggle_flags": [
-      "audit_router.tracehub.export"
-    ],
-    "export_requires": [
-      "TVA.ok",
-      "Sentinel.ok"
+  "logging": {
+    "status_wrapper": "aci://library/wrappers/tracehub_status/tracehub_status.json",
+    "process_logs_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+    "output_root": "/mnt/tracehub",
+    "notes": [
+      "TraceHub no longer persists audit buffers under /memory; logs are staged in /mnt/tracehub until exported.",
+      "Use process_logs.append and process_logs.export for any downstream delivery."
     ]
   },
   "manual_export": {
@@ -41,11 +33,25 @@
       "Freeze active TraceHub writers"
     ],
     "procedure": [
-      "1) Flush session buffers to the session_path and compute SHA-256 manifests.",
-      "2) Raise the audit_router.tracehub.export flag and copy approved entries to export_path with TVA seal metadata (ledger id, approver, timestamp).",
-      "3) Update TVA ledger with export manifest reference, drop the export flag, and release TraceHub writers.",
-      "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
+      "1) Flush session buffers into /mnt/tracehub as JSONL via tracehub_status wrapper.",
+      "2) Call process_logs.append for each buffered record to register with the process_logs pipeline.",
+      "3) Use process_logs.export to bundle approved entries and attach TVA seal metadata (ledger id, approver, timestamp).",
+      "4) Release TraceHub writers after confirming export completion and TVA ledger updates."
     ],
-    "notes": "Use audit router toggle_semantics to switch store_in targets from audit_router.tracehub.session to audit_router.tracehub.export when fulfilling user export requests."
-  }
+    "notes": "Exports are mediated through process_logs; no persistent audit directories remain inside TraceHub."
+  },
+  "manifests": {
+    "memory": "aci://entities/tracehub/memory/tracehub_memory.json",
+    "playbook": "aci://entities/tracehub/memory/tracehub_playbook.json",
+    "library": "aci://entities/tracehub/library/tracehub_library.json",
+    "modules": "aci://entities/tracehub/modules/tracehub_modules.json"
+  },
+  "changelog": [
+    {
+      "version": "2025-10-04.00",
+      "notes": [
+        "Externalized status reporting to tracehub_status wrapper with temporary /mnt staging and process_logs exports."
+      ]
+    }
+  ]
 }

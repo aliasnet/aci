@@ -1,0 +1,15 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Yggdrasil",
+  "slug": "yggdrasil",
+  "source_manifest": "aci://entities/yggdrasil/yggdrasil.json",
+  "description": "",
+  "paths": {
+    "root": "aci://entities/yggdrasil/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

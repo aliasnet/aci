@@ -1,0 +1,11 @@
+{
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Nexus Core",
+  "slug": "nexus_core",
+  "source_manifest": "aci://entities/nexus_core/nexus_core.json",
+  "entries": [],
+  "notes": [
+    "Use this playbook to capture evolving perspectives without altering the core manifest."
+  ]
+}

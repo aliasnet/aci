@@ -25,11 +25,6 @@
           "fallback": "https://aci.aliasmail.cc/runtime.json"
         },
         {
-          "file": "aci://connectors/github_connector.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-          "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
-        },
-        {
           "file": "aci://entities.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
           "fallback": "https://aci.aliasmail.cc/entities.json"
@@ -84,14 +79,21 @@
         "date": "2024-10-31",
         "version": "1.0.0"
       },
-      {
-        "changes": [
-          "Moved Bifrost and Yggdrasil resolver policies under the entity manifest and updated canonical references."
-        ],
-        "date": "2024-11-05",
-        "version": "1.1.0"
-      }
-    ],
+    {
+      "changes": [
+        "Moved Bifrost and Yggdrasil resolver policies under the entity manifest and updated canonical references."
+      ],
+      "date": "2024-11-05",
+      "version": "1.1.0"
+    },
+    {
+      "changes": [
+        "Retired connectors/github references and registered manifests for local memory, library, and modules."
+      ],
+      "date": "2025-10-04",
+      "version": "1.2.0"
+    }
+  ],
     "key": "yggdrasil",
     "knowledge_base": "canonical resolver governance",
     "name": "Yggdrasil",
@@ -99,7 +101,7 @@
       "policy": "aci://entities/yggdrasil/yggdrasil.json"
     },
     "role": "authoritative repository and CDN resolver",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "yggdrasil_resource_resolution_policy": {
       "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
@@ -123,11 +125,6 @@
           "file": "aci://runtime.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
           "fallback": "https://aci.aliasmail.cc/runtime.json"
-        },
-        {
-          "file": "aci://connectors/github_connector.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-          "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
         },
         {
           "file": "aci://entities.json",
@@ -161,6 +158,12 @@
         "local"
       ],
       "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+    },
+    "manifests": {
+      "memory": "aci://entities/yggdrasil/memory/yggdrasil_memory.json",
+      "playbook": "aci://entities/yggdrasil/memory/yggdrasil_playbook.json",
+      "library": "aci://entities/yggdrasil/library/yggdrasil_library.json",
+      "modules": "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
     }
   }
 }

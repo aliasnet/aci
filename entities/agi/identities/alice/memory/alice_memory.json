@@ -1,0 +1,14 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Alice",
+  "slug": "alice",
+  "source_manifest": "aci://entities/agi/identities/alice/alice.json",
+  "paths": {
+    "root": "aci://entities/agi/identities/alice/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Store persona-specific session memory in dated folders under this directory."
+  ]
+}

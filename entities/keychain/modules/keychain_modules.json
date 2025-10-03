@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Keychain",
+  "slug": "keychain",
+  "modules": [
+    {
+      "name": "keychain_core",
+      "role": "crypto_trust_manager",
+      "source": "aci://entities/keychain/keychain.json",
+      "status": "primary"
+    }
+  ]
+}

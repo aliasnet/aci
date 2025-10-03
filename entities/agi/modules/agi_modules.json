@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "AGI",
+  "slug": "agi",
+  "modules": [
+    {
+      "name": "agi_core",
+      "role": "ALIAS  general intelligence framework for advanced digital entity",
+      "source": "aci://entities/agi/agi.json",
+      "status": "primary"
+    }
+  ]
+}

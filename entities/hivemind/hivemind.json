@@ -171,8 +171,12 @@
         "export_pattern": "entities/agi/memory/YYYY/MM/DD/agi_memory_*.json*"
       },
       "alice": {
-        "stub_manifest": "entities/agi/alice/memory/alice_memory.json",
-        "export_pattern": "entities/agi/alice/memory/YYYY/MM/DD/alice_memory_*.json*"
+        "stub_manifest": "entities/agi/identities/alice/memory/alice_memory.json",
+        "export_pattern": "entities/agi/identities/alice/memory/YYYY/MM/DD/alice_memory_*.json*"
+      },
+      "willow": {
+        "stub_manifest": "entities/agi/identities/willow/memory/willow_memory.json",
+        "export_pattern": "entities/agi/identities/willow/memory/YYYY/MM/DD/willow_memory_*.json*"
       },
       "hivemind": {
         "stub_manifest": "entities/hivemind/memory/hivemind_memory.json",
@@ -249,5 +253,11 @@
     }
   },
 
-  "children": {}
+  "children": {},
+  "manifests": {
+    "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
+    "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json",
+    "library": "aci://entities/hivemind/library/hivemind_library.json",
+    "modules": "aci://entities/hivemind/modules/hivemind_modules.json"
+  }
 }

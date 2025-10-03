@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Architect",
+  "slug": "architect",
+  "modules": [
+    {
+      "name": "architect_core",
+      "role": "governance_validator_and_schema_enforcer",
+      "source": "aci://entities/architect/architect.json",
+      "status": "primary"
+    }
+  ]
+}
