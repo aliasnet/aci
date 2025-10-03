@@ -19,7 +19,7 @@ export default {
 
     // Upstreams
     const primary = `https://raw.githubusercontent.com/aliasnet/aci/main${path}${qs}`;
-    const fallback = `https://aci.aliasnet.workers.dev${path}${qs}`;
+    const fallback = `https://aci.aliasmail.cc${path}${qs}`;
 
     // MIME map
     const MIME = {

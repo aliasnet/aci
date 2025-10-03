@@ -11,7 +11,7 @@
           "path_hint": "{resource_root}",
           "alias_hint": "aci://cache",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
-          "fallback": "https://aci.aliasnet.workers.dev",
+          "fallback": "https://aci.aliasmail.cc",
           "url": "file://{resource_root}/connectors/local_cache.json"
         }
       ],
@@ -296,42 +296,42 @@
         {
           "file": "aci://bootstrap.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-          "fallback": "https://aci.aliasnet.workers.dev/bootstrap.json"
+          "fallback": "https://aci.aliasmail.cc/bootstrap.json"
         },
         {
           "file": "aci://runtime.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-          "fallback": "https://aci.aliasnet.workers.dev/runtime.json"
+          "fallback": "https://aci.aliasmail.cc/runtime.json"
         },
         {
           "file": "aci://connectors/github_connector.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-          "fallback": "https://aci.aliasnet.workers.dev/connectors/github_connector.json"
+          "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
         },
         {
           "file": "aci://entities.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-          "fallback": "https://aci.aliasnet.workers.dev/entities.json"
+          "fallback": "https://aci.aliasmail.cc/entities.json"
         },
         {
           "file": "aci://entities/bifrost/bifrost.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
-          "fallback": "https://aci.aliasnet.workers.dev/entities/bifrost/bifrost.json"
+          "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json"
         },
         {
           "file": "aci://entities/yggdrasil/yggdrasil.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
-          "fallback": "https://aci.aliasnet.workers.dev/entities/yggdrasil/yggdrasil.json"
+          "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-          "fallback": "https://aci.aliasnet.workers.dev/functions.json"
+          "fallback": "https://aci.aliasmail.cc/functions.json"
         },
         {
           "file": "aci://prime_directive.md",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md",
-          "fallback": "https://aci.aliasnet.workers.dev/prime_directive.md"
+          "fallback": "https://aci.aliasmail.cc/prime_directive.md"
         }
       ],
       "resolver_order": [
