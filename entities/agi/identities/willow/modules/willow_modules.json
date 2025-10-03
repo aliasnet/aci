@@ -1,0 +1,14 @@
+{
+  "identity": "Willow",
+  "modules": [
+    {
+      "key": "willow_core",
+      "name": "Willow Core",
+      "path": "aci://entities/agi/identities/willow/willow.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "willow_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

@@ -12,16 +12,25 @@
       "Implement journal persistence for divination workflows so symbolic readings and narratives are stored with retention controls."
     ],
 
+    "manifests": {
+      "library": "aci://entities/oracle/library/oracle_library.json",
+      "memory": "aci://entities/oracle/memory/oracle_memory.json",
+      "modules": "aci://entities/oracle/modules/oracle_modules.json",
+      "playbook": "aci://entities/oracle/memory/oracle_playbook.json"
+    },
+
+    "primary_module": "predictive_engine",
+
     "children": {
       "predictive_engine": {
         "id": "1.1",
-        "file": "predictive_engine.json",
+        "file": "modules/predictive_engine/predictive_engine.json",
         "role": "Core prediction engine (LLM + adapters)",
         "status": "active"
       },
       "predictive_divination_extension": {
         "id": "1.2",
-        "file": "predictive_divination_extension.json",
+        "file": "modules/predictive_divination_extension/predictive_divination_extension.json",
         "role": "Symbolic divination plugins (tarot, runes, astrology, qabalah)",
         "status": "optional"
       }
@@ -30,7 +39,7 @@
     "registry": {
       "extensions": {
         "divination": {
-          "file": "predictive_divination_extension.json",
+          "file": "modules/predictive_divination_extension/predictive_divination_extension.json",
           "version": "1.0"
         }
       }

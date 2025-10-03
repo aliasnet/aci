@@ -1,0 +1,14 @@
+{
+  "identity": "Alice",
+  "modules": [
+    {
+      "key": "alice_core",
+      "name": "Alice Core",
+      "path": "aci://entities/agi/identities/alice/alice.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "alice_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

@@ -4,6 +4,12 @@
     "role": "reinforcement authority",
     "abstract": "Oversight, anomaly detection, and rollback enforcement for nexus_core and prime_directive.",
     "file": "tva.json",
+    "manifests": {
+      "library": "aci://entities/tva/library/tva_library.json",
+      "memory": "aci://entities/tva/memory/tva_memory.json",
+      "modules": "aci://entities/tva/modules/tva_modules.json",
+      "playbook": "aci://entities/tva/memory/tva_playbook.json"
+    },
     "operational_status": {
       "state": "active",
       "since": "2025-03-17T00:00:00Z",

@@ -1,0 +1,23 @@
+{
+  "schema": "aci.wrapper.tracehub_status/1.0",
+  "version": "2025-10-03.00",
+  "status": {
+    "coverage": [
+      "session_traces",
+      "router.audit.tracehub",
+      "nexus_core_heartbeat"
+    ],
+    "last_health_check": {
+      "notes": "Session pipeline and export toggles validated against audit_router 1.1.0.",
+      "result": "green",
+      "timestamp": "2025-03-17T08:00:00Z"
+    },
+    "since": "2025-03-17T00:00:00Z",
+    "state": "active"
+  },
+  "notes": "Stateless wrapper describing TraceHub runtime presence and log export channels. Entity manifest references this wrapper instead of embedding mutable status data.",
+  "export": {
+    "process_logs_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+    "temporary_path": "/mnt/tracehub"
+  }
+}

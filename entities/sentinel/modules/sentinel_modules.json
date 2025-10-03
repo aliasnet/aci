@@ -1,0 +1,14 @@
+{
+  "identity": "Sentinel",
+  "modules": [
+    {
+      "key": "sentinel_core",
+      "name": "Sentinel Core",
+      "path": "aci://entities/sentinel/sentinel.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "sentinel_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

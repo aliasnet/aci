@@ -1,0 +1,14 @@
+{
+  "identity": "ACI Repo",
+  "modules": [
+    {
+      "key": "aci_repo_core",
+      "name": "ACI Repo Core",
+      "path": "aci://entities/aci_repo/aci_repo.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "aci_repo_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

@@ -3,6 +3,12 @@
   "entity": "ACI Repo",
   "role": "package_manager",
   "notes": "Standalone, mirror-agnostic package manager for ACI. All instructions inline; only external state file is aci_repo_manifest.",
+  "manifests": {
+    "library": "aci://entities/aci_repo/library/aci_repo_library.json",
+    "memory": "aci://entities/aci_repo/memory/aci_repo_memory.json",
+    "modules": "aci://entities/aci_repo/modules/aci_repo_modules.json",
+    "playbook": "aci://entities/aci_repo/memory/aci_repo_playbook.json"
+  },
   "references": {
     "bifrost": "entities/bifrost/bifrost.json",
     "yggdrasil": "entities/yggdrasil/yggdrasil.json"

@@ -65,7 +65,6 @@
       "bifrost": "aci://entities/bifrost/bifrost.json",
       "core_five": [
         "aci://prime_directive.md",
-        "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
         "aci://bootstrap.json"
@@ -79,14 +78,9 @@
         "fallback": "https://aci.aliasmail.cc/bootstrap.json"
       },
       {
-        "file": "aci://runtime.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-        "fallback": "https://aci.aliasmail.cc/runtime.json"
-      },
-      {
-        "file": "aci://connectors/github_connector.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-        "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
+        "file": "aci://memory/local_cache.json",
+        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json",
+        "fallback": "https://aci.aliasmail.cc/memory/local_cache.json"
       },
       {
         "file": "aci://entities.json",

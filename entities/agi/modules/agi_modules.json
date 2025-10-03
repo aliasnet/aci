@@ -1,0 +1,14 @@
+{
+  "identity": "AGI",
+  "modules": [
+    {
+      "key": "agi_core",
+      "name": "AGI Core",
+      "path": "aci://entities/agi/agi.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "agi_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/commerce_ai/commerce_ai.json",
+  "identity": "Commerce AI",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/commerce_ai/memory/commerce_ai_playbook.json",
+    "root": "aci://entities/commerce_ai/memory"
+  },
+  "version": "2025-10-03.00"
+}

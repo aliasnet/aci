@@ -4,6 +4,12 @@
   "role": "commerce_module",
   "status": "placeholder",
   "description": "Placeholder manifest for Commerce AI modules and automations.",
+  "manifests": {
+    "library": "aci://entities/commerce_ai/library/commerce_ai_library.json",
+    "memory": "aci://entities/commerce_ai/memory/commerce_ai_memory.json",
+    "modules": "aci://entities/commerce_ai/modules/commerce_ai_modules.json",
+    "playbook": "aci://entities/commerce_ai/memory/commerce_ai_playbook.json"
+  },
   "todo": [
     "Enumerate submodules (catalog_ops, demand_forecasting, fulfillment_optimizer).",
     "Define data governance, privacy, and compliance constraints for commerce data.",

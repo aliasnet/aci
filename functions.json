@@ -51,7 +51,7 @@
     "sentinel.audit": {
       "description": "Route Sentinel audit events according to the audit router configuration.",
       "steps": [
-        { "call": "audit.router.load", "map": { "file": "library/audit/audit_router.json" } },
+        { "call": "audit.router.load", "map": { "file": "library/wrappers/tracehub/tracehub_router.json" } },
         { "call": "audit.payload.filter", "map": { "params": "$params" } },
         {
           "call": "audit.event.compose",
@@ -72,7 +72,7 @@
     "sentinel.verify_signatures": {
       "description": "Validate presence file signatures when the router requires it.",
       "steps": [
-        { "call": "audit.router.load", "map": { "file": "library/audit/audit_router.json" } },
+        { "call": "audit.router.load", "map": { "file": "library/wrappers/tracehub/tracehub_router.json" } },
         { "call": "audit.signatures.check", "map": { "router": "$steps.0.router", "files": "$params.files", "key_id": "$params.key_id" } }
       ]
     },
@@ -476,7 +476,6 @@
       "bifrost": "aci://entities/bifrost/bifrost.json",
       "core_five": [
         "aci://prime_directive.md",
-        "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
         "aci://bootstrap.json"
@@ -485,8 +484,7 @@
     "git_is_canonical": true,
     "mapping": [
       { "file": "aci://bootstrap.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json", "fallback": "https://aci.aliasmail.cc/bootstrap.json" },
-      { "file": "aci://runtime.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json", "fallback": "https://aci.aliasmail.cc/runtime.json" },
-      { "file": "aci://connectors/github_connector.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json", "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json" },
+      { "file": "aci://memory/local_cache.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json", "fallback": "https://aci.aliasmail.cc/memory/local_cache.json" },
       { "file": "aci://entities.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json", "fallback": "https://aci.aliasmail.cc/entities.json" },
       { "file": "aci://entities/bifrost/bifrost.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json", "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json" },
       { "file": "aci://entities/yggdrasil/yggdrasil.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json", "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json" },

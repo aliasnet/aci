@@ -1,0 +1,19 @@
+{
+  "identity": "Oracle",
+  "resources": [
+    {
+      "key": "binder",
+      "name": "Oracle Binder",
+      "path": "aci://entities/oracle/binder.json",
+      "type": "reference"
+    },
+    {
+      "key": "journal",
+      "name": "Oracle Divination Journal",
+      "path": "aci://entities/oracle/journal.json",
+      "type": "reference"
+    }
+  ],
+  "schema": "aci.library.manifest/1.0",
+  "version": "2025-10-03.00"
+}

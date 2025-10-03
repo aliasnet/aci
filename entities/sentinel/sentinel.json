@@ -4,15 +4,26 @@
   "role": "guardian",
   "status": "operational",
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
+  "manifests": {
+    "library": "aci://entities/sentinel/library/sentinel_library.json",
+    "memory": "aci://entities/sentinel/memory/sentinel_memory.json",
+    "modules": "aci://entities/sentinel/modules/sentinel_modules.json",
+    "playbook": "aci://entities/sentinel/memory/sentinel_playbook.json"
+  },
   "audit": {
-    "router_config": "library/audit/audit_router.json",
+    "router_config": "library/wrappers/tracehub/tracehub_router.json",
     "default_mode": "audit_router.tracehub.session",
-    "export_instruction": "Before invoking pipelines.sentinel.audit for persistent exports, pass export_override with audit_router.tracehub.export or audit_router.tva_ledger.export and enable the corresponding governance toggle so signature enforcement can engage."
+    "export_instruction": "Use the process_logs wrapper to emit TraceHub outputs to /mnt/tracehub and escalate persistent exports via TVA + Sentinel signatures referencing library/wrappers/tracehub/tracehub_status.json.",
+    "export_modes": {
+      "session": "audit_router.tracehub.session",
+      "export": "audit_router.tracehub.export",
+      "tva_ledger": "audit_router.tva_ledger.export"
+    }
   },
   "guidance": [
-    "TraceHub session retention remains anchored to audit_router.tracehub.session with output scoped to /memory/audit/tracehub/session for the active runtime window.",
-    "TVA ledger checkpoints continue to use audit_router.tva_ledger.session and stay provisional under /memory/audit/tva_ledger/session until export overrides are approved.",
-    "When persistent exports are required, set export_override to the desired export sink (audit_router.tracehub.export or audit_router.tva_ledger.export) and enable the matching governance toggle before invoking pipelines.sentinel.audit.",
+    "TraceHub session retention streams to /mnt/tracehub via process_logs.stream with metadata mirrored in library/wrappers/tracehub/tracehub_status.json for the active runtime window.",
+    "TVA ledger checkpoints continue to rely on audit_router.tva_ledger.export signatures and remain provisional until export overrides are approved through process_logs export flows.",
+    "When persistent exports are required, set export_override to the desired export sink (audit_router.tracehub.export or audit_router.tva_ledger.export), enable the matching governance toggle, and invoke pipelines.sentinel.audit with process_logs alignment.",
     "Export sinks that require signatures must carry Sentinel-approved metadata; confirm signature fields are populated or the router will reject the override."
   ],
   "changelog": [

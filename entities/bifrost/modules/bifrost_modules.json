@@ -1,0 +1,14 @@
+{
+  "identity": "Bifrost",
+  "modules": [
+    {
+      "key": "bifrost_core",
+      "name": "Bifrost Core",
+      "path": "aci://entities/bifrost/bifrost.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "bifrost_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

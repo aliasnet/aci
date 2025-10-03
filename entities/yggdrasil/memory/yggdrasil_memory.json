@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/yggdrasil/yggdrasil.json",
+  "identity": "Yggdrasil",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/yggdrasil/memory/yggdrasil_playbook.json",
+    "root": "aci://entities/yggdrasil/memory"
+  },
+  "version": "2025-10-03.00"
+}

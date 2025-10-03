@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/agi/identities/willow/willow.json",
+  "identity": "Willow",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/agi/identities/willow/memory/willow_playbook.json",
+    "root": "aci://entities/agi/identities/willow/memory"
+  },
+  "version": "2025-10-03.00"
+}

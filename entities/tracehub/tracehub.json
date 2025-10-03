@@ -2,21 +2,20 @@
   "version": "2025-03-17.01",
   "entity": "TraceHub",
   "role": "tracing_module",
-  "status": "operational",
+  "status": "stateless",
   "description": "TraceHub coordinates correlated tracing across the Temporal Loom with governed audit storage and export controls.",
-  "operational_status": {
-    "state": "active",
-    "since": "2025-03-17T00:00:00Z",
-    "coverage": [
-      "session_traces",
-      "router.audit.tracehub",
-      "nexus_core_heartbeat"
-    ],
-    "last_health_check": {
-      "timestamp": "2025-03-17T08:00:00Z",
-      "result": "green",
-      "notes": "Session pipeline and export toggles validated against audit_router 1.1.0."
-    }
+  "manifests": {
+    "library": "aci://entities/tracehub/library/tracehub_library.json",
+    "memory": "aci://entities/tracehub/memory/tracehub_memory.json",
+    "modules": "aci://entities/tracehub/modules/tracehub_modules.json",
+    "playbook": "aci://entities/tracehub/memory/tracehub_playbook.json"
+  },
+  "logging": {
+    "export_path": "/mnt/tracehub",
+    "notes": "All TraceHub output is streamed to a temporary /mnt/tracehub mount and surfaced via the process_logs wrapper.",
+    "process_logs_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+    "router_manifest": "aci://library/wrappers/tracehub/tracehub_router.json",
+    "status_wrapper": "aci://library/wrappers/tracehub/tracehub_status.json"
   },
   "storage": {
     "router_key_root": "audit_router.tracehub",
@@ -24,8 +23,8 @@
       "session": "audit_router.tracehub.session",
       "export": "audit_router.tracehub.export"
     },
-    "session_path": "/memory/audit/tracehub/session",
-    "export_path": "/memory/audit/tracehub/export",
+    "session_path": "/mnt/tracehub/session",
+    "export_path": "/mnt/tracehub/export",
     "default_mode": "session",
     "toggle_flags": [
       "audit_router.tracehub.export"
@@ -34,18 +33,5 @@
       "TVA.ok",
       "Sentinel.ok"
     ]
-  },
-  "manual_export": {
-    "prerequisites": [
-      "Obtain TVA + Sentinel approval for persistent retention",
-      "Freeze active TraceHub writers"
-    ],
-    "procedure": [
-      "1) Flush session buffers to the session_path and compute SHA-256 manifests.",
-      "2) Raise the audit_router.tracehub.export flag and copy approved entries to export_path with TVA seal metadata (ledger id, approver, timestamp).",
-      "3) Update TVA ledger with export manifest reference, drop the export flag, and release TraceHub writers.",
-      "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
-    ],
-    "notes": "Use audit router toggle_semantics to switch store_in targets from audit_router.tracehub.session to audit_router.tracehub.export when fulfilling user export requests."
   }
 }

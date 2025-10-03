@@ -1,0 +1,14 @@
+{
+  "identity": "Yggdrasil",
+  "modules": [
+    {
+      "key": "yggdrasil_core",
+      "name": "Yggdrasil Core",
+      "path": "aci://entities/yggdrasil/yggdrasil.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "yggdrasil_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

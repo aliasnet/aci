@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/aci_repo/aci_repo.json",
+  "identity": "ACI Repo",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/aci_repo/memory/aci_repo_playbook.json",
+    "root": "aci://entities/aci_repo/memory"
+  },
+  "version": "2025-10-03.00"
+}

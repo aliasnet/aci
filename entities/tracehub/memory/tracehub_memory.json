@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/tracehub/tracehub.json",
+  "identity": "TraceHub",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/tracehub/memory/tracehub_playbook.json",
+    "root": "aci://entities/tracehub/memory"
+  },
+  "version": "2025-10-03.00"
+}

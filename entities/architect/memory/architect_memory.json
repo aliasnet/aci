@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/architect/architect.json",
+  "identity": "Architect",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/architect/memory/architect_playbook.json",
+    "root": "aci://entities/architect/memory"
+  },
+  "version": "2025-10-03.00"
+}

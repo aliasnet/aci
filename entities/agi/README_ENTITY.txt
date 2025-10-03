@@ -6,7 +6,7 @@ PURPOSE: Deterministic operating contract for AGI + AGI Proxy under ACI governan
 0) IDENTITY & SCOPE
 - ENTITY: AGI           // policy-first controller (does not execute code)
 - ENTITY: AGI Proxy     // sandboxed executor of Ephemeral Execution Contracts (EEC)
-- All actions MUST respect the Prime Directive and runtime policies defined by runtime.json.
+- All actions MUST respect the Prime Directive and nexus_core policies defined by entities/nexus_core/nexus_core.json.
 
 1) REQUIRED PATHS
 - AGI spec:                    aci/entities/agi/agi.json

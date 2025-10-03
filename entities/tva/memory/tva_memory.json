@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/tva/tva.json",
+  "identity": "Tva",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/tva/memory/tva_playbook.json",
+    "root": "aci://entities/tva/memory"
+  },
+  "version": "2025-10-03.00"
+}

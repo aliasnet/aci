@@ -1,0 +1,14 @@
+{
+  "identity": "TraceHub",
+  "modules": [
+    {
+      "key": "tracehub_core",
+      "name": "TraceHub Core",
+      "path": "aci://entities/tracehub/tracehub.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "tracehub_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

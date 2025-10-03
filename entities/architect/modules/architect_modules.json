@@ -1,0 +1,14 @@
+{
+  "identity": "Architect",
+  "modules": [
+    {
+      "key": "architect_core",
+      "name": "Architect Core",
+      "path": "aci://entities/architect/architect.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "architect_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

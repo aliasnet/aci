@@ -1,0 +1,14 @@
+{
+  "identity": "hivemind",
+  "modules": [
+    {
+      "key": "hivemind_core",
+      "name": "hivemind Core",
+      "path": "aci://entities/hivemind/hivemind.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "hivemind_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

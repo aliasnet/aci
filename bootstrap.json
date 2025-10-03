@@ -2,9 +2,6 @@
   "aci_bootstrap": {
     "version": "1.0",
     "local_core": {
-      "runtime": {
-        "path": "runtime.json"
-      },
       "prime_directive": {
         "path": "prime_directive.md"
       },
@@ -27,13 +24,12 @@
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
           "bifrost": "aci://entities/bifrost/bifrost.json",
-          "core_five": [
-            "aci://prime_directive.md",
-            "aci://runtime.json",
-            "aci://entities.json",
-            "aci://functions.json",
-            "aci://bootstrap.json"
-          ]
+        "core_five": [
+          "aci://prime_directive.md",
+          "aci://entities.json",
+          "aci://functions.json",
+          "aci://bootstrap.json"
+        ]
         },
         "git_is_canonical": true,
         "mapping": [
@@ -43,14 +39,9 @@
             "fallback": "https://aci.aliasmail.cc/bootstrap.json"
           },
           {
-            "file": "aci://runtime.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-            "fallback": "https://aci.aliasmail.cc/runtime.json"
-          },
-          {
-            "file": "aci://connectors/github_connector.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-            "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
+            "file": "aci://memory/local_cache.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json",
+            "fallback": "https://aci.aliasmail.cc/memory/local_cache.json"
           },
           {
             "file": "aci://entities.json",

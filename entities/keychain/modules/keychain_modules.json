@@ -1,0 +1,14 @@
+{
+  "identity": "Keychain",
+  "modules": [
+    {
+      "key": "keychain_core",
+      "name": "Keychain Core",
+      "path": "aci://entities/keychain/keychain.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "keychain_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/hivemind/hivemind.json",
+  "identity": "hivemind",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json",
+    "root": "aci://entities/hivemind/memory"
+  },
+  "version": "2025-10-03.00"
+}

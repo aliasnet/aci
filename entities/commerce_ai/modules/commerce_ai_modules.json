@@ -1,0 +1,14 @@
+{
+  "identity": "Commerce AI",
+  "modules": [
+    {
+      "key": "commerce_ai_core",
+      "name": "Commerce AI Core",
+      "path": "aci://entities/commerce_ai/commerce_ai.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "commerce_ai_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

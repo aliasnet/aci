@@ -1,0 +1,78 @@
+{
+  "version": "1.2.0",
+  "router": {
+    "name": "sentinel.audit_router",
+    "description": "Routes Sentinel audit events to TraceHub or TVA ledger sinks with explicit session vs export modes gated by governance toggles.",
+    "default_sink": "audit_router.tracehub.session",
+    "sinks": {
+      "tracehub": {
+        "description": "TraceHub session telemetry with optional export promotion when TVA and Sentinel approve persistence.",
+        "default_mode": "session",
+        "flags": {
+          "session_only": true,
+          "export_enabled": false
+        },
+        "modes": {
+          "session": {
+            "key": "audit_router.tracehub.session",
+            "enabled": true,
+            "mode": "in_session",
+            "path_template": "/mnt/tracehub/session/${session_id}.jsonl",
+            "rotation": "per_session",
+            "notes": "Keeps TraceHub audit events inside the current runtime window under /mnt/tracehub/session."
+          },
+          "export": {
+            "key": "audit_router.tracehub.export",
+            "enabled": false,
+            "mode": "export",
+            "path_template": "/mnt/tracehub/export/tracehub_${session_id}_${timestamp}.jsonl",
+            "requires_signature": true,
+            "notes": "When enabled, emits immutable TraceHub exports sealed for transfer or archival."
+          }
+        }
+      },
+      "tva_ledger": {
+        "description": "Governed TVA ledger entries with sealed export promotion on approval.",
+        "default_mode": "session",
+        "flags": {
+          "session_only": true,
+          "export_enabled": false
+        },
+        "modes": {
+          "session": {
+            "key": "audit_router.tva_ledger.session",
+            "enabled": true,
+            "mode": "in_session",
+            "path_template": "/mnt/tracehub/tva/session/${session_id}.jsonl",
+            "rotation": "per_session",
+            "notes": "Holds provisional TVA ledger checkpoints under /mnt/tracehub/tva/session."
+          },
+          "export": {
+            "key": "audit_router.tva_ledger.export",
+            "enabled": false,
+            "mode": "export",
+            "path_template": "/mnt/tracehub/tva/export/tva_ledger_${session_id}_${timestamp}.jsonl",
+            "requires_signature": true,
+            "notes": "Enables sealed TVA ledger exports cleared for long-term retention."
+          }
+        }
+      }
+    },
+    "controls": {
+      "allow_unsigned_events": true,
+      "enforce_signatures_when_enabled": true,
+      "metadata_keys": [
+        "action",
+        "session_id",
+        "actor",
+        "signature"
+      ],
+      "toggle_flags": {
+        "audit_router.tracehub.session": "Always active for run-scoped TraceHub retention.",
+        "audit_router.tracehub.export": "Enable only after TVA and Sentinel approve persistent TraceHub exports.",
+        "audit_router.tva_ledger.session": "Default TVA ledger journaling path for in-session checkpoints.",
+        "audit_router.tva_ledger.export": "Enable after TVA seals a ledger snapshot for governed export."
+      }
+    }
+  }
+}

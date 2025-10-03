@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/agi/identities/alice/alice.json",
+  "identity": "Alice",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/agi/identities/alice/memory/alice_playbook.json",
+    "root": "aci://entities/agi/identities/alice/memory"
+  },
+  "version": "2025-10-03.00"
+}

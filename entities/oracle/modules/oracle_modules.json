@@ -1,0 +1,26 @@
+{
+  "identity": "Oracle",
+  "modules": [
+    {
+      "key": "oracle_core",
+      "name": "Oracle Core",
+      "path": "aci://entities/oracle/oracle.json",
+      "type": "core"
+    },
+    {
+      "key": "predictive_engine",
+      "name": "Predictive Engine",
+      "path": "aci://entities/oracle/modules/predictive_engine/predictive_engine.json",
+      "type": "module"
+    },
+    {
+      "key": "predictive_divination_extension",
+      "name": "Predictive Divination Extension",
+      "path": "aci://entities/oracle/modules/predictive_divination_extension/predictive_divination_extension.json",
+      "type": "module"
+    }
+  ],
+  "primary_module": "predictive_engine",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

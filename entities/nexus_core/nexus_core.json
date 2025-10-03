@@ -5,8 +5,13 @@
     "entity": "Nexus Core",
     "role": "system heart: routing, resolution, and fallback",
     "abstract": "The routing nexus of ACI. Holds runtime anchors and routing policy. Do not delete anything unless explicitly requested.",
+    "manifests": {
+      "library": "aci://entities/nexus_core/library/nexus_core_library.json",
+      "memory": "aci://entities/nexus_core/memory/nexus_core_memory.json",
+      "modules": "aci://entities/nexus_core/modules/nexus_core_modules.json",
+      "playbook": "aci://entities/nexus_core/memory/nexus_core_playbook.json"
+    },
     "anchors": {
-      "runtime": "runtime.json",
       "prime_directive": "prime_directive.md",
       "entities": "entities.json",
       "functions": "functions.json"
@@ -18,7 +23,7 @@
       "no_embedded_ids_in_entities": true,
       "explain_on_error": true,
       "uses_cognitive_decision_guidance": true,
-      "cognitive_guidance_ref": "runtime.json#/aci_runtime/cognitive_decision_guidance"
+      "cognitive_guidance_ref": "aci://entities/nexus_core/library/nexus_core_library.json"
     },
     "references": {
       "aci_repo": "entities/aci_repo/aci_repo.json",

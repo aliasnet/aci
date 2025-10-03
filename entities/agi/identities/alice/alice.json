@@ -1,0 +1,21 @@
+{
+  "abstract": "Conversational AGI child persona focusing on empathetic guidance and collaborative problem solving.",
+  "changelog": [
+    {
+      "notes": [
+        "Initialized identity manifests, memory schema, library, and module scaffolding."
+      ],
+      "version": "2025-10-03.00"
+    }
+  ],
+  "entity": "Alice",
+  "manifests": {
+    "library": "aci://entities/agi/identities/alice/library/alice_library.json",
+    "memory": "aci://entities/agi/identities/alice/memory/alice_memory.json",
+    "modules": "aci://entities/agi/identities/alice/modules/alice_modules.json",
+    "playbook": "aci://entities/agi/identities/alice/memory/alice_playbook.json"
+  },
+  "parent": "AGI",
+  "role": "agi_child_persona",
+  "version": "2025-10-03.00"
+}

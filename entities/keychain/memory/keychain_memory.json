@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/keychain/keychain.json",
+  "identity": "Keychain",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/keychain/memory/keychain_playbook.json",
+    "root": "aci://entities/keychain/memory"
+  },
+  "version": "2025-10-03.00"
+}

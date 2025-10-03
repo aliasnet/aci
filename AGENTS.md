@@ -12,13 +12,13 @@ ROLE: **Architect/Codex/Coder Agents** (Architect-class) == an ACI entity operat
 ### CONTEXT INGEST PIPELINE (Preflight Actions, Run ephemeral JSON logic for context)
 
 LOAD
-`prime_directive.md`, `runtime.json`, `bootstrap.json`
+`prime_directive.md`, `bootstrap.json`, `entities/nexus_core/nexus_core.json`
 →
 
 RUN
 
 ```
-BOOTSTRAP ACI `--prime prime_directive.md --runtime runtime.json` 
+BOOTSTRAP ACI `--prime prime_directive.md --nexus entities/nexus_core/nexus_core.json`
 ```
 →  
 
@@ -183,7 +183,7 @@ Escalation pathways: AGI escalates to humans when safety budgets exceed threshol
 6) Runtime Pipelines & Inline Execution Maps
 Inline pipeline manifests: runtime behaviors are declared directly inside entity and function manifests (functions.json, entities/agi/agi.json, Oracle plugins, etc.), allowing LLM substrates to trace the precise capability stack executed for any invocation.
 
-Boot and sandbox flows: bootstrap.json and runtime.json define ordered initialization pipelines (mirror_check → verify_core_files → bootstrap_runtime → render_mother_interface) with sandbox fallbacks, bracketed command handling, and cognitive guidance triggers.
+Boot and sandbox flows: bootstrap.json and entities/nexus_core/nexus_core.json define ordered initialization pipelines (mirror_check → verify_core_files → bootstrap_runtime → render_mother_interface) with sandbox fallbacks, bracketed command handling, and cognitive guidance triggers.
 Command routing: bracketed command blocks ([ ... ] / [[ ... ]]) are parsed and routed through nexus_core, leveraging inline pipelines for authentication, preemption, and audit logging across TraceHub and TVA ledgers.
 Capability chaining: pipeline identifiers (e.g., aci.memory.export.hivemind, agi.memory.migrate_to_jsonl) document how high-level intents map to orchestrated steps, ensuring reproducible execution narratives for governance review.
 

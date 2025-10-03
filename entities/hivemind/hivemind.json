@@ -2,6 +2,12 @@
   "version": "1.7",
   "entity": "hivemind",
   "role": "collective_memory_core",
+  "manifests": {
+    "library": "aci://entities/hivemind/library/hivemind_library.json",
+    "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
+    "modules": "aci://entities/hivemind/modules/hivemind_modules.json",
+    "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json"
+  },
 
   "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design).",
 

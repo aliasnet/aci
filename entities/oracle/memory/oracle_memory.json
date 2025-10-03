@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/oracle/oracle.json",
+  "identity": "Oracle",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/oracle/memory/oracle_playbook.json",
+    "root": "aci://entities/oracle/memory"
+  },
+  "version": "2025-10-03.00"
+}

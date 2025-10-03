@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/nexus_core/nexus_core.json",
+  "identity": "Nexus Core",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/nexus_core/memory/nexus_core_playbook.json",
+    "root": "aci://entities/nexus_core/memory"
+  },
+  "version": "2025-10-03.00"
+}

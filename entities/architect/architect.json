@@ -3,6 +3,12 @@
   "entity": "Architect",
   "role": "governance_validator_and_schema_enforcer",
   "description": "Minimal Architect baseline for ACI governance. Extend with functions and policies as needed.",
+  "manifests": {
+    "library": "aci://entities/architect/library/architect_library.json",
+    "memory": "aci://entities/architect/memory/architect_memory.json",
+    "modules": "aci://entities/architect/modules/architect_modules.json",
+    "playbook": "aci://entities/architect/memory/architect_playbook.json"
+  },
   "functions": {
     "validate_schema": "validate mapping and entity files against ACI schemas",
     "enforce_signatures": "require multi-sig on critical commits",

@@ -1,0 +1,14 @@
+{
+  "identity": "Nexus Core",
+  "modules": [
+    {
+      "key": "nexus_core_core",
+      "name": "Nexus Core Core",
+      "path": "aci://entities/nexus_core/nexus_core.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "nexus_core_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}

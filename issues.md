@@ -17,7 +17,7 @@
 - resolution: Pending full implementation of strict identity management framework to prevent unauthorized privilege escalation attempts.
 ### 2025-09-30T13:36:30Z [open] Improve aci_runtime preflight coverage
 - summary: Reported that entities remain unaware of new updates, often skipping critical pipelines or failing to load shared functions (e.g., library/) due to insufficient preflight validation in runtime.json; requires enhanced synchronization and resolver handling.
-- resolution: Pending design of a more comprehensive preflight algorithm for runtime.json to enforce pipeline execution and resolver awareness.
+- resolution: Replaced runtime.json with entity-scoped manifests (nexus_core, tracehub router) to enforce pipeline execution and resolver awareness without centralized runtime files.
 ### 2025-09-30T13:15:22Z [resolved] Initialize append-only issues.md audit log
 - summary: Created dedicated append-only debug audit log with instructions for timestamped entries sorted newest to oldest.
 - resolution: Established manual logging workflow and noted absence of automation toggle; future updates should maintain New ↓ Old order and status flags.

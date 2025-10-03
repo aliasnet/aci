@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/agi/agi.json",
+  "identity": "AGI",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/agi/memory/agi_playbook.json",
+    "root": "aci://entities/agi/memory"
+  },
+  "version": "2025-10-03.00"
+}

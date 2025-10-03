@@ -8,10 +8,10 @@
   },
   "resources": [
     { "name": "prime_directive", "relpath": "prime_directive.md", "kind": "md" },
-    { "name": "runtime", "relpath": "runtime.json", "kind": "json", "required_keys": ["resolver"] },
     { "name": "functions", "relpath": "functions.json", "kind": "json" },
     { "name": "metacognition", "relpath": "library/metacognition/metacognition.json", "kind": "json" },
     { "name": "metacognition_options", "relpath": "library/metacognition/metacognition_options.json", "kind": "json", "optional": true },
+    { "name": "nexus_core", "relpath": "entities/nexus_core/nexus_core.json", "kind": "json" },
     { "name": "yggdrasil", "relpath": "entities/yggdrasil/yggdrasil.json", "kind": "json" }
   ],
   "locators_regex": {
@@ -22,12 +22,12 @@
   },
   "hooks": {
     "self_validation": [
-      { "id": "rt.resolver.has_primary", "select": "runtime.resolver.order", "assert": { "contains": "primary" }, "severity": "error" },
+      { "id": "rt.resolver.has_primary", "select": "nexus_core.resolution_policy.primary", "assert": { "exists": true }, "severity": "error" },
       { "id": "fx.registry.present", "select": "functions", "assert": { "exists": true }, "severity": "error" }
     ],
     "metacognition": {
       "signals": [
-        { "id": "digest.delta", "type": "digest_diff", "scope": ["runtime", "functions", "metacognition", "yggdrasil"] },
+        { "id": "digest.delta", "type": "digest_diff", "scope": ["nexus_core", "functions", "metacognition", "yggdrasil"] },
         { "id": "change.rate", "type": "change_rate", "window": 20, "threshold_warn": 4, "threshold_err": 8 }
       ]
     }

@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/sentinel/sentinel.json",
+  "identity": "Sentinel",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/sentinel/memory/sentinel_playbook.json",
+    "root": "aci://entities/sentinel/memory"
+  },
+  "version": "2025-10-03.00"
+}

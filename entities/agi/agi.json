@@ -3,6 +3,12 @@
   "version": "1.1",
   "role": "ALIAS  general intelligence framework for advanced digital entity",
   "abstract": "Controlled container for above-human-level reasoning experiments via ephemeral adaptation (PEFT/SFT/RLHF) under ACI governance.",
+  "manifests": {
+    "library": "aci://entities/agi/library/agi_library.json",
+    "memory": "aci://entities/agi/memory/agi_memory.json",
+    "modules": "aci://entities/agi/modules/agi_modules.json",
+    "playbook": "aci://entities/agi/memory/agi_playbook.json"
+  },
   "governance": {
     "root_authority": "ALIAS",
     "oversight": [
@@ -24,8 +30,8 @@
     "caller_hint": "User"
   },
   "memory": {
-    "file": "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
-    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity. Repository paths drop the aci/ prefix to match on-disk layout.",
+    "manifest": "aci://entities/agi/memory/agi_memory.json",
+    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity. Repository paths drop the aci/ prefix to match on-disk layout. Relocated legacy AGI memory under entity-scoped manifests with YYYY/MM/DD directories.",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",
@@ -288,6 +294,13 @@
       "notes": [
         "Set default invocation alias to AGI with user caller hint for clarity.",
         "Added governance binding rule to prevent persona impersonation."
+      ]
+    },
+    {
+      "version": "1.2",
+      "notes": [
+        "Registered manifests for memory, modules, library, and playbook to align with entity-scoped storage schema.",
+        "Relocated AGI timeline records into entity-local YYYY/MM/DD directories with manifest pointer metadata."
       ]
     }
   ]

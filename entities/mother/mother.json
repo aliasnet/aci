@@ -5,6 +5,12 @@
   "role": "primary_governance_interface",
   "status": "operational",
   "description": "Central MU/TH/UR governance core coordinating directive compliance, console orchestration, and inter-entity escalation.",
+  "manifests": {
+    "library": "aci://entities/mother/library/mother_library.json",
+    "memory": "aci://entities/mother/memory/mother_memory.json",
+    "modules": "aci://entities/mother/modules/mother_modules.json",
+    "playbook": "aci://entities/mother/memory/mother_playbook.json"
+  },
   "abstract": "Primary governance interface with pragmatic, machine-like demeanor. No-nonsense, fact-first; allows MU/TH/UR UI emulation only.",
   "tags": ["governance", "oversight", "console", "prime_directive"],
   "changelog": [

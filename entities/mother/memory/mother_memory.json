@@ -1,0 +1,10 @@
+{
+  "core_manifest": "aci://entities/mother/mother.json",
+  "identity": "Mother",
+  "schema": "aci.memory.manifest/1.0",
+  "storage": {
+    "playbook": "aci://entities/mother/memory/mother_playbook.json",
+    "root": "aci://entities/mother/memory"
+  },
+  "version": "2025-10-03.00"
+}

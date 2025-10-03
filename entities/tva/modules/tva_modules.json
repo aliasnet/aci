@@ -1,0 +1,14 @@
+{
+  "identity": "Tva",
+  "modules": [
+    {
+      "key": "tva_core",
+      "name": "Tva Core",
+      "path": "aci://entities/tva/tva.json",
+      "type": "core"
+    }
+  ],
+  "primary_module": "tva_core",
+  "schema": "aci.modules.manifest/1.0",
+  "version": "2025-10-03.00"
+}
