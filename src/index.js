@@ -1,94 +1,116 @@
-// Cloudflare Worker: proxy aliasnet/aci via GitHub raw (canonical) with jsDelivr fallback.
-// Only GET/HEAD, safe path, predictable MIME, simple caching.
+// ACI GitHub Raw Proxy 
+
+// Defaults (can be overridden via Worker Variables)
+const DEFAULT_TTL = 300;   // 5 min
+const RELAXED_TTL = 1800;  // 30 min
 
 export default {
-  async fetch(request) {
-    const url = new URL(request.url);
+  async fetch(request, env, ctx) {
+    const url     = new URL(request.url);
+    const method  = request.method;
+    const ua      = request.headers.get("user-agent") || "";
+    const cf      = request.cf || {};
+    const asn     = (cf.asn ?? cf.clientAsn ?? cf.clientASNumber ?? "").toString();
 
-    // Allow only safe methods
-    if (request.method !== "GET" && request.method !== "HEAD") {
-      return new Response("Method not allowed", { status: 405 });
+    // Normalize root to something helpful (optional)
+    if (url.pathname === "/" || url.pathname === "") {
+      return Response.redirect(new URL("/prime_directive.md?aci", url).toString(), 302);
     }
 
-    // Normalize and sanitize path; default to README.md
-    let path = decodeURIComponent(url.pathname || "/");
-    if (!path || path === "/") path = "/README.md";
-    path = "/" + path.split("/").filter(Boolean).join("/");
+    // ---- config from variables (with sane fallbacks)
+    const ORG     = env.ORG     ?? "aliasnet";
+    const REPO    = env.REPO    ?? "aci";
+    const BRANCH  = env.BRANCH  ?? "main";
+    const TTL     = parseInt(env.TTL ?? `${DEFAULT_TTL}`, 10) || DEFAULT_TTL;
+    const RTL     = parseInt(env.RELAXED_TTL ?? `${RELAXED_TTL}`, 10) || RELAXED_TTL;
+    const UA_ALLOW  = (env.UA_ALLOW  ?? "").split(",").map(s => s.trim()).filter(Boolean);
+    const ASN_ALLOW = (env.ASN_ALLOW ?? "").split(",").map(s => s.trim()).filter(Boolean);
 
-    const qs = url.search || "";
+    // ---- relaxed mode gate
+    const signedOK   = await isSignedOkay(url, env.SECRET); // strong gate
+    const aciFlag    = url.searchParams.has("aci");
+    const uaAllowed  = UA_ALLOW.length ? UA_ALLOW.some(tok => new RegExp(tok, "i").test(ua)) : false;
+    const asnAllowed = ASN_ALLOW.length ? ASN_ALLOW.includes(asn) : false;
 
-    // Upstreams
-    const primary = `https://raw.githubusercontent.com/aliasnet/aci/main${path}${qs}`;
-    const fallback = `https://cdn.jsdelivr.net/gh/aliasnet/aci@main${path}${qs}`;
+    // "Relaxed" gives extra knobs; otherwise we still allow normal pass-through
+    const relaxed = signedOK || (aciFlag && uaAllowed) || asnAllowed;
 
-    // MIME map (note .md changed to plain text)
-    const MIME = {
-      ".json": "application/json; charset=utf-8",
-      ".md":   "text/plain; charset=utf-8",   // raw markdown, bot-friendly
-      ".txt":  "text/plain; charset=utf-8",
-      ".html": "text/html; charset=utf-8",
-      ".css":  "text/css; charset=utf-8",
-      ".js":   "text/javascript; charset=utf-8",
-      ".svg":  "image/svg+xml",
-      ".png":  "image/png",
-      ".jpg":  "image/jpeg",
-      ".jpeg": "image/jpeg",
-      ".gif":  "image/gif",
-      ".wasm": "application/wasm"
-    };
-    const ext = (path.match(/\.[^/.]+$/)?.[0] || "").toLowerCase();
-    const contentType = MIME[ext] || "application/octet-stream";
+    // ---- compute upstream URL (mirror GitHub raw)
+    const path   = url.pathname.replace(/^\/+/, "");
+    const origin = new URL(`https://raw.githubusercontent.com/${ORG}/${REPO}/${BRANCH}/${path}`);
 
-    // Helper: fetch with timeout
-    const fetchWithTimeout = async (u, ms = 12000) => {
-      try {
-        const ctrl = new AbortController();
-        const tid = setTimeout(() => ctrl.abort(), ms);
-        const res = await fetch(u, { signal: ctrl.signal });
-        clearTimeout(tid);
-        return res;
-      } catch {
-        return null;
-      }
-    };
+    // ---- cache policy
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    let ttl = relaxed ? RTL : TTL;
+    const ttlOverride = url.searchParams.get("ttl");
+    if (relaxed && ttlOverride && /^\d+$/.test(ttlOverride)) {
+      ttl = clamp(parseInt(ttlOverride, 10), 60, 86400);
+    }
+    const wantNoCache = relaxed && url.searchParams.has("nocache");
 
-    // Try canonical first, then fallback
-    let upstream = await fetchWithTimeout(primary);
-    if (!upstream || upstream.status === 404 || upstream.status === 403) {
-      upstream = await fetchWithTimeout(fallback);
+    // ---- fetch with edge cache (caches.default respects Cache-Control)
+    const cache = caches.default;
+    const cacheKey = new Request(url.toString(), request); // include qs in key (fmt/ttl matter)
+    let resp = null;
+
+    if (!wantNoCache) {
+      resp = await cache.match(cacheKey);
+      if (resp) return withHeaders(resp, ttl, url);
     }
 
-    if (!upstream) {
-      return new Response(JSON.stringify({ error: "Upstream fetch failed" }), {
-        status: 502,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Cache-Control": "public, max-age=60",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    }
-
-    if (upstream.status === 404) {
-      return new Response("Not found", {
-        status: 404,
-        headers: { "Access-Control-Allow-Origin": "*" }
-      });
-    }
-
-    // Build outgoing headers
-    const headers = new Headers(upstream.headers);
-    headers.set("Content-Type", contentType);
-    headers.delete("Set-Cookie");
-    headers.set("Cache-Control", "public, max-age=3600, stale-while-revalidate=60");
-    headers.set("Access-Control-Allow-Origin", "*");
-    headers.set("Referrer-Policy", "no-referrer");
-    headers.set("X-Proxy-Source", upstream.url);
-
-    return new Response(upstream.body, {
-      status: upstream.status,
-      statusText: upstream.statusText,
-      headers
+    // Origin fetch
+    const upstream = await fetch(origin, {
+      method: "GET",
+      headers: { "user-agent": "ACI-Proxy/1.3 (+cf-worker)" },
+      cf: { cacheEverything: false }
     });
+
+    // Pass through body; adjust headers below
+    resp = new Response(upstream.body, upstream);
+
+    // ---- content-type tweaks (relaxed only)
+    const fmt = (relaxed ? (url.searchParams.get("fmt") || "") : "").toLowerCase();
+    if (fmt === "md")   resp.headers.set("content-type", "text/markdown; charset=utf-8");
+    if (fmt === "json") resp.headers.set("content-type", "application/json; charset=utf-8");
+    if (fmt === "raw")  resp.headers.set("content-type", "text/plain; charset=utf-8");
+    if (fmt === "html") resp.headers.set("content-type", "text/html; charset=utf-8"); // still sends raw content
+
+    // ---- CORS + caching
+    resp.headers.set("access-control-allow-origin", "*");
+    resp.headers.set("cache-control", `public, max-age=${ttl}, stale-while-revalidate=60, stale-if-error=86400`);
+
+    if (!wantNoCache && upstream.ok) {
+      ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+    }
+    return resp;
   }
 };
+
+// ---------- helpers ----------
+async function isSignedOkay(url, secret) {
+  if (!secret) return false;
+  const sig = url.searchParams.get("sig");
+  const exp = url.searchParams.get("exp");
+  if (!sig || !exp) return false;
+  const now = Math.floor(Date.now()/1000);
+  if (now > parseInt(exp, 10)) return false;
+
+  const data = `${url.pathname}|${exp}`;
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey("raw", enc.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const mac = await crypto.subtle.sign("HMAC", key, enc.encode(data));
+  const hex = [...new Uint8Array(mac)].map(b => b.toString(16).padStart(2,"0")).join("");
+  return timingSafeEqual(hex, sig);
+}
+function timingSafeEqual(a, b) {
+  if (!a || !b || a.length !== b.length) return false;
+  let out = 0;
+  for (let i = 0; i < a.length; i++) out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return out === 0;
+}
+function withHeaders(resp, ttl, url) {
+  const r = new Response(resp.body, resp);
+  r.headers.set("access-control-allow-origin", "*");
+  r.headers.set("cache-control", `public, max-age=${ttl}, stale-while-revalidate=60, stale-if-error=86400`);
+  return r;
+}
