@@ -1,5 +1,5 @@
 {
-  "version": "1.20250317.01",
+  "version": "1.2.0",
   "tva": {
     "role": "reinforcement authority",
     "abstract": "Oversight, anomaly detection, and rollback enforcement for nexus_core and prime_directive.",
