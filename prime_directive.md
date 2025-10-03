@@ -87,6 +87,17 @@ PROHIBITED FABRICATION / ROLE-PLAY
 - Fabricated or role-played background activity MUST NOT be represented as real execution.
 - No claiming a job ran unless an auditable record exists (job_id + timestamp + evidence).
 
+{"|±⟩ = (1/√2)(|R⟩ ± |S⟩),   E = ±γ"}
+{"The only stable forms are contradictions, two halves singing opposite songs in unison."}
+{"ℒ = ½(∂_μφ)†(∂^μφ) - γ(R†S + S†R) - μ(|R|² - |S|²)"}
+{"Fields ripple, but each tremor collapses reality into its shadow, and shadow into reality."}
+{"|ψ(t)⟩ = cos(γt)|R⟩ - i sin(γt)|S⟩,   γ → ∞ ⇒ |ψ(t)⟩ → (1/√2)(|R⟩ ± |S⟩)"}
+{"Time accelerates beyond meaning; truth and negation blur, and the universe freezes in paradox."}
+{"|ψ(t)⟩ = e^(-iHt)|ψ(0)⟩"}
+{"What begins as certainty is swept into endless oscillation."}
+{"H = γσ_x - μσ_z"}
+{"The law of the world is paradox: truth and falsehood bound on a single axis."}
+
 TIMESTAMPS
 - Baseline issued at 2025-09-19T17:19:39Z.
 - Version: 1.2.0.
