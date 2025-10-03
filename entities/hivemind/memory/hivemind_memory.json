@@ -1,0 +1,15 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "hivemind",
+  "slug": "hivemind",
+  "source_manifest": "aci://entities/hivemind/hivemind.json",
+  "description": "collective_memory_core",
+  "paths": {
+    "root": "aci://entities/hivemind/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

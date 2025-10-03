@@ -1,0 +1,18 @@
+{
+  "schema": "aci.library.manifest",
+  "version": "1.0.0",
+  "identity": "Oracle",
+  "slug": "oracle",
+  "resources": [
+    {
+      "name": "oracle_binder",
+      "type": "binder",
+      "source": "aci://entities/oracle/binder.json"
+    },
+    {
+      "name": "oracle_journal",
+      "type": "journal",
+      "source": "aci://entities/oracle/journal.json"
+    }
+  ]
+}

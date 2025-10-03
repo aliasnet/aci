@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Mother",
+  "slug": "mother",
+  "modules": [
+    {
+      "name": "mother_core",
+      "role": "primary_governance_interface",
+      "source": "aci://entities/mother/mother.json",
+      "status": "primary"
+    }
+  ]
+}

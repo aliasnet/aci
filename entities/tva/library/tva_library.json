@@ -1,0 +1,7 @@
+{
+  "schema": "aci.library.manifest",
+  "version": "1.0.0",
+  "identity": "TVA",
+  "slug": "tva",
+  "resources": []
+}

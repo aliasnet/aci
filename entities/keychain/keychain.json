@@ -9,5 +9,11 @@
     "Specify integration contracts with IAM Gate and Sentinel for audit trails.",
     "Attach compliance references (NIST, ISO) once policies are drafted."
   ],
-  "notes": "Created to unblock entity registry. Populate with production-ready controls before activation."
+  "notes": "Created to unblock entity registry. Populate with production-ready controls before activation.",
+  "manifests": {
+    "memory": "aci://entities/keychain/memory/keychain_memory.json",
+    "playbook": "aci://entities/keychain/memory/keychain_playbook.json",
+    "library": "aci://entities/keychain/library/keychain_library.json",
+    "modules": "aci://entities/keychain/modules/keychain_modules.json"
+  }
 }

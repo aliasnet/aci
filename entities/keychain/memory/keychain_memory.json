@@ -1,0 +1,15 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Keychain",
+  "slug": "keychain",
+  "source_manifest": "aci://entities/keychain/keychain.json",
+  "description": "Keychain placeholder manifest. Define cryptographic lifecycle and trust distribution flows here.",
+  "paths": {
+    "root": "aci://entities/keychain/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

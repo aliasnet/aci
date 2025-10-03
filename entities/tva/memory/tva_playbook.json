@@ -1,0 +1,11 @@
+{
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "TVA",
+  "slug": "tva",
+  "source_manifest": "aci://entities/tva/tva.json",
+  "entries": [],
+  "notes": [
+    "Use this playbook to capture evolving perspectives without altering the core manifest."
+  ]
+}

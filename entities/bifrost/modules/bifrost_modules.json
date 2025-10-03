@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Bifrost",
+  "slug": "bifrost",
+  "modules": [
+    {
+      "name": "bifrost_core",
+      "role": "external network bridge, connector, sync adapter, network dependency index",
+      "source": "aci://entities/bifrost/bifrost.json",
+      "status": "primary"
+    }
+  ]
+}

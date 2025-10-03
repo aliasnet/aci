@@ -1,0 +1,15 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Bifrost",
+  "slug": "bifrost",
+  "source_manifest": "aci://entities/bifrost/bifrost.json",
+  "description": "",
+  "paths": {
+    "root": "aci://entities/bifrost/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

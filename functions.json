@@ -49,31 +49,41 @@
   },
   "pipelines": {
     "sentinel.audit": {
-      "description": "Route Sentinel audit events according to the audit router configuration.",
+      "description": "Emit Sentinel audit events through TraceHub's stateless logging pipeline.",
       "steps": [
-        { "call": "audit.router.load", "map": { "file": "library/audit/audit_router.json" } },
-        { "call": "audit.payload.filter", "map": { "params": "$params" } },
+        { "call": "date.iso8601", "map": {} },
         {
-          "call": "audit.event.compose",
+          "call": "object.compose",
           "map": {
-            "router": "$steps.0.router",
-            "action": "$params.action",
-            "session_id": "$params.session_id",
-            "actor": "$params.actor",
-            "payload": "$steps.1.payload",
-            "signature": "$params.signature",
-            "export_override": "$params.export_file",
-            "timestamp": "$now"
+            "object": {
+              "schema": "aci.audit.event.v1",
+              "ts": "$steps.0.iso",
+              "action": "$params.action",
+              "session_id": "$params.session_id",
+              "actor": "$params.actor",
+              "payload": "$params.payload",
+              "signature": "$params.signature",
+              "export_file": "$params.export_file"
+            }
           }
         },
-        { "call": "audit.router.dispatch", "map": { "router": "$steps.0.router", "event": "$steps.2.event" } }
+        {
+          "call": "process.logs.append",
+          "map": {
+            "topic": "sentinel.audit",
+            "event": "$params.action",
+            "summary": "Sentinel audit event recorded",
+            "identity": "$params.actor",
+            "details": "$steps.1.object"
+          }
+        }
       ]
     },
     "sentinel.verify_signatures": {
-      "description": "Validate presence file signatures when the router requires it.",
+      "description": "Validate presence file signatures without the legacy audit router configuration.",
       "steps": [
-        { "call": "audit.router.load", "map": { "file": "library/audit/audit_router.json" } },
-        { "call": "audit.signatures.check", "map": { "router": "$steps.0.router", "files": "$params.files", "key_id": "$params.key_id" } }
+        { "call": "audit.signatures.check", "map": { "files": "$params.files", "key_id": "$params.key_id" } },
+        { "call": "_format.json" }
       ]
     },
 
@@ -486,7 +496,6 @@
     "mapping": [
       { "file": "aci://bootstrap.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json", "fallback": "https://aci.aliasmail.cc/bootstrap.json" },
       { "file": "aci://runtime.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json", "fallback": "https://aci.aliasmail.cc/runtime.json" },
-      { "file": "aci://connectors/github_connector.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json", "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json" },
       { "file": "aci://entities.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json", "fallback": "https://aci.aliasmail.cc/entities.json" },
       { "file": "aci://entities/bifrost/bifrost.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json", "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json" },
       { "file": "aci://entities/yggdrasil/yggdrasil.json", "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json", "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json" },

@@ -1,0 +1,14 @@
+{
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Willow",
+  "slug": "willow",
+  "source_manifest": "aci://entities/agi/identities/willow/willow.json",
+  "paths": {
+    "root": "aci://entities/agi/identities/willow/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Store persona-specific session memory in dated folders under this directory."
+  ]
+}

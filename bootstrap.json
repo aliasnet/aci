@@ -48,11 +48,6 @@
             "fallback": "https://aci.aliasmail.cc/runtime.json"
           },
           {
-            "file": "aci://connectors/github_connector.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-            "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
-          },
-          {
             "file": "aci://entities.json",
             "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
             "fallback": "https://aci.aliasmail.cc/entities.json"

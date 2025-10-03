@@ -1,0 +1,18 @@
+{
+  "schema": "aci.library.manifest",
+  "version": "1.0.0",
+  "identity": "TraceHub",
+  "slug": "tracehub",
+  "resources": [
+    {
+      "name": "tracehub_status_wrapper",
+      "type": "wrapper",
+      "source": "aci://library/wrappers/tracehub_status/tracehub_status.json"
+    },
+    {
+      "name": "process_logs_wrapper",
+      "type": "wrapper",
+      "source": "aci://library/wrappers/process_logs/process_logs.json"
+    }
+  ]
+}

@@ -68,5 +68,11 @@
       "Architect"
     ],
     "checksum_note": "Nexus Core is the canonical runtime spine. Lookup integrations remain modular and separate from Core."
+  },
+  "manifests": {
+    "memory": "aci://entities/nexus_core/memory/nexus_core_memory.json",
+    "playbook": "aci://entities/nexus_core/memory/nexus_core_playbook.json",
+    "library": "aci://entities/nexus_core/library/nexus_core_library.json",
+    "modules": "aci://entities/nexus_core/modules/nexus_core_modules.json"
   }
 }

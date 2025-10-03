@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Nexus Core",
+  "slug": "nexus_core",
+  "modules": [
+    {
+      "name": "nexus_core_core",
+      "role": "system heart: routing, resolution, and fallback",
+      "source": "aci://entities/nexus_core/nexus_core.json",
+      "status": "primary"
+    }
+  ]
+}
