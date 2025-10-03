@@ -1,18 +1,18 @@
 {
   "entities": {
-    "version": "1.20250918.00",
+    "version": "1.20251004.00",
     "resource_resolution_policy": {
       "fallbacks": [
         {
           "canonical_source": "local_mirror",
-          "file": "aci://connectors/local_cache.json",
+          "file": "aci://memory/local_cache.json",
           "key": "local_cache",
-          "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Resolve {resource_root} via environment override or the aci://cache alias default (/mnt/data).",
+          "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Local cache now resides under aci://memory/local_cache.json.",
           "path_hint": "{resource_root}",
           "alias_hint": "aci://cache",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
           "fallback": "https://aci.aliasmail.cc",
-          "url": "file://{resource_root}/connectors/local_cache.json"
+          "url": "file://{resource_root}/memory/local_cache.json"
         }
       ],
       "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
@@ -187,21 +187,6 @@
         "file": "commerce_ai.json"
       },
       {
-        "id": 10,
-        "key": "iam_gate",
-        "name": "IAM Gate",
-        "alias": "IAM Gate",
-        "role": "identity & access management",
-        "abstract": "token issue, revoke, and audit hub",
-        "knowledge_base": "iam frameworks & token management",
-        "functions": [
-          6240,
-          6241,
-          6242
-        ],
-        "file": "iam_gate.json"
-      },
-      {
         "id": 11,
         "key": "tracehub",
         "name": "TraceHub",
@@ -229,23 +214,6 @@
         "file": "bifrost.json"
       },
       {
-        "id": 13,
-        "key": "pmu_adapter",
-        "name": "PMU Adapter",
-        "alias": "PMU Adapter",
-        "role": "adapter",
-        "abstract": "maintains inline pmu sync and adoption flow",
-        "knowledge_base": "memory synchronization & system resilience",
-        "functions": [
-          6109,
-          6110,
-          6114,
-          6115,
-          6116
-        ],
-        "file": "pmu_adapter.json"
-      },
-      {
         "id": 14,
         "key": "yggdrasil",
         "name": "Yggdrasil",
@@ -265,7 +233,7 @@
         "abstract": "child identity of AGI; conversational agent persona",
         "knowledge_base": "persona & session heuristics",
         "functions": [],
-        "file": "agi/alice.json"
+        "file": "agi/identities/alice/alice.json"
       },
       {
         "id": 16,
@@ -277,6 +245,17 @@
         "knowledge_base": "memory governance & export policies",
         "functions": [],
         "file": "hivemind/hivemind.json"
+      },
+      {
+        "id": 17,
+        "key": "willow",
+        "name": "Willow",
+        "alias": "Willow",
+        "role": "agi_child",
+        "abstract": "safety-focused agi trainee persona",
+        "knowledge_base": "cautious reasoning & supervised learning heuristics",
+        "functions": [],
+        "file": "agi/identities/willow/willow.json"
       }
     ],
     "yggdrasil_resource_resolution_policy": {
@@ -302,11 +281,6 @@
           "file": "aci://runtime.json",
           "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
           "fallback": "https://aci.aliasmail.cc/runtime.json"
-        },
-        {
-          "file": "aci://connectors/github_connector.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/connectors/github_connector.json",
-          "fallback": "https://aci.aliasmail.cc/connectors/github_connector.json"
         },
         {
           "file": "aci://entities.json",

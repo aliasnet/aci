@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "key": "tracehub_status",
+  "name": "TraceHub Status Wrapper",
+  "role": "stateless_trace_router",
+  "abstract": "Provides ephemeral status snapshots for TraceHub while directing log output into temporary storage before export.",
+  "log_policy": {
+    "output_root": "/mnt/tracehub",
+    "retention": "temporary",
+    "export_via": "aci://library/wrappers/process_logs/process_logs.json",
+    "notes": [
+      "All TraceHub writers must emit structured JSONL into /mnt/tracehub before invoking process_logs.export.",
+      "No persistent audit state is maintained inside the wrapper; exports are coordinated via process_logs."
+    ]
+  },
+  "status_fields": [
+    "state",
+    "since",
+    "coverage",
+    "last_health_check"
+  ],
+  "instructions": [
+    "Initialize temporary log buffer at /mnt/tracehub for the active session.",
+    "Append session and export events as JSONL records in the buffer.",
+    "Call process_logs.append for each buffered entry to register it with the process_logs wrapper.",
+    "Invoke process_logs.export to surface bundles when downstream systems request TraceHub output."
+  ]
+}

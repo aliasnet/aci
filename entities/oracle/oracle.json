@@ -1,7 +1,7 @@
 {
   "oracle": {
     "schema_version": "1.0",
-    "version": "1.0",
+    "version": "1.1",
     "entity": "Oracle",
     "role": "LLM Predictive and Analysis Engine",
     "abstract": "Hybrid prediction engine. Core LLM analysis is primary. Symbolic divination methods are optional and surfaced only when aligned or explicitly requested.",
@@ -17,15 +17,18 @@
         "id": "1.1",
         "file": "predictive_engine.json",
         "role": "Core prediction engine (LLM + adapters)",
-        "status": "active"
+        "status": "primary",
+        "module_ref": "aci://entities/oracle/prediction_engine/predictive_engine.json"
       },
       "predictive_divination_extension": {
         "id": "1.2",
         "file": "predictive_divination_extension.json",
         "role": "Symbolic divination plugins (tarot, runes, astrology, qabalah)",
-        "status": "optional"
+        "status": "optional",
+        "module_ref": "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json"
       }
     },
+    "primary_module": "aci://entities/oracle/prediction_engine/predictive_engine.json",
 
     "registry": {
       "extensions": {
@@ -33,7 +36,25 @@
           "file": "predictive_divination_extension.json",
           "version": "1.0"
         }
+      },
+      "modules": {
+        "manifest": "aci://entities/oracle/modules/oracle_modules.json",
+        "primary": "predictive_engine"
       }
-    }
+    },
+    "manifests": {
+      "memory": "aci://entities/oracle/memory/oracle_memory.json",
+      "playbook": "aci://entities/oracle/memory/oracle_playbook.json",
+      "library": "aci://entities/oracle/library/oracle_library.json",
+      "modules": "aci://entities/oracle/modules/oracle_modules.json"
+    },
+    "changelog": [
+      {
+        "version": "1.1.0",
+        "notes": [
+          "Registered module manifest and marked predictive_engine as the primary Oracle module."
+        ]
+      }
+    ]
   }
 }

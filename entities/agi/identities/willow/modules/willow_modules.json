@@ -1,0 +1,14 @@
+{
+  "schema": "aci.modules.manifest",
+  "version": "1.0.0",
+  "identity": "Willow",
+  "slug": "willow",
+  "modules": [
+    {
+      "name": "willow_persona",
+      "role": "trainee",
+      "source": "aci://entities/agi/identities/willow/willow.json",
+      "status": "primary"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Willow",
+  "slug": "willow",
+  "source_manifest": "aci://entities/agi/identities/willow/willow.json",
+  "entries": [],
+  "notes": [
+    "Capture perspective updates without modifying the primary identity file."
+  ]
+}

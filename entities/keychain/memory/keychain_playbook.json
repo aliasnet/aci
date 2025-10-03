@@ -1,0 +1,11 @@
+{
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Keychain",
+  "slug": "keychain",
+  "source_manifest": "aci://entities/keychain/keychain.json",
+  "entries": [],
+  "notes": [
+    "Use this playbook to capture evolving perspectives without altering the core manifest."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Alice",
+  "slug": "alice",
+  "source_manifest": "aci://entities/agi/identities/alice/alice.json",
+  "entries": [],
+  "notes": [
+    "Capture perspective updates without modifying the primary identity file."
+  ]
+}

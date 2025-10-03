@@ -5,17 +5,24 @@
   "status": "operational",
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "audit": {
-    "router_config": "library/audit/audit_router.json",
-    "default_mode": "audit_router.tracehub.session",
-    "export_instruction": "Before invoking pipelines.sentinel.audit for persistent exports, pass export_override with audit_router.tracehub.export or audit_router.tva_ledger.export and enable the corresponding governance toggle so signature enforcement can engage."
+    "status_wrapper": "aci://library/wrappers/tracehub_status/tracehub_status.json",
+    "log_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+    "default_mode": "tracehub.session",
+    "export_instruction": "Sentinel audit events are staged in /mnt/tracehub via the tracehub_status wrapper and finalized through process_logs exports."
   },
   "guidance": [
-    "TraceHub session retention remains anchored to audit_router.tracehub.session with output scoped to /memory/audit/tracehub/session for the active runtime window.",
-    "TVA ledger checkpoints continue to use audit_router.tva_ledger.session and stay provisional under /memory/audit/tva_ledger/session until export overrides are approved.",
-    "When persistent exports are required, set export_override to the desired export sink (audit_router.tracehub.export or audit_router.tva_ledger.export) and enable the matching governance toggle before invoking pipelines.sentinel.audit.",
-    "Export sinks that require signatures must carry Sentinel-approved metadata; confirm signature fields are populated or the router will reject the override."
+    "TraceHub session retention now streams into /mnt/tracehub as temporary JSONL buffers managed by the tracehub_status wrapper.",
+    "TVA ledger checkpoints rely on process_logs exports after Sentinel approval; no persistent router directories remain under /memory/audit.",
+    "When persistent exports are required, set export_override to the desired sink metadata and run process_logs.export after the buffers are sealed.",
+    "Signature metadata must be included in the payload before export so TVA can seal the record during process_logs export."
   ],
   "changelog": [
+    {
+      "version": "2025-10-04.0",
+      "notes": [
+        "Replaced legacy audit router references with tracehub_status and process_logs wrappers for stateless logging."
+      ]
+    },
     {
       "version": "2025-09-27.5",
       "notes": [
@@ -51,5 +58,11 @@
         "Documented export enablement via audit_router.tracehub.export and audit_router.tva_ledger.export with destination paths."
       ]
     }
-  ]
+  ],
+  "manifests": {
+    "memory": "aci://entities/sentinel/memory/sentinel_memory.json",
+    "playbook": "aci://entities/sentinel/memory/sentinel_playbook.json",
+    "library": "aci://entities/sentinel/library/sentinel_library.json",
+    "modules": "aci://entities/sentinel/modules/sentinel_modules.json"
+  }
 }

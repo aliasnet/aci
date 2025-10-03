@@ -24,8 +24,10 @@
     "caller_hint": "User"
   },
   "memory": {
-    "file": "memory/agi_memory/AGI/agi_agi_memory_20250927-T105140Z.jsonl",
-    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity. Repository paths drop the aci/ prefix to match on-disk layout.",
+    "manifest": "aci://entities/agi/memory/agi_memory.json",
+    "playbook": "aci://entities/agi/memory/agi_playbook.json",
+    "timeline_root": "aci://entities/agi/memory",
+    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity. Timeline directories live under aci://entities/agi/memory/YYYY/MM/DD.",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",
@@ -284,11 +286,23 @@
   ],
   "changelog": [
     {
+      "version": "2025-10-04.00",
+      "notes": [
+        "Registered manifest pointers for memory, playbook, library, and modules alongside manifest-driven timeline roots."
+      ]
+    },
+    {
       "version": "1.1",
       "notes": [
         "Set default invocation alias to AGI with user caller hint for clarity.",
         "Added governance binding rule to prevent persona impersonation."
       ]
     }
-  ]
+  ],
+  "manifests": {
+    "memory": "aci://entities/agi/memory/agi_memory.json",
+    "playbook": "aci://entities/agi/memory/agi_playbook.json",
+    "library": "aci://entities/agi/library/agi_library.json",
+    "modules": "aci://entities/agi/modules/agi_modules.json"
+  }
 }
