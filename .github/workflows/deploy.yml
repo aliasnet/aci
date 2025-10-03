@@ -7,8 +7,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [preview, production]
+
     env:
-      # Required repo secrets (Settings → Secrets and variables → Actions)
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       HMAC_KEY_VALUE: ${{ secrets.HMAC_KEY_VALUE }}
@@ -28,21 +31,13 @@ jobs:
           npm install --no-audit --no-fund --save-dev wrangler@latest
           npx wrangler --version
 
-      # Encrypted secrets → Worker secrets (non-interactive via STDIN)
-      - name: Put Worker secrets (aci)
+      - name: Put Worker secrets (aci, ${{ matrix.env }})
         run: |
           set -euo pipefail
-          printf "%s" "${HMAC_KEY_VALUE}"  | npx wrangler secret put SECRET --name aci
-          printf "%s" "${ADMIN_KEY_VALUE}" | npx wrangler secret put ADMIN_KEY --name aci
+          printf "%s" "${HMAC_KEY_VALUE}"  | npx wrangler secret put SECRET --name aci --env ${{ matrix.env }}
+          printf "%s" "${ADMIN_KEY_VALUE}" | npx wrangler secret put ADMIN_KEY --name aci --env ${{ matrix.env }}
 
-      
-       - name: Deploy (aci)
-  env:
-    WRANGLER_LOG: debug   # sets CLI logging level
-    CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-    CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-  run: |
-    set -euo pipefail
-    npx wrangler whoami || true
-    npx wrangler deploy --name aci --env production
-
+      - name: Deploy (aci, ${{ matrix.env }})
+        run: |
+          set -euo pipefail
+          npx wrangler deploy --name aci --env ${{ matrix.env }}
