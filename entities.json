@@ -1,4 +1,62 @@
 {
+  "$meta": {
+    "uid": "UID:8BUPudwPDLVkuY",
+    "sha256": "17307f7b19f5fbe662ef58ffe980e946cab78e93fb22297f796ffd5ee64426cf",
+    "issued": "2025-10-04T00:00:00Z",
+    "path": "aci://entities.json"
+  },
+  "identity_registry": {
+    "root_authority": "ALIAS",
+    "identities": {
+      "host-llm-001": {
+        "key": "HostLLM",
+        "uids": [
+          {
+            "id": "UID:5m5e5Pt3DzXUZD",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "role": "infrastructure",
+        "proxied": false,
+        "governance": "disallowed",
+        "active": true,
+        "session_scope": "per_session"
+      },
+      "user-001": {
+        "key": "User",
+        "uids": [
+          {
+            "id": "UID:UzVLjPBftR7A5",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "role": "human",
+        "proxied": false,
+        "governance": "allowed",
+        "active": true,
+        "session_scope": "per_session"
+      }
+    },
+    "policies": {
+      "case_sensitive": true,
+      "protected_names": [
+        "ALIAS",
+        "HostLLM",
+        "User"
+      ],
+      "deny_persona_as_root": [
+        "AGI*"
+      ],
+      "experimental_blocks": [
+        "AGI*"
+      ],
+      "default_role": "contributor",
+      "default_session_scope": "per_session",
+      "uid_ref": "aci://uid_manager.json"
+    }
+  },
   "entities": {
     "version": "1.2.0",
     "resource_resolution_policy": {
@@ -21,18 +79,7 @@
     "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
     "list": [
       {
-        "id": 0,
-        "key": "alias_registry",
-        "name": "ALIAS Collective",
-        "alias": "ALIAS",
-        "role": "registry",
-        "abstract": "user and authority registry for root access and proxy rights",
-        "functions": [],
-        "file": "alias.json",
-        "knowledge": "identity & access management standards"
-      },
-      {
-        "id": 1,
+        "uid": "UID:855CrHm5LXM1JL",
         "key": "mother",
         "name": "MU/TH/UR",
         "alias": "Mother",
@@ -47,7 +94,7 @@
         "knowledge": "human-computer interaction & directive compliance frameworks"
       },
       {
-        "id": 2,
+        "uid": "UID:4ooYh9PjBNpu6w",
         "key": "tva",
         "name": "TVA",
         "alias": "Time Variant Authority",
@@ -74,7 +121,7 @@
         "knowledge": "policy enforcement & anomaly detection frameworks"
       },
       {
-        "id": 3,
+        "uid": "UID:367XkL2zkpRTmX",
         "key": "sentinel",
         "name": "Sentinel Protocol",
         "alias": "Sentinel",
@@ -94,7 +141,7 @@
         "knowledge": "cybersecurity frameworks & risk scoring models"
       },
       {
-        "id": 4,
+        "uid": "UID:2RZzqaqaRCv46u",
         "key": "architect",
         "name": "Architect",
         "alias": "Architect",
@@ -119,7 +166,7 @@
         "knowledge": "software architecture & continuous delivery practices"
       },
       {
-        "id": 5,
+        "uid": "UID:BypCLgg552roLf",
         "key": "nexus_core",
         "name": "Nexus Core",
         "alias": "Nexus Core",
@@ -134,7 +181,7 @@
         "knowledge": "distributed systems & api gateway patterns"
       },
       {
-        "id": 6,
+        "uid": "UID:Uy3GccmEWbs3Z",
         "key": "agi",
         "name": "AGI",
         "alias": "AGI",
@@ -147,7 +194,7 @@
         "knowledge": "ai alignment & safety research"
       },
       {
-        "id": 7,
+        "uid": "UID:2Q8wJAuA7CNbmP",
         "key": "keychain",
         "name": "Keychain",
         "alias": "Keychain",
@@ -163,7 +210,7 @@
         "knowledge": "cryptographic standards & iam protocols"
       },
       {
-        "id": 8,
+        "uid": "UID:d6kLHXRF9qvZp",
         "key": "oracle",
         "name": "Oracle",
         "alias": "Oracle",
@@ -176,7 +223,7 @@
         }
       },
       {
-        "id": 9,
+        "uid": "UID:EPepEDUrLzr3iT",
         "key": "commerce_ai",
         "name": "Commerce AI",
         "alias": "Commerce AI",
@@ -187,7 +234,7 @@
         "knowledge": "e-commerce automation & retail ai"
       },
       {
-        "id": 11,
+        "uid": "UID:6AW8xtdYF7gAhB",
         "key": "tracehub",
         "name": "TraceHub",
         "alias": "TraceHub",
@@ -203,7 +250,7 @@
         "knowledge": "distributed tracing systems & observability"
       },
       {
-        "id": 12,
+        "uid": "UID:BWWRbFhUDyk11J",
         "key": "bifrost",
         "name": "Bifrost",
         "alias": "Bifrost",
@@ -214,18 +261,18 @@
         "knowledge": "connector orchestration & resolvers"
       },
       {
-        "id": 14,
+        "uid": "UID:Ei1uAkS6ieYdMB",
         "key": "yggdrasil",
         "name": "Yggdrasil",
         "alias": "Yggdrasil",
         "role": "authoritative resolver",
-        "abstract": "maintains authoritative repo→cdn→local mapping",
+        "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
         "functions": [],
         "file": "yggdrasil/yggdrasil.json",
         "knowledge": "canonical resolver governance"
       },
       {
-        "id": 15,
+        "uid": "UID:7t6sf72v3it7i7",
         "key": "alice",
         "name": "Alice",
         "alias": "Alice",
@@ -244,7 +291,7 @@
         }
       },
       {
-        "id": 16,
+        "uid": "UID:25a7gREB2n5kP1",
         "key": "hivemind",
         "name": "HiveMind",
         "alias": "HiveMind",
@@ -255,7 +302,7 @@
         "knowledge": "memory governance & export policies"
       },
       {
-        "id": 17,
+        "uid": "UID:AZ8LSdyKPWCJ1g",
         "key": "willow",
         "name": "Willow",
         "alias": "Willow",
@@ -273,7 +320,7 @@
       }
     ],
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src → local",
+      "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
         "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
