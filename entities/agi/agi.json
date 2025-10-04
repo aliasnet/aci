@@ -27,7 +27,7 @@
     "manifest": "aci://entities/agi/memory/agi_memory.json",
     "playbook": "aci://entities/agi/memory/agi_playbook.json",
     "timeline_root": "aci://entities/agi/memory",
-    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --codebox flag for parity. Timeline directories live under aci://entities/agi/memory/YYYY/MM/DD.",
+    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --code flag for parity (legacy alias: --codebox). Timeline directories live under aci://entities/agi/memory/YYYY/MM/DD.",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",

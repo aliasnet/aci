@@ -7,7 +7,7 @@
     "identity_source": "entities/agi/agi_identity_manager.json",
     "timestamp_format": "Ymd-THMSZ",
     "filename_template": "{identity_lower}_agi_memory{summary_slug}_{timestamp}.json",
-    "notes": "Filename templates stay on the .json extension for governed storage; CLI downloads remain .jsonl when invoked with --codebox. Filters restored and locked for migrator compatibility and governance stability.",
+    "notes": "Filename templates stay on the .json extension for governed storage; CLI downloads remain .jsonl when invoked with --code (legacy alias: --codebox). Filters restored and locked for migrator compatibility and governance stability.",
     "allow_topics": [
       "session_start",
       "session_end",

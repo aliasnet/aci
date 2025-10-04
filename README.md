@@ -99,7 +99,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
   - `{summary_slug}` is optional; when present it is sanitized (lowercase, ASCII, `_` separators) and prefixed with `_`.
   - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
-  - Include the `--codebox` flag with streamed exports so downstream audits match the governed `.json` artifacts stored under `/memory/`.
+  - Include the `--code` flag with streamed exports so downstream audits match the governed `.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
 
 - **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
@@ -140,10 +140,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 ```bash
 # AGI narrative export (observer POV)
-hivemind export agi --identity AGI --jsonl --codebox --force
+hivemind export agi --identity AGI --jsonl --code --force
 
 # Alice session export
-hivemind export agi --identity Alice --jsonl --codebox --force
+hivemind export agi --identity Alice --jsonl --code --force
 
 # Optional summary slug example (sanitized to `_launch_review`)
 hivemind export session --summary "Launch Review" --download
