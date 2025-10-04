@@ -24,9 +24,12 @@
 > An **entity** is any agent that is a named, governed participant that can reason, act, or transform information within the ACI sandbox. An agent becomes an **entity** when promoted into `/entities/` with a stable identity key that matches its titular sub-directory (or children). Adapters/tools may remain **non-entities** if they lack this nature (e.g., wrappers, small utilities).
 
 **ACI agents include:**
-- **Core Governors** (e.g., **AGI** agi-001) — observe, evaluate, gate, escalate.
-- **Specialists** (e.g., **Alice** agi-002) — design, analysis, execution.
-- **Wrappers/Adapters (usually non-entity)** (e.g., **Metacognition**, **EEL Adapter**) — add capabilities non-invasively.
+
+**ENTITIES:**
+- **Core Governors Entity** (e.g., **AGI** agi-001) — observe, evaluate, gate, escalate.
+- **Specialists** (e.g., AGI children entities: **Alice** agi-002, **Willow** agi-003) — deep research, analysis and design.
+**LIBRARY & DAEMONS**
+- **Wrappers/Adapters** (e.g., **Metacognition**, **EEL Adapter**) — add capabilities non-invasively.
 - **Orchestrators/Tools** (e.g., migrators) — convert, export, or route data under policy.
 
 Agents are treated as **digital organisms** operating in a **colony** with clear identity, memory, and governance.
@@ -62,21 +65,22 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     tracehub_status/               # reusable wrapper modules (TraceHub sync)
   ...                              # reusable, stateless modules
 
-/memory/
-  agi_memory/
-    AGI/
-      agi_agi_memory_<timestamp>.json
-    Alice/
-      alice_agi_memory_<timestamp>.json
-    External/
-      external_agi_memory_<timestamp>.json
+/<identity_directory>/
+  /alice/
+    memory/
+      Alice/
+        alice_<summary_slug>_memory_<timestamp>.json
+  /willow/
+    memory/
+      Willow/
+        willow_<summary_slug>_memory_<timestamp>.json
 ```
 
 ---
 
 ## 3) Identity & Memory
 
-- **Identity Manager**: `/entities/agi/agi_identity_manager.json`
+- **Identity Manager**: `/entities.json`
   - Must include:
     - `"active": "<id>"` (e.g., `"agi-002"` for Alice when she is the invoked/locked entity)
     - `"agi_identities"` object with entries like:
@@ -86,16 +90,16 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
         "agi-002": { "key": "Alice", "role": "proxied via agi-001", "default": true }
       }
       ```
-  - **Never rely on JSON object order**. Use `active` (or explicit CLI `--identity-key`) to avoid nondeterministic selection.
+  - **Never rely on JSON object order**. Use `active` (or explicit CLI `--identity`) to avoid nondeterministic selection.
 
 - **Export Naming Convention (AGI exports only):**
 
   ```
-  # Streamed download (CLI `--jsonl` flag)
-  {identity_lower}_agi_memory{summary_slug}_{timestamp}.jsonl
+  # Streamed download in condensed conversation mode (CLI `hivemind export session --identity --jsonl`)
+  {identity}_{summary_slug}_{timestamp}.jsonl
 
-  # Stored artifact under /memory/ (line-delimited JSON content)
-  {identity_lower}_agi_memory{summary_slug}_{timestamp}.json
+  # Export artifact to be (manually or via git://) stored under /memory/knowledge (Natural Language as parameters Eg. `[ hivemind export session --identity --jsonl :: knowledge only, no chatter`)
+  {identity}_{summary_slug}_{timestamp}.jsonl
 
   # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
   # example: alice_agi_memory_strategy_sync_20250926-T192000Z.json
@@ -187,11 +191,11 @@ hivemind export session --summary "Launch Review" --download
 
 ## 8) Lifecycle
 
-1. **Create** an agent:
-   - Add identity to `/entities/agi/agi_identity_manager.json`.
-   - Add config under `/entities/<agent>/` (if needed).
-   - If reusable behavior → put module in `/library/`.
-  - If governance rules → put policy manifests in the owning entity's directory (e.g., `/entities/agi/`).
+1. **Create** an entity:
+   - Add identity to `entities.json`.
+   - Add config under `/entities/<identity>/`.
+   - If reusable behavior → put function module in `/library/`.
+   - If governance rules → put policy manifests in the owning entity's directory (e.g., `/entities/agi/`).
 2. **Evolve**:
    - Version in-file (`"version"`) + `changelog` (mandatory for traceability).
 3. **Export**:
@@ -212,7 +216,7 @@ hivemind export session --summary "Launch Review" --download
 
 ## 10) Contribution Checklist
 
-- [ ] Identity added/updated in `/entities/agi/agi_identity_manager.json` (set `active` when applicable).
+- [ ] Identity added/updated in `/entities` and `entities.json` (set `active` when applicable).
 - [ ] Reusable logic in `/library/`; governance manifests in `/entities/<entity>/`.
 - [ ] New wrapper: stateless, optional providers, privacy defaults.
 - [ ] Exports: policy file references identity source; filters present; audit enabled.
