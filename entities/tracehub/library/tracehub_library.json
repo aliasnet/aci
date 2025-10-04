@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:3g9o47JYE479JP",
+    "sha256": "7aa3a2c127df64ceede0130f5ab86325e1b0e9ac88b18e42e77f123d4fbd0b98",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tracehub/library/tracehub_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "TraceHub",

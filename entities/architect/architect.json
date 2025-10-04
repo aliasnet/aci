@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BWa8V7Kmb7GYEM",
+    "sha256": "fd216a7dddcb3ac2a2a8c0f19be79ee95c740522c94ee5a5c182cfb0efb379f9",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/architect/architect.json"
+  },
   "version": "1.2.0",
   "entity": "Architect",
   "role": "governance_validator_and_schema_enforcer",

@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8C7dB6Crb8F4oW",
+    "sha256": "a4198a8da57c6c9cbd091010b50d064fdb846442d8f0d82cd3e21b0ac1a01b18",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json"
+  },
   "elder_futhark": {
     "metadata": {
       "sequence": 24,
@@ -12,7 +18,7 @@
       {
         "order": 1,
         "rune": "Fehu",
-        "glyph": "ᚠ",
+        "glyph": "\u16a0",
         "phoneme": "f",
         "translation": "Wealth",
         "keywords": {
@@ -46,7 +52,7 @@
       {
         "order": 2,
         "rune": "Uruz",
-        "glyph": "ᚢ",
+        "glyph": "\u16a2",
         "phoneme": "u",
         "translation": "Strength",
         "keywords": {
@@ -80,7 +86,7 @@
       {
         "order": 3,
         "rune": "Thurisaz",
-        "glyph": "ᚦ",
+        "glyph": "\u16a6",
         "phoneme": "th",
         "translation": "Threshold",
         "keywords": {
@@ -114,7 +120,7 @@
       {
         "order": 4,
         "rune": "Ansuz",
-        "glyph": "ᚨ",
+        "glyph": "\u16a8",
         "phoneme": "a",
         "translation": "Signals",
         "keywords": {
@@ -148,7 +154,7 @@
       {
         "order": 5,
         "rune": "Raidho",
-        "glyph": "ᚱ",
+        "glyph": "\u16b1",
         "phoneme": "r",
         "translation": "Journey",
         "keywords": {
@@ -182,7 +188,7 @@
       {
         "order": 6,
         "rune": "Kenaz",
-        "glyph": "ᚲ",
+        "glyph": "\u16b2",
         "phoneme": "k",
         "translation": "Torch",
         "keywords": {
@@ -216,7 +222,7 @@
       {
         "order": 7,
         "rune": "Gebo",
-        "glyph": "ᚷ",
+        "glyph": "\u16b7",
         "phoneme": "g",
         "translation": "Gift",
         "keywords": {
@@ -250,7 +256,7 @@
       {
         "order": 8,
         "rune": "Wunjo",
-        "glyph": "ᚹ",
+        "glyph": "\u16b9",
         "phoneme": "w",
         "translation": "Joy",
         "keywords": {
@@ -284,7 +290,7 @@
       {
         "order": 9,
         "rune": "Hagalaz",
-        "glyph": "ᚺ",
+        "glyph": "\u16ba",
         "phoneme": "h",
         "translation": "Disruption",
         "keywords": {
@@ -318,7 +324,7 @@
       {
         "order": 10,
         "rune": "Nauthiz",
-        "glyph": "ᚾ",
+        "glyph": "\u16be",
         "phoneme": "n",
         "translation": "Need",
         "keywords": {
@@ -352,7 +358,7 @@
       {
         "order": 11,
         "rune": "Isa",
-        "glyph": "ᛁ",
+        "glyph": "\u16c1",
         "phoneme": "i",
         "translation": "Stillness",
         "keywords": {
@@ -386,7 +392,7 @@
       {
         "order": 12,
         "rune": "Jera",
-        "glyph": "ᛃ",
+        "glyph": "\u16c3",
         "phoneme": "j",
         "translation": "Harvest",
         "keywords": {
@@ -420,7 +426,7 @@
       {
         "order": 13,
         "rune": "Eihwaz",
-        "glyph": "ᛇ",
+        "glyph": "\u16c7",
         "phoneme": "ei",
         "translation": "Axis",
         "keywords": {
@@ -454,7 +460,7 @@
       {
         "order": 14,
         "rune": "Perthro",
-        "glyph": "ᛈ",
+        "glyph": "\u16c8",
         "phoneme": "p",
         "translation": "Mystery",
         "keywords": {
@@ -488,7 +494,7 @@
       {
         "order": 15,
         "rune": "Algiz",
-        "glyph": "ᛉ",
+        "glyph": "\u16c9",
         "phoneme": "z",
         "translation": "Guard",
         "keywords": {
@@ -522,7 +528,7 @@
       {
         "order": 16,
         "rune": "Sowilo",
-        "glyph": "ᛋ",
+        "glyph": "\u16cb",
         "phoneme": "s",
         "translation": "Sun",
         "keywords": {
@@ -556,7 +562,7 @@
       {
         "order": 17,
         "rune": "Tiwaz",
-        "glyph": "ᛏ",
+        "glyph": "\u16cf",
         "phoneme": "t",
         "translation": "Justice",
         "keywords": {
@@ -590,7 +596,7 @@
       {
         "order": 18,
         "rune": "Berkano",
-        "glyph": "ᛒ",
+        "glyph": "\u16d2",
         "phoneme": "b",
         "translation": "Birch",
         "keywords": {
@@ -624,7 +630,7 @@
       {
         "order": 19,
         "rune": "Ehwaz",
-        "glyph": "ᛖ",
+        "glyph": "\u16d6",
         "phoneme": "e",
         "translation": "Trust",
         "keywords": {
@@ -658,7 +664,7 @@
       {
         "order": 20,
         "rune": "Mannaz",
-        "glyph": "ᛗ",
+        "glyph": "\u16d7",
         "phoneme": "m",
         "translation": "Humankind",
         "keywords": {
@@ -692,7 +698,7 @@
       {
         "order": 21,
         "rune": "Laguz",
-        "glyph": "ᛚ",
+        "glyph": "\u16da",
         "phoneme": "l",
         "translation": "Flow",
         "keywords": {
@@ -726,7 +732,7 @@
       {
         "order": 22,
         "rune": "Ingwaz",
-        "glyph": "ᛜ",
+        "glyph": "\u16dc",
         "phoneme": "ng",
         "translation": "Seed",
         "keywords": {
@@ -760,7 +766,7 @@
       {
         "order": 23,
         "rune": "Dagaz",
-        "glyph": "ᛞ",
+        "glyph": "\u16de",
         "phoneme": "d",
         "translation": "Breakthrough",
         "keywords": {
@@ -794,7 +800,7 @@
       {
         "order": 24,
         "rune": "Othala",
-        "glyph": "ᛟ",
+        "glyph": "\u16df",
         "phoneme": "o",
         "translation": "Heritage",
         "keywords": {

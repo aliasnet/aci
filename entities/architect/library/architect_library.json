@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:CwgojWpLdihgCr",
+    "sha256": "a38bed806b7575d28092f92df9ce9e76eff7054893515138b9960402b326b40f",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/architect/library/architect_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "Architect",

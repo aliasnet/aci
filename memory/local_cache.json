@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:E3nwdFADYS3SPo",
+    "sha256": "cb5971df6e7f56f5f7bebd4df17a61b88dbda60a05c2bd108211062f80ced5f9",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/local_cache.json"
+  },
   "local_cache": {
     "version": "1.1.0",
     "canonical_source": "local_mirror",

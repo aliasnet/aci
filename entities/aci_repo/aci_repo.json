@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:3VD4LDNY6ukwV8",
+    "sha256": "4ad367fa2e9f7de6ab41bd44d87489c1ed65efe51de3bc102d1cc4783156b187",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/aci_repo/aci_repo.json"
+  },
   "version": "1.{date.time gen by codex}",
   "entity": "ACI Repo",
   "role": "package_manager",

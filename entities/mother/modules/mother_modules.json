@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:3e7ycWEvshk6fQ",
+    "sha256": "4f82cd1ad635a32c01741b1ab2858f0a8adf600d1381a49f398e8c20f842ea46",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/mother/modules/mother_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Mother",

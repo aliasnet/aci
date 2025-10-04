@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:4SRRqUxniJPN8q",
+    "sha256": "68bf55def12f5a618670a3036b191374f4657b9a3e65cd358a2250117a851e9c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/hivemind_memory/logs/hivemind_memory-20250919T161225Z.json"
+  },
   "hivemind_memory": {
     "hivemind_memory": {
       "export_meta": {

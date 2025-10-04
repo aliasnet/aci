@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:5TmjgNWvFe36f7",
+    "sha256": "0fd6b3b6c5c05fb86a33f48cdce51cedb732fa57b015bfe324ac51448eebc55b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/architect/modules/architect_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Architect",

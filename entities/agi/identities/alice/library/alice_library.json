@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9jnG5PWC1BoGA5",
+    "sha256": "4dcd6884c539b626268c60845173e8718c8607f2f25d5fe519095a6f3768adca",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/alice/library/alice_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "Alice",

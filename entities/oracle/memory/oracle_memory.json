@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:Yo1VBmSJfnhh7",
+    "sha256": "7dc0ca8738931c11213f4bc8cb8db7689fc81d368b3bba91c9d9d6bad8639d7b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/memory/oracle_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Oracle",

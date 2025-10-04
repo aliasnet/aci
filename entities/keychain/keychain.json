@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8FfgfJeCAdPKHS",
+    "sha256": "da1c9ec930a4791498280ccd53f6f9eff44f485843126cb6a65f091de740873a",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/keychain/keychain.json"
+  },
   "version": "BASELINE-2025-09-21",
   "entity": "Keychain",
   "role": "crypto_trust_manager",

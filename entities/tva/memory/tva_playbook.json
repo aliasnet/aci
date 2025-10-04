@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:EWUXPJKSKi8BFJ",
+    "sha256": "d236001f41c4fdb0728905310a169136fbb4dc39225f05e809621b45e4d476e7",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tva/memory/tva_playbook.json"
+  },
   "schema": "aci.memory.playbook",
   "version": "1.0.0",
   "identity": "TVA",

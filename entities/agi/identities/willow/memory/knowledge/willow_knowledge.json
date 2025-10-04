@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:6RvwGBdKAZHBe3",
+    "sha256": "6b71dfeaed47cba07cd727dde45aa859cbab5be9f241f71768e2fe014a93edf9",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json"
+  },
   "schema": "aci.memory.knowledge",
   "version": "1.0.0",
   "identity": "Willow",

@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:62eww6zmZGJQTj",
+    "sha256": "54bd62fb7d3c1cba1efae2bd0f25393c35a2b6cc367c639bd5beff9398ca359f",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/nexus_core/modules/nexus_core_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Nexus Core",

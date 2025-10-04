@@ -1,7 +1,13 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8d4fgysMsKDtAQ",
+    "sha256": "2b287301b42847b77d7417ea7f06cf61a1569065e2c1f0773957f7b3d3540a00",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
+  },
   "rws_1909": {
     "metadata": {
-      "deck": "Rider–Waite–Smith",
+      "deck": "Rider\u2013Waite\u2013Smith",
       "year": 1909,
       "designers": [
         "A. E. Waite",
@@ -2571,7 +2577,7 @@
               "safety"
             ],
             "fortune_telling": [
-              "A rainy day is coming—it's time to save"
+              "A rainy day is coming\u2014it's time to save"
             ],
             "meanings": {
               "upright": [

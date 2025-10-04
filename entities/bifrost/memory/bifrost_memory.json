@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:7mFC3xtYa3L5fc",
+    "sha256": "4a2d104f1982bdd092e050b9ec010374547b913ecfd8a6333803d12faa5bb584",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/bifrost/memory/bifrost_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Bifrost",

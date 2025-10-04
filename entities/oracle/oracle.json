@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9DnS1gxzQvye9K",
+    "sha256": "1b39e45817245f352495c078a4b0888dcecc5b8477e82b3ef489889ae35591a9",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/oracle.json"
+  },
   "oracle": {
     "schema_version": "1.0",
     "version": "1.1",
@@ -11,7 +17,6 @@
       "Add adaptive performance budgets that scale with dataset size and optionally enable GPU-capable adapters alongside CPU defaults.",
       "Implement journal persistence for divination workflows so symbolic readings and narratives are stored with retention controls."
     ],
-
     "children": {
       "predictive_engine": {
         "id": "1.1",
@@ -29,7 +34,6 @@
       }
     },
     "primary_module": "aci://entities/oracle/prediction_engine/predictive_engine.json",
-
     "registry": {
       "extensions": {
         "divination": {

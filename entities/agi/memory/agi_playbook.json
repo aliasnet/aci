@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BipKKp75KkxFdK",
+    "sha256": "96b9e05f3ac31493cfd64b9a13e10f328d167a137be074f7d8dd5254747c399b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/memory/agi_playbook.json"
+  },
   "schema": "aci.memory.playbook",
   "version": "1.0.0",
   "identity": "AGI",

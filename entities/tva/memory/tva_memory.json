@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:5huXb7Wgeiukqz",
+    "sha256": "615536fb66cd0e2fbbe69488ff8047e9d7d74f8a21028def7dd251a686dfa8d1",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tva/memory/tva_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "TVA",

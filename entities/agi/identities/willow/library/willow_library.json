@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8y1jpm8kx5fa7N",
+    "sha256": "13a9d185d3a460552161cd0b80791b1e9a771bdfe3318f143f56cb1f4ed135e4",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/willow/library/willow_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "Willow",

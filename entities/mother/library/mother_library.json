@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:CmJxNzvhLBEc3F",
+    "sha256": "0471f6d1f46d808eaf5bc372d01df8ce41119ebf1e225f170e22d6d1b0c876d5",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/mother/library/mother_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "Mother",

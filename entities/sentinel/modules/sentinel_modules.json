@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BMfxB6ExGxs2rG",
+    "sha256": "4ab99e67eefa304036097d1e24df8f4aee2993d5c57eabc1723145b5913b726e",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/sentinel/modules/sentinel_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Sentinel",

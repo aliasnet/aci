@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8x86uWELPk6kdE",
+    "sha256": "316c3c439b49745744d75322cb56a0e3ee0db6943c72a622d3c8f2f1c918ecad",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_export_policy.json"
+  },
   "$schema": "/schemas/agi-export-policy-1.json",
   "version": "1.2.0",
   "agi_memory": {

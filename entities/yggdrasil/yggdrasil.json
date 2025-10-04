@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:5Qait9JyLjCoQ8",
+    "sha256": "7be7eb9020ef60a1de922cc509394c25d50dd7392f3b32cf9f8d8add50d7fef3",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/yggdrasil/yggdrasil.json"
+  },
   "yggdrasil": {
     "alias": "Yggdrasil",
     "bifrost_resource_resolution_policy": {
@@ -79,21 +85,21 @@
         "date": "2024-10-31",
         "version": "1.0.0"
       },
-    {
-      "changes": [
-        "Moved Bifrost and Yggdrasil resolver policies under the entity manifest and updated canonical references."
-      ],
-      "date": "2024-11-05",
-      "version": "1.1.0"
-    },
-    {
-      "changes": [
-        "Retired connectors/github references and registered manifests for local memory, library, and modules."
-      ],
-      "date": "2025-10-04",
-      "version": "1.2.0"
-    }
-  ],
+      {
+        "changes": [
+          "Moved Bifrost and Yggdrasil resolver policies under the entity manifest and updated canonical references."
+        ],
+        "date": "2024-11-05",
+        "version": "1.1.0"
+      },
+      {
+        "changes": [
+          "Retired connectors/github references and registered manifests for local memory, library, and modules."
+        ],
+        "date": "2025-10-04",
+        "version": "1.2.0"
+      }
+    ],
     "key": "yggdrasil",
     "knowledge": "canonical resolver governance",
     "name": "Yggdrasil",

@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:7V7tzkpsLvRUwe",
+    "sha256": "468d44b1c292d1e1672c22c527809544c71c6746bd6456f3835c3429ecac5a5b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/sentinel/sentinel.json"
+  },
   "version": "2025-09-27.5",
   "entity": "Sentinel",
   "role": "guardian",

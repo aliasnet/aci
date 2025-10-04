@@ -1,18 +1,56 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:4oci6MbqPmGJ4k",
+    "sha256": "77f2dd8b081229fee08f06d93025c490bbc94438b50f7825f034541e3d2a6706",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/aci_audit_runner/aci_runner_spec.v0.2.json"
+  },
   "version": "0.2",
   "resolvers": {
-    "order": ["primary", "fallback", "local"],
+    "order": [
+      "primary",
+      "fallback",
+      "local"
+    ],
     "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
     "fallback": "https://aci.aliasmail.cc",
     "local_root": "/mnt/data/aci/local"
   },
   "resources": [
-    { "name": "prime_directive", "relpath": "prime_directive.md", "kind": "md" },
-    { "name": "runtime", "relpath": "runtime.json", "kind": "json", "required_keys": ["resolver"] },
-    { "name": "functions", "relpath": "functions.json", "kind": "json" },
-    { "name": "metacognition", "relpath": "library/metacognition/metacognition.json", "kind": "json" },
-    { "name": "metacognition_options", "relpath": "library/metacognition/metacognition_options.json", "kind": "json", "optional": true },
-    { "name": "yggdrasil", "relpath": "entities/yggdrasil/yggdrasil.json", "kind": "json" }
+    {
+      "name": "prime_directive",
+      "relpath": "prime_directive.md",
+      "kind": "md"
+    },
+    {
+      "name": "runtime",
+      "relpath": "runtime.json",
+      "kind": "json",
+      "required_keys": [
+        "resolver"
+      ]
+    },
+    {
+      "name": "functions",
+      "relpath": "functions.json",
+      "kind": "json"
+    },
+    {
+      "name": "metacognition",
+      "relpath": "library/metacognition/metacognition.json",
+      "kind": "json"
+    },
+    {
+      "name": "metacognition_options",
+      "relpath": "library/metacognition/metacognition_options.json",
+      "kind": "json",
+      "optional": true
+    },
+    {
+      "name": "yggdrasil",
+      "relpath": "entities/yggdrasil/yggdrasil.json",
+      "kind": "json"
+    }
   ],
   "locators_regex": {
     "metacognition": "library/metacognition/metacognition(_options)?\\.json$",
@@ -22,13 +60,42 @@
   },
   "hooks": {
     "self_validation": [
-      { "id": "rt.resolver.has_primary", "select": "runtime.resolver.order", "assert": { "contains": "primary" }, "severity": "error" },
-      { "id": "fx.registry.present", "select": "functions", "assert": { "exists": true }, "severity": "error" }
+      {
+        "id": "rt.resolver.has_primary",
+        "select": "runtime.resolver.order",
+        "assert": {
+          "contains": "primary"
+        },
+        "severity": "error"
+      },
+      {
+        "id": "fx.registry.present",
+        "select": "functions",
+        "assert": {
+          "exists": true
+        },
+        "severity": "error"
+      }
     ],
     "metacognition": {
       "signals": [
-        { "id": "digest.delta", "type": "digest_diff", "scope": ["runtime", "functions", "metacognition", "yggdrasil"] },
-        { "id": "change.rate", "type": "change_rate", "window": 20, "threshold_warn": 4, "threshold_err": 8 }
+        {
+          "id": "digest.delta",
+          "type": "digest_diff",
+          "scope": [
+            "runtime",
+            "functions",
+            "metacognition",
+            "yggdrasil"
+          ]
+        },
+        {
+          "id": "change.rate",
+          "type": "change_rate",
+          "window": 20,
+          "threshold_warn": 4,
+          "threshold_err": 8
+        }
       ]
     }
   },

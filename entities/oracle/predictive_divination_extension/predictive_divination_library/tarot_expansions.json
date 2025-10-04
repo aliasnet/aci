@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:C1Gh59tybH5zC5",
+    "sha256": "fa490bbee0f545041eacf1d08fea15137cdc71d30b67a7f3097237740e451ddd",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json"
+  },
   "expansions": {
     "metadata": {
       "version": "2025-09-21",
@@ -7,7 +13,7 @@
         "Tarot de Marseille numbering harmonized via Camoin/Jodorowsky restoration notes",
         "Common contemporary spread patterns referenced from BOTA teaching decks"
       ],
-      "notes": "Provides overlay material for decks and practices that diverge from the Rider–Waite–Smith baseline."
+      "notes": "Provides overlay material for decks and practices that diverge from the Rider\u2013Waite\u2013Smith baseline."
     },
     "alternate_numbering": {
       "justice_strength_swap": {

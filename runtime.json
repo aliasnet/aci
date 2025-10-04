@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:AhsFbDbm4Mrdb4",
+    "sha256": "0030369dc78dd6c7a002168fd4cb1c5d06a5cd5f46aa4d0073398999403ecf48",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://runtime.json"
+  },
   "aci_runtime": {
     "prime_directive": {
       "path": "prime_directive.md",
