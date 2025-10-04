@@ -2,7 +2,7 @@
   "$meta": {
     "artifact_id": "ArtifactID:DHaGD4BnqwkZSy",
     "sha256": "b9a737a38e41bcf87690cb624721ffa5f08892016c1165726442e45e2ce25d51",
-    "issued": "2025-10-04T18:13:59Z",
+    "issued": "2025-10-04T00:00:00Z",
     "path": "aci://entities.json"
   },
   "identity_policies": {
