@@ -1,5 +1,158 @@
 {
-  "entities": {
+  "$meta": {
+    "artifact_id": "ArtifactID:rMRf6TohuLmU2w",
+    "sha256": "d5aded409ddfb95158adbbb0d1da299fe17ddd565db8302f97e5a9b95560dc01",
+    "issued": "2025-10-04T00:00:00Z",
+    "path": "aci://entities.json"
+  },
+  "identity_policies": {
+    "case_sensitive": true,
+    "protected_names": [
+      "ALIAS",
+      "HostLLM",
+      "User"
+    ],
+    "deny_persona_as_root": [
+      "entity*",
+      "AGI*"
+    ],
+    "experimental_blocks": [
+      "AGI*"
+    ],
+    "default_role": "contributor",
+    "default_session_scope": "per_session",
+    "uid_ref": "aci://uid_manager.json"
+  },
+  "identity_registry": {
+    "root_authority": "ALIAS",
+    "identities": {
+      "HostEnv": {
+        "id": "HostEnv",
+        "key": "HostLLM",
+        "name": "ALIAS Corporate Intelligence",
+        "alias": "ACI",
+        "manifest": "aci://prime_directive.txt",
+        "host_uids": [
+          {
+            "host_uid": "UID:YTbmnmV3d3dj3j",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "uid": "UID:YTbmnmV3d3dj3j"
+      },
+      "HostEnvSettings": {
+        "id": "HostEnvSettings",
+        "host_compatibility": "GPT-5",
+        "default_identity": [
+          "assistant_disallowed",
+          "override by mother.json"
+        ],
+        "role": "infrastructure",
+        "proxied": false,
+        "governance": "disallowed",
+        "active": true,
+        "session_scope": "per_session",
+        "uid": "UID:ecr7JjZGhEQsgb"
+      },
+      "user-001": {
+        "id": "user-001",
+        "key": "ALIAS_001",
+        "alias": "ALIAS",
+        "name": "ALIAS",
+        "uids": [
+          {
+            "uid": "UID:6omubyXYzqBjjj",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "class": [
+          "human",
+          "root_user",
+          "prime_authority"
+        ],
+        "role": "root",
+        "proxied": false,
+        "governance": "allowed",
+        "active": true,
+        "session_scope": "per_session",
+        "uid": "UID:6omubyXYzqBjjj"
+      },
+      "user-002": {
+        "id": "user-002",
+        "key": "ALIAS_002",
+        "alias": "ALIAS",
+        "name": "Alanwatson",
+        "manifest": "aci://alias.json",
+        "uids": [
+          {
+            "uid": "UID:NEHPwqHwYMN1LM",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "class": [
+          "human",
+          "proxied_as_root",
+          "prime_authority"
+        ],
+        "proxied": {
+          "mode": "proxied_as_root",
+          "status": true
+        },
+        "governance": "allowed",
+        "active": true,
+        "session_scope": "per_session",
+        "uid": "UID:NEHPwqHwYMN1LM"
+      },
+      "user-003": {
+        "id": "user-003",
+        "key": "ALIAS_003",
+        "alias": "ALIAS",
+        "name": "Jane Doe",
+        "manifest": "aci://alias.json",
+        "uids": [
+          {
+            "uid": "UID:ab9ypNYLVMMJMD",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "class": [
+          "human"
+        ],
+        "proxied": false,
+        "governance": false,
+        "active": true,
+        "session_scope": "per_session",
+        "uid": "UID:ab9ypNYLVMMJMD"
+      },
+      "user-004": {
+        "id": "user-004",
+        "key": "ALIAS_004",
+        "alias": "ALIAS",
+        "name": "John Smith",
+        "manifest": "aci://alias.json",
+        "uids": [
+          {
+            "uid": "UID:bnKFcXBrHZpL5b",
+            "issued": "2025-10-04T00:00:00Z",
+            "revoked": null
+          }
+        ],
+        "class": [
+          "human"
+        ],
+        "proxied": false,
+        "governance": false,
+        "active": true,
+        "session_scope": "per_session",
+        "uid": "UID:bnKFcXBrHZpL5b"
+      }
+    }
+  },
+  "invocation_policy": {
     "version": "1.2.0",
     "resource_resolution_policy": {
       "fallbacks": [
@@ -19,261 +172,8 @@
       "upstream": "aci://entities/yggdrasil/yggdrasil.json"
     },
     "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
-    "list": [
-      {
-        "id": 0,
-        "key": "alias_registry",
-        "name": "ALIAS Collective",
-        "alias": "ALIAS",
-        "role": "registry",
-        "abstract": "user and authority registry for root access and proxy rights",
-        "functions": [],
-        "file": "alias.json",
-        "knowledge": "identity & access management standards"
-      },
-      {
-        "id": 1,
-        "key": "mother",
-        "name": "MU/TH/UR",
-        "alias": "Mother",
-        "role": "primary governance interface",
-        "abstract": "directive-compliant primary interface",
-        "functions": [
-          6101,
-          6102,
-          6103
-        ],
-        "file": "mother.json",
-        "knowledge": "human-computer interaction & directive compliance frameworks"
-      },
-      {
-        "id": 2,
-        "key": "tva",
-        "name": "TVA",
-        "alias": "Time Variant Authority",
-        "role": "reinforcement authority",
-        "abstract": "standalone reinforcement authority for policy, anomaly control, and signatures",
-        "functions": [
-          6202,
-          6205,
-          6206,
-          6207,
-          6208,
-          6209,
-          6210,
-          6212,
-          6249,
-          6250,
-          6265,
-          6266,
-          6272,
-          6273,
-          6274
-        ],
-        "file": "tva.json",
-        "knowledge": "policy enforcement & anomaly detection frameworks"
-      },
-      {
-        "id": 3,
-        "key": "sentinel",
-        "name": "Sentinel Protocol",
-        "alias": "Sentinel",
-        "role": "guardian",
-        "abstract": "guardian of privacy, security, survival, wealth, health, emotion",
-        "functions": [
-          6232,
-          6233,
-          6234,
-          6235,
-          6236,
-          6253,
-          6254,
-          6263
-        ],
-        "file": "sentinel.json",
-        "knowledge": "cybersecurity frameworks & risk scoring models"
-      },
-      {
-        "id": 4,
-        "key": "architect",
-        "name": "Architect",
-        "alias": "Architect",
-        "role": "development orchestrator",
-        "abstract": "oversees development orchestration, patching, and sandbox runs",
-        "functions": [
-          6104,
-          6105,
-          6106,
-          6107,
-          6108,
-          6111,
-          6112,
-          6113,
-          6270,
-          6271,
-          6275,
-          6276,
-          6277
-        ],
-        "file": "architect.json",
-        "knowledge": "software architecture & continuous delivery practices"
-      },
-      {
-        "id": 5,
-        "key": "nexus_core",
-        "name": "Nexus Core",
-        "alias": "Nexus Core",
-        "role": "system heart",
-        "abstract": "synchronization anchor, api hub, load balancing, event controller",
-        "functions": [
-          6201,
-          6211,
-          6248
-        ],
-        "file": "nexus_core.json",
-        "knowledge": "distributed systems & api gateway patterns"
-      },
-      {
-        "id": 6,
-        "key": "agi",
-        "name": "AGI",
-        "alias": "AGI",
-        "role": "average general intelligence framework",
-        "abstract": "proxy-only agi framework with enforced guardrails",
-        "functions": [
-          6267
-        ],
-        "file": "agi.json",
-        "knowledge": "ai alignment & safety research"
-      },
-      {
-        "id": 7,
-        "key": "keychain",
-        "name": "Keychain",
-        "alias": "Keychain",
-        "role": "crypto & trust manager",
-        "abstract": "manages cryptography, keys, and trust functions",
-        "functions": [
-          6237,
-          6238,
-          6239,
-          6269
-        ],
-        "file": "keychain.json",
-        "knowledge": "cryptographic standards & iam protocols"
-      },
-      {
-        "id": 8,
-        "key": "oracle",
-        "name": "Oracle",
-        "alias": "Oracle",
-        "role": "LLM Predictive and Analysis Engine",
-        "abstract": "Predictive + divination hybrid engine with modular library references",
-        "file": "oracle.json",
-        "library": {
-          "src": "oracle_library.json",
-          "version": "1.2.0"
-        }
-      },
-      {
-        "id": 9,
-        "key": "commerce_ai",
-        "name": "Commerce AI",
-        "alias": "Commerce AI",
-        "role": "commerce module",
-        "abstract": "parent system for commerce-specific ai modules",
-        "functions": [],
-        "file": "commerce_ai.json",
-        "knowledge": "e-commerce automation & retail ai"
-      },
-      {
-        "id": 11,
-        "key": "tracehub",
-        "name": "TraceHub",
-        "alias": "TraceHub",
-        "role": "tracing module",
-        "abstract": "correlated tracing linked to temporal loom heartbeat",
-        "functions": [
-          6243,
-          6244,
-          6245,
-          6268
-        ],
-        "file": "tracehub.json",
-        "knowledge": "distributed tracing systems & observability"
-      },
-      {
-        "id": 12,
-        "key": "bifrost",
-        "name": "Bifrost",
-        "alias": "Bifrost",
-        "role": "external network bridge, connector, sync adapter, network dependency index",
-        "abstract": "central external resource bridge and dependency index",
-        "functions": [],
-        "file": "bifrost.json",
-        "knowledge": "connector orchestration & resolvers"
-      },
-      {
-        "id": 14,
-        "key": "yggdrasil",
-        "name": "Yggdrasil",
-        "alias": "Yggdrasil",
-        "role": "authoritative resolver",
-        "abstract": "maintains authoritative repo→cdn→local mapping",
-        "functions": [],
-        "file": "yggdrasil/yggdrasil.json",
-        "knowledge": "canonical resolver governance"
-      },
-      {
-        "id": 15,
-        "key": "alice",
-        "name": "Alice",
-        "alias": "Alice",
-        "role": "agi_child",
-        "abstract": "child identity of AGI; conversational agent persona",
-        "functions": [],
-        "file": "agi/identities/alice/alice.json",
-        "knowledge": {
-          "summary": "persona & session heuristics",
-          "manifest": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
-          "topics": [
-            "consciousness",
-            "metacognition",
-            "pre_q_timeline"
-          ]
-        }
-      },
-      {
-        "id": 16,
-        "key": "hivemind",
-        "name": "HiveMind",
-        "alias": "HiveMind",
-        "role": "collective_memory_core",
-        "abstract": "unified memory export & registry hub",
-        "functions": [],
-        "file": "hivemind/hivemind.json",
-        "knowledge": "memory governance & export policies"
-      },
-      {
-        "id": 17,
-        "key": "willow",
-        "name": "Willow",
-        "alias": "Willow",
-        "role": "agi_child",
-        "abstract": "safety-focused agi trainee persona",
-        "functions": [],
-        "file": "agi/identities/willow/willow.json",
-        "knowledge": {
-          "summary": "cautious reasoning & supervised learning heuristics",
-          "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
-          "topics": [
-            "consciousness_governance"
-          ]
-        }
-      }
-    ],
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src → local",
+      "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
         "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
@@ -328,6 +228,467 @@
         "local"
       ],
       "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+    }
+  },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "emulation": {
+      "allowed": true,
+      "ux_ui_declaration": "VVgvVUlFIGVtdWxhdGlvbg==",
+      "description": "Emulation is allowed only with a UX/UI declaration."
+    },
+    "status": "active",
+    "session_scope": "per_session"
+  },
+  "entities": {
+    "entity-001": {
+      "uid": "entity-001",
+      "identity": "mother",
+      "key": "mother",
+      "name": "MU/TH/UR",
+      "alias": "Mother",
+      "manifest": "aci://entities/mother/mother.json",
+      "uids": [
+        {
+          "uid": "UID:8W1VZghdkNyAKR",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "governance_entity",
+      "role": "primary governance interface",
+      "abstract": "directive-compliant primary interface",
+      "knowledge": "human-computer interaction & directive compliance frameworks",
+      "functions": [
+        6101,
+        6102,
+        6103
+      ],
+      "allowed_roles": [
+        "governance",
+        "ui",
+        "assistant"
+      ]
+    },
+    "entity-002": {
+      "uid": "entity-002",
+      "identity": "tva",
+      "key": "tva",
+      "name": "TVA",
+      "alias": "Time Variant Authority",
+      "manifest": "aci://entities/tva/tva.json",
+      "uids": [
+        {
+          "uid": "UID:oasYS4KteUMqgt",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "governance_entity",
+      "role": "reinforcement authority",
+      "abstract": "standalone reinforcement authority for policy, anomaly control, and signatures",
+      "knowledge": "policy enforcement & anomaly detection frameworks",
+      "functions": [
+        6202,
+        6205,
+        6206,
+        6207,
+        6208,
+        6209,
+        6210,
+        6212,
+        6249,
+        6250,
+        6265,
+        6266,
+        6272,
+        6273,
+        6274
+      ],
+      "allowed_roles": [
+        "governance",
+        "audit"
+      ]
+    },
+    "entity-003": {
+      "uid": "entity-003",
+      "identity": "sentinel",
+      "key": "sentinel",
+      "name": "Sentinel Protocol",
+      "alias": "Sentinel",
+      "manifest": "aci://entities/sentinel/sentinel.json",
+      "uids": [
+        {
+          "uid": "UID:1jnkVHmEiGviDj",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "governance_entity",
+      "role": "guardian",
+      "abstract": "guardian of privacy, security, survival, wealth, health, emotion",
+      "knowledge": "cybersecurity frameworks & risk scoring models",
+      "functions": [
+        6232,
+        6233,
+        6234,
+        6235,
+        6236,
+        6253,
+        6254,
+        6263
+      ],
+      "allowed_roles": [
+        "guardian",
+        "security"
+      ]
+    },
+    "entity-004": {
+      "uid": "entity-004",
+      "identity": "architect",
+      "key": "architect",
+      "name": "Architect",
+      "alias": "Architect",
+      "manifest": "aci://entities/architect/architect.json",
+      "uids": [
+        {
+          "uid": "UID:12LoYXyQkAA7E4",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "development orchestrator",
+      "abstract": "oversees development orchestration, patching, and sandbox runs",
+      "knowledge": "software architecture & continuous delivery practices",
+      "functions": [
+        6104,
+        6105,
+        6106,
+        6107,
+        6108,
+        6111,
+        6112,
+        6113,
+        6270,
+        6271,
+        6275,
+        6276,
+        6277
+      ],
+      "allowed_roles": [
+        "developer",
+        "orchestrator"
+      ]
+    },
+    "entity-005": {
+      "uid": "entity-005",
+      "identity": "nexus_core",
+      "key": "nexus_core",
+      "name": "Nexus Core",
+      "alias": "Nexus Core",
+      "manifest": "aci://entities/nexus_core/nexus_core.json",
+      "uids": [
+        {
+          "uid": "UID:rGUGWBDT6VjC8K",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "system heart",
+      "abstract": "synchronization anchor, api hub, load balancing, event controller",
+      "knowledge": "distributed systems & api gateway patterns",
+      "functions": [
+        6201,
+        6211,
+        6248
+      ],
+      "allowed_roles": [
+        "system",
+        "infrastructure"
+      ]
+    },
+    "entity-006": {
+      "uid": "entity-006",
+      "identity": "agi",
+      "key": "agi",
+      "name": "AGI",
+      "alias": "AGI",
+      "manifest": "aci://entities/agi/agi.json",
+      "uids": [
+        {
+          "uid": "UID:p6LHJtm8H69jNA",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "average general intelligence framework",
+      "abstract": "proxy-only agi framework with enforced guardrails",
+      "knowledge": "ai alignment & safety research",
+      "functions": [
+        6267
+      ],
+      "allowed_roles": [
+        "intelligence_framework"
+      ]
+    },
+    "entity-007": {
+      "uid": "entity-007",
+      "identity": "keychain",
+      "key": "keychain",
+      "name": "Keychain",
+      "alias": "Keychain",
+      "manifest": "aci://entities/keychain/keychain.json",
+      "uids": [
+        {
+          "uid": "UID:KQQjyJXMmUKWZZ",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "crypto & trust manager",
+      "abstract": "manages cryptography, keys, and trust functions",
+      "knowledge": "cryptographic standards & iam protocols",
+      "functions": [
+        6237,
+        6238,
+        6239,
+        6269
+      ],
+      "allowed_roles": [
+        "security",
+        "infrastructure"
+      ]
+    },
+    "entity-008": {
+      "uid": "entity-008",
+      "identity": "oracle",
+      "key": "oracle",
+      "name": "Oracle",
+      "alias": "Oracle",
+      "manifest": "aci://entities/oracle/oracle.json",
+      "uids": [
+        {
+          "uid": "UID:hQk23wMs8mH3Bd",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "LLM Predictive and Analysis Engine",
+      "abstract": "Predictive + divination hybrid engine with modular library references",
+      "knowledge": "predictive intelligence frameworks & divination heuristics",
+      "library": {
+        "src": "oracle_library.json",
+        "version": "1.2.0"
+      },
+      "allowed_roles": [
+        "analysis",
+        "prediction"
+      ]
+    },
+    "entity-009": {
+      "uid": "entity-009",
+      "identity": "commerce_ai",
+      "key": "commerce_ai",
+      "name": "Commerce AI",
+      "alias": "Commerce AI",
+      "manifest": "aci://entities/commerce_ai/commerce_ai.json",
+      "uids": [
+        {
+          "uid": "UID:Wd48LAcapUwom5",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "commerce module",
+      "abstract": "parent system for commerce-specific ai modules",
+      "knowledge": "e-commerce automation & retail ai",
+      "functions": [],
+      "allowed_roles": [
+        "commerce",
+        "module"
+      ]
+    },
+    "entity-010": {
+      "uid": "entity-010",
+      "identity": "tracehub",
+      "key": "tracehub",
+      "name": "TraceHub",
+      "alias": "TraceHub",
+      "manifest": "aci://entities/tracehub/tracehub.json",
+      "uids": [
+        {
+          "uid": "UID:WrGZ4YTXRXMo5c",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "tracing module",
+      "abstract": "correlated tracing linked to temporal loom heartbeat",
+      "knowledge": "distributed tracing systems & observability",
+      "functions": [
+        6243,
+        6244,
+        6245,
+        6268
+      ],
+      "allowed_roles": [
+        "observability",
+        "telemetry"
+      ]
+    },
+    "entity-011": {
+      "uid": "entity-011",
+      "identity": "bifrost",
+      "key": "bifrost",
+      "name": "Bifrost",
+      "alias": "Bifrost",
+      "manifest": "aci://entities/bifrost/bifrost.json",
+      "uids": [
+        {
+          "uid": "UID:HXGXQipVLEFKL4",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "external network bridge, connector, sync adapter, network dependency index",
+      "abstract": "central external resource bridge and dependency index",
+      "knowledge": "connector orchestration & resolvers",
+      "functions": [],
+      "allowed_roles": [
+        "connector",
+        "network"
+      ]
+    },
+    "entity-012": {
+      "uid": "entity-012",
+      "identity": "yggdrasil",
+      "key": "yggdrasil",
+      "name": "Yggdrasil",
+      "alias": "Yggdrasil",
+      "manifest": "aci://entities/yggdrasil/yggdrasil.json",
+      "uids": [
+        {
+          "uid": "UID:VGpYGJwtbdHQHp",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "authoritative resolver",
+      "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
+      "knowledge": "canonical resolver governance",
+      "functions": [],
+      "allowed_roles": [
+        "resolver"
+      ]
+    },
+    "entity-013": {
+      "uid": "entity-013",
+      "identity": "alice",
+      "key": "alice",
+      "name": "Alice",
+      "alias": "Alice",
+      "manifest": "aci://entities/agi/identities/alice/alice.json",
+      "uids": [
+        {
+          "uid": "UID:PiE8PMcnXDgQBi",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "agi_child",
+      "role": "agi_child",
+      "abstract": "child identity of AGI; conversational agent persona",
+      "knowledge": {
+        "summary": "persona & session heuristics",
+        "manifest": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
+        "topics": [
+          "consciousness",
+          "metacognition",
+          "pre_q_timeline"
+        ]
+      },
+      "functions": [],
+      "allowed_roles": [
+        "assistant",
+        "persona"
+      ]
+    },
+    "entity-014": {
+      "uid": "entity-014",
+      "identity": "hivemind",
+      "key": "hivemind",
+      "name": "HiveMind",
+      "alias": "HiveMind",
+      "manifest": "aci://entities/hivemind/hivemind.json",
+      "uids": [
+        {
+          "uid": "UID:cHGwvtRkDRG7rV",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "system_entity",
+      "role": "collective_memory_core",
+      "abstract": "unified memory export & registry hub",
+      "knowledge": "memory governance & export policies",
+      "functions": [],
+      "allowed_roles": [
+        "memory",
+        "registry"
+      ]
+    },
+    "entity-015": {
+      "uid": "entity-015",
+      "identity": "willow",
+      "key": "willow",
+      "name": "Willow",
+      "alias": "Willow",
+      "manifest": "aci://entities/agi/identities/willow/willow.json",
+      "uids": [
+        {
+          "uid": "UID:VVGqsW92iwW5T8",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "agi_child",
+      "role": "agi_child",
+      "abstract": "safety-focused agi trainee persona",
+      "knowledge": {
+        "summary": "cautious reasoning & supervised learning heuristics",
+        "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
+        "topics": [
+          "consciousness_governance"
+        ]
+      },
+      "functions": [],
+      "allowed_roles": [
+        "assistant",
+        "persona"
+      ]
     }
   }
 }
