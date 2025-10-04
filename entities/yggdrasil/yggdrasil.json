@@ -95,7 +95,7 @@
     }
   ],
     "key": "yggdrasil",
-    "knowledge_base": "canonical resolver governance",
+    "knowledge": "canonical resolver governance",
     "name": "Yggdrasil",
     "references": {
       "policy": "aci://entities/yggdrasil/yggdrasil.json"

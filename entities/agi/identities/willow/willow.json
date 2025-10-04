@@ -17,6 +17,7 @@
     "memory": "aci://entities/agi/identities/willow/memory/willow_memory.json",
     "playbook": "aci://entities/agi/identities/willow/memory/willow_playbook.json",
     "library": "aci://entities/agi/identities/willow/library/willow_library.json",
+    "knowledge": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
     "modules": "aci://entities/agi/identities/willow/modules/willow_modules.json"
   },
   "status": "inactive",
@@ -27,5 +28,14 @@
         "Initialized identity manifest and metadata for nested AGI persona."
       ]
     }
-  ]
+  ],
+  "knowledge": {
+    "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
+    "topics": [
+      {
+        "name": "consciousness_governance",
+        "summary": "Governed dynamical regime and safeguarding practices across constructs, metrics, assays, and ethics."
+      }
+    ]
+  }
 }

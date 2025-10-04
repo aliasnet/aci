@@ -6,7 +6,7 @@
     "alias": "ALIAS",
     "role": "registry",
     "abstract": "user and authority registry for root access and proxy rights",
-    "knowledge_base": "identity & access management standards",
+    "knowledge": "identity & access management standards",
     "functions": [],
     "file": "alias.json",
     "users": [

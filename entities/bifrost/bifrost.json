@@ -103,7 +103,7 @@
       "fallback": "https://aci.aliasmail.cc"
     },
     "key": "bifrost",
-    "knowledge_base": "connector orchestration & resolvers",
+    "knowledge": "connector orchestration & resolvers",
     "name": "Bifrost",
     "references": {
       "policy": "aci://entities/yggdrasil/yggdrasil.json",

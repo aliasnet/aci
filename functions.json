@@ -29,7 +29,7 @@
       "runner": "rag.index.build",
       "guards": ["Sentinel.audit"],
       "inputs": ["manifest_path", "source", "silent"],
-      "defaults": { "manifest_path": "library/knowledge/knowledge_manifest.json", "silent": true },
+      "defaults": { "manifest_path": "memory/knowledge/aci_knowledge.json", "silent": true },
       "outputs": ["status", "chunks_indexed"]
     },
     "rag.query": {

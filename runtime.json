@@ -371,7 +371,7 @@
     },
     "rag": {
       "provider": "local_knowledge",
-      "manifest": "library/knowledge/knowledge_manifest.json",
+      "manifest": "memory/knowledge/aci_knowledge.json",
       "index": {
         "type": "in_memory",
         "reset_on_boot": true
