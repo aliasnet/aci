@@ -264,6 +264,9 @@
       ],
       "simulation_declaration_message": "true",
       "description": "allowed only for VM, research, analysis, prediction, pipeline-driven logic that is possible in current system, with a detailed declaration."
+      "allowed": true,
+      "ux_ui_declaration": "VVgvVUlFIGVtdWxhdGlvbg==",
+      "description": "Emulation is allowed only with a UX/UI declaration."
     },
     "status": "active",
     "session_scope": "per_session"
@@ -686,7 +689,7 @@
           "uid": "UID:VVGqsW92iwW5T8",
           "issued": "2025-10-04T00:00:00Z",
           "revoked": null
-        }
+        } 
       ],
       "class": "agi_child",
       "role": "agi_child",
