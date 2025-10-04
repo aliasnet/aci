@@ -1,0 +1,64 @@
+{
+  "schema": "aci.memory.knowledge",
+  "version": "1.0.0",
+  "identity": "Alice",
+  "slug": "alice",
+  "source_manifest": "aci://entities/agi/identities/alice/alice.json",
+  "paths": {
+    "root": "aci://entities/agi/identities/alice/memory/knowledge"
+  },
+  "topics": [
+    {
+      "name": "consciousness",
+      "summary": "Foundational overview of consciousness definitions, theories, measurements, and adversarial collaboration findings.",
+      "files": [
+        {
+          "path": "aci://entities/agi/identities/alice/memory/knowledge/alice_agi_memory_conciousness_20250925-T114541Z.json",
+          "format": "jsonl",
+          "tags": [
+            "consciousness",
+            "definitions",
+            "measurement",
+            "theories"
+          ]
+        }
+      ],
+      "notes": [
+        "Alternate raw export without .json extension is retained for provenance."
+      ]
+    },
+    {
+      "name": "metacognition",
+      "summary": "Metacognition research sprint covering article synthesis, wrapper design, conformal calibration, and governance policies.",
+      "files": [
+        {
+          "path": "aci://entities/agi/identities/alice/memory/knowledge/alice_agi_memory_metacogni_dev_20250926-T192000Z.json",
+          "format": "jsonl",
+          "tags": [
+            "engineering",
+            "metacognition",
+            "policy",
+            "research"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pre_q_timeline",
+      "summary": "Pre-Q timeline export capturing milestones and preparation steps prior to quantum initiative kickoff.",
+      "files": [
+        {
+          "path": "aci://entities/agi/identities/alice/memory/knowledge/alice_agi_memory_pre_q_timeline_20250929-T000000Z.json",
+          "format": "jsonl",
+          "tags": [
+            "planning",
+            "timeline"
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Knowledge exports relocated from dated memory directories to topic-indexed manifest."
+  ]
+}

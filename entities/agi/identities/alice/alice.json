@@ -17,6 +17,7 @@
     "memory": "aci://entities/agi/identities/alice/memory/alice_memory.json",
     "playbook": "aci://entities/agi/identities/alice/memory/alice_playbook.json",
     "library": "aci://entities/agi/identities/alice/library/alice_library.json",
+    "knowledge": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
     "modules": "aci://entities/agi/identities/alice/modules/alice_modules.json"
   },
   "status": "inactive",
@@ -27,5 +28,22 @@
         "Initialized identity manifest and metadata for nested AGI persona."
       ]
     }
-  ]
+  ],
+  "knowledge": {
+    "manifest": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
+    "topics": [
+      {
+        "name": "consciousness",
+        "summary": "Foundational theories, measures, and collaboration findings on consciousness."
+      },
+      {
+        "name": "metacognition",
+        "summary": "Research sprint outputs for metacognitive design, calibration, and policy."
+      },
+      {
+        "name": "pre_q_timeline",
+        "summary": "Timeline checkpoints recorded ahead of the quantum initiative launch."
+      }
+    ]
+  }
 }

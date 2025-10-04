@@ -1,0 +1,35 @@
+{
+  "schema": "aci.memory.knowledge",
+  "version": "1.0.0",
+  "identity": "Willow",
+  "slug": "willow",
+  "source_manifest": "aci://entities/agi/identities/willow/willow.json",
+  "paths": {
+    "root": "aci://entities/agi/identities/willow/memory/knowledge"
+  },
+  "topics": [
+    {
+      "name": "consciousness_governance",
+      "summary": "Governed dynamical regime spanning level, content, access, and self-tagging constructs with architecture, empirical pillars, metrics, tests, metaphysics, assays, and ethics guidance.",
+      "files": [
+        {
+          "path": "aci://entities/agi/identities/willow/memory/knowledge/willow_conciousnes_20251004-T081720Z.jsonl.json",
+          "format": "jsonl",
+          "tags": [
+            "architecture",
+            "assay",
+            "consciousness",
+            "ethics",
+            "evidence",
+            "governance",
+            "metrics",
+            "tests"
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Knowledge exports relocated from dated memory directories to topic-indexed manifest."
+  ]
+}

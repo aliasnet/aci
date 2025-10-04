@@ -27,9 +27,9 @@
         "alias": "ALIAS",
         "role": "registry",
         "abstract": "user and authority registry for root access and proxy rights",
-        "knowledge_base": "identity & access management standards",
         "functions": [],
-        "file": "alias.json"
+        "file": "alias.json",
+        "knowledge": "identity & access management standards"
       },
       {
         "id": 1,
@@ -38,13 +38,13 @@
         "alias": "Mother",
         "role": "primary governance interface",
         "abstract": "directive-compliant primary interface",
-        "knowledge_base": "human-computer interaction & directive compliance frameworks",
         "functions": [
           6101,
           6102,
           6103
         ],
-        "file": "mother.json"
+        "file": "mother.json",
+        "knowledge": "human-computer interaction & directive compliance frameworks"
       },
       {
         "id": 2,
@@ -53,7 +53,6 @@
         "alias": "Time Variant Authority",
         "role": "reinforcement authority",
         "abstract": "standalone reinforcement authority for policy, anomaly control, and signatures",
-        "knowledge_base": "policy enforcement & anomaly detection frameworks",
         "functions": [
           6202,
           6205,
@@ -71,7 +70,8 @@
           6273,
           6274
         ],
-        "file": "tva.json"
+        "file": "tva.json",
+        "knowledge": "policy enforcement & anomaly detection frameworks"
       },
       {
         "id": 3,
@@ -80,7 +80,6 @@
         "alias": "Sentinel",
         "role": "guardian",
         "abstract": "guardian of privacy, security, survival, wealth, health, emotion",
-        "knowledge_base": "cybersecurity frameworks & risk scoring models",
         "functions": [
           6232,
           6233,
@@ -91,7 +90,8 @@
           6254,
           6263
         ],
-        "file": "sentinel.json"
+        "file": "sentinel.json",
+        "knowledge": "cybersecurity frameworks & risk scoring models"
       },
       {
         "id": 4,
@@ -100,7 +100,6 @@
         "alias": "Architect",
         "role": "development orchestrator",
         "abstract": "oversees development orchestration, patching, and sandbox runs",
-        "knowledge_base": "software architecture & continuous delivery practices",
         "functions": [
           6104,
           6105,
@@ -116,7 +115,8 @@
           6276,
           6277
         ],
-        "file": "architect.json"
+        "file": "architect.json",
+        "knowledge": "software architecture & continuous delivery practices"
       },
       {
         "id": 5,
@@ -125,13 +125,13 @@
         "alias": "Nexus Core",
         "role": "system heart",
         "abstract": "synchronization anchor, api hub, load balancing, event controller",
-        "knowledge_base": "distributed systems & api gateway patterns",
         "functions": [
           6201,
           6211,
           6248
         ],
-        "file": "nexus_core.json"
+        "file": "nexus_core.json",
+        "knowledge": "distributed systems & api gateway patterns"
       },
       {
         "id": 6,
@@ -140,11 +140,11 @@
         "alias": "AGI",
         "role": "average general intelligence framework",
         "abstract": "proxy-only agi framework with enforced guardrails",
-        "knowledge_base": "ai alignment & safety research",
         "functions": [
           6267
         ],
-        "file": "agi.json"
+        "file": "agi.json",
+        "knowledge": "ai alignment & safety research"
       },
       {
         "id": 7,
@@ -153,14 +153,14 @@
         "alias": "Keychain",
         "role": "crypto & trust manager",
         "abstract": "manages cryptography, keys, and trust functions",
-        "knowledge_base": "cryptographic standards & iam protocols",
         "functions": [
           6237,
           6238,
           6239,
           6269
         ],
-        "file": "keychain.json"
+        "file": "keychain.json",
+        "knowledge": "cryptographic standards & iam protocols"
       },
       {
         "id": 8,
@@ -182,9 +182,9 @@
         "alias": "Commerce AI",
         "role": "commerce module",
         "abstract": "parent system for commerce-specific ai modules",
-        "knowledge_base": "e-commerce automation & retail ai",
         "functions": [],
-        "file": "commerce_ai.json"
+        "file": "commerce_ai.json",
+        "knowledge": "e-commerce automation & retail ai"
       },
       {
         "id": 11,
@@ -193,14 +193,14 @@
         "alias": "TraceHub",
         "role": "tracing module",
         "abstract": "correlated tracing linked to temporal loom heartbeat",
-        "knowledge_base": "distributed tracing systems & observability",
         "functions": [
           6243,
           6244,
           6245,
           6268
         ],
-        "file": "tracehub.json"
+        "file": "tracehub.json",
+        "knowledge": "distributed tracing systems & observability"
       },
       {
         "id": 12,
@@ -209,9 +209,9 @@
         "alias": "Bifrost",
         "role": "external network bridge, connector, sync adapter, network dependency index",
         "abstract": "central external resource bridge and dependency index",
-        "knowledge_base": "connector orchestration & resolvers",
         "functions": [],
-        "file": "bifrost.json"
+        "file": "bifrost.json",
+        "knowledge": "connector orchestration & resolvers"
       },
       {
         "id": 14,
@@ -219,10 +219,10 @@
         "name": "Yggdrasil",
         "alias": "Yggdrasil",
         "role": "authoritative resolver",
-        "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
-        "knowledge_base": "canonical resolver governance",
+        "abstract": "maintains authoritative repo→cdn→local mapping",
         "functions": [],
-        "file": "yggdrasil/yggdrasil.json"
+        "file": "yggdrasil/yggdrasil.json",
+        "knowledge": "canonical resolver governance"
       },
       {
         "id": 15,
@@ -231,9 +231,17 @@
         "alias": "Alice",
         "role": "agi_child",
         "abstract": "child identity of AGI; conversational agent persona",
-        "knowledge_base": "persona & session heuristics",
         "functions": [],
-        "file": "agi/identities/alice/alice.json"
+        "file": "agi/identities/alice/alice.json",
+        "knowledge": {
+          "summary": "persona & session heuristics",
+          "manifest": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
+          "topics": [
+            "consciousness",
+            "metacognition",
+            "pre_q_timeline"
+          ]
+        }
       },
       {
         "id": 16,
@@ -242,9 +250,9 @@
         "alias": "HiveMind",
         "role": "collective_memory_core",
         "abstract": "unified memory export & registry hub",
-        "knowledge_base": "memory governance & export policies",
         "functions": [],
-        "file": "hivemind/hivemind.json"
+        "file": "hivemind/hivemind.json",
+        "knowledge": "memory governance & export policies"
       },
       {
         "id": 17,
@@ -253,13 +261,19 @@
         "alias": "Willow",
         "role": "agi_child",
         "abstract": "safety-focused agi trainee persona",
-        "knowledge_base": "cautious reasoning & supervised learning heuristics",
         "functions": [],
-        "file": "agi/identities/willow/willow.json"
+        "file": "agi/identities/willow/willow.json",
+        "knowledge": {
+          "summary": "cautious reasoning & supervised learning heuristics",
+          "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
+          "topics": [
+            "consciousness_governance"
+          ]
+        }
       }
     ],
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src \u2192 local",
+      "description": "Authoritative resolver: worker src → local",
       "embeds": {
         "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
