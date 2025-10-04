@@ -12,7 +12,7 @@
 - **Where code lives**
   - **/entities/** → identity, roles, per-agent configs
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
-  - **/aig/** → AGI governance policies & playbook (safety, homeostasis, sovereignty, EEL)
+  - **/entities/agi/** → AGI governance manifests & playbooks (identity, export policy, memory manifests)
 - **Memory exports** are JSONL, governed by policy, identity-aware, and privacy-preserving.
 
 > Big picture: ACI is a **colony of digital organisms**. **AGI** governs intelligence and narrative exports; other entities specialize (design, retrieval, planning, etc.). Governance and privacy are first-class.
@@ -40,7 +40,15 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   agi/
     agi_identity_manager.json      # identity map; active/default markers
     agi_export_policy.json         # export policy for AGI JSONL (schema, filters, audit)
-    ...                            # (tooling, e.g., migrators)
+    agi.json                       # governance manifest (binding rules, pipelines, presets)
+    agi_tools/
+      migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
+    agi_proxy/
+      eec/
+        eec_transformers_infer.json  # execution preset for AGI proxy inference
+    memory/
+      agi_memory.json             # memory manifest (timeline roots, storage notes)
+      agi_playbook.json           # AGI operations, incident playbooks, quality gates
 
   <other-entities>/
     <entity>.json                  # per-entity configuration
@@ -49,14 +57,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   metacognition/
     metacognition.json             # stateless wrapper (v1.1.x+)
     metacognition_options.json     # optional features (e.g., conformal)
-  eel_adapter.json                 # provider spec: Ephemeral Ecosystem Layer (EEL)
+  wrappers/
+    process_logs/                  # reusable wrapper modules (log processors)
+    tracehub_status/               # reusable wrapper modules (TraceHub sync)
   ...                              # reusable, stateless modules
-
-/aig/
-  eel_policy.json                  # EEL governance (rehydration capsule policy)
-  homeostasis.json                 # safety set-points (ECE, OOD → cautious mode)
-  sovereignty_policy.json          # roles, escalation, governance rules
-  agi_playbook.json               # AGI operations, incident playbooks, quality gates
 
 /memory/
   agi_memory/
@@ -105,7 +109,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
   Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
 
-> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/aig/agi_playbook.json`) are scoped to the AGI governor.
+> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/entities/agi/memory/agi_playbook.json`) are scoped to the AGI governor.
 
 ---
 
@@ -113,11 +117,11 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Prime directive** governs all agents (separate doc).
 - **Sanity protocol** (`./sanity.md`) — checklist for high-risk actions and mitigation of Codex-reported bugs before any override or sandbox exit.
-- **AGI governance layer** (`/aig/`):
-  - `sovereignty_policy.json` — who may accept/revise/abstain/escalate/export.
-  - `homeostasis.json` — set-points: **ECE ≤ 0.05**, **meta-AUROC ≥ 0.80**, **coverage@α ≥ 0.90**; enters **cautious mode** when OOD/ECE exceed thresholds.
-  - `eel_policy.json` — rehydration capsule schema & privacy (summaries/signals only, `drop_raw_text: true`).
-  - `agi_playbook.json` — operational playbook (incident handling, quality gates, checklists).
+- **AGI governance layer** (`/entities/agi/`):
+  - `agi.json` — governance manifest (binding rules, oversight, pipelines, presets).
+  - `agi_export_policy.json` — export policy for AGI-managed JSONL artifacts.
+  - `memory/agi_memory.json` — memory manifest defining timeline layout and storage notes.
+  - `memory/agi_playbook.json` — operational playbook (incident handling, quality gates, checklists).
 
 - **Wrappers** (e.g., `/library/metacognition/metacognition.json`):
   - Stateless by default; accept optional providers (e.g., conformal, EEL).
@@ -176,8 +180,8 @@ hivemind export session --summary "Launch Review" --download
   - Policy: threshold gates; **conformal abstention** (presence-guarded).
   - Optional **EEL hook** (v1.1.2+): pre-generate `rehydrate` stage; `rehydration_present` signal.
 
-- **EEL Adapter** `/library/eel_adapter.json`
-  - Provider specs for `eel.rehydrate*` — **mechanics in /library**, **policy in /aig**.
+- **EEL Adapter** `/entities/agi/agi_proxy/eec/`
+  - Provider specs for `eel.rehydrate*` — **mechanics in /entities/agi/agi_proxy/eec/**, **policy encoded in /entities/agi/agi.json**.
 
 ---
 
@@ -187,7 +191,7 @@ hivemind export session --summary "Launch Review" --download
    - Add identity to `/entities/agi/agi_identity_manager.json`.
    - Add config under `/entities/<agent>/` (if needed).
    - If reusable behavior → put module in `/library/`.
-   - If governance rules → put policy in `/aig/`.
+  - If governance rules → put policy manifests in the owning entity's directory (e.g., `/entities/agi/`).
 2. **Evolve**:
    - Version in-file (`"version"`) + `changelog` (mandatory for traceability).
 3. **Export**:
@@ -209,7 +213,7 @@ hivemind export session --summary "Launch Review" --download
 ## 10) Contribution Checklist
 
 - [ ] Identity added/updated in `/entities/agi/agi_identity_manager.json` (set `active` when applicable).
-- [ ] Reusable logic in `/library/`; governance in `/aig/`.
+- [ ] Reusable logic in `/library/`; governance manifests in `/entities/<entity>/`.
 - [ ] New wrapper: stateless, optional providers, privacy defaults.
 - [ ] Exports: policy file references identity source; filters present; audit enabled.
 - [ ] Diffs: no placeholders; include `COMMIT_MSG`; no internal path leaks.
