@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9JgwuFTkwZuSte",
+    "sha256": "b77ca9ec5ad4e86152dc81e00aef77bfcdd865ea3e2c0511555d7bb377a91796",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/wrappers/tracehub_status/tracehub_status.json"
+  },
   "version": "1.0.0",
   "key": "tracehub_status",
   "name": "TraceHub Status Wrapper",

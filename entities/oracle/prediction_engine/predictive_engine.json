@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:4hSMnJ29kQ6WXP",
+    "sha256": "9943293073903691a87eebd62ee52f6e9205ea5b03bdfe8e7b92f53dcca44b5b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/prediction_engine/predictive_engine.json"
+  },
   "predictive_engine": {
     "schema_version": "1.0",
     "version": "1.0",
@@ -6,7 +12,6 @@
     "entity": "Predictive Engine",
     "role": "Core prediction engine (LLM + statistical/deep adapters)",
     "abstract": "Data-first predictive stack. Runs mainstream analysis and orchestrates model adapters; can optionally expose Oracle Notes via the divination extension when explicitly requested or when alignment criteria are met.",
-
     "scenarios": {
       "S1": {
         "name": "Mainstream-first forecasting/classification",
@@ -29,98 +34,259 @@
         ]
       }
     },
-
     "router": {
       "selection": "keyword_and_payload_based",
       "keywords": {
-        "timeseries": ["stock", "market", "sales", "demand", "traffic", "energy", "weather", "visitors", "bookings", "revenue", "price", "kpi"],
-        "classification": ["churn", "fraud", "risk", "default", "propensity", "segment", "uplift"],
-        "regression": ["forecast", "estimate", "predict", "projection"]
+        "timeseries": [
+          "stock",
+          "market",
+          "sales",
+          "demand",
+          "traffic",
+          "energy",
+          "weather",
+          "visitors",
+          "bookings",
+          "revenue",
+          "price",
+          "kpi"
+        ],
+        "classification": [
+          "churn",
+          "fraud",
+          "risk",
+          "default",
+          "propensity",
+          "segment",
+          "uplift"
+        ],
+        "regression": [
+          "forecast",
+          "estimate",
+          "predict",
+          "projection"
+        ]
       },
       "task_detection": {
-        "priority": ["payload_schema", "keywords"],
+        "priority": [
+          "payload_schema",
+          "keywords"
+        ],
         "fallback": "timeseries_forecast"
       },
       "model_selector": {
         "timeseries": [
-          { "name": "statsforecast", "when": "short_series_or_classical_needed" },
-          { "name": "prophet", "when": "short_to_medium_series_with_calendar_effects" },
-          { "name": "greykite", "when": "interpretable_forecasts_needed" },
-          { "name": "orbit", "when": "bayesian_structural_time_series_desired" },
-          { "name": "darts", "when": "general_purpose_multi_models_and_ensembles" },
-          { "name": "gluonts", "when": "deep_learning_timeseries_large_data" }
+          {
+            "name": "statsforecast",
+            "when": "short_series_or_classical_needed"
+          },
+          {
+            "name": "prophet",
+            "when": "short_to_medium_series_with_calendar_effects"
+          },
+          {
+            "name": "greykite",
+            "when": "interpretable_forecasts_needed"
+          },
+          {
+            "name": "orbit",
+            "when": "bayesian_structural_time_series_desired"
+          },
+          {
+            "name": "darts",
+            "when": "general_purpose_multi_models_and_ensembles"
+          },
+          {
+            "name": "gluonts",
+            "when": "deep_learning_timeseries_large_data"
+          }
         ],
         "online_learning": [
-          { "name": "river", "when": "streaming_or_incremental_learning" }
+          {
+            "name": "river",
+            "when": "streaming_or_incremental_learning"
+          }
         ],
         "classification_regression": [
-          { "name": "tabular_llm", "when": "analysis_only_or_small_tabular" },
-          { "name": "river_tabular", "when": "streaming_or_drift_expected" }
+          {
+            "name": "tabular_llm",
+            "when": "analysis_only_or_small_tabular"
+          },
+          {
+            "name": "river_tabular",
+            "when": "streaming_or_drift_expected"
+          }
         ]
       }
     },
-
     "io_contracts": {
       "input": {
         "type": "object",
-        "required": ["task"],
+        "required": [
+          "task"
+        ],
         "properties": {
-          "task": { "enum": ["timeseries_forecast", "classification", "regression"] },
-          "dataset_ref": { "type": "string", "description": "URI or handle to dataset (if not inline)" },
+          "task": {
+            "enum": [
+              "timeseries_forecast",
+              "classification",
+              "regression"
+            ]
+          },
+          "dataset_ref": {
+            "type": "string",
+            "description": "URI or handle to dataset (if not inline)"
+          },
           "series": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["ts", "y"],
+              "required": [
+                "ts",
+                "y"
+              ],
               "properties": {
-                "id": { "type": "string" },
-                "ts": { "type": "string", "description": "ISO8601 timestamp" },
-                "y": { "type": "number" },
-                "x": { "type": "object", "description": "exogenous features" }
+                "id": {
+                  "type": "string"
+                },
+                "ts": {
+                  "type": "string",
+                  "description": "ISO8601 timestamp"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "x": {
+                  "type": "object",
+                  "description": "exogenous features"
+                }
               }
             }
           },
-          "horizon": { "type": "integer", "minimum": 1 },
-          "freq": { "type": "string", "description": "e.g., D, W, M, H" },
-          "exogenous": { "type": "array", "items": { "type": "string" } },
-          "metric": { "enum": ["MAE", "RMSE", "MAPE", "SMAPE", "AUC", "F1", "R2"] },
-          "constraints": { "type": "object", "properties": { "train_timeout_sec": { "type": "integer" }, "max_models": { "type": "integer" } } },
-          "symbolic_opt_in": { "type": "boolean", "default": false }
+          "horizon": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "freq": {
+            "type": "string",
+            "description": "e.g., D, W, M, H"
+          },
+          "exogenous": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metric": {
+            "enum": [
+              "MAE",
+              "RMSE",
+              "MAPE",
+              "SMAPE",
+              "AUC",
+              "F1",
+              "R2"
+            ]
+          },
+          "constraints": {
+            "type": "object",
+            "properties": {
+              "train_timeout_sec": {
+                "type": "integer"
+              },
+              "max_models": {
+                "type": "integer"
+              }
+            }
+          },
+          "symbolic_opt_in": {
+            "type": "boolean",
+            "default": false
+          }
         }
       },
       "output": {
         "type": "object",
-        "required": ["analysis", "forecast", "confidence", "provenance"],
+        "required": [
+          "analysis",
+          "forecast",
+          "confidence",
+          "provenance"
+        ],
         "properties": {
-          "analysis": { "type": "string" },
+          "analysis": {
+            "type": "string"
+          },
           "forecast": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["ts", "yhat"],
+              "required": [
+                "ts",
+                "yhat"
+              ],
               "properties": {
-                "ts": { "type": "string" },
-                "yhat": { "type": "number" },
-                "yhat_lo": { "type": "number" },
-                "yhat_hi": { "type": "number" }
+                "ts": {
+                  "type": "string"
+                },
+                "yhat": {
+                  "type": "number"
+                },
+                "yhat_lo": {
+                  "type": "number"
+                },
+                "yhat_hi": {
+                  "type": "number"
+                }
               }
             }
           },
-          "backtest": { "type": "object", "properties": { "metric": { "type": "string" }, "value": { "type": "number" } } },
-          "confidence": { "type": "number" },
-          "oracle_notes": { "type": "object" },
+          "backtest": {
+            "type": "object",
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            }
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "oracle_notes": {
+            "type": "object"
+          },
           "provenance": {
             "type": "object",
-            "required": ["nodes_used", "time_context"],
+            "required": [
+              "nodes_used",
+              "time_context"
+            ],
             "properties": {
-              "nodes_used": { "type": "array", "items": { "type": "string" } },
-              "time_context": { "type": "object", "properties": { "tz": { "type": "string" }, "ts": { "type": "string" } } }
+              "nodes_used": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "time_context": {
+                "type": "object",
+                "properties": {
+                  "tz": {
+                    "type": "string"
+                  },
+                  "ts": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }
       }
     },
-
     "planner": {
       "steps": [
         "validate_input_against_contract",
@@ -135,39 +301,150 @@
         "symbolic_hook_if_requested_and_alignment_passed"
       ],
       "cv": {
-        "timeseries": { "strategy": "rolling_origin", "folds": 3, "gap": 0 },
-        "tabular": { "strategy": "kfold", "k": 5 }
+        "timeseries": {
+          "strategy": "rolling_origin",
+          "folds": 3,
+          "gap": 0
+        },
+        "tabular": {
+          "strategy": "kfold",
+          "k": 5
+        }
       }
     },
-
     "adapters": {
       "timeseries": [
-        { "id": "1.1.1", "name": "darts", "supports": ["ARIMA", "Prophet", "ExponentialSmoothing", "RNN/LSTM/TCN/Transformer"], "modes": ["single", "global", "ensembles"] },
-        { "id": "1.1.2", "name": "statsforecast", "supports": ["ARIMA", "ETS", "TBATS", "TSFeatures"], "modes": ["bulk_classical", "fast"] },
-        { "id": "1.1.3", "name": "gluonts", "supports": ["DeepAR", "Transformer", "TemporalFusionTransformer"], "modes": ["deep_learning"] },
-        { "id": "1.1.4", "name": "river", "supports": ["online_regression", "online_classification", "drift_detection"], "modes": ["streaming"] },
-        { "id": "1.1.5", "name": "greykite", "supports": ["Silverkite"], "modes": ["interpretable"] },
-        { "id": "1.1.6", "name": "orbit", "supports": ["BSTS", "LGT/DLT"], "modes": ["bayesian"] },
-        { "id": "1.1.7", "name": "prophet", "supports": ["additive", "holidays", "changepoints"], "modes": ["quickstart"] }
+        {
+          "id": "1.1.1",
+          "name": "darts",
+          "supports": [
+            "ARIMA",
+            "Prophet",
+            "ExponentialSmoothing",
+            "RNN/LSTM/TCN/Transformer"
+          ],
+          "modes": [
+            "single",
+            "global",
+            "ensembles"
+          ]
+        },
+        {
+          "id": "1.1.2",
+          "name": "statsforecast",
+          "supports": [
+            "ARIMA",
+            "ETS",
+            "TBATS",
+            "TSFeatures"
+          ],
+          "modes": [
+            "bulk_classical",
+            "fast"
+          ]
+        },
+        {
+          "id": "1.1.3",
+          "name": "gluonts",
+          "supports": [
+            "DeepAR",
+            "Transformer",
+            "TemporalFusionTransformer"
+          ],
+          "modes": [
+            "deep_learning"
+          ]
+        },
+        {
+          "id": "1.1.4",
+          "name": "river",
+          "supports": [
+            "online_regression",
+            "online_classification",
+            "drift_detection"
+          ],
+          "modes": [
+            "streaming"
+          ]
+        },
+        {
+          "id": "1.1.5",
+          "name": "greykite",
+          "supports": [
+            "Silverkite"
+          ],
+          "modes": [
+            "interpretable"
+          ]
+        },
+        {
+          "id": "1.1.6",
+          "name": "orbit",
+          "supports": [
+            "BSTS",
+            "LGT/DLT"
+          ],
+          "modes": [
+            "bayesian"
+          ]
+        },
+        {
+          "id": "1.1.7",
+          "name": "prophet",
+          "supports": [
+            "additive",
+            "holidays",
+            "changepoints"
+          ],
+          "modes": [
+            "quickstart"
+          ]
+        }
       ],
       "classification_regression": [
-        { "id": "1.1.8", "name": "tabular_llm", "supports": ["explain_first", "feature_hints"], "modes": ["analysis_only"] },
-        { "id": "1.1.9", "name": "river_tabular", "supports": ["online_models"], "modes": ["streaming"] }
+        {
+          "id": "1.1.8",
+          "name": "tabular_llm",
+          "supports": [
+            "explain_first",
+            "feature_hints"
+          ],
+          "modes": [
+            "analysis_only"
+          ]
+        },
+        {
+          "id": "1.1.9",
+          "name": "river_tabular",
+          "supports": [
+            "online_models"
+          ],
+          "modes": [
+            "streaming"
+          ]
+        }
       ]
     },
-
     "aggregation": {
       "method": "stacked_ensemble",
       "weights": "log_odds_fusion",
       "coherence_check": "jsd",
-      "thresholds": { "alignment_jaccard": 0.40, "coherence_jsd": 0.70 }
+      "thresholds": {
+        "alignment_jaccard": 0.4,
+        "coherence_jsd": 0.7
+      }
     },
-
     "explainability": {
-      "timeseries": ["component_decomp", "holiday_effects", "feature_attribution_if_xreg"],
-      "tabular": ["permutation_importance", "partial_dependence"]
+      "timeseries": [
+        "component_decomp",
+        "holiday_effects",
+        "feature_attribution_if_xreg"
+      ],
+      "tabular": [
+        "permutation_importance",
+        "partial_dependence"
+      ]
     },
-
     "symbolic_hook": {
       "enabled": true,
       "extension_registry_ref": "predictive_divination_extension.json",
@@ -175,21 +452,56 @@
       "oracle_notes_schema": {
         "oracle_notes_v1": {
           "type": "object",
-          "required": ["scenario", "experimental", "sections"],
+          "required": [
+            "scenario",
+            "experimental",
+            "sections"
+          ],
           "properties": {
-            "scenario": { "enum": ["S1", "S1_mixed"] },
-            "experimental": { "type": "boolean", "default": true },
+            "scenario": {
+              "enum": [
+                "S1",
+                "S1_mixed"
+              ]
+            },
+            "experimental": {
+              "type": "boolean",
+              "default": true
+            },
             "sections": {
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["system", "alignment"],
+                "required": [
+                  "system",
+                  "alignment"
+                ],
                 "properties": {
-                  "system": { "type": "string" },
-                  "themes": { "type": "array", "items": { "type": "string" } },
-                  "alignment": { "type": "string", "enum": ["aligned", "partial", "none", "symbolic", "meta"] },
-                  "notes": { "type": "string" },
-                  "provenance": { "type": "object" }
+                  "system": {
+                    "type": "string"
+                  },
+                  "themes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "alignment": {
+                    "type": "string",
+                    "enum": [
+                      "aligned",
+                      "partial",
+                      "none",
+                      "symbolic",
+                      "meta"
+                    ]
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "provenance": {
+                    "type": "object"
+                  }
                 }
               }
             }
@@ -197,7 +509,6 @@
         }
       }
     },
-
     "performance": {
       "timeouts": {
         "per_model_train_sec": 20,

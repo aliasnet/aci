@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:ENtTpoqTHTYmSR",
+    "sha256": "af96b11323597ebb6c3d69a12506a6f7836e2c9e1ace2a6b2a8323ac00dbe78c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/hivemind/library/hivemind_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "hivemind",

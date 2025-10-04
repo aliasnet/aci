@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BxjXBAC2Af8nRM",
+    "sha256": "60db2f3c39becc1c36562fed8ebab886f73b527f93e4ea572b055eee363ae40a",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tva/tva.json"
+  },
   "version": "1.2.0",
   "tva": {
     "role": "reinforcement authority",

@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:71iGbeqNHwF945",
+    "sha256": "90613b988507a4f4b0545b25a5e69eb6be5688fe42712ffdc9d1a4dbc2fc8399",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/hivemind/memory/hivemind_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "hivemind",

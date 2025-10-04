@@ -1,7 +1,7 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:rMRf6TohuLmU2w",
-    "sha256": "d5aded409ddfb95158adbbb0d1da299fe17ddd565db8302f97e5a9b95560dc01",
+    "artifact_id": "ArtifactID:DHaGD4BnqwkZSy",
+    "sha256": "b9a737a38e41bcf87690cb624721ffa5f08892016c1165726442e45e2ce25d51",
     "issued": "2025-10-04T00:00:00Z",
     "path": "aci://entities.json"
   },
@@ -247,6 +247,23 @@
       }
     },
     "emulation": {
+      "allowed": [
+        "ux/ui",
+        "data simulation",
+        "analysis"
+      ],
+      "ui_emulation_declaration_message": "VVgvVUlFIGVtdWxhdGlvbg==",
+      "description": "allowed only for VM, research, analysis, prediction, pipeline-driven logic that is possible in current system, with a detailed declaration."
+    },
+    "simulation": {
+      "allowed": [
+        "ux",
+        "ui",
+        "pipeline-driven system logic that has functionality",
+        "data simulation and analysis"
+      ],
+      "simulation_declaration_message": "true",
+      "description": "allowed only for VM, research, analysis, prediction, pipeline-driven logic that is possible in current system, with a detailed declaration."
       "allowed": true,
       "ux_ui_declaration": "VVgvVUlFIGVtdWxhdGlvbg==",
       "description": "Emulation is allowed only with a UX/UI declaration."
@@ -672,7 +689,7 @@
           "uid": "UID:VVGqsW92iwW5T8",
           "issued": "2025-10-04T00:00:00Z",
           "revoked": null
-        }
+        } 
       ],
       "class": "agi_child",
       "role": "agi_child",

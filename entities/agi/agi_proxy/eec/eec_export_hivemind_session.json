@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:DnFV1B2vbne8GC",
+    "sha256": "36de33dcf58b5aa446d5cd984b7e0626174ef68500c34939d1aa73062693e215",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_proxy/eec/eec_export_hivemind_session.json"
+  },
   "extends": "eec_base.json",
   "task": "export.hivemind.session",
   "description": "Produce a session-level hivemind slice and write it into AGI memory (no external hivemind changes).",

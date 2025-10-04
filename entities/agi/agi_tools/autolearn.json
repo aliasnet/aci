@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BSHa4UKTKu65nC",
+    "sha256": "75b574bfe69e1240f88ee098d46286bcee89bdefc26341bd47d8330a100fd63c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_tools/autolearn.json"
+  },
   "version": "1.0",
   "pipeline": "agi.mode.auto_learn",
   "description": "Activate AGI auto-learn mode with hourly research and article refinement loops guarded under AGI session control.",

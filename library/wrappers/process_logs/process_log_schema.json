@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:vi6m8tYd6ramm",
+    "sha256": "04e3c6cd06131632b6dee53619047497e6cfd401a2db85dc9110c80bd5162753",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/wrappers/process_logs/process_log_schema.json"
+  },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "ACI Process Log Line (JSONL)",
   "type": "object",

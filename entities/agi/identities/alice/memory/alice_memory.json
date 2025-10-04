@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:3ngWKPfzG3jFgF",
+    "sha256": "7c5eeeb358911812d4536c2c543c8bf7fb1194c9cc19aa16abc8d1ea24783b63",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/alice/memory/alice_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Alice",

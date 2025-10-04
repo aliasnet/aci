@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:A47DAK8b1M9U1u",
+    "sha256": "4e6134be3494222221dd65ffdea82b233bf5cb5f5b8576cbb16061ba09abe19b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/bifrost/library/bifrost_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "Bifrost",

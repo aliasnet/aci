@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:2NsTpJZeZHdiwU",
+    "sha256": "c2a50388f19b7e481e9daffa6fce636dda1fb5cc2239da65e0198c98ced3fd4f",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/commerce_ai/modules/commerce_ai_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Commerce AI",

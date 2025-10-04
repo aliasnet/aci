@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BWgNvA3T9iB4tz",
+    "sha256": "3ec48405f47a000caa22c90baf37ecd05cccd102264b35c6a9969e1616924961",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/nexus_core/memory/nexus_core_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Nexus Core",

@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:2qJFRSKqbpFYtU",
+    "sha256": "51f5c5c324909f31511327b85107acf983f28f9a6b69a8884de8965d5f99cfd5",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/sentinel/memory/sentinel_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Sentinel",

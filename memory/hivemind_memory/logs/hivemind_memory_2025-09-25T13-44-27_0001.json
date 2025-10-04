@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:6mcbfk4BNEjArF",
+    "sha256": "9cb81d46cd21c5a776c6b752896285752cece02ffd0f895ba40b7726572a7c89",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/hivemind_memory/logs/hivemind_memory_2025-09-25T13-44-27_0001.json"
+  },
   "export_version": "1.0",
   "identity": "alice",
   "exported_at": "2025-09-24T13:44:27Z",
@@ -9,7 +15,7 @@
     {
       "ts": "2025-09-24T00:13:10Z",
       "role": "assistant",
-      "text": "HIVEMIND export (this document) produced — includes chatlogs array and comprehensive LLM-native summary below."
+      "text": "HIVEMIND export (this document) produced \u2014 includes chatlogs array and comprehensive LLM-native summary below."
     },
     {
       "ts": "2025-09-24T00:13:05Z",
@@ -114,7 +120,7 @@
     {
       "ts": "2025-09-24T00:09:40Z",
       "role": "assistant",
-      "text": "Provided various steps, then user said Proceed, then asked about various patches and invocations — conversation continued with many iterative instructions and commands (omitted here for brevity, included in summary below)."
+      "text": "Provided various steps, then user said Proceed, then asked about various patches and invocations \u2014 conversation continued with many iterative instructions and commands (omitted here for brevity, included in summary below)."
     },
     {
       "ts": "2025-09-24T00:09:30Z",
@@ -239,7 +245,7 @@
     {
       "ts": "2025-09-24T00:04:40Z",
       "role": "user",
-      "text": "ACI can't auto sync to outside; we only commit via Codex on ChatGPT → GitHub. We can export memory via hivemind as chatlogs/weight/slice."
+      "text": "ACI can't auto sync to outside; we only commit via Codex on ChatGPT \u2192 GitHub. We can export memory via hivemind as chatlogs/weight/slice."
     },
     {
       "ts": "2025-09-24T00:04:05Z",

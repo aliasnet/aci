@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:DBC68Q2LwrwWsm",
+    "sha256": "9d53ed20fc4699adfc9302839a99a90bbf27b0a1a9e90e9afea85ba41294cfde",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/memory/agi_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "AGI",

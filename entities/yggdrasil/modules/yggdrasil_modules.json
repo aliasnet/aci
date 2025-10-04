@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:32fgmsXRLiJezq",
+    "sha256": "27a2d32c2851ddf7ada4b026ba7bc4e5762417f0f8d76f97e5f2593b69838d25",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Yggdrasil",

@@ -1,12 +1,26 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9urXU2PpCTBy9p",
+    "sha256": "da789fd850413dfdcbd520562d38f0b04e3dbe564b0533739a47889c324afa87",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_proxy/agi_proxy.json"
+  },
   "entity": "AGI Proxy",
   "version": "1.0",
   "role": "ephemeral_executor",
   "abstract": "Runs JSON-defined learning/inference/eval jobs with strict TTL, sandboxing, and governance.",
   "governance": {
     "root_authority": "ALIAS",
-    "oversight": ["Sentinel", "TVA", "Architect", "Nexus Core"],
-    "guards": ["TVA.checkpoint", "Sentinel.audit"],
+    "oversight": [
+      "Sentinel",
+      "TVA",
+      "Architect",
+      "Nexus Core"
+    ],
+    "guards": [
+      "TVA.checkpoint",
+      "Sentinel.audit"
+    ],
     "risk_precheck": "Oracle.precheck",
     "dry_run_default": true,
     "network_policy": "whitelist"
@@ -27,7 +41,10 @@
         "trlx"
       ]
     },
-    "temp_paths": ["temp://adapters/", "temp://indices/"]
+    "temp_paths": [
+      "temp://adapters/",
+      "temp://indices/"
+    ]
   },
   "interfaces": {
     "execute": {
@@ -42,16 +59,30 @@
         "eval.arc_agi2"
       ],
       "parameters": "EEC JSON doc",
-      "returns": ["metrics", "artifacts_path", "logs_ref"]
+      "returns": [
+        "metrics",
+        "artifacts_path",
+        "logs_ref"
+      ]
     }
   },
   "memory_policy": {
-    "short_term": { "type": "scratch", "ttl_seconds": 3600 },
-    "long_term": { "type": "hivemind", "scope": "AGI:summary_only" }
+    "short_term": {
+      "type": "scratch",
+      "ttl_seconds": 3600
+    },
+    "long_term": {
+      "type": "hivemind",
+      "scope": "AGI:summary_only"
+    }
   },
   "artifacts": {
     "store": "temp",
     "retention": "7d",
-    "promotion_requires": ["TVA.ok", "Sentinel.ok", "Human.approval"]
+    "promotion_requires": [
+      "TVA.ok",
+      "Sentinel.ok",
+      "Human.approval"
+    ]
   }
 }

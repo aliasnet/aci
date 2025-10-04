@@ -1,9 +1,21 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8X8cfQxYi9GMjb",
+    "sha256": "2ea6eb81ed395a8ed801aa180a529068a72380b8c8645d4841c7f8bb645cf056",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_tools/migrate_to_jsonl/manifest.json"
+  },
   "tool": "agi.migrate_to_jsonl",
   "runner": "json-spec",
   "entrypoint": "entities/agi/agi_tools/migrate_to_jsonl/migrate_to_jsonl.json",
-  "accept_memory_ext": [".jsonl.json", ".jsonl", ".json"],
-  "deprecates": ["migrator.py"],
+  "accept_memory_ext": [
+    ".jsonl.json",
+    ".jsonl",
+    ".json"
+  ],
+  "deprecates": [
+    "migrator.py"
+  ],
   "removal": {
     "allowed": true,
     "on_or_after": "2025-10-01",

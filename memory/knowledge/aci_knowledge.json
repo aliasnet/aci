@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:CrvhirU1eftDY7",
+    "sha256": "de85ada6ef724b4a5c1d4dc7e59ae8812a642983fa93c8407b61fc1ee2dd58ff",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/knowledge/aci_knowledge.json"
+  },
   "version": "1.0.0",
   "generated": "2024-05-10",
   "description": "Index of knowledge assets maintained under memory/knowledge/",

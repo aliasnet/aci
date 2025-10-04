@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:6wEA2uGjo4NS7v",
+    "sha256": "f538705a1b9e4120645aba2662bf9abad4d3d4a88b19539923df41d96bdf39d1",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/commerce_ai/commerce_ai.json"
+  },
   "version": "BASELINE-2025-09-21",
   "entity": "Commerce AI",
   "role": "commerce_module",

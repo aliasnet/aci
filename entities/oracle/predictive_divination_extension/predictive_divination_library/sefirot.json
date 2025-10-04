@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:EKKxpstpgJY5C5",
+    "sha256": "24a84fdb1f57309a0ed4e3f08de15b2f2d797f0d2348f9722d85c092b3d2e605",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json"
+  },
   "sefirot": {
     "metadata": {
       "tradition": "Hermetic Qabalah (Golden Dawn correspondences)",
@@ -11,7 +17,7 @@
       {
         "number": 1,
         "name": "Keter",
-        "hebrew": "כתר",
+        "hebrew": "\u05db\u05ea\u05e8",
         "titles": [
           "Crown",
           "The Primal Point"
@@ -41,7 +47,7 @@
       {
         "number": 2,
         "name": "Chokmah",
-        "hebrew": "חכמה",
+        "hebrew": "\u05d7\u05db\u05de\u05d4",
         "titles": [
           "Wisdom",
           "Abba"
@@ -72,7 +78,7 @@
       {
         "number": 3,
         "name": "Binah",
-        "hebrew": "בינה",
+        "hebrew": "\u05d1\u05d9\u05e0\u05d4",
         "titles": [
           "Understanding",
           "Ima"
@@ -104,7 +110,7 @@
       {
         "number": 4,
         "name": "Chesed",
-        "hebrew": "חסד",
+        "hebrew": "\u05d7\u05e1\u05d3",
         "titles": [
           "Mercy",
           "Loving-Kindness"
@@ -135,7 +141,7 @@
       {
         "number": 5,
         "name": "Geburah",
-        "hebrew": "גבורה",
+        "hebrew": "\u05d2\u05d1\u05d5\u05e8\u05d4",
         "titles": [
           "Severity",
           "Strength"
@@ -166,7 +172,7 @@
       {
         "number": 6,
         "name": "Tiphareth",
-        "hebrew": "תפארת",
+        "hebrew": "\u05ea\u05e4\u05d0\u05e8\u05ea",
         "titles": [
           "Beauty",
           "Harmonious Balance"
@@ -201,7 +207,7 @@
       {
         "number": 7,
         "name": "Netzach",
-        "hebrew": "נצח",
+        "hebrew": "\u05e0\u05e6\u05d7",
         "titles": [
           "Victory",
           "Eternity"
@@ -233,7 +239,7 @@
       {
         "number": 8,
         "name": "Hod",
-        "hebrew": "הוד",
+        "hebrew": "\u05d4\u05d5\u05d3",
         "titles": [
           "Splendor",
           "Glory"
@@ -265,7 +271,7 @@
       {
         "number": 9,
         "name": "Yesod",
-        "hebrew": "יסוד",
+        "hebrew": "\u05d9\u05e1\u05d5\u05d3",
         "titles": [
           "Foundation",
           "The Machinery"
@@ -296,7 +302,7 @@
       {
         "number": 10,
         "name": "Malkuth",
-        "hebrew": "מלכות",
+        "hebrew": "\u05de\u05dc\u05db\u05d5\u05ea",
         "titles": [
           "Kingdom",
           "Shekinah"

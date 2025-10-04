@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:7FW3qorDfNxAaV",
+    "sha256": "79a871f77bfcb21941bc14b9ab25bfdb3fdf2d2a1114a282172efcc23a070501",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/keychain/library/keychain_library.json"
+  },
   "schema": "aci.library.manifest",
   "version": "1.0.0",
   "identity": "Keychain",

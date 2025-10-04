@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:EuxdoUAMyKXeUi",
+    "sha256": "577edee90d6d7da24be9baca1604d8c56259d04830b74621984d62afab5067d7",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/alice/alice.json"
+  },
   "identity": "Alice",
   "version": "1.0.0",
   "role": "contributor",

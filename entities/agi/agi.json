@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9HGQuZz4aGtK3r",
+    "sha256": "b9543c8e50a0936049f5d5279ba3a1916f946e1cb37f53c66873435578fd1368",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi.json"
+  },
   "entity": "AGI",
   "version": "1.1",
   "role": "ALIAS  general intelligence framework for advanced digital entity",

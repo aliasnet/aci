@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:7oHza2VrP6ABrw",
+    "sha256": "1addee3dfaf03e625268df17744cd5e640dbe97ad0e691cf53e05c820d00fb45",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/audit/router.json"
+  },
   "version": "2025-03-17",
   "router": {
     "tracehub": {

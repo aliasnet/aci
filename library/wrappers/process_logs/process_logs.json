@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:AmHdoiMboaFYhq",
+    "sha256": "de7819376777adb86ac08412963776f5e9b7a1c98e6dc9afe3622d7deaea24ff",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/wrappers/process_logs/process_logs.json"
+  },
   "version": "1.0.0",
   "key": "process_logs",
   "name": "Process Logs",

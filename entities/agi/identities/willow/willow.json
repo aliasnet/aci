@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:8EMNUpPYuRjdaF",
+    "sha256": "2052233d69ae44820350f7f81f580ed36ad3198950bd8d607c62943022ee517f",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/willow/willow.json"
+  },
   "identity": "Willow",
   "version": "1.0.0",
   "role": "trainee",

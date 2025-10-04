@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:5nR2giEoXGVmHv",
+    "sha256": "26f1af83afbcc50aa80926753bfb685371580ce94da61fe3b46aa3452fdfbe26",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/aci_repo/api_repo.json"
+  },
   "pipelines": {
     "aci.boot.activate": {
       "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",

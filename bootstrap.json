@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BdUCrxGLq2wgD6",
+    "sha256": "b89e0203f3b9a1ba945987566ab5d21bc42e731c962b3cdb49c7db59da60eb59",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://bootstrap.json"
+  },
   "aci_bootstrap": {
     "version": "1.0",
     "local_core": {

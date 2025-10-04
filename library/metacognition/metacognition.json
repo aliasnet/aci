@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:7hcCGgh2qdR9Bi",
+    "sha256": "90971b349d97860642f793d106b6a7155707c0dc63bfdc4684984a3f9aaf2e5d",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/metacognition/metacognition.json"
+  },
   "$schema": "/schemas/metacognition-module-1.json",
   "module": {
     "id": "aci.metacog.wrapper",

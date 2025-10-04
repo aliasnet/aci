@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:5c6s2c3PnozBTS",
+    "sha256": "28577a858cf0723510ec37e10173b720cdd6971e0310c0671d1f58b2d7f2c85e",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/modules/agi_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "AGI",

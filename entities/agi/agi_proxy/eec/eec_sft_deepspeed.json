@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9MmczKi7hcVBmg",
+    "sha256": "8a92cbe9c61cb0570ac7c0a11a18cec5edd93607c2bc1428b96a4dbbee9b521b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_proxy/eec/eec_sft_deepspeed.json"
+  },
   "extends": "eec_base.json",
   "task": "trainer.sft",
   "base_model": "meta-llama/Llama-3-8b-instruct",
@@ -10,10 +16,19 @@
     "num_train_epochs": 1
   },
   "deepspeed_config": {
-    "zero_optimization": { "stage": 2, "overlap_comm": true },
-    "bf16": { "enabled": true },
+    "zero_optimization": {
+      "stage": 2,
+      "overlap_comm": true
+    },
+    "bf16": {
+      "enabled": true
+    },
     "gradient_accumulation_steps": 8
   },
-  "output": { "adapter_path": "temp://adapters/l3-8b-sft" },
-  "sandbox_overrides": { "internet": false }
+  "output": {
+    "adapter_path": "temp://adapters/l3-8b-sft"
+  },
+  "sandbox_overrides": {
+    "internet": false
+  }
 }

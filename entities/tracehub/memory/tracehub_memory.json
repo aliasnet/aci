@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:9nHqJYqArMWAKR",
+    "sha256": "8e8406cbfdcd1d3a911dc19a62b36b9ea9ac3eb5ed77608ca9dfa5397bebacf2",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tracehub/memory/tracehub_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "TraceHub",

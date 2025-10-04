@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:By2rKgMsxyj3Ky",
+    "sha256": "d37885f4d1e6c6ad5ef29da3618585980c42a66f42687f1e00b2a1a0e6317e7c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/architect/memory/architect_memory.json"
+  },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Architect",

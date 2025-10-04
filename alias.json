@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:7a9TBnuMyXwUGV",
+    "sha256": "705827792169baceb955ba1b3711efaa8041590fc3aace34d202ab0b690d8501",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://alias.json"
+  },
   "alias_registry": {
     "id": 0,
     "key": "alias",

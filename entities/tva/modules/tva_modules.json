@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:A2nKaVhDuofgZs",
+    "sha256": "30cb9f006531d405bf645c7ac6785e58db598c1f465da88c4e90eae1dd84195c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tva/modules/tva_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "TVA",

@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:BZSpnASUsot89Y",
+    "sha256": "416037ae6c900faebde24598bce0a88d4491e34a2f28cc18ff781cd2f6d2037d",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/alice/modules/alice_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Alice",

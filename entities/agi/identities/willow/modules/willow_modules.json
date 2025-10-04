@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:Ey4PFBoR3gLax5",
+    "sha256": "60c6d082cc404e9ab3659e3b670d0f7eb0eaaf73008ae016336f5f50ba43dbfc",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/identities/willow/modules/willow_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Willow",

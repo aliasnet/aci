@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:2A6zvhGWNSX3aE",
+    "sha256": "fcd1c1d3ff8878a765a4dde7f68b59a2c49b064bb8133b484edd2a0c57e31de5",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/oracle/modules/oracle_modules.json"
+  },
   "schema": "aci.modules.manifest",
   "version": "1.0.0",
   "identity": "Oracle",

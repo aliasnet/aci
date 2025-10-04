@@ -1,4 +1,10 @@
 {
+  "$meta": {
+    "artifact_id": "ArtifactID:Cx2ZB33pe3S4cV",
+    "sha256": "7748fcba8335435606ace6b89122fbb7813c83d03d99c4835f77879c9763db1f",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/agi_tools/migrate_to_jsonl.json"
+  },
   "version": "1.0",
   "pipeline": "agi.memory.migrate_to_jsonl",
   "description": "Migrate legacy HiveMind exports into the policy-compliant AGI JSONL memory artifact, applying identity and governance checks.",
