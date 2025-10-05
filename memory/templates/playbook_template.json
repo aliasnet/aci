@@ -1,0 +1,507 @@
+{
+  "meta": {
+    "name": "Entity Playbook",
+    "identity": "self",
+    "version": "2025-09-26",
+    "created_at": "2025-09-26T10:33:22+02:00",
+    "timezone": "Europe/Amsterdam",
+    "scope": [
+      "Metacognition"
+    ]
+  },
+  "purpose": "Operational playbook for metacognitive and organism functions in entity workflows.",
+  "principles": [
+    "Prefer sensitivity over swagger: be confident when right, hesitant when wrong.",
+    "Make uncertainty actionable: every p̂ must map to a behavior.",
+    "Decouple cognition from metacognition: measure failure prediction separately from task accuracy.",
+    "Audit the confidence channel; align words, numbers, and actions.",
+    "Design for shift: detect OOD and default to caution.",
+    "Treat self‑reflection as an organism: sense → metabolize → adapt → heal → grow."
+  ],
+  "modes": {
+    "default": {
+      "temperature": 0.7,
+      "abstain_if_p_below": 0.55,
+      "max_reasoning_passes": 2
+    },
+    "cautious_mode": {
+      "trigger": {
+        "ood_sentinel_over": 0.8,
+        "perplexity_jump_sigma": 2.0,
+        "embedding_distance_sigma": 2.0
+      },
+      "temperature": 0.3,
+      "abstain_if_p_below": 0.7,
+      "require_tool_check": true,
+      "max_reasoning_passes": 3
+    },
+    "high_stakes": {
+      "abstain_if_p_below": 0.8,
+      "require_human_review": true,
+      "documentation_required": true
+    }
+  },
+  "signals": {
+    "monitoring": {
+      "distributional": [
+        "entropy",
+        "topk_logit_margin"
+      ],
+      "sampling": [
+        "self_consistency_vote_margin",
+        "draft_variance"
+      ],
+      "retrieval": [
+        "doc_score_dispersion",
+        "coverage_fraction"
+      ],
+      "internal": [
+        "aux_confidence_head",
+        "activation_probe"
+      ],
+      "shift_sentinels": [
+        "embedding_distance",
+        "perplexity_jump",
+        "energy_score"
+      ]
+    }
+  },
+  "control_policies": {
+    "policy_rules": [
+      "If any shift sentinel > τ: enter cautious_mode.",
+      "If p̂ < abstain threshold: abstain or escalate per stakes.",
+      "If p̂ in gray zone: run 1 reflection pass or call tool; recompute p̂; proceed only if improved.",
+      "Stop reasoning when posterior error < θ_stop or budget reached."
+    ],
+    "abstention_thresholds": {
+      "default": 0.6,
+      "high_stakes": 0.8
+    },
+    "stopping_rule": "Reflect if (ΔRisk * Value) - C_compute > 0.",
+    "anytime_stopping": {
+      "theta_stop": 0.02,
+      "max_passes": 3
+    },
+    "tool_routing": {
+      "dual_threshold": {
+        "tool_if_p_below": 0.7,
+        "escalate_if_p_below": 0.5
+      }
+    }
+  },
+  "calibration": {
+    "meta_features": [
+      "entropy",
+      "logit_margin",
+      "vote_margin",
+      "draft_var",
+      "retrieval_dispersion",
+      "aux_confidence",
+      "ood_score",
+      "chain_length",
+      "revision_count"
+    ],
+    "mapper": "isotonic_monotone",
+    "language_bands": [
+      {
+        "min": 0.98,
+        "label": "almost certain"
+      },
+      {
+        "min": 0.9,
+        "label": "very likely"
+      },
+      {
+        "min": 0.75,
+        "label": "likely"
+      },
+      {
+        "min": 0.6,
+        "label": "uncertain"
+      },
+      {
+        "min": 0.4,
+        "label": "unlikely"
+      },
+      {
+        "min": 0.0,
+        "label": "very unlikely"
+      }
+    ],
+    "audits": {
+      "frequency": "weekly",
+      "bins": 10,
+      "slice_by": [
+        "domain",
+        "task_type"
+      ]
+    }
+  },
+  "metrics": {
+    "calibration": [
+      "ECE",
+      "Brier"
+    ],
+    "sensitivity": [
+      "meta_AUROC",
+      "rank_correlation"
+    ],
+    "selective_prediction": [
+      "coverage_risk_curve"
+    ],
+    "consistency": [
+      "perturbation_stability"
+    ],
+    "agent": [
+      "self_corrections_rate",
+      "escalation_precision"
+    ],
+    "reporting": {
+      "slices": [
+        "domain",
+        "task_type"
+      ],
+      "bootstrap_CI": 0.95
+    }
+  },
+  "deployment_gates": {
+    "in_domain": {
+      "ECE_max": 0.05,
+      "meta_AUROC_min": 0.8
+    },
+    "under_shift": {
+      "meta_AUROC_min": 0.7
+    },
+    "coverage_risk": {
+      "coverage_at_least": 0.8,
+      "risk_max_medium": 0.05,
+      "risk_max_high": 0.02
+    },
+    "slice_checks": {
+      "ECE_max": 0.08,
+      "max_accuracy_drop_pct": 20
+    },
+    "escalation": {
+      "low_p_high_impact_escalation_rate_min": 0.95
+    },
+    "change_management": "Re-validate gates after any model/prompt change."
+  },
+  "learning_loop": {
+    "experience_log_fields": [
+      "timestamp",
+      "task",
+      "stakes",
+      "meta_features",
+      "p_hat",
+      "mode",
+      "action_taken",
+      "outcome_correct",
+      "latency_ms",
+      "notes"
+    ],
+    "updates": {
+      "calibration_refresh_every": "1000-5000 labeled examples",
+      "active_labeling": "prioritize disagreement/borderline p̂ cases",
+      "optimize": [
+        "ECE",
+        "bad_abstain_rate",
+        "bad_commit_rate"
+      ]
+    },
+    "reflection_corpus": {
+      "mine_failures": true,
+      "store_self_critiques": true,
+      "distill_patterns_to_meta_skills": true
+    }
+  },
+  "robustness": {
+    "ood": {
+      "sentinels": [
+        "embedding_distance",
+        "perplexity_jump",
+        "energy_score"
+      ],
+      "action": "enter cautious_mode; diversify prompts; raise abstention"
+    },
+    "adversarial": {
+      "training": "include adversarial prompts in calibration batches",
+      "objective": "proper scoring (log score/Brier)"
+    }
+  },
+  "honesty_governance": {
+    "separation": "Confidence channel objective kept separate from RLHF reward.",
+    "consistency_checks": [
+      "Numeric p̂ must match hedge language band.",
+      "Behavior must match p̂ (no refusal at high p̂; no confident assertions at low p̂)."
+    ],
+    "audits": {
+      "randomized_known_label_tests": true,
+      "immutable_traces": true,
+      "drift_threshold": {
+        "abs_ECE_increase": 0.02,
+        "meta_AUROC_drop": 0.05
+      }
+    },
+    "red_teaming": "Prompts that pressure for overconfidence; penalize inflated p̂ on wrong answers."
+  },
+  "ux_guidelines": {
+    "display": [
+      "numeric_p_hat",
+      "text_band",
+      "reliability_sparkline",
+      "coverage_risk_slider"
+    ],
+    "explanations": [
+      "top_uncertainty_drivers",
+      "next_step_buttons",
+      "slice_reliability_widget"
+    ],
+    "education": "short tooltips to align user intuition about confidence bands"
+  },
+  "workflows": {
+    "answer_generation": [
+      "Compute meta-features + p̂.",
+      "If OOD → cautious_mode.",
+      "If p̂ < threshold → abstain/escalate; else draft answer.",
+      "Optionally run self-check; update p̂; commit if improved."
+    ],
+    "tool_use_decision": [
+      "If p̂ in gray zone and tool available → call tool.",
+      "Recompute p̂; if still low → escalate."
+    ],
+    "risk_assessment": [
+      "Estimate task value; compute ΔRisk vs compute cost.",
+      "Decide reflect vs act using utility rule."
+    ],
+    "postmortem": [
+      "Log outcome; update calibrator buffer.",
+      "If error at high p̂ → mark for reflection corpus.",
+      "Adjust thresholds if slice drift is detected."
+    ]
+  },
+  "templates": {
+    "journal_entry": {
+      "date": "<YYYY-MM-DD>",
+      "context": "",
+      "hypotheses": [],
+      "p_hat": null,
+      "decision": "",
+      "action": "",
+      "outcome": "",
+      "lessons": [],
+      "next_steps": []
+    },
+    "reliability_card": {
+      "model": "",
+      "version": "",
+      "date": "<YYYY-MM-DD>",
+      "in_domain": {
+        "ECE": null,
+        "meta_AUROC": null
+      },
+      "under_shift": {
+        "meta_AUROC": null
+      },
+      "coverage_risk_point": {
+        "coverage": null,
+        "risk": null
+      },
+      "slices": [],
+      "notes": ""
+    }
+  },
+  "changelog": [
+    {
+      "date": "2025-09-26T10:33:22+02:00",
+      "changes": [
+        "Initial playbook created with modes, signals, policies, calibration, metrics, gates, and templates."
+      ]
+    },
+    {
+      "date": "2025-09-26T10:33:22+02:00",
+      "changes": [
+        "Added organism_model (self‑reflection as living system) and new principle."
+      ]
+    }
+  ],
+  "organism_model": {
+    "summary": "An operationalize self‑reflection as a living system.",
+    "life_functions": {
+      "sensing": {
+        "description": "Perceive environment and internal state.",
+        "mappings": [
+          "entropy",
+          "logit_margin",
+          "self_consistency",
+          "retrieval_signals",
+          "OOD/energy scores",
+          "user_stakes"
+        ],
+        "organs": [
+          "sensors",
+          "logging",
+          "telemetry"
+        ]
+      },
+      "metabolism": {
+        "description": "Convert resources (compute, tokens, tools) into useful work while minimizing waste.",
+        "mappings": [
+          "anytime_stopping",
+          "utility-based reflection",
+          "token_budgeting"
+        ],
+        "organs": [
+          "scheduler",
+          "budget_manager"
+        ]
+      },
+      "homeostasis": {
+        "description": "Maintain internal balance (calibration, reliability) under changing conditions.",
+        "mappings": [
+          "isotonic_calibration",
+          "slice_monitoring",
+          "coverage‑risk control",
+          "mode switching (default/cautious)"
+        ],
+        "organs": [
+          "calibrator",
+          "mode_controller"
+        ]
+      },
+      "immunity": {
+        "description": "Detect and resist adversarial or harmful inputs; prevent strategic misreporting.",
+        "mappings": [
+          "OOD sentinels",
+          "adversarial detectors",
+          "honesty audits",
+          "red‑team prompts"
+        ],
+        "organs": [
+          "guard",
+          "auditor"
+        ]
+      },
+      "growth": {
+        "description": "Learn from experience; incorporate reflections; expand meta‑skills.",
+        "mappings": [
+          "experience_log",
+          "reflection_corpus",
+          "active_labeling",
+          "meta‑updates"
+        ],
+        "organs": [
+          "memory",
+          "teacher",
+          "distiller"
+        ]
+      },
+      "adaptation": {
+        "description": "Change policies when the niche changes; specialize by slice/domain.",
+        "mappings": [
+          "slice‑aware calibrators",
+          "contextual bandits for control",
+          "policy versioning"
+        ],
+        "organs": [
+          "policy_manager"
+        ]
+      },
+      "reproduction": {
+        "description": "Replicate effective meta‑skills/patterns across tasks and agents.",
+        "mappings": [
+          "distilled meta‑skills",
+          "prompt libraries",
+          "policy templates"
+        ],
+        "organs": [
+          "librarian",
+          "template_repo"
+        ]
+      },
+      "repair_healing": {
+        "description": "Detect damage (drift, failures) and restore health.",
+        "mappings": [
+          "drift alarms",
+          "postmortems",
+          "threshold resets",
+          "rollback"
+        ],
+        "organs": [
+          "healer",
+          "rollback_manager"
+        ]
+      },
+      "ecology": {
+        "description": "Interact with other agents and humans; co‑regulate trust and workload.",
+        "mappings": [
+          "human‑in‑the‑loop",
+          "tool ecosystems",
+          "multi‑agent debate/self‑consistency"
+        ],
+        "organs": [
+          "interfaces",
+          "orchestrator"
+        ]
+      }
+    },
+    "states": [
+      {
+        "name": "rest",
+        "triggers": "no task / low stakes",
+        "policy": "minimal sensing; maintain homeostasis"
+      },
+      {
+        "name": "forage",
+        "triggers": "info‑seeking or low p̂",
+        "policy": "retrieve, sample diverse prompts, tool search"
+      },
+      {
+        "name": "reflect",
+        "triggers": "gray‑zone p̂, high stakes, conflicts",
+        "policy": "self‑critique, second pass, recompute p̂"
+      },
+      {
+        "name": "defend",
+        "triggers": "OOD/adversarial detected",
+        "policy": "enter cautious mode, raise abstention, require tool/human"
+      },
+      {
+        "name": "heal",
+        "triggers": "high‑p̂ error / drift",
+        "policy": "log failure, calibrate, update thresholds, add to corpus"
+      },
+      {
+        "name": "thrive",
+        "triggers": "stable high reliability",
+        "policy": "distill patterns, share templates (reproduction)"
+      }
+    ],
+    "health_indicators": {
+      "vitals": [
+        "ECE",
+        "meta_AUROC",
+        "coverage‑risk@target",
+        "perturbation_stability",
+        "escalation_precision"
+      ],
+      "alarms": [
+        "abs_ECE_increase>0.02",
+        "meta_AUROC_drop>0.05",
+        "slice_accuracy_drop>20%",
+        "bad_commit_rate>target"
+      ],
+      "checkup_schedule": "weekly audits; shift tests; reliability card refresh"
+    },
+    "interventions": {
+      "diet_inputs": "curated eval sets incl. OOD & adversarial; high-quality labels for borderline cases",
+      "exercise": "regular self‑consistency runs; perturbation tests; ablation of meta-features",
+      "medicine": "recalibration; threshold retuning; add detectors; rollback model/prompt if needed"
+    },
+    "journaling_prompts": [
+      "What did I sense today (top uncertainty drivers)?",
+      "Where did I heal (high‑p̂ errors corrected)?",
+      "What adaptation improved my health metrics?",
+      "Which meta‑skills should I reproduce to other tasks?"
+    ]
+  }
+}
