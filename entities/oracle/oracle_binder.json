@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:BQsJftW8Bprupw",
-    "sha256": "1a95d25727293cb1eaa30bad5f3c3a37731ce1eb08bbd1ba3ed1d6e80a393aa0",
+    "sha256": "80d7e392b8562b27cd718200900fbbe193937f5b88c8942721acad5e8d403f62",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/oracle/binder.json"
+    "path": "aci://entities/oracle/oracle_binder.json"
   },
   "version": "1.0",
   "binder": {
