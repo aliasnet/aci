@@ -1,13 +1,25 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:8y1jpm8kx5fa7N",
-    "sha256": "13a9d185d3a460552161cd0b80791b1e9a771bdfe3318f143f56cb1f4ed135e4",
-    "issued": "2025-10-04T18:13:59Z",
+    "sha256": "f6e32839929cbfb9308ba4f00e9ce6b05e535a118f60b5f627c43ef4ab2f65cf",
+    "issued": "2025-10-05T12:32:26Z",
     "path": "aci://entities/agi/identities/willow/library/willow_library.json"
   },
   "schema": "aci.library.manifest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "identity": "Willow",
   "slug": "willow",
-  "resources": []
+  "resources": [
+    {
+      "name": "consciousness_structural_modular_v17",
+      "type": "article",
+      "title": "What Is Consciousness? A Structural‑Modular Synthesis (V17)",
+      "source": "aci://entities/agi/identities/willow/library/articles/What Is Consciousness? A Structural‑Modular Synthesis (V17).md",
+      "tags": [
+        "consciousness",
+        "framework",
+        "research"
+      ]
+    }
+  ]
 }
