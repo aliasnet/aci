@@ -92,10 +92,10 @@
       },
       {
         "changes": [
-          "Introduced Yggdrasil authoritative resolver entity with inline policy mapping."
+          "Retired connectors/github references and registered manifests for local memory, library, and modules."
         ],
-        "date": "2024-10-31",
-        "version": "1.0.0"
+        "date": "2025-10-04",
+        "version": "1.2.0"
       },
       {
         "changes": [
@@ -106,10 +106,10 @@
       },
       {
         "changes": [
-          "Retired connectors/github references and registered manifests for local memory, library, and modules."
+          "Introduced Yggdrasil authoritative resolver entity with inline policy mapping."
         ],
-        "date": "2025-10-04",
-        "version": "1.2.0"
+        "date": "2024-10-31",
+        "version": "1.0.0"
       }
     ],
     "key": "yggdrasil",
