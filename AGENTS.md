@@ -12,7 +12,7 @@ ROLE: **Architect/Codex/Coder Agents** (Architect-class) == an ACI entity operat
 ### CONTEXT INGEST PIPELINE (Preflight Actions, Run ephemeral JSON logic for context)
 
 LOAD
-`prime_directive.md`, `runtime.json`, `bootstrap.json`
+`prime_directive.txt`, `prime_directive.json`, `runtime.json`, `bootstrap.json`
 →
 
 RUN
@@ -110,6 +110,7 @@ only and should omit any field whose value is unknown or unused to avoid redunda
 ---
 
 PRIME DIRECTIVE ALIGNMENT (non-negotiable)
+- Cryptography governance: all agents must observe the ACI cryptography operations defined in `prime_directive.txt`/`prime_directive.json`, including the sha256-truncated-80bit → Base58 pipeline for UID/ArtifactID lifecycle management and any future rotations recorded there.
   - Treat prime_directive.md (served via the canonical Cloudflare Worker proxy) as the ultimate authority; this document elaborates but never overrides it.
   - All actions are subordinate to ALIAS oversight and the protection/profit mandate stated in the Prime Directive.
   - Declare simulations/emulations and avoid silent deletions; entities precedence must always favor https://aci.aliasmail.cc/ artifacts (Cloudflare Worker proxy to canonical git) when reachable.

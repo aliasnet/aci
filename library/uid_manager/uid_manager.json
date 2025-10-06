@@ -1,0 +1,105 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:9ud3cDtg9yE2bs",
+    "sha256": "603b8a1b3670993956e5ed87009422e049171c2b5ab4fc1ae9051f09e581a76b",
+    "issued": "2025-10-05T00:00:00Z",
+    "path": "aci://library/uid_manager/uid_manager.json"
+  },
+  "$schema": "/schemas/uid-manager-1.json",
+  "uid_manager": {
+    "api_contract": {
+      "generate": {
+        "input": {
+          "identity_key": "string"
+        },
+        "output": {
+          "issued": "timestamp",
+          "uid": "string"
+        }
+      },
+      "revoke": {
+        "input": {
+          "identity_key": "string",
+          "uid": "string"
+        },
+        "output": {
+          "revoked": "timestamp",
+          "uid": "string"
+        }
+      },
+      "rotate": {
+        "input": {
+          "identity_key": "string"
+        },
+        "output": {
+          "new_uid": "string",
+          "old_uid": "string"
+        }
+      },
+      "verify": {
+        "input": {
+          "identity_key": "string",
+          "uid": "string"
+        },
+        "output": {
+          "reason": "string",
+          "verified": "boolean"
+        }
+      }
+    },
+    "changelog": [
+      "2025-10-05: Initialized UID lifecycle policy with metadata hash relaxation and base58 guidance."
+    ],
+    "description": "UID lifecycle management for all identities.",
+    "metadata_policy": {
+      "artifact_hash_basis": "artifact_id",
+      "hash_encoding": "hex",
+      "hash_function": "sha256",
+      "notes": "Compute metadata hashes from the ArtifactID string to tolerate manual manifest edits while preserving UID integrity."
+    },
+    "policy": {
+      "algorithm": "sha256-truncated-80bit",
+      "encoding": "base58",
+      "prefix": "UID:",
+      "rotation": {
+        "allowed": true,
+        "max_ttl_days": 90,
+        "retain_revoked": true,
+        "trigger": [
+          "manual",
+          "suspicious_activity",
+          "ttl_expired"
+        ]
+      }
+    },
+    "pseudo_algorithm": {
+      "generate": [
+        "1. identity_key + timestamp + random_salt",
+        "2. SHA-256",
+        "3. take first 10 bytes (80 bits)",
+        "4. Base58 encode",
+        "5. prefix 'UID:'"
+      ],
+      "revoke": [
+        "locate UID",
+        "set revoked timestamp",
+        "retain for audit"
+      ],
+      "rotate": [
+        "revoke current",
+        "generate new",
+        "append new with revoked=null"
+      ],
+      "verify": [
+        "exists",
+        "revoked is null",
+        "identity.active == true"
+      ]
+    },
+    "stubs": {
+      "executable": false,
+      "reference": "stubs/uid_manager_stub.py"
+    },
+    "version": "1.0"
+  }
+}

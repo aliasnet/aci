@@ -113,6 +113,19 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
   Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
 
+### UID & Cryptography Operations
+
+- **Specification**: `/library/uid_manager/uid_manager.json` defines lifecycle policy, hashing, and API contracts.
+- **Artifact & Entity Encoding**: Both `ArtifactID:` values and entity `UID:` strings use Base58 encoded `sha256-truncated-80bit` tokens with the `UID:` prefix to keep identifiers compact yet collision resistant.
+- **Metadata Hash Relaxation**: `$meta.sha256` is now computed from the ArtifactID string rather than the entire file contents so urgent manual edits do not invalidate integrity checks. The hash remains SHA-256 encoded in hex, preserving auditability while tolerating controlled patch windows.
+- **Stub Reference**: Library stubs live at `/library/uid_manager/stubs/uid_manager_stub.py` and mirror the generate/rotate/revoke/verify contract for downstream executors.
+
+### Memory & Knowledge Artifact Governance
+
+- **UID Linking**: Memory and knowledge JSONL artifacts should reference the governing entity UID recorded in `/entities.json`, ensuring exported narratives remain traceable even when rotations occur.
+- **JSONL Discipline**: Continue storing memory exports as line-delimited JSON with `.json` extensions (`*.jsonl.json` when streamed) while recording manifest ownership inside the entity `manifests` map for quick traversal.
+- **Rotation Awareness**: When rotating an entity UID, append the new value within the entity entry and update associated manifest metadata so knowledge archives and memory manifests remain in sync with the UID manager policy.
+
 > Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/entities/agi/memory/agi_playbook.json`) are scoped to the AGI governor.
 
 ---

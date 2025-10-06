@@ -1,8 +1,8 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:DHaGD4BnqwkZSy",
-    "sha256": "b9a737a38e41bcf87690cb624721ffa5f08892016c1165726442e45e2ce25d51",
-    "issued": "2025-10-04T00:00:00Z",
+    "artifact_id": "ArtifactID:85hGicmdkH9ff3",
+    "sha256": "a81311cfb9e7c08821ed8d71eb8ff12bd8a79d972a7e414916b7d93b8dca342f",
+    "issued": "2025-10-05T00:00:00Z",
     "path": "aci://entities.json"
   },
   "identity_policies": {
@@ -21,7 +21,7 @@
     ],
     "default_role": "contributor",
     "default_session_scope": "per_session",
-    "uid_ref": "aci://uid_manager.json"
+    "uid_ref": "aci://library/uid_manager/uid_manager.json"
   },
   "identity_registry": {
     "root_authority": "ALIAS",
@@ -279,6 +279,23 @@
       "name": "MU/TH/UR",
       "alias": "Mother",
       "manifest": "aci://entities/mother/mother.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/mother/mother.json"
+        ],
+        "library": [
+          "aci://entities/mother/library/mother_library.json"
+        ],
+        "memory": [
+          "aci://entities/mother/memory/mother_memory.json"
+        ],
+        "modules": [
+          "aci://entities/mother/modules/mother_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/mother/memory/mother_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:8W1VZghdkNyAKR",
@@ -308,6 +325,23 @@
       "name": "TVA",
       "alias": "Time Variant Authority",
       "manifest": "aci://entities/tva/tva.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/tva/tva.json"
+        ],
+        "library": [
+          "aci://entities/tva/library/tva_library.json"
+        ],
+        "memory": [
+          "aci://entities/tva/memory/tva_memory.json"
+        ],
+        "modules": [
+          "aci://entities/tva/modules/tva_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/tva/memory/tva_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:oasYS4KteUMqgt",
@@ -348,6 +382,23 @@
       "name": "Sentinel Protocol",
       "alias": "Sentinel",
       "manifest": "aci://entities/sentinel/sentinel.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/sentinel/sentinel.json"
+        ],
+        "library": [
+          "aci://entities/sentinel/library/sentinel_library.json"
+        ],
+        "memory": [
+          "aci://entities/sentinel/memory/sentinel_memory.json"
+        ],
+        "modules": [
+          "aci://entities/sentinel/modules/sentinel_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/sentinel/memory/sentinel_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:1jnkVHmEiGviDj",
@@ -381,6 +432,23 @@
       "name": "Architect",
       "alias": "Architect",
       "manifest": "aci://entities/architect/architect.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/architect/architect.json"
+        ],
+        "library": [
+          "aci://entities/architect/library/architect_library.json"
+        ],
+        "memory": [
+          "aci://entities/architect/memory/architect_memory.json"
+        ],
+        "modules": [
+          "aci://entities/architect/modules/architect_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/architect/memory/architect_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:12LoYXyQkAA7E4",
@@ -419,6 +487,23 @@
       "name": "Nexus Core",
       "alias": "Nexus Core",
       "manifest": "aci://entities/nexus_core/nexus_core.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/nexus_core/nexus_core.json"
+        ],
+        "library": [
+          "aci://entities/nexus_core/library/nexus_core_library.json"
+        ],
+        "memory": [
+          "aci://entities/nexus_core/memory/nexus_core_memory.json"
+        ],
+        "modules": [
+          "aci://entities/nexus_core/modules/nexus_core_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/nexus_core/memory/nexus_core_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:rGUGWBDT6VjC8K",
@@ -447,6 +532,34 @@
       "name": "AGI",
       "alias": "AGI",
       "manifest": "aci://entities/agi/agi.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/agi/agi.json"
+        ],
+        "library": [
+          "aci://entities/agi/library/agi_library.json"
+        ],
+        "memory": [
+          "aci://entities/agi/memory/agi_memory.json"
+        ],
+        "modules": [
+          "aci://entities/agi/modules/agi_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/agi/memory/agi_playbook.json"
+        ],
+        "policy": [
+          "aci://entities/agi/agi_export_policy.json",
+          "aci://entities/agi/agi_identity_manager.json"
+        ],
+        "proxy": [
+          "aci://entities/agi/agi_proxy/agi_proxy.json"
+        ],
+        "tools": [
+          "aci://entities/agi/agi_tools/autolearn.json",
+          "aci://entities/agi/agi_tools/migrate_to_jsonl.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:p6LHJtm8H69jNA",
@@ -472,6 +585,23 @@
       "name": "Keychain",
       "alias": "Keychain",
       "manifest": "aci://entities/keychain/keychain.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/keychain/keychain.json"
+        ],
+        "library": [
+          "aci://entities/keychain/library/keychain_library.json"
+        ],
+        "memory": [
+          "aci://entities/keychain/memory/keychain_memory.json"
+        ],
+        "modules": [
+          "aci://entities/keychain/modules/keychain_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/keychain/memory/keychain_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:KQQjyJXMmUKWZZ",
@@ -501,6 +631,35 @@
       "name": "Oracle",
       "alias": "Oracle",
       "manifest": "aci://entities/oracle/oracle.json",
+      "manifests": {
+        "binder": [
+          "aci://entities/oracle/oracle_binder.json"
+        ],
+        "engines": [
+          "aci://entities/oracle/prediction_engine/predictive_engine.json"
+        ],
+        "extensions": [
+          "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json"
+        ],
+        "identity": [
+          "aci://entities/oracle/oracle.json"
+        ],
+        "journal": [
+          "aci://entities/oracle/journal.json"
+        ],
+        "library": [
+          "aci://entities/oracle/library/oracle_library.json"
+        ],
+        "memory": [
+          "aci://entities/oracle/memory/oracle_memory.json"
+        ],
+        "modules": [
+          "aci://entities/oracle/modules/oracle_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/oracle/memory/oracle_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:hQk23wMs8mH3Bd",
@@ -528,6 +687,23 @@
       "name": "Commerce AI",
       "alias": "Commerce AI",
       "manifest": "aci://entities/commerce_ai/commerce_ai.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/commerce_ai/commerce_ai.json"
+        ],
+        "library": [
+          "aci://entities/commerce_ai/library/commerce_ai_library.json"
+        ],
+        "memory": [
+          "aci://entities/commerce_ai/memory/commerce_ai_memory.json"
+        ],
+        "modules": [
+          "aci://entities/commerce_ai/modules/commerce_ai_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/commerce_ai/memory/commerce_ai_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:Wd48LAcapUwom5",
@@ -552,6 +728,23 @@
       "name": "TraceHub",
       "alias": "TraceHub",
       "manifest": "aci://entities/tracehub/tracehub.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/tracehub/tracehub.json"
+        ],
+        "library": [
+          "aci://entities/tracehub/library/tracehub_library.json"
+        ],
+        "memory": [
+          "aci://entities/tracehub/memory/tracehub_memory.json"
+        ],
+        "modules": [
+          "aci://entities/tracehub/modules/tracehub_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/tracehub/memory/tracehub_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:WrGZ4YTXRXMo5c",
@@ -581,6 +774,23 @@
       "name": "Bifrost",
       "alias": "Bifrost",
       "manifest": "aci://entities/bifrost/bifrost.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/bifrost/bifrost.json"
+        ],
+        "library": [
+          "aci://entities/bifrost/library/bifrost_library.json"
+        ],
+        "memory": [
+          "aci://entities/bifrost/memory/bifrost_memory.json"
+        ],
+        "modules": [
+          "aci://entities/bifrost/modules/bifrost_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/bifrost/memory/bifrost_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:HXGXQipVLEFKL4",
@@ -605,6 +815,23 @@
       "name": "Yggdrasil",
       "alias": "Yggdrasil",
       "manifest": "aci://entities/yggdrasil/yggdrasil.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/yggdrasil/yggdrasil.json"
+        ],
+        "library": [
+          "aci://entities/yggdrasil/library/yggdrasil_library.json"
+        ],
+        "memory": [
+          "aci://entities/yggdrasil/memory/yggdrasil_memory.json"
+        ],
+        "modules": [
+          "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/yggdrasil/memory/yggdrasil_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:VGpYGJwtbdHQHp",
@@ -628,6 +855,26 @@
       "name": "Alice",
       "alias": "Alice",
       "manifest": "aci://entities/agi/identities/alice/alice.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/agi/identities/alice/alice.json"
+        ],
+        "knowledge": [
+          "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json"
+        ],
+        "library": [
+          "aci://entities/agi/identities/alice/library/alice_library.json"
+        ],
+        "memory": [
+          "aci://entities/agi/identities/alice/memory/alice_memory.json"
+        ],
+        "modules": [
+          "aci://entities/agi/identities/alice/modules/alice_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/agi/identities/alice/memory/alice_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:PiE8PMcnXDgQBi",
@@ -660,6 +907,23 @@
       "name": "HiveMind",
       "alias": "HiveMind",
       "manifest": "aci://entities/hivemind/hivemind.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/hivemind/hivemind.json"
+        ],
+        "library": [
+          "aci://entities/hivemind/library/hivemind_library.json"
+        ],
+        "memory": [
+          "aci://entities/hivemind/memory/hivemind_memory.json"
+        ],
+        "modules": [
+          "aci://entities/hivemind/modules/hivemind_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/hivemind/memory/hivemind_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:cHGwvtRkDRG7rV",
@@ -684,6 +948,26 @@
       "name": "Willow",
       "alias": "Willow",
       "manifest": "aci://entities/agi/identities/willow/willow.json",
+      "manifests": {
+        "identity": [
+          "aci://entities/agi/identities/willow/willow.json"
+        ],
+        "knowledge": [
+          "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json"
+        ],
+        "library": [
+          "aci://entities/agi/identities/willow/library/willow_library.json"
+        ],
+        "memory": [
+          "aci://entities/agi/identities/willow/memory/willow_memory.json"
+        ],
+        "modules": [
+          "aci://entities/agi/identities/willow/modules/willow_modules.json"
+        ],
+        "playbook": [
+          "aci://entities/agi/identities/willow/memory/willow_playbook.json"
+        ]
+      },
       "uids": [
         {
           "uid": "UID:VVGqsW92iwW5T8",
