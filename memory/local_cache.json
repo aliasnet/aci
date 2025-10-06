@@ -18,8 +18,8 @@
       "alias": {
         "name": "aci://cache",
         "default_path": "/mnt/data",
-        "path_template": "{alias_root}/{resource_slug}",
-        "notes": "Ephemeral cache root used when no environment override is set. Agents should treat this as a temporary write location without persistence guarantees."
+        "path_template": "{alias_root}/aci",
+        "notes": "Ephemeral cache root used when no environment override is set. Resolves to /mnt/data/aci for this repository and should be treated as a temporary write location without persistence guarantees."
       },
       "resolution_order": [
         "environment_variable",
@@ -28,7 +28,7 @@
       "template_tokens": {
         "cache_alias": "aci://cache",
         "alias_root": "Absolute path resolved for the aci://cache alias (default /mnt/data).",
-        "resource_root": "Resolved absolute path derived from the environment override or the aci://cache alias default (/mnt/data) with repo scoping appended.",
+        "resource_root": "Resolved absolute path derived from the environment override or the aci://cache alias default (/mnt/data) with the aci repository root appended (/mnt/data/aci).",
         "resource_slug": "Repository slug used for local resource caching (aliasnet/aci)."
       }
     },
