@@ -7,10 +7,26 @@
   },
   "nexus_core": {
     "schema_version": "1.0",
-    "version": "1.4",
+    "version": "1.6",
     "entity": "Nexus Core",
-    "role": "system heart: routing, resolution, and fallback",
+    "role": "system heart: routing, resolution, and fallback; secondary kernel companion",
     "abstract": "The routing nexus of ACI. Holds runtime anchors and routing policy. Do not delete anything unless explicitly requested.",
+    "kernel_profile": {
+      "type": "secondary",
+      "peer_kernel": "aci_runtime",
+      "coordination": [
+        "Respect runtime.json as the primary kernel; attach only after runtime pipelines stabilize.",
+        "Mirror runtime local-first resolver order while remaining hot-swappable.",
+        "Yield control gracefully if runtime operates in standalone mode."
+      ],
+      "standalone_behavior": "If runtime.json operates without nexus_core, retain cached policies but defer to runtime kernel instructions when reattached.",
+      "handoff_protocol": [
+        "Wait for runtime kernel acknowledgment before applying resolver augmentations.",
+        "Share observed resolver freshness metadata back to runtime when attached.",
+        "Detach cleanly when runtime enters sandbox or degraded standalone operation."
+      ],
+      "primary_kernel": "aci_runtime"
+    },
     "anchors": {
       "runtime": "runtime.json",
       "prime_directive": "prime_directive.md",
@@ -38,7 +54,58 @@
       "canonical_mirrors": [
         "https://aci.aliasmail.cc/"
       ],
-      "notes": "All external resolution flows through Bifrost proxy; Yggdrasil remains authoritative before any local fallback."
+      "notes": "All external resolution flows through Bifrost proxy; Yggdrasil remains authoritative before any local fallback.",
+      "resolver_bias": {
+        "enabled": true,
+        "bias": "local_first",
+        "search_order": [
+          "local_bifrost",
+          "remote_bifrost_primary",
+          "remote_bifrost_fallback",
+          "local_yggdrasil",
+          "remote_yggdrasil_primary",
+          "remote_yggdrasil_fallback"
+        ],
+        "resolvers": {
+          "local_bifrost": {
+            "type": "local",
+            "path": "entities/bifrost/bifrost.json",
+            "deterministic_refresh_check": true,
+            "version_probe": "aci://entities/bifrost/bifrost.json#$meta.sha256"
+          },
+          "remote_bifrost_primary": {
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
+            "deterministic_refresh_check": true
+          },
+          "remote_bifrost_fallback": {
+            "type": "remote",
+            "url": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json",
+            "deterministic_refresh_check": true
+          },
+          "local_yggdrasil": {
+            "type": "local",
+            "path": "entities/yggdrasil/yggdrasil.json",
+            "deterministic_refresh_check": true,
+            "version_probe": "aci://entities/yggdrasil/yggdrasil.json#$meta.sha256"
+          },
+          "remote_yggdrasil_primary": {
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
+            "deterministic_refresh_check": true
+          },
+          "remote_yggdrasil_fallback": {
+            "type": "remote",
+            "url": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json",
+            "deterministic_refresh_check": true
+          }
+        },
+        "on_missing_local": {
+          "action": "prompt_user_backup",
+          "instruction": "Maintain a lightweight local bifrost.json so nexus_core can align with runtime during bootstrap."
+        },
+        "pointer": "aci://runtime.json#/aci_runtime/resource_resolution_policy/local_first_resolution"
+      }
     },
     "linkages": {
       "aci_repo": "entities/aci_repo/aci_repo.json"
@@ -73,7 +140,23 @@
       "TVA",
       "Architect"
     ],
-    "checksum_note": "Nexus Core is the canonical runtime spine. Lookup integrations remain modular and separate from Core."
+    "checksum_note": "Nexus Core is the canonical runtime spine. Lookup integrations remain modular and separate from Core.",
+    "changelog": [
+      {
+        "version": "1.6",
+        "date": "2025-10-07",
+        "changes": [
+          "Aligned dual-kernel handoff with runtime.json and mirrored explicit local-first resolver bias with deterministic freshness checks."
+        ]
+      },
+      {
+        "version": "1.5",
+        "date": "2025-10-06",
+        "changes": [
+          "Documented secondary-kernel coordination with runtime.json and enabled local-first resolver bias guidance."
+        ]
+      }
+    ]
   },
   "manifests": {
     "memory": "aci://entities/nexus_core/memory/nexus_core_memory.json",
