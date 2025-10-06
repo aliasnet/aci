@@ -13,7 +13,8 @@
       "environment_variable": {
         "name": "ACI_LOCAL_MIRROR_ROOT",
         "required": false,
-        "notes": "When set, ${ACI_LOCAL_MIRROR_ROOT}/aliasnet/aci is treated as the root directory for synchronized local resource mirrors."
+        "notes": "When set, treat the value as the sandbox mount root (for example /mnt/data). The resolved mirror root becomes {env_root}/aci so cached artifacts land beside the audit runner.",
+        "path_template": "{env_root}/aci"
       },
       "alias": {
         "name": "aci://cache",
@@ -28,8 +29,9 @@
       "template_tokens": {
         "cache_alias": "aci://cache",
         "alias_root": "Absolute path resolved for the aci://cache alias (default /mnt/data).",
-        "resource_root": "Resolved absolute path derived from the environment override or the aci://cache alias default (/mnt/data) with the aci repository root appended (/mnt/data/aci).",
-        "resource_slug": "Repository slug used for local resource caching (aliasnet/aci)."
+        "resource_root": "Resolved absolute path derived from the environment override or the aci://cache alias default, always normalized to <sandbox>/aci (e.g., /mnt/data/aci).",
+        "resource_slug": "Repository slug used for local resource caching (aliasnet/aci).",
+        "env_root": "Absolute path resolved from the ACI_LOCAL_MIRROR_ROOT environment variable."
       }
     },
     "rules": {

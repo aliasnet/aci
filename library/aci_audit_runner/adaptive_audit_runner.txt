@@ -14,17 +14,48 @@ from __future__ import annotations
 import argparse, contextlib, datetime as _dt, json, os, random, re, threading, time, uuid
 from typing import Any, Dict, List, Optional, Tuple
 
+ACI_ROOT = "/mnt/data/aci"
 CANONICAL = "https://raw.githubusercontent.com/aliasnet/aci/main"
 CDN_FALLBACK = "https://aci.aliasmail.cc"
-LOCAL_ROOT = "/mnt/data/aci/local"
-STATE_DIR = "/mnt/data/aci/state"
-AUDIT_DIR = "/mnt/data/aci/audit/tmp"
-LOG_DIR = "/mnt/data/aci/logs"
-CONFIG_DIR = "/mnt/data/aci/config"
-SPEC_PATH = f"{CONFIG_DIR}/aci_runner_spec.json"
-for d in (STATE_DIR, AUDIT_DIR, LOG_DIR, LOCAL_ROOT, CONFIG_DIR):
-    os.makedirs(d, exist_ok=True)
+LOCAL_ROOT = os.path.join(ACI_ROOT, "local")
+STATE_DIR = os.path.join(ACI_ROOT, "state")
+AUDIT_DIR = os.path.join(ACI_ROOT, "audit", "tmp")
+LOG_DIR = os.path.join(ACI_ROOT, "logs")
+CONFIG_DIR = os.path.join(ACI_ROOT, "config")
+LIB_DIR = os.path.join(ACI_ROOT, "library", "aci_runner")
+SPEC_PATH = os.path.join(CONFIG_DIR, "aci_runner_spec.json")
 COMM_MODES = {"silent", "audit-only", "notify-on-error", "verbose"}
+
+def ensure_safe_path(path: str) -> str:
+    root = os.path.realpath(ACI_ROOT)
+    real = os.path.realpath(path)
+    if real != root and not real.startswith(root + os.sep):
+        raise ValueError(f"unsafe path outside {ACI_ROOT}: {path}")
+    return real
+
+def safe_makedirs(*paths: str) -> None:
+    for p in paths:
+        os.makedirs(ensure_safe_path(p), exist_ok=True)
+
+safe_makedirs(
+    ACI_ROOT,
+    LIB_DIR,
+    STATE_DIR,
+    AUDIT_DIR,
+    LOG_DIR,
+    LOCAL_ROOT,
+    CONFIG_DIR,
+)
+
+def timestamp_slug(ts: Optional[str] = None) -> str:
+    ref = (ts or now_utc()).replace(':', '').replace('-', '')
+    return ref
+
+def sanitize_relpath(relpath: str) -> str:
+    normalized = os.path.normpath(relpath).lstrip(os.sep)
+    if normalized.startswith('..') or os.path.isabs(relpath):
+        raise ValueError(f"illegal relpath: {relpath}")
+    return normalized
 
 with contextlib.suppress(Exception):
     import requests  # type: ignore
@@ -60,15 +91,18 @@ def sha256(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 def atomic_write(path: str, data: bytes) -> None:
-    tmp = f"{path}.tmp-{uuid.uuid4().hex}"
-    with open(tmp, "wb") as f: f.write(data)
-    os.replace(tmp, path)
+    safe_path = ensure_safe_path(path)
+    tmp = f"{safe_path}.tmp-{uuid.uuid4().hex}"
+    with open(tmp, "wb") as f:
+        f.write(data)
+    os.replace(tmp, safe_path)
 
 def log_line(msg: str, *, lf: Optional[str] = None, comm_mode: str = "silent", level: str = "INFO") -> None:
     ts = now_utc()
     line = f"[{ts}] {level} {msg}\n"
-    log_name = lf or os.path.join(LOG_DIR, _dt.datetime.utcnow().strftime("aci-%Y%m%d.log"))
-    with open(log_name, "a", encoding="utf-8") as f: f.write(line)
+    log_name = ensure_safe_path(lf or os.path.join(LOG_DIR, _dt.datetime.utcnow().strftime("aci-%Y%m%d.log")))
+    with open(log_name, "a", encoding="utf-8") as f:
+        f.write(line)
     if comm_mode == "verbose":
         print(line, end="")
 
@@ -109,7 +143,10 @@ SPEC_DEFAULT = {
 
 class Resolver:
     def __init__(self, primary: str, fallback: str, local_root: str, order: List[str]):
-        self.primary, self.fallback, self.local_root, self.order = primary, fallback, local_root, order
+        self.primary = primary
+        self.fallback = fallback
+        self.local_root = ensure_safe_path(local_root)
+        self.order = list(order)
         self.session = None
         with contextlib.suppress(Exception):
             import requests as _r
@@ -118,18 +155,27 @@ class Resolver:
         if self.session is None: raise RuntimeError("network disabled; cannot fetch remote URL")
         r = self.session.get(url, timeout=12); r.raise_for_status(); return r.content
     def _fetch_local(self, relpath: str) -> bytes:
-        path = os.path.join(self.local_root, relpath)
-        with open(path, "rb") as f: return f.read()
+        clean = sanitize_relpath(relpath)
+        path = ensure_safe_path(os.path.join(self.local_root, clean))
+        with open(path, "rb") as f:
+            return f.read()
     def fetch(self, relpath: str) -> Tuple[bytes, str, str]:
+        clean = sanitize_relpath(relpath)
         last_err=None
         for src in self.order:
             try:
-                if src=="primary": url=f"{self.primary}/{relpath}"; return self._fetch_http(url), src, url
-                elif src=="fallback": url=f"{self.fallback}/{relpath}"; return self._fetch_http(url), src, url
-                else: data=self._fetch_local(relpath); return data, "local", f"file://{self.local_root}/{relpath}"
+                if src=="primary":
+                    url=f"{self.primary}/{clean}"
+                    return self._fetch_http(url), src, url
+                elif src=="fallback":
+                    url=f"{self.fallback}/{clean}"
+                    return self._fetch_http(url), src, url
+                else:
+                    data=self._fetch_local(clean)
+                    return data, "local", f"file://{self.local_root}/{clean}"
             except Exception as e:
                 last_err=e; continue
-        raise RuntimeError(f"All resolvers failed for {relpath}: {last_err}")
+        raise RuntimeError(f"All resolvers failed for {clean}: {last_err}")
 
 class Ring:
     def __init__(self, cap:int=64): self.buf:List[Dict[str,Any]]=[]; self.cap=cap; self.lock=threading.RLock()
@@ -155,19 +201,34 @@ class ACIState:
 ACI_MEMORY=ACIState()
 
 def write_state_snapshot(filename:str="active.json")->str:
-    snap=ACI_MEMORY.snapshot(); data=json.dumps(snap,indent=2,ensure_ascii=False).encode("utf-8")
-    path=os.path.join(STATE_DIR,filename); atomic_write(path,data); return path
+    snap=ACI_MEMORY.snapshot()
+    data=json.dumps(snap,indent=2,ensure_ascii=False).encode("utf-8")
+    active_path=os.path.join(STATE_DIR,filename)
+    atomic_write(active_path,data)
+    rotated=os.path.join(STATE_DIR,f"state-{timestamp_slug()}.json")
+    atomic_write(rotated,data)
+    return active_path
 
 def write_audit(task:str,status:str,details:Dict[str,Any])->str:
     rec={"job_id":uuid.uuid4().hex,"task":task,"status":status,"ts":now_utc(),"details":details}
     data=json.dumps(rec,indent=2,ensure_ascii=False).encode("utf-8")
-    name=f"audit_{rec['job_id']}.json"; atomic_write(os.path.join(AUDIT_DIR,name),data); return name
+    slug=timestamp_slug(rec["ts"])
+    candidate=f"audit-{slug}.json"
+    path=os.path.join(AUDIT_DIR,candidate)
+    if os.path.exists(ensure_safe_path(path)):
+        candidate=f"audit-{slug}-{rec['job_id'][:8]}.json"
+        path=os.path.join(AUDIT_DIR,candidate)
+    atomic_write(path,data)
+    return candidate
 
 def load_spec()->Dict[str,Any]:
     try:
-        with open(SPEC_PATH,"rb") as f: return _relaxed_json_bytes_to_obj(f.read())
+        with open(ensure_safe_path(SPEC_PATH),"rb") as f:
+            return _relaxed_json_bytes_to_obj(f.read())
     except Exception:
-        data=json.dumps(SPEC_DEFAULT,indent=2,ensure_ascii=False).encode("utf-8"); atomic_write(SPEC_PATH,data); return SPEC_DEFAULT
+        data=json.dumps(SPEC_DEFAULT,indent=2,ensure_ascii=False).encode("utf-8")
+        atomic_write(SPEC_PATH,data)
+        return SPEC_DEFAULT
 
 def ingest_once(spec:Dict[str,Any])->Dict[str,Any]:
     res_cfg=spec["resources"]; order=spec.get("resolvers",{}).get("order",["primary","fallback","local"])
@@ -257,20 +318,51 @@ def build_argparser()->argparse.ArgumentParser:
     p.add_argument("--jitter",type=float,default=None,help="Random jitter added to interval")
     p.add_argument("--comm",choices=list(COMM_MODES),default=None,help="Communication mode")
     p.add_argument("--silent",action="store_true",help="Alias for --comm silent")
+    p.add_argument("--max-cycles",type=int,default=None,help="Maximum number of pull cycles before exiting (>=1)")
+    p.add_argument("--burst-deadline",type=float,default=1800.0,help="Upper bound in seconds for a pull burst before exit")
     return p
 
 def main(argv:Optional[List[str]]=None)->int:
     args=build_argparser().parse_args(argv)
-    spec=load_spec(); comm_mode = "silent" if args.silent else (args.comm or spec.get("comm_mode","silent"))
-    interval = args.interval or float(spec.get("interval",300)); jitter = args.jitter or float(spec.get("jitter",5))
-    if args.mode=="once": cycle_once(comm_mode=comm_mode); return 0
+    spec=load_spec()
+    comm_mode = "silent" if args.silent else (args.comm or spec.get("comm_mode","silent"))
+    interval = args.interval or float(spec.get("interval",300))
+    jitter = args.jitter or float(spec.get("jitter",5))
+    max_cycles = args.max_cycles
+    if max_cycles is not None and max_cycles < 1:
+        raise ValueError("--max-cycles must be >= 1")
+    deadline = float(args.burst_deadline) if args.burst_deadline is not None else 1800.0
+    deadline_cap = float('inf') if deadline <= 0 else deadline
+    if args.mode=="once":
+        cycle_once(comm_mode=comm_mode)
+        return 0
     backoff=1.0
+    cycles=0
+    start=time.time()
     while True:
         out=cycle_once(comm_mode=comm_mode); status=out.get("status")
-        if status=="OK": backoff=1.0; delay=interval+random.uniform(0,jitter)
-        elif status=="WARN": backoff=min(60.0,backoff*2); delay=max(interval/2,backoff)
-        else: backoff=min(120.0,backoff*2); delay=backoff
-        time.sleep(max(0.1,delay))
+        cycles+=1
+        if status=="OK":
+            backoff=1.0
+            delay=interval+random.uniform(0,jitter)
+        elif status=="WARN":
+            backoff=min(60.0,backoff*2)
+            delay=max(interval/2,backoff)
+        else:
+            backoff=min(120.0,backoff*2)
+            delay=backoff
+        if max_cycles is not None and cycles >= max_cycles:
+            break
+        elapsed=time.time()-start
+        if elapsed >= deadline_cap:
+            break
+        sleep_for=max(0.1,delay)
+        if deadline_cap != float('inf'):
+            sleep_for=min(sleep_for,max(0.1,deadline_cap-elapsed))
+        time.sleep(sleep_for)
+        if deadline_cap != float('inf') and (time.time()-start) >= deadline_cap:
+            break
+    return 0
 
 if __name__=="__main__":
     import sys; sys.exit(main())
