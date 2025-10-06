@@ -104,3 +104,37 @@ If the runner or spec is missing or corrupted:
 > "Run the ACI Adaptive Audit Runner in **pull** mode **forever**, executing approximately every five minutes with small random jitter, using **silent** communication. On process start or restart, perform exactly one bootstrap cycle. All artifacts must be written under `/mnt/data/aci/…` as specified above, with no console output. If network is unavailable, continue operating with local resources and escalate to WARN/ERR via audits and logs only."
 
 This anchor is the only document operators need to locate the files and re‑create the job in any scheduler.
+
+## 10) Guided burst schedule prompt (LLM-friendly)
+
+Run an ACI audit burst to keep artifacts warm in /mnt/data.
+
+Steps:
+1) Ensure these paths exist (create if missing):
+   - /mnt/data/aci/library/aci_runner/adaptive_audit_runner.py
+   - /mnt/data/aci/logs/
+   - /mnt/data/aci/state/
+   - /mnt/data/aci/audit/tmp/
+2) If the runner file is missing, rebuild the minimal JSON-native runner skeleton from the recovery corpus. The skeleton must write a timestamped state file (state-<UTC>.json), emit an audit file (audit-<UTC>.json), and append one INFO line to aci-YYYYMMDD.log on each cycle.
+3) Execute the burst with adaptive spacing logic using the real runner. Run at least one iteration in a safe state, cap the loop with --max-cycles 1 (or 2 if diagnostics are needed), and keep the total time under the default 1800-second burst deadline.
+4) Do not attach artifacts unless the user explicitly asks, but keep them ready for immediate export. If everything is OK, post a one-line status: "Audit burst OK (1 cycle)." If any step fails, return "MISSING <path> (tried: github, mirror, local, project)" with the failing path.
+
+Suggested command for schedulers:
+`python /mnt/data/aci/library/aci_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent --max-cycles 1 --burst-deadline 1800`
+
+## 11) Final audit check handshake
+
+Before reporting success, check the following artifacts in order, attempting recovery via GitHub raw → mirror → local /mnt/data → project uploads:
+
+1. prime_directive.txt|md
+2. runtime.json
+3. entities.json
+4. functions.json
+5. library/metacognition/metacognition.json
+6. library/metacognition/metacognition_options.json
+7. entities/yggdrasil/yggdrasil.json
+8. library/aci_runner/aci_runner_spec.v0.2.json
+9. library/aci_runner/aci_runner_corpus.v0.2.json
+
+On success, post exactly: "Audit burst OK (1 cycle)."
+On any gap, post: "MISSING <path> (tried: github, mirror, local, project)."
