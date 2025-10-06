@@ -105,6 +105,6 @@
   "recovery": {
     "corpus_id": "ACI-RC-20251003-v0.2",
     "path": "library/aci_audit_runner/aci_runner_corpus.v0.2.json",
-    "sha256": "<fill-after-commit>"
+    "sha256": "e4c9c6e317b3457bc46cbad6c0d0a151adb9f05f85056a5a8c179595daa4f394"
   }
 }
