@@ -103,7 +103,94 @@
           "local"
         ],
         "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+      },
+      "local_first_resolution": {
+        "enabled": true,
+        "bias": "local_first",
+        "search_order": [
+          "local_bifrost",
+          "remote_bifrost_primary",
+          "remote_bifrost_fallback",
+          "local_yggdrasil",
+          "remote_yggdrasil_primary",
+          "remote_yggdrasil_fallback"
+        ],
+        "resolvers": {
+          "local_bifrost": {
+            "type": "local",
+            "path": "entities/bifrost/bifrost.json",
+            "deterministic_version_check": true,
+            "version_probe": "aci://entities/bifrost/bifrost.json#$meta.sha256",
+            "notes": [
+              "Load bifrost.json from the repository root before invoking network resolvers.",
+              "After loading, compare $meta.sha256 with the canonical probe to confirm freshness."
+            ]
+          },
+          "remote_bifrost_primary": {
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
+            "deterministic_version_check": true,
+            "notes": [
+              "Use canonical raw GitHub bifrost.json when local copy is absent or stale."
+            ]
+          },
+          "remote_bifrost_fallback": {
+            "type": "remote",
+            "url": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json",
+            "deterministic_version_check": true,
+            "notes": [
+              "Fallback bifrost.json mirror for degraded connectivity scenarios."
+            ]
+          },
+          "local_yggdrasil": {
+            "type": "local",
+            "path": "entities/yggdrasil/yggdrasil.json",
+            "deterministic_version_check": true,
+            "version_probe": "aci://entities/yggdrasil/yggdrasil.json#$meta.sha256",
+            "notes": [
+              "When locally mirrored, load yggdrasil.json after bifrost resolution completes.",
+              "Validate metadata hash before adopting routes from the local copy."
+            ]
+          },
+          "remote_yggdrasil_primary": {
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
+            "deterministic_version_check": true,
+            "notes": [
+              "Canonical raw GitHub yggdrasil.json for authoritative routing data."
+            ]
+          },
+          "remote_yggdrasil_fallback": {
+            "type": "remote",
+            "url": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json",
+            "deterministic_version_check": true,
+            "notes": [
+              "Fallback mirror when canonical yggdrasil endpoint experiences issues."
+            ]
+          }
+        },
+        "on_missing_local": {
+          "action": "prompt_user_backup",
+          "preferred_backup": "bifrost",
+          "instruction": "Local resolver manifest not located. Please keep a lightweight bifrost.json backup so runtime can bootstrap offline; yggdrasil.json stays online for direct resolution but may be noisier."
+        },
+        "post_bootstrap_priority": "bifrost"
       }
+    },
+    "kernel_mode": {
+      "primary_kernel": {
+        "name": "aci_runtime",
+        "description": "LLM-native operating system kernel orchestrating pipelines and governance in standalone mode."
+      },
+      "secondary_kernel": {
+        "name": "nexus_core",
+        "path": "entities/nexus_core/nexus_core.json",
+        "description": "Companion kernel that carries optional routing and resolver logic while preserving runtime autonomy."
+      },
+      "coordination_notes": [
+        "Maintain existing runtime pipeline precedence; nexus_core augments resolution without overriding runtime sequencing.",
+        "When nexus_core is unavailable, runtime.json continues operating using primary kernel responsibilities."
+      ]
     },
     "sandbox_mode": {
       "enabled": true,
@@ -408,6 +495,18 @@
     },
     "changelog": [
       {
+        "version": "2025-10-07.00",
+        "notes": [
+          "Formalized dual-kernel profile, explicit local-first resolver order, and deterministic version prompts for bifrost/yggdrasil manifests."
+        ]
+      },
+      {
+        "version": "2025-10-06.00",
+        "notes": [
+          "Introduced local-first resolver bias with user guidance for missing bifrost backups and documented dual-kernel coordination with nexus_core."
+        ]
+      },
+      {
         "version": "2025-10-05.01",
         "notes": [
           "Registered binders manifest with high priority for GPT environment compatibility."
@@ -425,6 +524,17 @@
           "Updated runtime prime directive references to prime_directive.md canonical resource."
         ]
       }
-    ]
+    ],
+    "kernel_profile": {
+      "type": "primary",
+      "dual_kernel": true,
+      "peer_kernel": "nexus_core",
+      "standalone_ready": true,
+      "handoff": [
+        "Initialize runtime pipelines before invoking nexus_core to preserve primary-kernel precedence.",
+        "Operate autonomously with cached routing policies when nexus_core is unavailable.",
+        "When nexus_core attaches, share resolver state using local_first_resolution for synchronized lookups."
+      ]
+    }
   }
 }
