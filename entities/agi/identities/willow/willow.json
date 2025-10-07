@@ -32,7 +32,7 @@
         "reinforcement learning and mental awareness"
       ],
       "ui": {
-        "emulation_declaration_required": true,
+        "ui_emulation_declaration_required": true,
         "description": "Enforce UI emulation usage with a detailed declaration"
       }
     }
