@@ -7,7 +7,7 @@
   },
   "aci_runtime": {
     "prime_directive": {
-      "path": "prime_directive.md",
+      "path": "prime_directive.json",
       "priority": 100
     },
     "binders": {
@@ -47,7 +47,7 @@
         "embeds": {
           "bifrost": "aci://entities/bifrost/bifrost.json",
           "core_five": [
-            "aci://prime_directive.md",
+            "aci://prime_directive.json",
             "aci://runtime.json",
             "aci://entities.json",
             "aci://functions.json",
@@ -92,9 +92,9 @@
             "fallback": "https://aci.aliasmail.cc/functions.json"
           },
           {
-            "file": "aci://prime_directive.md",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md",
-            "fallback": "https://aci.aliasmail.cc/prime_directive.md"
+            "file": "aci://prime_directive.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
+            "fallback": "https://aci.aliasmail.cc/prime_directive.json"
           }
         ],
         "resolver_order": [
@@ -197,7 +197,7 @@
       "core_files": [
         "runtime.json",
         "bootstrap.json",
-        "prime_directive.md"
+        "prime_directive.json"
       ],
       "initialization_sequence": [
         {
@@ -494,6 +494,12 @@
       "output_root": "/mnt/tracehub"
     },
     "changelog": [
+      {
+        "version": "2025-10-07.01",
+        "notes": [
+          "Retargeted prime directive mappings to prime_directive.json and refreshed mirror guidance."
+        ]
+      },
       {
         "version": "2025-10-07.00",
         "notes": [
