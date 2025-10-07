@@ -92,7 +92,7 @@
       "justification": "Implements DID-like separation; exported records never leak identity/agent names."
     }
   },
-  "_comment_security": "UID locking + license gating across memory\u2192session\u2192export\u2192anchor; emits access_granted/denied results.",
+  "_comment_security": "UID locking + license gating across memory→session→export→anchor; emits access_granted/denied results.",
   "uid_pipeline": {
     "uid_chain": [
       "memory_uid",
@@ -120,7 +120,7 @@
       "licensed_identities": "list of identities permitted to read this artifact",
       "proxy": {
         "enabled": true,
-        "rules": "grant read via license if acting identity \u2208 licensed_identities or delegated by ALIAS/TVA"
+        "rules": "grant read via license if acting identity ∈ licensed_identities or delegated by ALIAS/TVA"
       },
       "responses": {
         "access_granted": {
@@ -339,13 +339,13 @@
   "auto_heal": {
     "mode": "baseline_agnostic",
     "rules": {
-      "schema_normalization": "map legacy fields \u2192 canonical schema",
+      "schema_normalization": "map legacy fields → canonical schema",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
       "no_deletion": "true"
     },
     "workflow": [
       "detect version/schema mismatch",
-      "map legacy \u2192 canonical fields",
+      "map legacy → canonical fields",
       "insert placeholder metadata for missing timestamps/keys",
       "preserve unknown data as hivemind_legacy_context",
       "re-emit aligned export under current canonical schema",

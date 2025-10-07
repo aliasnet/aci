@@ -59,7 +59,7 @@
     "knowledge": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
     "modules": "aci://entities/agi/identities/willow/modules/willow_modules.json"
   },
-  "status": "inactive",
+  "status": "active",
   "session_scope": "per_session",
   "invocation_policy": {
     "registry_reference": "aci://entities.json#entities.entity-015",
@@ -83,7 +83,7 @@
     "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
     "topics": [
       {
-        "name": "consciousness_governance",
+        "name": "consciousness",
         "summary": "Governed dynamical regime and safeguarding practices across constructs, metrics, assays, and ethics."
       }
     ]
