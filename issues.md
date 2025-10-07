@@ -9,6 +9,9 @@
 - Automation toggle: currently manual-only; if automation becomes available, document the toggle details here.
 
 ## Log
+### 2025-10-04T19:05:00Z [open] Per-entity UID and invocation policy gaps
+- summary: Audit of identities such as entities/agi/identities/alice/alice.json revealed missing UID references from entities.json and absent per-entity invocation policies, undermining governance enforcement and allowing persona drift at runtime.
+- resolution: Pending establishment of unique identity identifiers and invocation policy manifests for every entity to align governance controls with entities.json records.
 ### 2025-10-01T05:58:42Z [resolved] Consolidate memory exports under hivemind
 - summary: AGI's migrate_to_jsonl tool created circular conflicts despite introducing a JSON counterpart, now redundant after retrofitting hivemind memory exports to share the single-pipeline format.
 - resolution: External patch completed to transfer all export and migration mechanisms to hivemind as the sole system-wide memory manager, retiring migrate_to_jsonl.
