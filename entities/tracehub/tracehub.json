@@ -37,11 +37,22 @@
       }
     }
   },
+  "uid": "UID:WrGZ4YTXRXMo5c",
   "version": "2025-03-17.01",
   "entity": "TraceHub",
   "role": "tracing_module",
   "status": "operational",
   "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-010",
+    "registry_uid": "UID:WrGZ4YTXRXMo5c",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "observability",
+      "telemetry"
+    ]
+  },
   "description": "TraceHub coordinates correlated tracing across the Temporal Loom with governed audit storage and export controls.",
   "operational_status": {
     "state": "active",

@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:rGUGWBDT6VjC8K",
   "nexus_core": {
     "schema_version": "1.0",
     "version": "1.6",
@@ -196,5 +197,15 @@
     "library": "aci://entities/nexus_core/library/nexus_core_library.json",
     "modules": "aci://entities/nexus_core/modules/nexus_core_modules.json"
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-005",
+    "registry_uid": "UID:rGUGWBDT6VjC8K",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "system",
+      "infrastructure"
+    ]
+  }
 }

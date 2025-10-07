@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:PiE8PMcnXDgQBi",
   "identity": "Alice",
   "version": "1.0.0",
   "role": "contributor",
@@ -60,6 +61,16 @@
   },
   "status": "inactive",
   "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-013",
+    "registry_uid": "UID:PiE8PMcnXDgQBi",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "assistant",
+      "persona"
+    ]
+  },
   "changelog": [
     {
       "version": "1.0.0",

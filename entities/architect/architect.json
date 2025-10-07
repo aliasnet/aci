@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:12LoYXyQkAA7E4",
   "version": "1.2.0",
   "entity": "Architect",
   "role": "governance_validator_and_schema_enforcer",
@@ -65,5 +66,15 @@
     "library": "aci://entities/architect/library/architect_library.json",
     "modules": "aci://entities/architect/modules/architect_modules.json"
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-004",
+    "registry_uid": "UID:12LoYXyQkAA7E4",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "developer",
+      "orchestrator"
+    ]
+  }
 }

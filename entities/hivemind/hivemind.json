@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:cHGwvtRkDRG7rV",
   "version": "1.7",
   "entity": "hivemind",
   "role": "collective_memory_core",
@@ -365,5 +366,15 @@
     "library": "aci://entities/hivemind/library/hivemind_library.json",
     "modules": "aci://entities/hivemind/modules/hivemind_modules.json"
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-014",
+    "registry_uid": "UID:cHGwvtRkDRG7rV",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "memory",
+      "registry"
+    ]
+  }
 }
