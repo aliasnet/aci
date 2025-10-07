@@ -105,7 +105,7 @@ only and should omit any field whose value is unknown or unused to avoid redunda
 - Maintain a brief breadcrumb log below for quick reference; keep each item to a single-line summary.
 
 ### Breadcrumb Log (New ↓ Old)
-- 2025-10-04T19:05:00Z [open] Added audit issue for missing per-entity UID and invocation policies to prevent persona drift.
+- 2025-10-05T01:15:00Z [resolved] Documented closure of the per-entity UID and invocation policy gap across entity manifests.
 - 2025-09-30T13:15:22Z [resolved] Initialized append-only issues.md audit log; automation toggle remains manual-only.
 
 ---

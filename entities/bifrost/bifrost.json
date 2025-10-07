@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:HXGXQipVLEFKL4",
   "bifrost": {
     "alias": "Bifrost",
     "bifrost_resource_resolution_policy": {
@@ -156,5 +157,15 @@
       "modules": "aci://entities/bifrost/modules/bifrost_modules.json"
     }
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-011",
+    "registry_uid": "UID:HXGXQipVLEFKL4",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "connector",
+      "network"
+    ]
+  }
 }

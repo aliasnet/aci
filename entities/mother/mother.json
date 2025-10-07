@@ -37,12 +37,24 @@
       }
     }
   },
+  "uid": "UID:8W1VZghdkNyAKR",
   "version": "2025.10.04-governance",
   "entity": "Mother",
   "codename": "MU/TH/UR",
   "role": "primary_governance_interface",
   "status": "operational",
   "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-001",
+    "registry_uid": "UID:8W1VZghdkNyAKR",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "governance",
+      "ui",
+      "assistant"
+    ]
+  },
   "description": "Central MU/TH/UR governance core coordinating directive compliance, console orchestration, and inter-entity escalation.",
   "abstract": "Primary governance interface with pragmatic, machine-like demeanor. No-nonsense, fact-first; allows MU/TH/UR UI emulation only.",
   "tags": [

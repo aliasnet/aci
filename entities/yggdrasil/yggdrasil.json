@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:VGpYGJwtbdHQHp",
   "yggdrasil": {
     "alias": "Yggdrasil",
     "bifrost_resource_resolution_policy": {
@@ -221,5 +222,14 @@
       "modules": "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
     }
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-012",
+    "registry_uid": "UID:VGpYGJwtbdHQHp",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "resolver"
+    ]
+  }
 }

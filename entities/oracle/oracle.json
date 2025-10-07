@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:hQk23wMs8mH3Bd",
   "oracle": {
     "schema_version": "1.0",
     "version": "1.1",
@@ -93,5 +94,15 @@
       }
     ]
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-008",
+    "registry_uid": "UID:hQk23wMs8mH3Bd",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "analysis",
+      "prediction"
+    ]
+  }
 }

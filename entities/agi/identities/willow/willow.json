@@ -32,11 +32,12 @@
         "reinforcement learning and mental awareness"
       ],
       "ui": {
-        "ui_emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration"
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
       }
     }
   },
+  "uid": "UID:VVGqsW92iwW5T8",
   "identity": "Willow",
   "version": "1.0.0",
   "role": "trainee",
@@ -60,6 +61,16 @@
   },
   "status": "active",
   "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-015",
+    "registry_uid": "UID:VVGqsW92iwW5T8",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "assistant",
+      "persona"
+    ]
+  },
   "changelog": [
     {
       "version": "1.0.0",

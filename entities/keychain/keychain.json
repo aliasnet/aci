@@ -37,11 +37,22 @@
       }
     }
   },
+  "uid": "UID:KQQjyJXMmUKWZZ",
   "version": "BASELINE-2025-09-21",
   "entity": "Keychain",
   "role": "crypto_trust_manager",
   "status": "placeholder",
   "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-007",
+    "registry_uid": "UID:KQQjyJXMmUKWZZ",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "security",
+      "infrastructure"
+    ]
+  },
   "description": "Keychain placeholder manifest. Define cryptographic lifecycle and trust distribution flows here.",
   "todo": [
     "Detail key issuance, rotation, and revocation policies for functions 6237-6269.",

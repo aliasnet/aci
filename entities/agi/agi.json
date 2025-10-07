@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:p6LHJtm8H69jNA",
   "entity": "AGI",
   "version": "1.1",
   "role": "ALIAS  general intelligence framework for advanced digital entity",
@@ -343,5 +344,14 @@
     "library": "aci://entities/agi/library/agi_library.json",
     "modules": "aci://entities/agi/modules/agi_modules.json"
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-006",
+    "registry_uid": "UID:p6LHJtm8H69jNA",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "intelligence_framework"
+    ]
+  }
 }

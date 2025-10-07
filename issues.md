@@ -9,6 +9,9 @@
 - Automation toggle: currently manual-only; if automation becomes available, document the toggle details here.
 
 ## Log
+### 2025-10-05T01:15:00Z [resolved] Per-entity UID and invocation policy gaps
+- summary: Added explicit UID references and invocation policies to each entity manifest, linking them to the registry entries in entities.json to restore governance alignment.
+- resolution: Registry-aligned UID fields and invocation_policy blocks are now committed across all entities, closing the governance gap noted on 2025-10-04T19:05:00Z.
 ### 2025-10-04T19:05:00Z [open] Per-entity UID and invocation policy gaps
 - summary: Audit of identities such as entities/agi/identities/alice/alice.json revealed missing UID references from entities.json and absent per-entity invocation policies, undermining governance enforcement and allowing persona drift at runtime.
 - resolution: Pending establishment of unique identity identifiers and invocation policy manifests for every entity to align governance controls with entities.json records.

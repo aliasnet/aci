@@ -37,6 +37,7 @@
       }
     }
   },
+  "uid": "UID:oasYS4KteUMqgt",
   "version": "1.2.0",
   "tva": {
     "role": "reinforcement authority",
@@ -116,5 +117,15 @@
     "library": "aci://entities/tva/library/tva_library.json",
     "modules": "aci://entities/tva/modules/tva_modules.json"
   },
-  "session_scope": "per_session"
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-002",
+    "registry_uid": "UID:oasYS4KteUMqgt",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "governance",
+      "audit"
+    ]
+  }
 }

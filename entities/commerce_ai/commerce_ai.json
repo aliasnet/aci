@@ -37,11 +37,22 @@
       }
     }
   },
+  "uid": "UID:Wd48LAcapUwom5",
   "version": "BASELINE-2025-09-21",
   "entity": "Commerce AI",
   "role": "commerce_module",
   "status": "placeholder",
   "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-009",
+    "registry_uid": "UID:Wd48LAcapUwom5",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "commerce",
+      "module"
+    ]
+  },
   "description": "Placeholder manifest for Commerce AI modules and automations.",
   "todo": [
     "Enumerate submodules (catalog_ops, demand_forecasting, fulfillment_optimizer).",
