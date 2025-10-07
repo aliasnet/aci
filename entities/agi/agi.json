@@ -5,6 +5,39 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/agi/agi.json"
   },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+      }
+    }
+  },
+  "uid": "UID:p6LHJtm8H69jNA",
   "entity": "AGI",
   "version": "1.1",
   "role": "ALIAS  general intelligence framework for advanced digital entity",
@@ -71,7 +104,7 @@
   },
   "functions": {
     "agi.loop.run": {
-      "description": "Durable plan\u2192act\u2192reflect agent loop with RAG + HITL",
+      "description": "Durable plan→act→reflect agent loop with RAG + HITL",
       "guards": [
         "TVA.checkpoint",
         "Sentinel.audit"
@@ -310,5 +343,15 @@
     "playbook": "aci://entities/agi/memory/agi_playbook.json",
     "library": "aci://entities/agi/library/agi_library.json",
     "modules": "aci://entities/agi/modules/agi_modules.json"
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-006",
+    "registry_uid": "UID:p6LHJtm8H69jNA",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "intelligence_framework"
+    ]
   }
 }

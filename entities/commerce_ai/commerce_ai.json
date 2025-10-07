@@ -5,10 +5,54 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/commerce_ai/commerce_ai.json"
   },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+      }
+    }
+  },
+  "uid": "UID:Wd48LAcapUwom5",
   "version": "BASELINE-2025-09-21",
   "entity": "Commerce AI",
   "role": "commerce_module",
   "status": "placeholder",
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-009",
+    "registry_uid": "UID:Wd48LAcapUwom5",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "commerce",
+      "module"
+    ]
+  },
   "description": "Placeholder manifest for Commerce AI modules and automations.",
   "todo": [
     "Enumerate submodules (catalog_ops, demand_forecasting, fulfillment_optimizer).",

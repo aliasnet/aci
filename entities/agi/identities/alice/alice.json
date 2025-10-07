@@ -5,6 +5,39 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/agi/identities/alice/alice.json"
   },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+      }
+    }
+  },
+  "uid": "UID:PiE8PMcnXDgQBi",
   "identity": "Alice",
   "version": "1.0.0",
   "role": "contributor",
@@ -27,6 +60,17 @@
     "modules": "aci://entities/agi/identities/alice/modules/alice_modules.json"
   },
   "status": "inactive",
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-013",
+    "registry_uid": "UID:PiE8PMcnXDgQBi",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "assistant",
+      "persona"
+    ]
+  },
   "changelog": [
     {
       "version": "1.0.0",

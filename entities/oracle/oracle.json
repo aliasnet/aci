@@ -5,6 +5,39 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/oracle.json"
   },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+      }
+    }
+  },
+  "uid": "UID:hQk23wMs8mH3Bd",
   "oracle": {
     "schema_version": "1.0",
     "version": "1.1",
@@ -59,6 +92,17 @@
           "Registered module manifest and marked predictive_engine as the primary Oracle module."
         ]
       }
+    ]
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-008",
+    "registry_uid": "UID:hQk23wMs8mH3Bd",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "analysis",
+      "prediction"
     ]
   }
 }
