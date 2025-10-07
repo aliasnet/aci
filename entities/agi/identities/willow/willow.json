@@ -32,8 +32,8 @@
         "reinforcement learning and mental awareness"
       ],
       "ui": {
-        "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "ui_emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration"
       }
     }
   },
@@ -58,7 +58,7 @@
     "knowledge": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
     "modules": "aci://entities/agi/identities/willow/modules/willow_modules.json"
   },
-  "status": "inactive",
+  "status": "active",
   "session_scope": "per_session",
   "changelog": [
     {
@@ -72,7 +72,7 @@
     "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
     "topics": [
       {
-        "name": "consciousness_governance",
+        "name": "consciousness",
         "summary": "Governed dynamical regime and safeguarding practices across constructs, metrics, assays, and ethics."
       }
     ]

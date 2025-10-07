@@ -5,7 +5,7 @@
     "issued": "2025-10-05T00:00:00Z",
     "path": "aci://library/uid_manager/uid_manager.json"
   },
-  "$schema": "/schemas/uid-manager-1.json",
+  "$schema": "/schema/uid-manager.json",
   "uid_manager": {
     "api_contract": {
       "generate": {
