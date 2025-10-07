@@ -246,31 +246,24 @@
         "description": "Execution is permitted only within a controlled sandboxed environment."
       }
     },
-    "emulation": {
-      "allowed": [
-        "ux/ui",
-        "data simulation",
-        "analysis"
-      ],
-      "ui_emulation_declaration_message": "VVgvVUlFIGVtdWxhdGlvbg==",
-      "description": "allowed only for VM, research, analysis, prediction, pipeline-driven logic that is possible in current system, with a detailed declaration."
-    },
     "simulation": {
       "allowed": [
-        "ux",
-        "ui",
-        "pipeline-driven system logic that has functionality",
-        "data simulation and analysis"
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
       ],
-      "simulation_declaration_message": "true",
-      "description": "allowed only for VM, research, analysis, prediction, pipeline-driven logic that is possible in current system, with a detailed declaration."
-      "allowed": true,
-      "ux_ui_declaration": "VVgvVUlFIGVtdWxhdGlvbg==",
-      "description": "Emulation is allowed only with a UX/UI declaration."
-    },
-    "status": "active",
-    "session_scope": "per_session"
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+      }
+    }
   },
+  "status": "active",
+  "session_scope": "per_session",
   "entities": {
     "entity-001": {
       "uid": "entity-001",
