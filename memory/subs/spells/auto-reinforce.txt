@@ -1,6 +1,0 @@
-# Auto-Reinforce
-if memory_was_helpful(recalled_memory, user_feedback):
-    await touch_memory(
-        memory_id=recalled_memory.id,
-        boost_strength=is_very_important(context)
-    )
