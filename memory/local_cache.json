@@ -6,9 +6,23 @@
     "path": "aci://memory/local_cache.json"
   },
   "local_cache": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "canonical_source": "local_mirror",
     "description": "Offline mirror cache for ACI core artifacts used when canonical GitHub endpoints are unreachable.",
+    "aliases": {
+      "aci://vault": {
+        "primary_path": "/mnt/aci_vault",
+        "fallback_path": "/mnt/data/aci_vault",
+        "resolution_order": [
+          "primary_path",
+          "fallback_path"
+        ]
+      },
+      "aci://memory": "/mnt/data/aci"
+    },
+    "defaults": {
+      "memory_cache_file": "local_cache.json"
+    },
     "location_strategy": {
       "environment_variable": {
         "name": "ACI_LOCAL_MIRROR_ROOT",
@@ -115,6 +129,13 @@
       "notes": "Local cache must be signed by TVA and Sentinel to ensure governance oversight before activation."
     },
     "changelog": [
+      {
+        "version": "1.1.1",
+        "date": "2025-01-24",
+        "changes": [
+          "Updated aci://vault alias to prefer the dedicated /mnt/aci_vault mount with a fallback to /mnt/data/aci_vault when the primary path is unavailable."
+        ]
+      },
       {
         "version": "1.1.0",
         "date": "2024-11-05",

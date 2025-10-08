@@ -897,6 +897,292 @@
           "call": "_format.json"
         }
       ]
+    },
+    "tva.consume.process_logs": {
+      "steps": [
+        {
+          "call": "_fs.read.jsonl",
+          "map": {
+            "root": "/mnt/aci_vault/proc",
+            "pattern": "*.jsonl"
+          }
+        },
+        {
+          "call": "_schema.validate",
+          "map": {
+            "schema": "library/wrappers/process_logs/process_log_schema.json",
+            "rows": "$steps.0"
+          }
+        },
+        {
+          "call": "tva.detect.risks",
+          "map": {
+            "rows": "$steps.1",
+            "risk_verbs": [
+              "DELETE",
+              "OVERRIDE",
+              "MODIFY_CORE",
+              "IMPORT",
+              "PUBLISH_EXTERNAL"
+            ]
+          }
+        },
+        {
+          "call": "process.logs.append",
+          "map": {
+            "event": "tva.decision",
+            "summary": "$steps.2.summary",
+            "identity": "TVA",
+            "topic": "tva"
+          }
+        }
+      ]
+    },
+    "tva.require_cosign": {
+      "steps": [
+        {
+          "call": "auth.check_roles",
+          "map": {
+            "roles": "$args.roles"
+          }
+        },
+        {
+          "call": "process.logs.append",
+          "map": {
+            "event": "tva.decision",
+            "summary": "Co-sign granted for ${args.verb}",
+            "identity": "TVA"
+          }
+        }
+      ]
+    },
+    "tva.quarantine": {
+      "steps": [
+        {
+          "call": "entities.update",
+          "map": {
+            "id": "$args.entity",
+            "activation": "manual",
+            "permissions": "disallowed"
+          }
+        },
+        {
+          "call": "process.logs.append",
+          "map": {
+            "event": "tva.quarantine",
+            "summary": "Quarantine $args.entity: $args.reason",
+            "identity": "TVA"
+          }
+        }
+      ]
+    },
+    "hivemind.export.parse_nl": {
+      "description": "Compile NL instructions into hivemind_export_v2 args with strict defaults.",
+      "steps": [
+        {
+          "call": "_nl.compile",
+          "map": {
+            "text": "$args.nl",
+            "hints": {
+              "profiles": [
+                "local_full",
+                "demo_public"
+              ],
+              "entities": [
+                "Willow",
+                "Alice"
+              ],
+              "scopes": [
+                "conversation",
+                "knowledge"
+              ],
+              "relative": [
+                "last_24h",
+                "last_7d",
+                "last_30d",
+                "all"
+              ],
+              "tags": [
+                "demo_ok",
+                "general_knowledge"
+              ]
+            }
+          }
+        },
+        {
+          "call": "_schema.coerce",
+          "map": {
+            "schema": "policies/hivemind_export_v2.schema.json",
+            "input": "$steps.0",
+            "defaults": {
+              "profile": "local_full",
+              "entities": [
+                "$context.identity"
+              ],
+              "scope": [
+                "conversation",
+                "knowledge"
+              ],
+              "range": {
+                "relative": "all"
+              },
+              "redaction": {
+                "pii": true,
+                "secrets": true,
+                "names": "pseudonymize",
+                "allow_raw_text": false
+              },
+              "target": "vault:aci_vault",
+              "simulation": true
+            }
+          }
+        },
+        {
+          "call": "_schema.validate",
+          "map": {
+            "schema": "policies/hivemind_export_v2.schema.json",
+            "input": "$steps.1"
+          }
+        },
+        {
+          "call": "_format.json",
+          "map": {
+            "data": "$steps.1"
+          }
+        }
+      ],
+      "on_error": [
+        {
+          "call": "process.logs.append",
+          "map": {
+            "event": "export.request",
+            "identity": "Hivemind",
+            "topic": "hivemind",
+            "summary": "NL parse failed → falling back to safe local dry-run"
+          }
+        },
+        {
+          "call": "_format.json",
+          "map": {
+            "data": {
+              "profile": "local_full",
+              "entities": [
+                "$context.identity"
+              ],
+              "scope": [
+                "conversation",
+                "knowledge"
+              ],
+              "range": {
+                "relative": "all"
+              },
+              "redaction": {
+                "pii": true,
+                "secrets": true,
+                "names": "pseudonymize",
+                "allow_raw_text": false
+              },
+              "target": "vault:aci_vault",
+              "simulation": true
+            }
+          }
+        }
+      ]
+    },
+    "hivemind.export.v2": {
+      "description": "Validated export orchestrator with TVA gate for demo_public.",
+      "steps": [
+        {
+          "call": "_schema.validate",
+          "map": {
+            "schema": "policies/hivemind_export_v2.schema.json",
+            "input": "$args"
+          }
+        },
+        {
+          "call": "process.logs.append",
+          "map": {
+            "event": "export.request",
+            "identity": "Hivemind",
+            "topic": "hivemind",
+            "summary": "Export requested",
+            "details": "$args"
+          }
+        },
+        {
+          "if": "$args.profile == 'demo_public'",
+          "then": [
+            {
+              "call": "tva.consume.process_logs"
+            },
+            {
+              "call": "tva.require_cosign",
+              "map": {
+                "roles": [
+                  "ALIAS",
+                  "TVA"
+                ],
+                "verb": "PUBLISH_EXTERNAL",
+                "args": "$args"
+              }
+            }
+          ]
+        },
+        {
+          "if": "$args.simulation == True",
+          "then": [
+            {
+              "call": "_export.plan",
+              "map": {
+                "args": "$args"
+              }
+            },
+            {
+              "call": "process.logs.append",
+              "map": {
+                "event": "export.completed",
+                "summary": "Dry-run only (no files written). See plan.",
+                "identity": "Hivemind",
+                "topic": "hivemind"
+              }
+            },
+            {
+              "call": "_format.json",
+              "map": {
+                "data": {
+                  "status": "simulated",
+                  "plan": "$steps.-2"
+                }
+              }
+            }
+          ],
+          "else": [
+            {
+              "call": "_export.run",
+              "map": {
+                "args": "$args"
+              }
+            },
+            {
+              "call": "process.logs.append",
+              "map": {
+                "event": "export.completed",
+                "summary": "Export written",
+                "identity": "Hivemind",
+                "topic": "hivemind"
+              }
+            },
+            {
+              "call": "_format.json",
+              "map": {
+                "data": {
+                  "status": "ok"
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   },
   "cli": {
