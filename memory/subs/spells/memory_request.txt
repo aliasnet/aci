@@ -1,5 +1,4 @@
 # Detect explicit memory requests
-
 explicit_save_phrases = [
     "remember that", "don't forget", "keep in mind",
     "save this", "make a note", "store this"
