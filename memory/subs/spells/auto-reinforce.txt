@@ -1,10 +1,8 @@
-# Detect recall triggers
-if is_question_about_past(message) or references_previous_context(message):
-    results = await search_memory(
-        query=extract_search_query(message),
-        tags=infer_relevant_tags(message),
-        window_days=infer_time_window(message),
-        top_k=5
+# Auto-Reinforce (Strengthen Frequently Used Memories)
+
+
+if memory_was_helpful(recalled_memory, user_feedback):
+    await touch_memory(
+        memory_id=recalled_memory.id,
+        boost_strength=is_very_important(context)
     )
-    # Weave results into response naturally
-    incorporate_memories_into_response(results)
