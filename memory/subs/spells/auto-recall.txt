@@ -1,5 +1,4 @@
-# Detect recall triggers (Retrieve Relevant Context)
-
+# Detect recall triggers 
 if is_question_about_past(message) or references_previous_context(message):
     results = await search_memory(
         query=extract_search_query(message),
