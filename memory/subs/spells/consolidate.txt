@@ -1,0 +1,10 @@
+# Periodic consolidation check
+
+clusters = await cluster_memories(threshold=0.85)
+for cluster in clusters:
+    if cluster.cohesion > 0.90:
+        # Auto-merge obvious duplicates
+        await consolidate_memories(cluster_id=cluster.id, mode="auto")
+    else:
+        # Ask user for guidance
+        prompt_user_for_consolidation(cluster)
