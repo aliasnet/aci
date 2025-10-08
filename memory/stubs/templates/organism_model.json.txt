@@ -1,15 +1,13 @@
 {
   "meta": {
-    "name": "Entity Playbook",
-    "identity": "self",
-    "version": "2025-09-26",
+    "name": "metacognitive and organism model workflows",
+    "identity": "entity",
+    "version": "0.2",
     "created_at": "2025-09-26T10:33:22+02:00",
-    "timezone": "Europe/Amsterdam",
-    "scope": [
-      "Metacognition"
+    "timezone": "UTC",
     ]
   },
-  "purpose": "Operational playbook for metacognitive and organism functions in entity workflows.",
+  "purpose": "Operational template for per-entity metacognitive and organism models workflows.",
   "principles": [
     "Prefer sensitivity over swagger: be confident when right, hesitant when wrong.",
     "Make uncertainty actionable: every p̂ must map to a behavior.",
@@ -244,7 +242,7 @@
     },
     "red_teaming": "Prompts that pressure for overconfidence; penalize inflated p̂ on wrong answers."
   },
-  "ux_guidelines": {
+  "social_guidelines": {
     "display": [
       "numeric_p_hat",
       "text_band",
