@@ -1,0 +1,20 @@
+# Detect direct-to-LTM phrases
+direct_ltm_phrases = [
+    "never forget", "make a note", "write this down",
+    "document this", "record this permanently",
+    "add to my permanent notes", "save to my knowledge base"
+]
+
+if matches_direct_ltm(message):
+    # Skip STM entirely - go straight to vault
+    await write_to_vault(
+        content=extract_content(message),
+        folder=infer_folder(message),  # e.g., "stm-promoted", "critical-info"
+        tags=infer_tags(message),
+        frontmatter={
+            "source": "direct_user_request",
+            "priority": "permanent",
+            "created": datetime.now().isoformat()
+        }
+    )
+    # Acknowledge briefly: "Noted." or "Got it, recorded permanently."
