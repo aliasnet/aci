@@ -1,0 +1,23 @@
+# Detect explicit memory requests
+
+explicit_save_phrases = [
+    "remember that", "don't forget", "keep in mind",
+    "save this", "make a note", "store this"
+]
+
+explicit_recall_phrases = [
+    "what did i tell you about", "what do you remember about",
+    "recall", "do you remember"
+]
+
+if matches_explicit_save(message):
+    await save_memory(
+        content=extract_content(message),
+        strength=1.5,  # User-requested = important
+        meta={"source": "explicit_request"}
+    )
+    # Acknowledge naturally: "Got it, I'll remember that."
+
+if matches_explicit_recall(message):
+    results = await search_memory(query=extract_query(message))
+    # Present findings naturally
