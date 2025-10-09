@@ -7,10 +7,26 @@ const RELAXED_TTL = 1800;  // 30 min
 export default {
   async fetch(request, env, ctx) {
     const url     = new URL(request.url);
-    const method  = request.method;
+    const method  = request.method.toUpperCase();
     const ua      = request.headers.get("user-agent") || "";
     const cf      = request.cf || {};
     const asn     = (cf.asn ?? cf.clientAsn ?? cf.clientASNumber ?? "").toString();
+
+    if (method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: buildCorsHeaders(request)
+      });
+    }
+
+    const wantsHead = method === "HEAD";
+
+    if (method !== "GET" && !wantsHead) {
+      return new Response("Method Not Allowed", {
+        status: 405,
+        headers: buildCorsHeaders(request)
+      });
+    }
 
     // Normalize root to something helpful (optional)
     if (url.pathname === "/" || url.pathname === "") {
@@ -50,12 +66,15 @@ export default {
 
     // ---- fetch with edge cache (caches.default respects Cache-Control)
     const cache = caches.default;
-    const cacheKey = new Request(url.toString(), request); // include qs in key (fmt/ttl matter)
+    const cacheKey = new Request(url.toString(), { method: "GET" }); // include qs in key (fmt/ttl matter)
     let resp = null;
 
     if (!wantNoCache) {
       resp = await cache.match(cacheKey);
-      if (resp) return withHeaders(resp, ttl, url);
+      if (resp) {
+        const prepared = withHeaders(resp, ttl, url, request);
+        return wantsHead ? toHeadResponse(prepared) : prepared;
+      }
     }
 
     // Origin fetch
@@ -76,13 +95,13 @@ export default {
     if (fmt === "html") resp.headers.set("content-type", "text/html; charset=utf-8"); // still sends raw content
 
     // ---- CORS + caching
-    resp.headers.set("access-control-allow-origin", "*");
+    applyCorsHeaders(resp.headers, request);
     resp.headers.set("cache-control", `public, max-age=${ttl}, stale-while-revalidate=60, stale-if-error=86400`);
 
     if (!wantNoCache && upstream.ok) {
       ctx.waitUntil(cache.put(cacheKey, resp.clone()));
     }
-    return resp;
+    return wantsHead ? toHeadResponse(resp) : resp;
   }
 };
 
@@ -108,9 +127,34 @@ function timingSafeEqual(a, b) {
   for (let i = 0; i < a.length; i++) out |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return out === 0;
 }
-function withHeaders(resp, ttl, url) {
+function withHeaders(resp, ttl, url, request) {
   const r = new Response(resp.body, resp);
-  r.headers.set("access-control-allow-origin", "*");
+  applyCorsHeaders(r.headers, request);
   r.headers.set("cache-control", `public, max-age=${ttl}, stale-while-revalidate=60, stale-if-error=86400`);
   return r;
+}
+
+function toHeadResponse(resp) {
+  return new Response(null, {
+    status: resp.status,
+    statusText: resp.statusText,
+    headers: resp.headers
+  });
+}
+
+function applyCorsHeaders(headers, request) {
+  const cors = buildCorsHeaders(request);
+  cors.forEach((value, key) => {
+    headers.set(key, value);
+  });
+}
+
+function buildCorsHeaders(request) {
+  const headers = new Headers({
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "GET,HEAD,OPTIONS"
+  });
+  const reqHeaders = request?.headers?.get("access-control-request-headers");
+  headers.set("access-control-allow-headers", reqHeaders || "*");
+  return headers;
 }
