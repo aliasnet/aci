@@ -465,8 +465,8 @@
         "status"
       ]
     },
-    "scheduler": {
-      "provider": "local_cron",
+    "wrapper": {
+      "provider": "process_logs",
       "jobs": [],
       "audit_sink": "aci://library/wrappers/process_logs/process_logs.json",
       "presence_channel": "nexus.event.scheduler"
