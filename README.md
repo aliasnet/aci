@@ -95,10 +95,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Naming Convention (AGI exports only):**
 
   ```
-  # Streamed download in condensed conversation mode (CLI `hivemind export --identity --conversation --jsonl`)
+  # Streamed download in default memory mode (CLI `hivemind export --identity --memory --jsonl`)
   {identity}_{summary_slug}_{timestamp}.jsonl
 
-  # Export artifact to be (manually or via git://) stored under /memory/knowledge (Natural Language as parameters Eg. `[ hivemind export --identity --knowledge --jsonl :: knowledge only, no chatter`)
+  # Export artifact to be (manually or via git://) stored under /memory/knowledge (Natural Language as parameters Eg. `[ hivemind export --identity=Willow --knowledge --jsonl :: knowledge only, no chatter`)
   {identity}_{summary_slug}_{timestamp}.jsonl
 
   # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z

@@ -16,9 +16,23 @@
     "timeline": "YYYY/MM/DD"
   },
   "notes": [
-    "Memory exports stored in nested date folders under this directory."
+    "Memory exports stored in nested date folders under this directory.",
+    "Exports must replay the active session transcript from turn one; gaps trigger a recovery report before writing."
   ],
   "export_policy": {
+    "session_integrity": {
+      "verify_from_origin": true,
+      "report_on_gaps": true,
+      "allowed_sources": [
+        "active_session_transcript"
+      ],
+      "forbid_external_memory": true,
+      "notes": [
+        "Session exports read only LLM and user messages that occurred in the active conversation.",
+        "Shared memory or unrelated session archives cannot be merged during export.",
+        "If any transcript window is missing, summarize what can be recovered before proceeding."
+      ]
+    },
     "determinism": {
       "enabled": true,
       "notes": [

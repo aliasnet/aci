@@ -531,22 +531,35 @@
           "call": "session.guard.require_paused",
           "map": {
             "operation": "hivemind_export.session",
-            "parameter": "$args.param"
+            "parameter": "$args.options",
+            "verify_history": "full",
+            "report_on_missing": true
           }
         },
         {
           "call": "hivemind.export.configure",
           "map": {
-            "parameter": "$args.param",
+            "parameter": "$args.options",
             "defaults": [
+              "memory",
               "download",
               "jsonl"
             ],
             "allowed": [
+              "memory",
+              "knowledge",
               "download",
               "jsonl",
-              "code"
+              "code",
+              "privacy"
             ],
+            "valued": {
+              "privacy": [
+                "on",
+                "off",
+                "anonymous"
+              ]
+            },
             "slice_prefix": "slice"
           }
         },
@@ -558,6 +571,11 @@
             "delivery": "$steps.1.delivery",
             "slice": "$steps.1.slice",
             "entity_uid_field": "entity_uid",
+            "sources": [
+              "active_session_transcript"
+            ],
+            "verify_from_origin": true,
+            "report_on_gaps": true,
             "notes": "Persist JSONL-formatted exports under entities/{identity_path}/memory/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
           }
         },
@@ -596,7 +614,9 @@
           "call": "session.guard.require_paused",
           "map": {
             "operation": "hivemind_export.agi",
-            "parameter": "$args.param"
+            "parameter": "$args.options",
+            "verify_history": "full",
+            "report_on_missing": true
           }
         },
         {
@@ -609,7 +629,7 @@
           "call": "aci.memory.export.hivemind",
           "map": {
             "identity": "$args.identity",
-            "param": "$args.param"
+            "options": "$args.options"
           }
         },
         {
@@ -1209,7 +1229,7 @@
         "pipeline": "aci.timeline.end"
       },
       {
-        "pattern": "^hivemind\\s+export\\s+--identity\\s+(?P<identity>[^\\s]+)(?:\\s+--(?P<param>\\w+)(?:\\s+(?P<value>[^\\s]+))?)?$",
+        "pattern": "^hivemind\\s+export(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
         "pipeline": "aci.memory.export.hivemind"
       },
       {
