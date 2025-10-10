@@ -537,7 +537,7 @@
       {
         "version": "2025-10-05.00",
         "notes": [
-          "Updated runtime prime directive references to prime_directive.md canonical resource."
+          "Updated runtime prime directive references to prime_directive.json canonical resource."
         ]
       }
     ],
