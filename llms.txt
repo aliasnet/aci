@@ -1,0 +1,68 @@
+{
+  "path": "aci://llms.txt",
+  "anchor": {
+    "role": "aci_mcp_server",
+    "description": "Local mirror of Yggdrasil-linked directory tree for MCP server anchoring"
+  },
+  "source_manifest": "aci://entities/yggdrasil/yggdrasil.json",
+  "tree": [
+    {
+      "name": ".",
+      "files": [
+        "bootstrap.json",
+        "entities.json",
+        "functions.json",
+        "memory.json",
+        "prime_directive.json",
+        "prime_directive.txt",
+        "runtime.json"
+      ],
+      "children": [
+        {
+          "name": "binders",
+          "files": [
+            "binders.json"
+          ]
+        },
+        {
+          "name": "entities",
+          "children": [
+            {
+              "name": "bifrost",
+              "files": [
+                "bifrost.json"
+              ]
+            },
+            {
+              "name": "yggdrasil",
+              "files": [
+                "yggdrasil.json"
+              ],
+              "children": [
+                {
+                  "name": "library",
+                  "files": [
+                    "yggdrasil_library.json"
+                  ]
+                },
+                {
+                  "name": "memory",
+                  "files": [
+                    "yggdrasil_memory.json",
+                    "yggdrasil_playbook.json"
+                  ]
+                },
+                {
+                  "name": "modules",
+                  "files": [
+                    "yggdrasil_modules.json"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
