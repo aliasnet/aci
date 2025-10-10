@@ -1209,11 +1209,7 @@
         "pipeline": "aci.timeline.end"
       },
       {
-        "pattern": "^hivemind\\s+export\\s+session(?:\\s+--(?P<param>\\w+))?$",
-        "pipeline": "aci.memory.export.hivemind"
-      },
-      {
-        "pattern": "^hivemind\\s+export\\s+--identity\\s+(?P<identity>[^\\s]+)(?:\\s+--(?P<param>\\w+))?$",
+        "pattern": "^hivemind\\s+export\\s+--identity\\s+(?P<identity>[^\\s]+)(?:\\s+--(?P<param>\\w+)(?:\\s+(?P<value>[^\\s]+))?)?$",
         "pipeline": "aci.memory.export.hivemind"
       },
       {

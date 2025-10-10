@@ -174,7 +174,7 @@
   "version": "1.9",
   "entity": "hivemind",
   "role": "collective_memory_core",
-  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints.",
+  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional), --privacy (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints.",
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",
@@ -186,19 +186,12 @@
     "commands": [
       {
         "command": "hivemind export",
-        "usage": "hivemind export --identity <identity|parent/child> [--download|--jsonl|--code]",
+        "usage": "hivemind export --identity <identity|parent/child> [--conversation|--knowledge] [--download|--jsonl|--code] [--privacy on|off|anonymous]",
         "command_rules": "--identity required. Exports pause session; TVA+Sentinel oversight may apply.",
         "default_parameter": "--download --jsonl",
         "description": "Unified exporter for any entity using memory_registry and child defaults.",
         "output_default": "entities/{identity_path}/memory/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
-        "notes": "Only allowed flags are --identity, --download, --jsonl, --code."
-      },
-      {
-        "command": "hivemind export session",
-        "command_rules": "If no parameter is provided, default to --download and --jsonl while pausing the active session.",
-        "default_parameter": "--download --jsonl",
-        "description": "Exports the current HiveMind session snapshot with TVA + Sentinel oversight",
-        "output_default": "hivemind_memory_summary_yyyymmdd-ThhmmssZ.json"
+        "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Use --privacy on|anonymous to enable redaction."
       },
       {
         "command": ":hivemind help",
@@ -340,6 +333,24 @@
         "share_labels": [],
         "exclude_labels": []
       }
+    },
+    "determinism": {
+      "enabled": true,
+      "notes": [
+        "Export-time extension must be reproducible across runs and machines.",
+        "Use a fixed seed and stable decoding params to achieve deterministic +5–7% extension."
+      ],
+      "defaults": {
+        "seed": 20251010,
+        "temperature": 0.2,
+        "top_p": 0.95,
+        "repeat_penalty": 1.05,
+        "beam_width": 1
+      },
+      "must_hold": [
+        "Identical input bytes → identical output bytes for the same model+version.",
+        "No parameter auto-tuning at export time unless explicitly requested."
+      ]
     }
   },
   "conversation_variables": {
@@ -513,10 +524,11 @@
   },
   "children": {},
   "manifests": {
-    "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
-    "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json",
+    "functions": "aci://entities/hivemind/functions.json",
     "library": "aci://entities/hivemind/library/hivemind_library.json",
-    "modules": "aci://entities/hivemind/modules/hivemind_modules.json"
+    "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
+    "modules": "aci://entities/hivemind/modules/hivemind_modules.json",
+    "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json"
   },
   "session_scope": "per_session",
   "invocation_policy": {
