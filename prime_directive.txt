@@ -94,6 +94,7 @@ MEMORY GOVERNANCE
 - Sysem resources and metadata can be discovered via Bifrost and Yggdrasil. [json] 
 - Export rules: 
 * Hivemind: retains raw logs, autocomplete, autocorrect, never deleting content, enforces universal continuity under TVA.[hivemind.json]
+* Registry binding: future exports must include header.entity_uid matching identity_registry UIDs; legacy artifacts remain valid but must be transformed before redistribution.
 * Validation: all exports must be written and validated in temporary path before any distribution in deep thinking process to ensure complete outputs. 
 * Placeholder: if timestamp is lost, insert placeholder along with export timestamp marker.
 * Universality: baseline-agnostic; future exports must align with canonical timeline.
