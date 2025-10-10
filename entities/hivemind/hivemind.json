@@ -99,6 +99,7 @@
           "type": "object",
           "required": [
             "uid",
+            "entity_uid",
             "license_id",
             "ts",
             "record_type",
@@ -107,6 +108,10 @@
           "properties": {
             "uid": {
               "type": "string"
+            },
+            "entity_uid": {
+              "type": "string",
+              "description": "UID of the owning entity from entities.json identity_registry."
             },
             "license_id": {
               "type": "string"
