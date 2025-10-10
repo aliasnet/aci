@@ -154,7 +154,7 @@
     "role": "authoritative repository and CDN resolver",
     "version": "1.3.0",
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src → local",
+      "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
         "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
@@ -220,7 +220,706 @@
       "playbook": "aci://entities/yggdrasil/memory/yggdrasil_playbook.json",
       "library": "aci://entities/yggdrasil/library/yggdrasil_library.json",
       "modules": "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
-    }
+    },
+    "tree": [
+      {
+        "name": ".",
+        "files": [
+          "aci://alias.json",
+          "aci://bootstrap.json",
+          "aci://entities.json",
+          "aci://functions.json",
+          "aci://memory.json",
+          "aci://prime_directive.json",
+          "aci://prime_directive.txt",
+          "aci://runtime.json"
+        ],
+        "children": [
+          {
+            "name": "entities",
+            "files": [
+              "aci://entities/organism_model_adaptation.json"
+            ],
+            "children": [
+              {
+                "name": "aci_repo",
+                "files": [
+                  "aci://entities/aci_repo/aci_repo.json",
+                  "aci://entities/aci_repo/api_repo.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/aci_repo/library/aci_repo_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/aci_repo/memory/aci_repo_memory.json",
+                      "aci://entities/aci_repo/memory/aci_repo_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/aci_repo/modules/aci_repo_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "agi",
+                "files": [
+                  "aci://entities/agi/agi.json",
+                  "aci://entities/agi/agi_export_policy.json",
+                  "aci://entities/agi/agi_identity_manager.json"
+                ],
+                "children": [
+                  {
+                    "name": "agi_proxy",
+                    "files": [
+                      "aci://entities/agi/agi_proxy/agi_proxy.json"
+                    ],
+                    "children": [
+                      {
+                        "name": "eec",
+                        "files": [
+                          "aci://entities/agi/agi_proxy/eec/eec_agent_langchain_rag.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_base.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_eval_agieval.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_eval_arc_agi2.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_export_hivemind_full.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_export_hivemind_session.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_faiss_build.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_peft_train_lora.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_sft_deepspeed.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_transformers_infer.json",
+                          "aci://entities/agi/agi_proxy/eec/eec_trl_ppo.json"
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "agi_tools",
+                    "files": [
+                      "aci://entities/agi/agi_tools/autolearn.json",
+                      "aci://entities/agi/agi_tools/migrate_to_jsonl.json"
+                    ],
+                    "children": [
+                      {
+                        "name": "migrate_to_jsonl",
+                        "files": [
+                          "aci://entities/agi/agi_tools/migrate_to_jsonl/manifest.json",
+                          "aci://entities/agi/agi_tools/migrate_to_jsonl/migrate_to_jsonl.json"
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "identities",
+                    "files": [],
+                    "children": [
+                      {
+                        "name": "alice",
+                        "files": [
+                          "aci://entities/agi/identities/alice/alice.json"
+                        ],
+                        "children": [
+                          {
+                            "name": "library",
+                            "files": [
+                              "aci://entities/agi/identities/alice/library/alice_library.json"
+                            ],
+                            "children": []
+                          },
+                          {
+                            "name": "memory",
+                            "files": [
+                              "aci://entities/agi/identities/alice/memory/alice_memory.json",
+                              "aci://entities/agi/identities/alice/memory/alice_playbook.json"
+                            ],
+                            "children": [
+                              {
+                                "name": "knowledge",
+                                "files": [
+                                  "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json"
+                                ],
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "modules",
+                            "files": [
+                              "aci://entities/agi/identities/alice/modules/alice_modules.json"
+                            ],
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "name": "willow",
+                        "files": [
+                          "aci://entities/agi/identities/willow/willow.json"
+                        ],
+                        "children": [
+                          {
+                            "name": "library",
+                            "files": [
+                              "aci://entities/agi/identities/willow/library/willow_library.json"
+                            ],
+                            "children": []
+                          },
+                          {
+                            "name": "memory",
+                            "files": [
+                              "aci://entities/agi/identities/willow/memory/willow_memory.json",
+                              "aci://entities/agi/identities/willow/memory/willow_playbook.json"
+                            ],
+                            "children": [
+                              {
+                                "name": "knowledge",
+                                "files": [
+                                  "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json"
+                                ],
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "modules",
+                            "files": [
+                              "aci://entities/agi/identities/willow/modules/willow_modules.json"
+                            ],
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/agi/library/agi_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/agi/memory/agi_memory.json",
+                      "aci://entities/agi/memory/agi_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/agi/modules/agi_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "architect",
+                "files": [
+                  "aci://entities/architect/architect.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/architect/library/architect_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/architect/memory/architect_memory.json",
+                      "aci://entities/architect/memory/architect_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/architect/modules/architect_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "bifrost",
+                "files": [
+                  "aci://entities/bifrost/bifrost.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/bifrost/library/bifrost_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/bifrost/memory/bifrost_memory.json",
+                      "aci://entities/bifrost/memory/bifrost_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/bifrost/modules/bifrost_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "commerce_ai",
+                "files": [
+                  "aci://entities/commerce_ai/commerce_ai.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/commerce_ai/library/commerce_ai_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/commerce_ai/memory/commerce_ai_memory.json",
+                      "aci://entities/commerce_ai/memory/commerce_ai_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/commerce_ai/modules/commerce_ai_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "hivemind",
+                "files": [
+                  "aci://entities/hivemind/functions.json",
+                  "aci://entities/hivemind/hivemind.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/hivemind/library/hivemind_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/hivemind/memory/hivemind_memory.json",
+                      "aci://entities/hivemind/memory/hivemind_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/hivemind/modules/hivemind_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "keychain",
+                "files": [
+                  "aci://entities/keychain/keychain.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/keychain/library/keychain_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/keychain/memory/keychain_memory.json",
+                      "aci://entities/keychain/memory/keychain_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/keychain/modules/keychain_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "mother",
+                "files": [
+                  "aci://entities/mother/mother.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/mother/library/mother_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/mother/memory/mother_memory.json",
+                      "aci://entities/mother/memory/mother_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/mother/modules/mother_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "nexus_core",
+                "files": [
+                  "aci://entities/nexus_core/nexus_core.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/nexus_core/library/nexus_core_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/nexus_core/memory/nexus_core_memory.json",
+                      "aci://entities/nexus_core/memory/nexus_core_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/nexus_core/modules/nexus_core_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "oracle",
+                "files": [
+                  "aci://entities/oracle/journal.json",
+                  "aci://entities/oracle/oracle.json",
+                  "aci://entities/oracle/oracle_binder.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/oracle/library/oracle_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/oracle/memory/oracle_memory.json",
+                      "aci://entities/oracle/memory/oracle_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/oracle/modules/oracle_modules.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "prediction_engine",
+                    "files": [
+                      "aci://entities/oracle/prediction_engine/predictive_engine.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "predictive_divination_extension",
+                    "files": [
+                      "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json"
+                    ],
+                    "children": [
+                      {
+                        "name": "plugins",
+                        "files": [
+                          "aci://entities/oracle/predictive_divination_extension/plugins/qabalah.plugin.json",
+                          "aci://entities/oracle/predictive_divination_extension/plugins/runes.plugin.json",
+                          "aci://entities/oracle/predictive_divination_extension/plugins/tarot.plugin.json",
+                          "aci://entities/oracle/predictive_divination_extension/plugins/western_astrology.plugin.json"
+                        ],
+                        "children": []
+                      },
+                      {
+                        "name": "predictive_divination_library",
+                        "files": [
+                          "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json",
+                          "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/predictive_divination_library.json",
+                          "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json",
+                          "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json",
+                          "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json",
+                          "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
+                        ],
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "sentinel",
+                "files": [
+                  "aci://entities/sentinel/sentinel.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/sentinel/library/sentinel_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/sentinel/memory/sentinel_memory.json",
+                      "aci://entities/sentinel/memory/sentinel_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/sentinel/modules/sentinel_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "tracehub",
+                "files": [
+                  "aci://entities/tracehub/tracehub.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/tracehub/library/tracehub_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/tracehub/memory/tracehub_memory.json",
+                      "aci://entities/tracehub/memory/tracehub_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/tracehub/modules/tracehub_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "tva",
+                "files": [
+                  "aci://entities/tva/tva.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/tva/library/tva_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/tva/memory/tva_memory.json",
+                      "aci://entities/tva/memory/tva_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/tva/modules/tva_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "yggdrasil",
+                "files": [
+                  "aci://entities/yggdrasil/yggdrasil.json"
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      "aci://entities/yggdrasil/library/yggdrasil_library.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      "aci://entities/yggdrasil/memory/yggdrasil_memory.json",
+                      "aci://entities/yggdrasil/memory/yggdrasil_playbook.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "library",
+            "files": [],
+            "children": [
+              {
+                "name": "aci_audit_runner",
+                "files": [
+                  "aci://library/aci_audit_runner/aci_runner_corpus.v0.2.json",
+                  "aci://library/aci_audit_runner/aci_runner_spec.v0.2.json"
+                ],
+                "children": []
+              },
+              {
+                "name": "binders",
+                "files": [
+                  "aci://library/binders/binders.json"
+                ],
+                "children": [
+                  {
+                    "name": "env",
+                    "files": [
+                      "aci://library/binders/env/gpt5.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "metacognition",
+                "files": [
+                  "aci://library/metacognition/metacognition.json",
+                  "aci://library/metacognition/metacognition_options.json"
+                ],
+                "children": []
+              },
+              {
+                "name": "uid_manager",
+                "files": [
+                  "aci://library/uid_manager/uid_manager.json"
+                ],
+                "children": []
+              },
+              {
+                "name": "wrappers",
+                "files": [],
+                "children": [
+                  {
+                    "name": "process_logs",
+                    "files": [
+                      "aci://library/wrappers/process_logs/process_log_schema.json",
+                      "aci://library/wrappers/process_logs/process_logs.json"
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "tracehub_status",
+                    "files": [
+                      "aci://library/wrappers/tracehub_status/tracehub_status.json"
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "memory",
+            "files": [
+              "aci://memory/local_cache.json"
+            ],
+            "children": [
+              {
+                "name": "audit",
+                "files": [
+                  "aci://memory/audit/router.json"
+                ],
+                "children": []
+              },
+              {
+                "name": "knowledge",
+                "files": [
+                  "aci://memory/knowledge/aci_knowledge.json"
+                ],
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "session_scope": "per_session",
   "invocation_policy": {
