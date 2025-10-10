@@ -22,6 +22,10 @@
       "path": "functions.json",
       "priority": 90
     },
+    "memory_manifest": {
+      "path": "memory.json",
+      "priority": 88
+    },
     "nexus_core": {
       "path": "entities/nexus_core/nexus_core.json",
       "priority": 95
@@ -494,6 +498,12 @@
       "output_root": "/mnt/tracehub"
     },
     "changelog": [
+      {
+        "version": "2025-10-07.02",
+        "notes": [
+          "Loaded memory manifest early in runtime binding to expose entity UID requirements to exporters."
+        ]
+      },
       {
         "version": "2025-10-07.01",
         "notes": [

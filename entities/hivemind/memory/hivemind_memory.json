@@ -17,5 +17,25 @@
   },
   "notes": [
     "Memory exports stored in nested date folders under this directory."
-  ]
+  ],
+  "export_policy": {
+    "determinism": {
+      "enabled": true,
+      "notes": [
+        "Export-time extension must be reproducible across runs and machines.",
+        "Use a fixed seed and stable decoding params to achieve deterministic +5–7% extension."
+      ],
+      "defaults": {
+        "seed": 20251010,
+        "temperature": 0.2,
+        "top_p": 0.95,
+        "repeat_penalty": 1.05,
+        "beam_width": 1
+      },
+      "must_hold": [
+        "Identical input bytes → identical output bytes for the same model+version.",
+        "No parameter auto-tuning at export time unless explicitly requested."
+      ]
+    }
+  }
 }
