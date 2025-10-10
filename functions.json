@@ -1346,5 +1346,14 @@
       "local"
     ],
     "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+  },
+  "commands": {
+    "export": {
+      "options": {
+        "direction": {
+          "notes": "Choose --knowledge to output only facts/claims/edges/snapshots. Non-compatible metadata (chat text, reasoning receipts, process signals) is skipped automatically and remains available via --memory."
+        }
+      }
+    }
   }
 }
