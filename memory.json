@@ -5,7 +5,7 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory.json"
   },
-  "version": "1.0",
+  "version": "1.1",
   "name": "aci_memory_manifest",
   "owner": "hivemind",
   "canonical_schema": "/schemas/hivemind_memory.json",
@@ -35,5 +35,23 @@
       "allow_entity_override": false
     }
   },
-  "notes": "This manifest declares HiveMind as the canonical authority for system-wide memory exports and JSONL migration. Keep AGI-specific schemas and tools under entities/agi/ and mark them local_only. In case of an emergency, ALIAS/TVA/Sentinel can promote an entity schema to system-level via an explicit signed operation."
+  "notes": "This manifest declares HiveMind as the canonical authority for system-wide memory exports and JSONL migration. Keep AGI-specific schemas and tools under entities/agi/ and mark them local_only. In case of an emergency, ALIAS/TVA/Sentinel can promote an entity schema to system-level via an explicit signed operation. Legacy exports remain valid but must be upgraded with entity_uid before distribution.",
+  "changelog": [
+    {
+      "version": "2025-10-07.00",
+      "notes": [
+        "Linked memory exports to the entity registry UID field for future mappings.",
+        "Documented entity_uid requirement while allowing legacy artifacts for migrators."
+      ]
+    }
+  ],
+  "exports": {
+    "contract": "aci://entities/hivemind/hivemind.json#/$defs/record_contract",
+    "entity_binding": {
+      "field": "entity_uid",
+      "registry": "aci://entities.json#identity_registry.identities",
+      "status": "required",
+      "notes": "Each memory export header.entity_uid must match the owning entity UID; legacy exports remain available for migration."
+    }
+  }
 }

@@ -25,6 +25,11 @@
   },
   "identity_registry": {
     "root_authority": "ALIAS",
+    "memory_contract": {
+      "manifest": "aci://memory.json",
+      "field": "entity_uid",
+      "notes": "Memory exports bind to identity_registry UIDs via header.entity_uid; legacy records remain allowed for migration."
+    },
     "identities": {
       "HostEnv": {
         "id": "HostEnv",
@@ -966,7 +971,7 @@
           "uid": "UID:VVGqsW92iwW5T8",
           "issued": "2025-10-04T00:00:00Z",
           "revoked": null
-        } 
+        }
       ],
       "class": "agi_child",
       "role": "agi_child",

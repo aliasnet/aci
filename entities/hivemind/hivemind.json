@@ -5,6 +5,139 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/hivemind/hivemind.json"
   },
+  "$defs": {
+    "memory_tag": {
+      "type": "object",
+      "description": "3D–8Q taxonomy tag for filtering and analysis.",
+      "properties": {
+        "object": {
+          "type": "string",
+          "enum": [
+            "personal",
+            "system"
+          ]
+        },
+        "form": {
+          "type": "string",
+          "enum": [
+            "non_parametric",
+            "parametric"
+          ]
+        },
+        "time": {
+          "type": "string",
+          "enum": [
+            "short",
+            "long"
+          ]
+        },
+        "quadrant": {
+          "type": "string",
+          "description": "Optional label I..VIII"
+        }
+      },
+      "additionalProperties": false
+    },
+    "organism_min": {
+      "type": "object",
+      "description": "Minimal organism hints that amplify useful behaviors.",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "default",
+            "cautious",
+            "high_stakes"
+          ]
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "rest",
+            "forage",
+            "reflect",
+            "defend",
+            "heal",
+            "thrive"
+          ]
+        },
+        "signals": {
+          "type": "object",
+          "properties": {
+            "entropy": {
+              "type": "number",
+              "description": "Distributional uncertainty."
+            },
+            "vote_margin": {
+              "type": "number",
+              "description": "Self-consistency vote margin."
+            },
+            "coverage": {
+              "type": "number",
+              "description": "Retrieval coverage 0..1."
+            },
+            "ood_distance": {
+              "type": "number",
+              "description": "Distance to in-domain centroid."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "record_contract": {
+      "description": "Structured contract for JSONL export records.",
+      "type": "object",
+      "required": [
+        "header",
+        "memory_tag",
+        "organism_min"
+      ],
+      "properties": {
+        "header": {
+          "type": "object",
+          "required": [
+            "uid",
+            "entity_uid",
+            "license_id",
+            "ts",
+            "record_type",
+            "visibility"
+          ],
+          "properties": {
+            "uid": {
+              "type": "string"
+            },
+            "entity_uid": {
+              "type": "string",
+              "description": "UID of the owning entity from entities.json identity_registry."
+            },
+            "license_id": {
+              "type": "string"
+            },
+            "ts": {
+              "type": "string"
+            },
+            "record_type": {
+              "type": "string"
+            },
+            "visibility": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "memory_tag": {
+          "$ref": "#/$defs/memory_tag"
+        },
+        "organism_min": {
+          "$ref": "#/$defs/organism_min"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
   "permissions": {
     "read": true,
     "write": {
@@ -38,10 +171,10 @@
     }
   },
   "uid": "UID:cHGwvtRkDRG7rV",
-  "version": "1.7",
+  "version": "1.9",
   "entity": "hivemind",
   "role": "collective_memory_core",
-  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design).",
+  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints.",
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",
@@ -144,7 +277,7 @@
     "enforce_fqcn_for_children": true
   },
   "export_policy": {
-    "schema_version": "1.2",
+    "schema_version": "1.4",
     "policy_name": "unified",
     "scope": "any_entity",
     "tokens": [
@@ -187,7 +320,26 @@
         "ts",
         "record_type",
         "visibility"
-      ]
+      ],
+      "metadata_fields": [
+        "memory_tag",
+        "organism_min"
+      ],
+      "enforce_metadata": true
+    },
+    "contract_ref": "#/$defs/record_contract",
+    "latent": {
+      "memory_tag": {
+        "$ref": "#/$defs/memory_tag"
+      }
+    },
+    "payload": {
+      "rules": {
+        "scopes": [],
+        "channels": [],
+        "share_labels": [],
+        "exclude_labels": []
+      }
     }
   },
   "conversation_variables": {
