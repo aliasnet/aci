@@ -92,10 +92,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       ```
   - **Never rely on JSON object order**. Use `active` (or explicit CLI `--identity`) to avoid nondeterministic selection.
 
-- **Export Naming Convention (AGI exports only):**
+- **Export Naming Convention (all exports)**
 
   ```
-  # Streamed download in default memory mode (CLI `hivemind export --identity --memory --jsonl`)
+  # Streamed download in default memory mode (CLI `hivemind export --identity {identity} --memory --jsonl`)
   {identity}_{summary_slug}_{timestamp}.jsonl
 
   # Export artifact to be (manually or via git://) stored under /memory/knowledge (Natural Language as parameters Eg. `[ hivemind export --identity=Willow --knowledge --jsonl :: knowledge only, no chatter`)
