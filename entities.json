@@ -182,7 +182,7 @@
       "embeds": {
         "bifrost": "aci://entities/bifrost/bifrost.json",
         "core_five": [
-          "aci://prime_directive.md",
+          "aci://prime_directive.json",
           "aci://runtime.json",
           "aci://entities.json",
           "aci://functions.json",
@@ -222,9 +222,9 @@
           "fallback": "https://aci.aliasmail.cc/functions.json"
         },
         {
-          "file": "aci://prime_directive.md",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md",
-          "fallback": "https://aci.aliasmail.cc/prime_directive.md"
+          "file": "aci://prime_directive.json",
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
+          "fallback": "https://aci.aliasmail.cc/prime_directive.json"
         }
       ],
       "resolver_order": [
