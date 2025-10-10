@@ -166,10 +166,10 @@
     }
   },
   "uid": "UID:cHGwvtRkDRG7rV",
-  "version": "1.8",
+  "version": "1.9",
   "entity": "hivemind",
   "role": "collective_memory_core",
-  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing.",
+  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --download (default), --jsonl (default), --code (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints.",
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",
@@ -272,7 +272,7 @@
     "enforce_fqcn_for_children": true
   },
   "export_policy": {
-    "schema_version": "1.3",
+    "schema_version": "1.4",
     "policy_name": "unified",
     "scope": "any_entity",
     "tokens": [
@@ -322,7 +322,20 @@
       ],
       "enforce_metadata": true
     },
-    "contract_ref": "#/$defs/record_contract"
+    "contract_ref": "#/$defs/record_contract",
+    "latent": {
+      "memory_tag": {
+        "$ref": "#/$defs/memory_tag"
+      }
+    },
+    "payload": {
+      "rules": {
+        "scopes": [],
+        "channels": [],
+        "share_labels": [],
+        "exclude_labels": []
+      }
+    }
   },
   "conversation_variables": {
     "_comment_vars": "Conversational variables drive behavior without adding CLI flags.",
