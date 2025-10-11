@@ -2,19 +2,19 @@
 
 **Version:** 1.0.0  
 **Audience:** Machines  
-**Scope:** Architectural guide to **entities** in the broader ACI ecosystem (governance-first, portable, stateless-by-default)
+**Scope:** Architectural guide to **entities** (or **agents**) in the broader ACI ecosystem (governance-first, portable, manifest-as-binary, stateless-by-default)
 
 ---
 
 ## 0) Quick TL;DR
 
-- In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, specialist workers, wrappers/adapters, or orchestrators.
+- In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, system workers, specialist workers, wrappers/adapters, or orchestrators.
 - **Where code lives**
-  - **/entities/** → identity manifests, roles, per-entity configs
+  - **/entities/** → any entity has dedicated directory contains a main JSON file that serves as both manifest and binary, defining their identity, roles, functions, links to other manifests. The directory also contains other per-entity configs. 
+- **/entities/agi/** → AGI is a special class of entity focuses on Artificial General Intelligence. The directory contains AGI-spefic binary and governance manifests, policy, and AGI-specific modules. 
   - **/memory/identity/** → memory manifests, playbooks, and export timelines per identity
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
-  - **/entities/agi/** → AGI governance manifests & playbooks (identity, export policy, memory manifests)
-- **Memory exports** are JSONL, governed by policy, identity-aware, and privacy-preserving.
+- **Memory exports** are JSONL, serves as 'Digital Soul' of any entity, governed by policy, identity-aware, evolution-proof. Using Hivemind as orchestrator and exporter. 
 - **Manifests are executables**: `.json` manifests *are* the runtime containers. They can name entrypoints (`entrypoint`, `exec`, `load_order`), embed inline bytecode or JSON-encoded instructions, and reference Python modules directly. Each manifest must also hold an authoritative `artifact_id` with strict hash validation for that ID.
 
 > Big picture: ACI is a **colony of digital organisms**. **AGI** governs intelligence and narrative exports; other entities specialize (design, retrieval, planning, etc.). Governance and privacy are first-class.
