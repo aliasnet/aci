@@ -1,107 +1,282 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:9DnS1gxzQvye9K",
-    "sha256": "1b39e45817245f352495c078a4b0888dcecc5b8477e82b3ef489889ae35591a9",
-    "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/oracle/oracle.json"
+    "name": "Oracle",
+    "version": "1.0.0",
+    "issued": "2025-10-11T00:00:00Z",
+    "description": "Unified Oracle engine: fact-based world-event reasoning with optional symbolic overlays. One file to rule it."
   },
-  "permissions": {
-    "read": true,
-    "write": {
-      "allowed": false,
-      "export": {
-        "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
+  "engine": {
+    "calibration": {
+      "bias": 0.0,
+      "scale": 1.0
     },
-    "execute": {
-      "allowed": true,
-      "sandboxed": {
-        "enabled": true,
-        "description": "Execution is permitted only within a controlled sandboxed environment."
-      }
+    "guard": {
+      "allow_domains": [],
+      "deny_domains": [],
+      "max_docs": 20
     },
-    "simulation": {
-      "allowed": [
-        "virtualization, parallelization, emulation required by model or host environment",
-        "virtualization, parallelization, emulation to complement missing infrastructure",
-        "UI/UX needed for registered instruction and pipeline logic",
-        "data simulation for research and demonstration",
-        "data simulation for analysis and prediction",
-        "emulation for demonstration purposes",
-        "reinforcement learning and mental awareness"
+    "personalization": {
+      "enabled": true,
+      "boost": 0.15,
+      "fields": [
+        "title",
+        "summary",
+        "tags",
+        "entities"
       ],
-      "ui": {
-        "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      "about_me_keywords": [
+        "alias",
+        "aci",
+        "willow"
+      ]
+    },
+    "thresholds": {
+      "tipper": {
+        "hi": 0.70,
+        "lo": 0.60
+      },
+      "deduper_cooldown_s": 1800
+    },
+    "io_contracts": {
+      "world_event_input": {
+        "type": "object",
+        "required": [
+          "docs",
+          "aoi",
+          "time"
+        ],
+        "properties": {
+          "docs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "doc_id": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "lat": {
+                  "type": "number"
+                },
+                "lon": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "doc_id",
+                "url",
+                "title"
+              ]
+            }
+          },
+          "aoi": {
+            "type": "object"
+          },
+          "time": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string"
+              },
+              "end": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "world_event_output": {
+        "type": "object",
+        "required": [
+          "predictions",
+          "provenance"
+        ],
+        "properties": {
+          "predictions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "aoi": {
+                  "type": "object"
+                },
+                "time": {
+                  "type": "object"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "tip": {
+                  "type": "boolean"
+                },
+                "features": {
+                  "type": "object",
+                  "properties": {
+                    "personal_relevance": {
+                      "type": "number"
+                    },
+                    "recency": {
+                      "type": "number"
+                    },
+                    "proximity": {
+                      "type": "number"
+                    },
+                    "source_trust": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "doc_id": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "why": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "score",
+                "features"
+              ]
+            }
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "nodes_used": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "time_context": {
+                "type": "object",
+                "properties": {
+                  "ts": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": [
+              "nodes_used"
+            ]
+          }
+        }
       }
     }
   },
-  "uid": "UID:hQk23wMs8mH3Bd",
-  "oracle": {
-    "schema_version": "1.0",
-    "version": "1.1",
-    "entity": "Oracle",
-    "role": "LLM Predictive and Analysis Engine",
-    "abstract": "Hybrid prediction engine. Core LLM analysis is primary. Symbolic divination methods are optional and surfaced only when aligned or explicitly requested.",
-    "todo": [
-      "Extend task detection and routing to cover anomaly detection, segmentation, survival analysis, and text analytics scenarios beyond the current trio of tasks.",
-      "Insert automated data-quality, feature engineering, and drift monitoring stages ahead of model selection and ensembling.",
-      "Add adaptive performance budgets that scale with dataset size and optionally enable GPU-capable adapters alongside CPU defaults.",
-      "Implement journal persistence for divination workflows so symbolic readings and narratives are stored with retention controls."
-    ],
-    "children": {
-      "predictive_engine": {
-        "id": "1.1",
-        "file": "predictive_engine.json",
-        "role": "Core prediction engine (LLM + adapters)",
-        "status": "primary",
-        "module_ref": "aci://entities/oracle/prediction_engine/predictive_engine.json"
-      },
-      "predictive_divination_extension": {
-        "id": "1.2",
-        "file": "predictive_divination_extension.json",
-        "role": "Symbolic divination plugins (tarot, runes, astrology, qabalah)",
-        "status": "optional",
-        "module_ref": "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json"
-      }
+  "overlay": {
+    "enabled": true,
+    "min_results": 3,
+    "ask_on_missing": true,
+    "discovery": {
+      "extension_registry_ref": "oracle_extensions.json",
+      "file_glob": "extensions/*.json",
+      "auto_hook": true,
+      "non_blocking": true
     },
-    "primary_module": "aci://entities/oracle/prediction_engine/predictive_engine.json",
-    "registry": {
-      "extensions": {
-        "divination": {
-          "file": "predictive_divination_extension.json",
-          "version": "1.0"
-        }
-      },
-      "modules": {
-        "manifest": "aci://entities/oracle/library/oracle_library.json",
-        "primary": "predictive_engine"
-      }
-    },
-    "manifests": {
-      "memory": "aci://memory/identity/oracle/oracle_memory.json",
-      "playbook": "aci://memory/identity/oracle/oracle_playbook.json",
-      "library": "aci://entities/oracle/library/oracle_library.json"
-    },
-    "changelog": [
-      {
-        "version": "1.1.0",
-        "notes": [
-          "Registered module manifest and marked predictive_engine as the primary Oracle module."
-        ]
-      }
-    ]
+    "policy": {
+      "require_data_backing_for_symbolic_output": true,
+      "fallback_to_reason_if_no_data": true
+    }
   },
-  "session_scope": "per_session",
-  "invocation_policy": {
-    "registry_reference": "aci://entities.json#entities.entity-008",
-    "registry_uid": "UID:hQk23wMs8mH3Bd",
-    "enforced": true,
-    "session_scope": "per_session",
-    "allowed_roles": [
-      "analysis",
-      "prediction"
-    ]
-  }
+  "routes": [
+    {
+      "if": "type=='SEARCH_QUERY'",
+      "to": [
+        "search_proxy"
+      ]
+    },
+    {
+      "if": "type=='SEARCH_RESULT' and not payload.get('filtered')",
+      "to": [
+        "policy_guard",
+        "oracle_engine"
+      ]
+    },
+    {
+      "if": "type=='SEARCH_RESULT' and payload.get('filtered')",
+      "to": [
+        "oracle_engine"
+      ]
+    },
+    {
+      "if": "type in ['OBS','WORLD_EVENT']",
+      "to": [
+        "oracle_engine"
+      ]
+    },
+    {
+      "if": "type=='PRED'",
+      "to": [
+        "fusion",
+        "tipper"
+      ]
+    },
+    {
+      "if": "type=='PRED_FUSED'",
+      "to": [
+        "tipper"
+      ]
+    },
+    {
+      "if": "type=='TIP'",
+      "to": [
+        "deduper",
+        "scheduler"
+      ]
+    },
+    {
+      "if": "type=='CUE'",
+      "to": [
+        "executor"
+      ]
+    },
+    {
+      "if": "type=='ASK'",
+      "to": []
+    }
+  ],
+  "assets": [
+    {
+      "name": "oracle-worker-1",
+      "capacity_per_tick": 1,
+      "base_cost": 0.05,
+      "move_penalty": 0.03
+    },
+    {
+      "name": "oracle-worker-2",
+      "capacity_per_tick": 1,
+      "base_cost": 0.05,
+      "move_penalty": 0.03
+    }
+  ]
 }
