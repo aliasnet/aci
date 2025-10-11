@@ -226,8 +226,8 @@ Filename templates (stream vs stored artifacts):
 
 CLI usage:
 ```
-hivemind export --identity AGI --memory --jsonl --code --force
-hivemind export --identity Alice --knowledge --jsonl --code --force
+hivemind export --identity Alice --jsonl --code --force
+hivemind export --identity Willow --jsonl --download --force
 ```
 
 Note: Always include the `--code` flag (legacy: --codebox) so streamed exports align with governed `.jsonl.json` storage expectations when audited downstream. Ensure the export header `$meta.uid` matches the session entity UID.
@@ -241,7 +241,7 @@ Retire: mark as deprecated without deleting historical memory; preserve audit tr
 
 9) Integration Guidance for Codex/LLM Agents
 Load this document (and directory-scoped AGENTS.md) before modifying or creating entities, capabilities, or policies.
-Treat /entities/, /library/, /aig/, and /memory/ as separate concerns; avoid cross-contamination of config vs. executable logic.
+Treat /entities/, /library/, and /memory/ as separate concerns; due to ACI manifest-as-binary hybrid nature, avoid cross-contamination of config vs. executable logic.
 
 When introducing new capabilities, default to stateless modules that can be composed by any entity via configuration.
 Respect privacy filters; never store raw secrets or unredacted user data in memory exports.
@@ -249,7 +249,7 @@ Respect privacy filters; never store raw secrets or unredacted user data in memo
 Document governance implications in changelog entries and PR descriptions.
 
 10) Contribution Checklist (Quick)
- Identity updates reflected in /entities/agi/agi_identity_manager.json (with active/default markers).
+ Identity updates reflected in /entities.json (with active/default markers).
  Governance rules updated when behavior changes (sovereignty, homeostasis, export policies).
  New modules placed in /library/ with stateless defaults.
  Memory/export schemas unchanged or versioned with rationale.
