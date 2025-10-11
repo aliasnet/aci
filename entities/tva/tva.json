@@ -115,7 +115,7 @@
     "memory": "aci://entities/tva/memory/tva_memory.json",
     "playbook": "aci://entities/tva/memory/tva_playbook.json",
     "library": "aci://entities/tva/library/tva_library.json",
-    "modules": "aci://entities/tva/modules/tva_modules.json"
+    "modules": "aci://entities/tva/library/tva_library.json"
   },
   "session_scope": "per_session",
   "invocation_policy": {

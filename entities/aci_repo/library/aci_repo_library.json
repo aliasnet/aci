@@ -9,5 +9,13 @@
   "version": "1.0.0",
   "identity": "ACI Repo",
   "slug": "aci_repo",
-  "resources": []
+  "resources": [],
+  "modules": [
+    {
+      "name": "aci_repo_core",
+      "role": "package_manager",
+      "source": "aci://entities/aci_repo/aci_repo.json",
+      "status": "primary"
+    }
+  ]
 }

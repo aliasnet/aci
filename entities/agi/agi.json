@@ -348,7 +348,7 @@
     "memory": "aci://entities/agi/memory/agi_memory.json",
     "playbook": "aci://entities/agi/memory/agi_playbook.json",
     "library": "aci://entities/agi/library/agi_library.json",
-    "modules": "aci://entities/agi/modules/agi_modules.json"
+    "modules": "aci://entities/agi/library/agi_library.json"
   },
   "session_scope": "per_session",
   "invocation_policy": {

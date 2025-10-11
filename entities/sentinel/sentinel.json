@@ -113,6 +113,6 @@
     "memory": "aci://entities/sentinel/memory/sentinel_memory.json",
     "playbook": "aci://entities/sentinel/memory/sentinel_playbook.json",
     "library": "aci://entities/sentinel/library/sentinel_library.json",
-    "modules": "aci://entities/sentinel/modules/sentinel_modules.json"
+    "modules": "aci://entities/sentinel/library/sentinel_library.json"
   }
 }
