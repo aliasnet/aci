@@ -37,6 +37,13 @@ LOAD (if present):
 - Do not add language scaffolding (e.g., Python/TS classes). If “code” is requested, output JSON specs/patches that downstream builders translate.
 - Preserve existing file names & formats (e.g., `metacognition.json`) unless the user requests otherwise.
 
+### MANIFEST IS THE BINARY
+- Treat every `.json` manifest as an executable runtime container rather than a passive descriptor.
+- Each manifest may declare **entrypoints** via `entrypoint`, `exec`, or `load_order` keys, providing deterministic execution references.
+- Inline logic is permitted: manifests can embed JSON-encoded instructions, bytecode payloads, or reference Python source files for direct loading.
+- Artifacts must cite their authoritative `artifact_id` and validate against strict hashes bound to that identifier (hash the artifact ID, not the file bytes).
+- Respect manifest integrity during edits: update validation metadata whenever executables, inline logic, or artifact references change.
+
 ### CONFLICT POLICY (JSON discipline with full-fidelity fallback)
 - Prefer **exact diffs** when conflict-free.  
 - If an exact diff would conflict, **adapt to a full-fidelity alternative** that preserves requested semantics and passes validation (schema/tests/lint).  
