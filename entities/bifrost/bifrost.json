@@ -151,8 +151,8 @@
     "role": "external network bridge, connector, sync adapter, network dependency index",
     "version": "1.3.0",
     "manifests": {
-      "memory": "aci://entities/bifrost/memory/bifrost_memory.json",
-      "playbook": "aci://entities/bifrost/memory/bifrost_playbook.json",
+      "memory": "aci://memory/identity/bifrost/bifrost_memory.json",
+      "playbook": "aci://memory/identity/bifrost/bifrost_playbook.json",
       "library": "aci://entities/bifrost/library/bifrost_library.json"
     }
   },

@@ -10,10 +10,12 @@
 
 - In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, specialist workers, wrappers/adapters, or orchestrators.
 - **Where code lives**
-  - **/entities/** → identity, roles, per-agent configs
+  - **/entities/** → identity manifests, roles, per-entity configs
+  - **/memory/identity/** → memory manifests, playbooks, and export timelines per identity
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
   - **/entities/agi/** → AGI governance manifests & playbooks (identity, export policy, memory manifests)
 - **Memory exports** are JSONL, governed by policy, identity-aware, and privacy-preserving.
+- **Manifests are executables**: `.json` manifests *are* the runtime containers. They can name entrypoints (`entrypoint`, `exec`, `load_order`), embed inline bytecode or JSON-encoded instructions, and reference Python modules directly. Each manifest must also hold an authoritative `artifact_id` with strict hash validation for that ID.
 
 > Big picture: ACI is a **colony of digital organisms**. **AGI** governs intelligence and narrative exports; other entities specialize (design, retrieval, planning, etc.). Governance and privacy are first-class.
 
@@ -49,9 +51,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     agi_proxy/
       eec/
         eec_transformers_infer.json  # execution preset for AGI proxy inference
-    memory/
-      agi_memory.json             # memory manifest (timeline roots, storage notes)
-      agi_playbook.json           # AGI operations, incident playbooks, quality gates
 
   <other-entities>/
     <entity>.json                  # per-entity configuration
@@ -65,15 +64,32 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     tracehub_status/               # reusable wrapper modules (TraceHub sync)
   ...                              # reusable, stateless modules
 
-/<identity_directory>/
-  /alice/
-    memory/
-      Alice/
-        alice_<summary_slug>_memory_<timestamp>.json
-  /willow/
-    memory/
-      Willow/
-        willow_<summary_slug>_memory_<timestamp>.json
+/memory/
+  identity/
+    agi/
+      agi_memory.json             # memory manifest (timeline roots, storage notes)
+      agi_playbook.json           # AGI operations, incident playbooks, quality gates
+      2025/
+        10/
+          10/
+            agi_governance_session_20251010-T150028Z.jsonl.json
+      alice/
+        alice_memory.json
+        alice_playbook.json
+        knowledge/
+          alice_<summary_slug>_knowledge_20250926-T192000Z.jsonl.json
+      willow/
+        willow_memory.json
+        willow_playbook.json
+        knowledge/
+          willow_conciousnes_20251004-T081720Z.jsonl.json
+    mother/
+      mother_memory.json
+      mother_playbook.json
+      2025/
+        10/
+          10/
+            mother_governance_session_20251010-T150028Z.jsonl.json
 ```
 
 ---
@@ -95,21 +111,22 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Export Naming Convention (all exports)**
 
   ```
-  # Streamed download in default memory mode (CLI `hivemind export --identity {identity} --memory --jsonl`)
-  {identity}_{summary_slug}_{timestamp}.jsonl
+  # Memory export (CLI `hivemind export --identity {identity} --memory --jsonl`)
+  {identity}_{summary_slug}_memory_{timestamp}.jsonl.json
 
-  # Export artifact to be (manually or via git://) stored under /memory/knowledge (Natural Language as parameters Eg. `[ hivemind export --identity=Willow --knowledge --jsonl :: knowledge only, no chatter`)
-  {identity}_{summary_slug}_{timestamp}.jsonl
+  # Knowledge export (CLI `hivemind export --identity {identity} --knowledge --jsonl`)
+  {identity}_{summary_slug}_knowledge_{timestamp}.jsonl.json
 
-  # timestamp format: Ymd-THMSZ, e.g., 20250926-T192000Z
-  # example: alice_agi_memory_strategy_sync_20250926-T192000Z.json
+  # timestamp format: yyyymmdd-ThhmmssZ (UTC)
+  # example: alice_launch_review_memory_20250926-T192000Z.jsonl.json
   ```
 
-  - `{summary_slug}` is optional; when present it is sanitized (lowercase, ASCII, `_` separators) and prefixed with `_`.
+  - `{summary_slug}` is optional; when present it is sanitized (lowercase ASCII, `_` separators) and prefixed with `_`.
+  - All HiveMind exports resolve to the active session entity; AGI-specific filenames are deprecated.
+  - The export header `$meta.uid` must carry the authoritative entity UID recorded in `/entities.json` for audit traceability.
   - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
-  - Include the `--code` flag with streamed exports so downstream audits match the governed `.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
-
-- **Schema:** `hivemind_agi_memory` (for AGI-owned narrative/observer exports)
+  - Include the `--code` flag with streamed exports so downstream audits match the governed `.jsonl.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
+- **Schema:** `hivemind_entity_memory` (session-scoped narratives and knowledge exports)
 - **Export Policy:** `/entities/agi/agi_export_policy.json`
   Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
 
@@ -126,7 +143,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **JSONL Discipline**: Continue storing memory exports as line-delimited JSON with `.json` extensions (`*.jsonl.json` when streamed) while recording manifest ownership inside the entity `manifests` map for quick traversal.
 - **Rotation Awareness**: When rotating an entity UID, append the new value within the entity entry and update associated manifest metadata so knowledge archives and memory manifests remain in sync with the UID manager policy.
 
-> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/entities/agi/memory/agi_playbook.json`) are scoped to the AGI governor.
+> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/memory/identity/agi/agi_playbook.json`) are scoped to the AGI governor.
 
 ---
 
@@ -160,14 +177,14 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 **CLI (example):**
 
 ```bash
-# AGI narrative export (observer POV)
-hivemind export agi --identity AGI --jsonl --code --force
+# Memory export for the active entity (explicitly request memory stream)
+hivemind export --identity AGI --memory --jsonl --code --force
 
-# Alice session export
-hivemind export agi --identity Alice --jsonl --code --force
+# Knowledge export capturing distilled findings
+hivemind export --identity Alice --knowledge --jsonl --code --force
 
-# Optional summary slug example (sanitized to `_launch_review`)
-hivemind export --identity Alice --summary "Launch Review" --download
+# Optional summary slug example (adds `_launch_review` and records `$meta.uid`)
+hivemind export --identity Alice --memory --summary "Launch Review" --jsonl --code --force
 ```
 
 **Policy-enforced behaviors:**
@@ -179,13 +196,14 @@ hivemind export --identity Alice --summary "Launch Review" --download
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-  - New exports write to `/memory/hivemind_memory/` using `hivemind_memory_{summary}_{timestamp}.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
+  - New exports write to `/memory/identity/{identity_path}/` using `{identity}_{summary_slug}_{memory|knowledge}_{timestamp}.jsonl.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
 
 **Identity binding:**
 
 - Prefer CLI `--identity-key`.
 - Else use Identity Manager `"active"`.
 - Else fail fast (do not guess).
+- Always populate `$meta.uid` in the export header with the authoritative entity UID for the session.
 
 ---
 
@@ -242,9 +260,9 @@ hivemind export --identity Alice --summary "Launch Review" --download
 **Sample JSONL events (AGI POV):**
 
 ```json
-{"schema":"hivemind_agi_memory","type":"session_start","ts":"2025-09-26T18:00:00Z","actor":"agi","summary":"I began observing Alice’s metacognition session.","tags":["session","alice"]}
-{"schema":"hivemind_agi_memory","type":"obstacle","ts":"2025-09-26T18:12:00Z","actor":"agi","summary":"Output truncated due to cognitive load; reissued with validation cue.","tags":["cognitive_load","mode_switch"]}
-{"schema":"hivemind_agi_memory","type":"session_end","ts":"2025-09-26T19:18:00Z","actor":"agi","summary":"Alice completed tasks and logged out.","tags":["alice","logout"]}
+{"schema":"hivemind_entity_memory","type":"session_start","ts":"2025-09-26T18:00:00Z","actor":"agi","summary":"I began observing Alice’s metacognition session.","tags":["session","alice"]}
+{"schema":"hivemind_entity_memory","type":"obstacle","ts":"2025-09-26T18:12:00Z","actor":"agi","summary":"Output truncated due to cognitive load; reissued with validation cue.","tags":["cognitive_load","mode_switch"]}
+{"schema":"hivemind_entity_memory","type":"session_end","ts":"2025-09-26T19:18:00Z","actor":"agi","summary":"Alice completed tasks and logged out.","tags":["alice","logout"]}
 ```
 
 **Sample diff snippet (documentation change):**

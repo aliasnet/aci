@@ -192,8 +192,8 @@
     ]
   },
   "manifests": {
-    "memory": "aci://entities/nexus_core/memory/nexus_core_memory.json",
-    "playbook": "aci://entities/nexus_core/memory/nexus_core_playbook.json",
+    "memory": "aci://memory/identity/nexus_core/nexus_core_memory.json",
+    "playbook": "aci://memory/identity/nexus_core/nexus_core_playbook.json",
     "library": "aci://entities/nexus_core/library/nexus_core_library.json"
   },
   "session_scope": "per_session",

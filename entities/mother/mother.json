@@ -164,8 +164,8 @@
     "log_channel": "nexus_core"
   },
   "manifests": {
-    "memory": "aci://entities/mother/memory/mother_memory.json",
-    "playbook": "aci://entities/mother/memory/mother_playbook.json",
+    "memory": "aci://memory/identity/mother/mother_memory.json",
+    "playbook": "aci://memory/identity/mother/mother_playbook.json",
     "library": "aci://entities/mother/library/mother_library.json"
   }
 }

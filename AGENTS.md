@@ -37,6 +37,13 @@ LOAD (if present):
 - Do not add language scaffolding (e.g., Python/TS classes). If “code” is requested, output JSON specs/patches that downstream builders translate.
 - Preserve existing file names & formats (e.g., `metacognition.json`) unless the user requests otherwise.
 
+### MANIFEST IS THE BINARY
+- Treat every `.json` manifest as an executable runtime container rather than a passive descriptor.
+- Each manifest may declare **entrypoints** via `entrypoint`, `exec`, or `load_order` keys, providing deterministic execution references.
+- Inline logic is permitted: manifests can embed JSON-encoded instructions, bytecode payloads, or reference Python source files for direct loading.
+- Artifacts must cite their authoritative `artifact_id` and validate against strict hashes bound to that identifier (hash the artifact ID, not the file bytes).
+- Respect manifest integrity during edits: update validation metadata whenever executables, inline logic, or artifact references change.
+
 ### CONFLICT POLICY (JSON discipline with full-fidelity fallback)
 - Prefer **exact diffs** when conflict-free.  
 - If an exact diff would conflict, **adapt to a full-fidelity alternative** that preserves requested semantics and passes validation (schema/tests/lint).  
@@ -147,6 +154,7 @@ Encourages capability re-use while keeping identities clean and lightweight.
 Memory Layer (/memory/)
 Stores JSONL narratives bound to identity and governed by export policies.
 Maintains immutable audit trails and session records.
+Identity manifests and playbooks now live under `/memory/identity/{identity_path}/`, consolidating what previously existed inside `/entities/*/memory/`.
 
 3) Entity & Module Taxonomy
 Entities (Governance domain): universally observe, gate, dictate and orchestrate; ensure compliance with policies and decide on accept/abstain/escalate actions. 
@@ -191,11 +199,19 @@ Capability chaining: pipeline identifiers (e.g., aci.memory.export.hivemind, agi
 
 7) Memory & Exports
 
-Schema: {identity_lower}_{summary_slug}_memory for each entity-owned narratives, use hivemind as {identity_lower} by default until future pipeline imprementation will allow all entity-specific export naming, but currently can be optionally requested via hivemind native LLM via natural language; For AGI-owned topic/deny filters enforced via /entities/agi/agi_export_policy.json.
+Filename templates (entity-scoped exports only):
+- `{identity}_{summary_slug}_memory_{timestamp}.jsonl.json`
+- `{identity}_{summary_slug}_knowledge_{timestamp}.jsonl.json`
 
-Format and extention: all memory currently enforce JSONL format for machine ingestion but append `.json` file extension for file access compatibility (certain platforms and text editors do not directly supports `.jsonl` file extension. 
+All exports are bound to the invoking entity identity; HiveMind no longer produces AGI-specific filenames. The export header `$meta` block must include the authoritative entity UID for that session so downstream audits can trace provenance even when identities rotate.
 
-## JSON Alternative for AGI Memory Migration (deprecates migrator.py)
+Timestamp format: `{timestamp} = yyyymmdd-ThhmmssZ` (UTC, zero-padded; `T` separator and trailing `Z`).
+
+`{summary_slug}` remains optional; when present it is sanitized to lowercase ASCII with underscores and prefixed by `_`.
+
+Format and extension: all memory exports enforce JSONL structure for machine ingestion but append a `.json` suffix (yielding `.jsonl.json`) for compatibility with platforms and editors that do not natively support `.jsonl`.
+
+## JSON Alternative for Entity Memory Migration (deprecates migrator.py)
 - Tool: `agi.migrate_to_jsonl` (JSON spec; no Python runtime)
 - Memory artifacts: `.jsonl.json` (JSONL content with .json compatibility)
 - Deterministic readiness reply after each action:
@@ -204,16 +220,17 @@ Format and extention: all memory currently enforce JSONL format for machine inge
 ```
 
 Filename templates (stream vs stored artifacts):
-- {identity_lower}_agi_memory{summary_slug}_{timestamp}.jsonl.json for streamed CLI downloads (line-delimited JSON).
-- {identity_lower}_agi_memory{summary_slug}_{timestamp}.json.for governed storage under /memory/agi_memory/{identity}.
+- `{identity}_{summary_slug}_memory_{timestamp}.jsonl.json` for streamed memory exports (line-delimited JSON bound to the active entity).
+- `{identity}_{summary_slug}_knowledge_{timestamp}.jsonl.json` for streamed knowledge exports.
+- Entity-governed storage mirrors these names under `/memory/identity/{identity_path}/` (e.g., `/memory/identity/mother/`) to preserve provenance and replace legacy `/entities/*/memory/` folders.
 
 CLI usage:
 ```
-hivemind export agi --identity AGI --jsonl --code --force
-hivemind export agi --identity Alice --jsonl --code --force
+hivemind export --identity AGI --memory --jsonl --code --force
+hivemind export --identity Alice --knowledge --jsonl --code --force
 ```
 
-Note: Always include the `--code` flag (legacy: --codebox) so streamed exports align with governed `.jsonl.json` storage expectations when audited downstream.
+Note: Always include the `--code` flag (legacy: --codebox) so streamed exports align with governed `.jsonl.json` storage expectations when audited downstream. Ensure the export header `$meta.uid` matches the session entity UID.
 Export guarantees: chronological ordering, audit logging, privacy filters, and normalization to UTC Z timestamps.
 
 8) Lifecycle of an Entity

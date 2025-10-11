@@ -1,0 +1,17 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:3LMrQcbgepgR3q",
+    "sha256": "1faa37dc64c41c79638aff5348acd761e6a7d6ec1d324d19864ca2d712df7cac",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json"
+  },
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Yggdrasil",
+  "slug": "yggdrasil",
+  "source_manifest": "aci://entities/yggdrasil/yggdrasil.json",
+  "entries": [],
+  "notes": [
+    "Use this playbook to capture evolving perspectives without altering the core manifest."
+  ]
+}
