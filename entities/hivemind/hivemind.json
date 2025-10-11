@@ -190,7 +190,7 @@
         "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA+Sentinel oversight may apply.",
         "default_parameter": "--memory --download --jsonl",
         "description": "Unified exporter for any entity using memory_registry and child defaults.",
-        "output_default": "entities/{identity_path}/memory/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
         "notes": "Allowed flags: --identity, --memory, --knowledge, --download, --jsonl, --code, --privacy. Memory scope replays the full session transcript from the first turn; if gaps are detected, a recovery report is emitted before export. Use --privacy on|anonymous to enable redaction while retaining entity_uid headers."
       },
       {
@@ -287,7 +287,7 @@
         "child_defaults",
         "fallback_template"
       ],
-      "fallback_template": "entities/{identity_path}/memory/YYYY/MM/DD/{leaf_identity_lower}_memory_{ISO8601}.jsonl"
+      "fallback_template": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_memory_{ISO8601}.jsonl"
     },
     "filename_pattern": "{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
     "parameters": {
@@ -399,52 +399,52 @@
   },
   "memory_registry": {
     "_comment_memory_registry": "Ordering follows entities.json. Child defaults apply to any nested entity not explicitly listed.",
-    "schema_version": "1.2",
+    "schema_version": "1.3",
     "by_entity": {
       "nexus_core": {
-        "stub_manifest": "entities/nexus_core/memory/nexus_core_memory.json",
-        "export_pattern": "entities/nexus_core/memory/YYYY/MM/DD/nexus_core_memory_*.json*"
+        "stub_manifest": "memory/identity/nexus_core/nexus_core_memory.json",
+        "export_pattern": "memory/identity/nexus_core/YYYY/MM/DD/nexus_core_memory_*.json*"
       },
       "mother": {
-        "stub_manifest": "entities/mother/memory/mother_memory.json",
-        "export_pattern": "entities/mother/memory/YYYY/MM/DD/mother_memory_*.json*"
+        "stub_manifest": "memory/identity/mother/mother_memory.json",
+        "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_memory_*.json*"
       },
       "tva": {
-        "stub_manifest": "entities/tva/memory/tva_memory.json",
-        "export_pattern": "entities/tva/memory/YYYY/MM/DD/tva_memory_*.json*"
+        "stub_manifest": "memory/identity/tva/tva_memory.json",
+        "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_memory_*.json*"
       },
       "sentinel": {
-        "stub_manifest": "entities/sentinel/memory/sentinel_memory.json",
-        "export_pattern": "entities/sentinel/memory/YYYY/MM/DD/sentinel_memory_*.json*"
+        "stub_manifest": "memory/identity/sentinel/sentinel_memory.json",
+        "export_pattern": "memory/identity/sentinel/YYYY/MM/DD/sentinel_memory_*.json*"
       },
       "architect": {
-        "stub_manifest": "entities/architect/memory/architect_memory.json",
-        "export_pattern": "entities/architect/memory/YYYY/MM/DD/architect_memory_*.json*"
+        "stub_manifest": "memory/identity/architect/architect_memory.json",
+        "export_pattern": "memory/identity/architect/YYYY/MM/DD/architect_memory_*.json*"
       },
       "oracle": {
-        "stub_manifest": "entities/oracle/memory/oracle_memory.json",
-        "export_pattern": "entities/oracle/memory/YYYY/MM/DD/oracle_memory_*.json*"
+        "stub_manifest": "memory/identity/oracle/oracle_memory.json",
+        "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_memory_*.json*"
       },
       "agi": {
-        "stub_manifest": "entities/agi/memory/agi_memory.json",
-        "export_pattern": "entities/agi/memory/YYYY/MM/DD/agi_memory_*.json*"
+        "stub_manifest": "memory/identity/agi/agi_memory.json",
+        "export_pattern": "memory/identity/agi/YYYY/MM/DD/agi_memory_*.json*"
       },
       "alice": {
-        "stub_manifest": "entities/agi/identities/alice/memory/alice_memory.json",
-        "export_pattern": "entities/agi/identities/alice/memory/YYYY/MM/DD/alice_memory_*.json*"
+        "stub_manifest": "memory/identity/agi/alice/alice_memory.json",
+        "export_pattern": "memory/identity/agi/alice/YYYY/MM/DD/alice_memory_*.json*"
       },
       "willow": {
-        "stub_manifest": "entities/agi/identities/willow/memory/willow_memory.json",
-        "export_pattern": "entities/agi/identities/willow/memory/YYYY/MM/DD/willow_memory_*.json*"
+        "stub_manifest": "memory/identity/agi/willow/willow_memory.json",
+        "export_pattern": "memory/identity/agi/willow/YYYY/MM/DD/willow_memory_*.json*"
       },
       "hivemind": {
-        "stub_manifest": "entities/hivemind/memory/hivemind_memory.json",
-        "export_pattern": "entities/hivemind/memory/YYYY/MM/DD/hivemind_memory_*.json*"
+        "stub_manifest": "memory/identity/hivemind/hivemind_memory.json",
+        "export_pattern": "memory/identity/hivemind/YYYY/MM/DD/hivemind_memory_*.json*"
       }
     },
     "child_defaults": {
-      "stub_manifest": "entities/{identity_path}/memory/{leaf_identity_lower}_memory.json",
-      "export_pattern": "entities/{identity_path}/memory/YYYY/MM/DD/{leaf_identity_lower}_memory_*.json*"
+      "stub_manifest": "memory/identity/{identity_path}/{leaf_identity_lower}_memory.json",
+      "export_pattern": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_memory_*.json*"
     }
   },
   "tools": {
@@ -455,8 +455,14 @@
       "description": "Manifest-driven migration to JSONL artifacts; no Python runtime.",
       "inputs": {
         "source_globs": [
+          "memory/identity/**/*.json",
+          "memory/identity/**/*.ndjson",
+          "memory/identity/**/*.jsonl",
+          "memory/identity/**/*.jsonl.json",
           "entities/**/memory/**/*.json",
           "entities/**/memory/**/*.ndjson",
+          "entities/**/memory/**/*.jsonl",
+          "entities/**/memory/**/*.jsonl.json",
           "hivemind/**/*.json"
         ],
         "allow_ext": [
@@ -506,10 +512,12 @@
   },
   "legacy_paths": {
     "patterns": [
+      "entities/**/memory/**/*.json*",
+      "entities/**/memory/**/*.ndjson",
       "memory/agi_memory/agi_memory_*.json*",
       "memory/agi_memory/alice_memory_*.json*"
     ],
-    "redirect_rule": "rewrite_to_entity_scoped_paths",
+    "redirect_rule": "rewrite_to_identity_namespace",
     "status": "deprecated"
   },
   "auto_heal": {
@@ -538,8 +546,8 @@
   "children": {},
   "manifests": {
     "library": "aci://entities/hivemind/library/hivemind_library.json",
-    "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
-    "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json"
+    "memory": "aci://memory/identity/hivemind/hivemind_memory.json",
+    "playbook": "aci://memory/identity/hivemind/hivemind_playbook.json"
   },
   "session_scope": "per_session",
   "invocation_policy": {

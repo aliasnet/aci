@@ -80,8 +80,8 @@
       }
     },
     "manifests": {
-      "memory": "aci://entities/oracle/memory/oracle_memory.json",
-      "playbook": "aci://entities/oracle/memory/oracle_playbook.json",
+      "memory": "aci://memory/identity/oracle/oracle_memory.json",
+      "playbook": "aci://memory/identity/oracle/oracle_playbook.json",
       "library": "aci://entities/oracle/library/oracle_library.json"
     },
     "changelog": [

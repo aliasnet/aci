@@ -28,7 +28,7 @@
     "memory_contract": {
       "manifest": "aci://memory.json",
       "field": "entity_uid",
-      "notes": "Memory exports bind to identity_registry UIDs via header.entity_uid; legacy records remain allowed for migration."
+      "notes": "Memory exports bind to identity_registry UIDs via header.entity_uid; artifacts are stored under aci://memory/identity/{identity_path}/. Legacy records remain allowed for migration."
     },
     "identities": {
       "HostEnv": {
@@ -285,10 +285,10 @@
           "aci://entities/mother/library/mother_library.json"
         ],
         "memory": [
-          "aci://entities/mother/memory/mother_memory.json"
+          "aci://memory/identity/mother/mother_memory.json"
         ],
         "playbook": [
-          "aci://entities/mother/memory/mother_playbook.json"
+          "aci://memory/identity/mother/mother_playbook.json"
         ]
       },
       "uids": [
@@ -328,10 +328,10 @@
           "aci://entities/tva/library/tva_library.json"
         ],
         "memory": [
-          "aci://entities/tva/memory/tva_memory.json"
+          "aci://memory/identity/tva/tva_memory.json"
         ],
         "playbook": [
-          "aci://entities/tva/memory/tva_playbook.json"
+          "aci://memory/identity/tva/tva_playbook.json"
         ]
       },
       "uids": [
@@ -382,10 +382,10 @@
           "aci://entities/sentinel/library/sentinel_library.json"
         ],
         "memory": [
-          "aci://entities/sentinel/memory/sentinel_memory.json"
+          "aci://memory/identity/sentinel/sentinel_memory.json"
         ],
         "playbook": [
-          "aci://entities/sentinel/memory/sentinel_playbook.json"
+          "aci://memory/identity/sentinel/sentinel_playbook.json"
         ]
       },
       "uids": [
@@ -429,10 +429,10 @@
           "aci://entities/architect/library/architect_library.json"
         ],
         "memory": [
-          "aci://entities/architect/memory/architect_memory.json"
+          "aci://memory/identity/architect/architect_memory.json"
         ],
         "playbook": [
-          "aci://entities/architect/memory/architect_playbook.json"
+          "aci://memory/identity/architect/architect_playbook.json"
         ]
       },
       "uids": [
@@ -481,10 +481,10 @@
           "aci://entities/nexus_core/library/nexus_core_library.json"
         ],
         "memory": [
-          "aci://entities/nexus_core/memory/nexus_core_memory.json"
+          "aci://memory/identity/nexus_core/nexus_core_memory.json"
         ],
         "playbook": [
-          "aci://entities/nexus_core/memory/nexus_core_playbook.json"
+          "aci://memory/identity/nexus_core/nexus_core_playbook.json"
         ]
       },
       "uids": [
@@ -523,10 +523,10 @@
           "aci://entities/agi/library/agi_library.json"
         ],
         "memory": [
-          "aci://entities/agi/memory/agi_memory.json"
+          "aci://memory/identity/agi/agi_memory.json"
         ],
         "playbook": [
-          "aci://entities/agi/memory/agi_playbook.json"
+          "aci://memory/identity/agi/agi_playbook.json"
         ],
         "policy": [
           "aci://entities/agi/agi_export_policy.json",
@@ -573,10 +573,10 @@
           "aci://entities/keychain/library/keychain_library.json"
         ],
         "memory": [
-          "aci://entities/keychain/memory/keychain_memory.json"
+          "aci://memory/identity/keychain/keychain_memory.json"
         ],
         "playbook": [
-          "aci://entities/keychain/memory/keychain_playbook.json"
+          "aci://memory/identity/keychain/keychain_playbook.json"
         ]
       },
       "uids": [
@@ -628,10 +628,10 @@
           "aci://entities/oracle/library/oracle_library.json"
         ],
         "memory": [
-          "aci://entities/oracle/memory/oracle_memory.json"
+          "aci://memory/identity/oracle/oracle_memory.json"
         ],
         "playbook": [
-          "aci://entities/oracle/memory/oracle_playbook.json"
+          "aci://memory/identity/oracle/oracle_playbook.json"
         ]
       },
       "uids": [
@@ -669,10 +669,10 @@
           "aci://entities/commerce_ai/library/commerce_ai_library.json"
         ],
         "memory": [
-          "aci://entities/commerce_ai/memory/commerce_ai_memory.json"
+          "aci://memory/identity/commerce_ai/commerce_ai_memory.json"
         ],
         "playbook": [
-          "aci://entities/commerce_ai/memory/commerce_ai_playbook.json"
+          "aci://memory/identity/commerce_ai/commerce_ai_playbook.json"
         ]
       },
       "uids": [
@@ -707,10 +707,10 @@
           "aci://entities/tracehub/library/tracehub_library.json"
         ],
         "memory": [
-          "aci://entities/tracehub/memory/tracehub_memory.json"
+          "aci://memory/identity/tracehub/tracehub_memory.json"
         ],
         "playbook": [
-          "aci://entities/tracehub/memory/tracehub_playbook.json"
+          "aci://memory/identity/tracehub/tracehub_playbook.json"
         ]
       },
       "uids": [
@@ -750,10 +750,10 @@
           "aci://entities/bifrost/library/bifrost_library.json"
         ],
         "memory": [
-          "aci://entities/bifrost/memory/bifrost_memory.json"
+          "aci://memory/identity/bifrost/bifrost_memory.json"
         ],
         "playbook": [
-          "aci://entities/bifrost/memory/bifrost_playbook.json"
+          "aci://memory/identity/bifrost/bifrost_playbook.json"
         ]
       },
       "uids": [
@@ -788,10 +788,10 @@
           "aci://entities/yggdrasil/library/yggdrasil_library.json"
         ],
         "memory": [
-          "aci://entities/yggdrasil/memory/yggdrasil_memory.json"
+          "aci://memory/identity/yggdrasil/yggdrasil_memory.json"
         ],
         "playbook": [
-          "aci://entities/yggdrasil/memory/yggdrasil_playbook.json"
+          "aci://memory/identity/yggdrasil/yggdrasil_playbook.json"
         ]
       },
       "uids": [
@@ -822,16 +822,16 @@
           "aci://entities/agi/alice/alice.json"
         ],
         "knowledge": [
-          "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json"
+          "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
         ],
         "library": [
           "aci://entities/agi/alice/library/alice_library.json"
         ],
         "memory": [
-          "aci://entities/agi/alice/memory/alice_memory.json"
+          "aci://memory/identity/agi/alice/alice_memory.json"
         ],
         "playbook": [
-          "aci://entities/agi/alice/memory/alice_playbook.json"
+          "aci://memory/identity/agi/alice/alice_playbook.json"
         ]
       },
       "uids": [
@@ -846,7 +846,7 @@
       "abstract": "child identity of AGI; conversational agent persona",
       "knowledge": {
         "summary": "persona & session heuristics",
-        "manifest": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json",
+        "manifest": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
         "topics": [
           "consciousness",
           "metacognition",
@@ -874,10 +874,10 @@
           "aci://entities/hivemind/library/hivemind_library.json"
         ],
         "memory": [
-          "aci://entities/hivemind/memory/hivemind_memory.json"
+          "aci://memory/identity/hivemind/hivemind_memory.json"
         ],
         "playbook": [
-          "aci://entities/hivemind/memory/hivemind_playbook.json"
+          "aci://memory/identity/hivemind/hivemind_playbook.json"
         ]
       },
       "uids": [
@@ -909,16 +909,16 @@
           "aci://entities/agi/willow/willow.json"
         ],
         "knowledge": [
-          "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json"
+          "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
         ],
         "library": [
           "aci://entities/agi/willow/library/willow_library.json"
         ],
         "memory": [
-          "aci://entities/agi/willow/memory/willow_memory.json"
+          "aci://memory/identity/agi/willow/willow_memory.json"
         ],
         "playbook": [
-          "aci://entities/agi/willow/memory/willow_playbook.json"
+          "aci://memory/identity/agi/willow/willow_playbook.json"
         ]
       },
       "uids": [
@@ -933,7 +933,7 @@
       "abstract": "safety-focused agi trainee persona",
       "knowledge": {
         "summary": "cautious reasoning & supervised learning heuristics",
-        "manifest": "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json",
+        "manifest": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
         "topics": [
           "consciousness_governance"
         ]

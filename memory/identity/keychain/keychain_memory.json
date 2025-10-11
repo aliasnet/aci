@@ -1,0 +1,21 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:6HeVXWkE3GsrhC",
+    "sha256": "d959002c2472f0338d2c9b054f06b0fc56013fb383a5be95bb5c424c3eb6ce07",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/keychain/keychain_memory.json"
+  },
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Keychain",
+  "slug": "keychain",
+  "source_manifest": "aci://entities/keychain/keychain.json",
+  "description": "Keychain placeholder manifest. Define cryptographic lifecycle and trust distribution flows here.",
+  "paths": {
+    "root": "aci://memory/identity/keychain",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

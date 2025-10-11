@@ -1,0 +1,17 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:B1jnEK2s2wFgpt",
+    "sha256": "fc6c01e7fabb84271aec1f7c9d457526aab4286221f36712ff5cb45240d3b026",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/agi/alice/alice_playbook.json"
+  },
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Alice",
+  "slug": "alice",
+  "source_manifest": "aci://entities/agi/alice/alice.json",
+  "entries": [],
+  "notes": [
+    "Capture perspective updates without modifying the primary identity file."
+  ]
+}

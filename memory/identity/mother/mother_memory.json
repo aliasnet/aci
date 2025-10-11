@@ -1,0 +1,30 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:2kCTpvs4vQzsu4",
+    "sha256": "0f03887613ec0e261a139a1e337d181924347f3f8819922a1efb618ecff98a4e",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/mother/mother_memory.json"
+  },
+  "schema": "aci.memory.manifest",
+  "version": "1.0.1",
+  "identity": "Mother",
+  "slug": "mother",
+  "source_manifest": "aci://entities/mother/mother.json",
+  "description": "Primary governance interface with pragmatic, machine-like demeanor. No-nonsense, fact-first; allows MU/TH/UR UI emulation only.",
+  "paths": {
+    "root": "aci://memory/identity/mother",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory.",
+    "2025-10-10: Added governance session record at 2025/10/10/mother_governance_session_20251010-T150028Z.jsonl.json."
+  ],
+  "changelog": [
+    {
+      "version": "2025-10-10.00",
+      "notes": [
+        "Cataloged the 2025-10-10 governance session memory export for traceability."
+      ]
+    }
+  ]
+}

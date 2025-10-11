@@ -745,8 +745,8 @@
     ]
   },
   "manifests": {
-    "memory": "aci://entities/aci_repo/memory/aci_repo_memory.json",
-    "playbook": "aci://entities/aci_repo/memory/aci_repo_playbook.json",
+    "memory": "aci://memory/identity/aci_repo/aci_repo_memory.json",
+    "playbook": "aci://memory/identity/aci_repo/aci_repo_playbook.json",
     "library": "aci://entities/aci_repo/library/aci_repo_library.json"
   }
 }

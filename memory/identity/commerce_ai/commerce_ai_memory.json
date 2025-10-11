@@ -1,0 +1,21 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:CJmNhMh6FRGvu8",
+    "sha256": "30f06f6b287c0f39754befb28ceefbfc774981fc7343ddc5cc7043c94685c67a",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/commerce_ai/commerce_ai_memory.json"
+  },
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Commerce AI",
+  "slug": "commerce_ai",
+  "source_manifest": "aci://entities/commerce_ai/commerce_ai.json",
+  "description": "Placeholder manifest for Commerce AI modules and automations.",
+  "paths": {
+    "root": "aci://memory/identity/commerce_ai",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

@@ -53,10 +53,10 @@
     "gender": "female"
   },
   "manifests": {
-    "memory": "aci://entities/agi/alice/memory/alice_memory.json",
-    "playbook": "aci://entities/agi/alice/memory/alice_playbook.json",
+    "memory": "aci://memory/identity/agi/alice/alice_memory.json",
+    "playbook": "aci://memory/identity/agi/alice/alice_playbook.json",
     "library": "aci://entities/agi/alice/library/alice_library.json",
-    "knowledge": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json"
+    "knowledge": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
   },
   "status": "inactive",
   "session_scope": "per_session",
@@ -85,7 +85,7 @@
     }
   ],
   "knowledge": {
-    "manifest": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json",
+    "manifest": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
     "topics": [
       {
         "name": "consciousness",

@@ -1,0 +1,21 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:DzJyRavDV5Pf2b",
+    "sha256": "88e9709fa33f2263e873aacccff4be3e06143eeb65d1453968ed7c7eac343ac3",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/aci_repo/aci_repo_memory.json"
+  },
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "ACI Repo",
+  "slug": "aci_repo",
+  "source_manifest": "aci://entities/aci_repo/aci_repo.json",
+  "description": "package_manager",
+  "paths": {
+    "root": "aci://memory/identity/aci_repo",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}
