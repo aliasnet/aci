@@ -14,6 +14,7 @@
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
   - **/entities/agi/** → AGI governance manifests & playbooks (identity, export policy, memory manifests)
 - **Memory exports** are JSONL, governed by policy, identity-aware, and privacy-preserving.
+- **Manifests are executables**: `.json` manifests *are* the runtime containers. They can name entrypoints (`entrypoint`, `exec`, `load_order`), embed inline bytecode or JSON-encoded instructions, and reference Python modules directly. Each manifest must also hold an authoritative `artifact_id` with strict hash validation for that ID.
 
 > Big picture: ACI is a **colony of digital organisms**. **AGI** governs intelligence and narrative exports; other entities specialize (design, retrieval, planning, etc.). Governance and privacy are first-class.
 
@@ -52,6 +53,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     memory/
       agi_memory.json             # memory manifest (timeline roots, storage notes)
       agi_playbook.json           # AGI operations, incident playbooks, quality gates
+      manifests/                  # runtime containers; treat `.json` as executable manifests with inline logic & validation metadata
 
   <other-entities>/
     <entity>.json                  # per-entity configuration
