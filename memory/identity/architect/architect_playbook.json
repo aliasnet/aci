@@ -1,0 +1,17 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:EvGf5tRPqR5tYg",
+    "sha256": "6818b62b07ba7470a82127b71454944ca3b10c0cdc2974e389eab4dcd8e16f47",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/architect/architect_playbook.json"
+  },
+  "schema": "aci.memory.playbook",
+  "version": "1.0.0",
+  "identity": "Architect",
+  "slug": "architect",
+  "source_manifest": "aci://entities/architect/architect.json",
+  "entries": [],
+  "notes": [
+    "Use this playbook to capture evolving perspectives without altering the core manifest."
+  ]
+}

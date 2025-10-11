@@ -7,7 +7,7 @@
   },
   "resource_resolution_policy": {
     "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
-    "upstream": "aci://entities/yggdrasil/yggdrasil.json"
+    "upstream": "aci://memory/identity/yggdrasil/yggdrasil.json"
   },
   "functions": {
     "scheduler.task.create": {
@@ -576,7 +576,7 @@
             ],
             "verify_from_origin": true,
             "report_on_gaps": true,
-            "notes": "Persist JSONL-formatted exports under entities/{identity_path}/memory/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
+            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
           }
         },
         {

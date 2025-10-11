@@ -110,8 +110,8 @@
     }
   ],
   "manifests": {
-    "memory": "aci://entities/sentinel/memory/sentinel_memory.json",
-    "playbook": "aci://entities/sentinel/memory/sentinel_playbook.json",
+    "memory": "aci://memory/identity/sentinel/sentinel_memory.json",
+    "playbook": "aci://memory/identity/sentinel/sentinel_playbook.json",
     "library": "aci://entities/sentinel/library/sentinel_library.json"
   }
 }

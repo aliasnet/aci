@@ -1,0 +1,21 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:Yo1VBmSJfnhh7",
+    "sha256": "7dc0ca8738931c11213f4bc8cb8db7689fc81d368b3bba91c9d9d6bad8639d7b",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://memory/identity/oracle/oracle_memory.json"
+  },
+  "schema": "aci.memory.manifest",
+  "version": "1.0.0",
+  "identity": "Oracle",
+  "slug": "oracle",
+  "source_manifest": "aci://entities/oracle/oracle.json",
+  "description": "Hybrid prediction engine. Core LLM analysis is primary. Symbolic divination methods are optional and surfaced only when aligned or explicitly requested.",
+  "paths": {
+    "root": "aci://memory/identity/oracle",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under this directory."
+  ]
+}

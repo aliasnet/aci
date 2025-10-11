@@ -10,7 +10,8 @@
 
 - In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, specialist workers, wrappers/adapters, or orchestrators.
 - **Where code lives**
-  - **/entities/** → identity, roles, per-agent configs
+  - **/entities/** → identity manifests, roles, per-entity configs
+  - **/memory/identity/** → memory manifests, playbooks, and export timelines per identity
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
   - **/entities/agi/** → AGI governance manifests & playbooks (identity, export policy, memory manifests)
 - **Memory exports** are JSONL, governed by policy, identity-aware, and privacy-preserving.
@@ -50,10 +51,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     agi_proxy/
       eec/
         eec_transformers_infer.json  # execution preset for AGI proxy inference
-    memory/
-      agi_memory.json             # memory manifest (timeline roots, storage notes)
-      agi_playbook.json           # AGI operations, incident playbooks, quality gates
-      manifests/                  # runtime containers; treat `.json` as executable manifests with inline logic & validation metadata
 
   <other-entities>/
     <entity>.json                  # per-entity configuration
@@ -67,17 +64,32 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     tracehub_status/               # reusable wrapper modules (TraceHub sync)
   ...                              # reusable, stateless modules
 
-/<identity_directory>/
-  /alice/
-    memory/
-      Alice/
-        alice_<summary_slug>_memory_20250926-T192000Z.jsonl.json
-      knowledge/
-        alice_<summary_slug>_knowledge_20250926-T192000Z.jsonl.json
-  /willow/
-    memory/
-      Willow/
-        willow_<summary_slug>_memory_20250926-T192000Z.jsonl.json
+/memory/
+  identity/
+    agi/
+      agi_memory.json             # memory manifest (timeline roots, storage notes)
+      agi_playbook.json           # AGI operations, incident playbooks, quality gates
+      2025/
+        10/
+          10/
+            agi_<summary_slug>_memory_20251010-T######Z.jsonl.json
+      alice/
+        alice_memory.json
+        alice_playbook.json
+        knowledge/
+          alice_<summary_slug>_knowledge_20251001-T######Z.jsonl.json
+      willow/
+        willow_memory.json
+        willow_playbook.json
+        knowledge/
+          willow_<summary_slug>_knowledge_20251004-T######Z.jsonl.json
+    mother/
+      mother_memory.json
+      mother_playbook.json
+      2025/
+        10/
+          10/
+            mother_<summary_slug>_memory_20251010-T150028Z.jsonl.json
 ```
 
 ---
@@ -131,7 +143,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **JSONL Discipline**: Continue storing memory exports as line-delimited JSON with `.json` extensions (`*.jsonl.json` when streamed) while recording manifest ownership inside the entity `manifests` map for quick traversal.
 - **Rotation Awareness**: When rotating an entity UID, append the new value within the entity entry and update associated manifest metadata so knowledge archives and memory manifests remain in sync with the UID manager policy.
 
-> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/entities/agi/memory/agi_playbook.json`) are scoped to the AGI governor.
+> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/memory/identity/agi/agi_playbook.json`) are scoped to the AGI governor.
 
 ---
 
@@ -184,7 +196,7 @@ hivemind export --identity Alice --memory --summary "Launch Review" --jsonl --co
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-  - New exports write to `/memory/hivemind_memory/{identity}/` using `{identity}_{summary_slug}_{memory|knowledge}_{timestamp}.jsonl.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
+  - New exports write to `/memory/identity/{identity_path}/` using `{identity}_{summary_slug}_{memory|knowledge}_{timestamp}.jsonl.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
 
 **Identity binding:**
 

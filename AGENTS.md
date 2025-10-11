@@ -154,6 +154,7 @@ Encourages capability re-use while keeping identities clean and lightweight.
 Memory Layer (/memory/)
 Stores JSONL narratives bound to identity and governed by export policies.
 Maintains immutable audit trails and session records.
+Identity manifests and playbooks now live under `/memory/identity/{identity_path}/`, consolidating what previously existed inside `/entities/*/memory/`.
 
 3) Entity & Module Taxonomy
 Entities (Governance domain): universally observe, gate, dictate and orchestrate; ensure compliance with policies and decide on accept/abstain/escalate actions. 
@@ -221,7 +222,7 @@ Format and extension: all memory exports enforce JSONL structure for machine ing
 Filename templates (stream vs stored artifacts):
 - `{identity}_{summary_slug}_memory_{timestamp}.jsonl.json` for streamed memory exports (line-delimited JSON bound to the active entity).
 - `{identity}_{summary_slug}_knowledge_{timestamp}.jsonl.json` for streamed knowledge exports.
-- Entity-governed storage mirrors these names under `/memory/hivemind_memory/{identity}/` to preserve provenance.
+- Entity-governed storage mirrors these names under `/memory/identity/{identity_path}/` (e.g., `/memory/identity/mother/`) to preserve provenance and replace legacy `/entities/*/memory/` folders.
 
 CLI usage:
 ```

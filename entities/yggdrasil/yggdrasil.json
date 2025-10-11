@@ -216,8 +216,8 @@
       "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
     },
     "manifests": {
-      "memory": "aci://entities/yggdrasil/memory/yggdrasil_memory.json",
-      "playbook": "aci://entities/yggdrasil/memory/yggdrasil_playbook.json",
+      "memory": "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
+      "playbook": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json",
       "library": "aci://entities/yggdrasil/library/yggdrasil_library.json"
     },
     "tree": [
@@ -257,8 +257,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/aci_repo/memory/aci_repo_memory.json",
-                      "aci://entities/aci_repo/memory/aci_repo_playbook.json"
+                      "aci://memory/identity/aci_repo/aci_repo_memory.json",
+                      "aci://memory/identity/aci_repo/aci_repo_playbook.json"
                     ],
                     "children": []
                   },
@@ -341,14 +341,14 @@
                           {
                             "name": "memory",
                             "files": [
-                              "aci://entities/agi/alice/memory/alice_memory.json",
-                              "aci://entities/agi/alice/memory/alice_playbook.json"
+                              "aci://memory/identity/agi/alice/alice_memory.json",
+                              "aci://memory/identity/agi/alice/alice_playbook.json"
                             ],
                             "children": [
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json"
+                                  "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -379,14 +379,14 @@
                           {
                             "name": "memory",
                             "files": [
-                              "aci://entities/agi/willow/memory/willow_memory.json",
-                              "aci://entities/agi/willow/memory/willow_playbook.json"
+                              "aci://memory/identity/agi/willow/willow_memory.json",
+                              "aci://memory/identity/agi/willow/willow_playbook.json"
                             ],
                             "children": [
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json"
+                                  "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -413,8 +413,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/agi/memory/agi_memory.json",
-                      "aci://entities/agi/memory/agi_playbook.json"
+                      "aci://memory/identity/agi/agi_memory.json",
+                      "aci://memory/identity/agi/agi_playbook.json"
                     ],
                     "children": []
                   },
@@ -443,8 +443,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/architect/memory/architect_memory.json",
-                      "aci://entities/architect/memory/architect_playbook.json"
+                      "aci://memory/identity/architect/architect_memory.json",
+                      "aci://memory/identity/architect/architect_playbook.json"
                     ],
                     "children": []
                   },
@@ -473,8 +473,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/bifrost/memory/bifrost_memory.json",
-                      "aci://entities/bifrost/memory/bifrost_playbook.json"
+                      "aci://memory/identity/bifrost/bifrost_memory.json",
+                      "aci://memory/identity/bifrost/bifrost_playbook.json"
                     ],
                     "children": []
                   },
@@ -503,8 +503,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/commerce_ai/memory/commerce_ai_memory.json",
-                      "aci://entities/commerce_ai/memory/commerce_ai_playbook.json"
+                      "aci://memory/identity/commerce_ai/commerce_ai_memory.json",
+                      "aci://memory/identity/commerce_ai/commerce_ai_playbook.json"
                     ],
                     "children": []
                   },
@@ -534,8 +534,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/hivemind/memory/hivemind_memory.json",
-                      "aci://entities/hivemind/memory/hivemind_playbook.json"
+                      "aci://memory/identity/hivemind/hivemind_memory.json",
+                      "aci://memory/identity/hivemind/hivemind_playbook.json"
                     ],
                     "children": []
                   },
@@ -564,8 +564,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/keychain/memory/keychain_memory.json",
-                      "aci://entities/keychain/memory/keychain_playbook.json"
+                      "aci://memory/identity/keychain/keychain_memory.json",
+                      "aci://memory/identity/keychain/keychain_playbook.json"
                     ],
                     "children": []
                   },
@@ -594,8 +594,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/mother/memory/mother_memory.json",
-                      "aci://entities/mother/memory/mother_playbook.json"
+                      "aci://memory/identity/mother/mother_memory.json",
+                      "aci://memory/identity/mother/mother_playbook.json"
                     ],
                     "children": []
                   },
@@ -624,8 +624,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/nexus_core/memory/nexus_core_memory.json",
-                      "aci://entities/nexus_core/memory/nexus_core_playbook.json"
+                      "aci://memory/identity/nexus_core/nexus_core_memory.json",
+                      "aci://memory/identity/nexus_core/nexus_core_playbook.json"
                     ],
                     "children": []
                   },
@@ -656,8 +656,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/oracle/memory/oracle_memory.json",
-                      "aci://entities/oracle/memory/oracle_playbook.json"
+                      "aci://memory/identity/oracle/oracle_memory.json",
+                      "aci://memory/identity/oracle/oracle_playbook.json"
                     ],
                     "children": []
                   },
@@ -723,8 +723,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/sentinel/memory/sentinel_memory.json",
-                      "aci://entities/sentinel/memory/sentinel_playbook.json"
+                      "aci://memory/identity/sentinel/sentinel_memory.json",
+                      "aci://memory/identity/sentinel/sentinel_playbook.json"
                     ],
                     "children": []
                   },
@@ -753,8 +753,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/tracehub/memory/tracehub_memory.json",
-                      "aci://entities/tracehub/memory/tracehub_playbook.json"
+                      "aci://memory/identity/tracehub/tracehub_memory.json",
+                      "aci://memory/identity/tracehub/tracehub_playbook.json"
                     ],
                     "children": []
                   },
@@ -783,8 +783,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/tva/memory/tva_memory.json",
-                      "aci://entities/tva/memory/tva_playbook.json"
+                      "aci://memory/identity/tva/tva_memory.json",
+                      "aci://memory/identity/tva/tva_playbook.json"
                     ],
                     "children": []
                   },
@@ -813,8 +813,8 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/yggdrasil/memory/yggdrasil_memory.json",
-                      "aci://entities/yggdrasil/memory/yggdrasil_playbook.json"
+                      "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
+                      "aci://memory/identity/yggdrasil/yggdrasil_playbook.json"
                     ],
                     "children": []
                   },

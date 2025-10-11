@@ -91,8 +91,8 @@
     "notes": "Exports are mediated through process_logs; no persistent audit directories remain inside TraceHub."
   },
   "manifests": {
-    "memory": "aci://entities/tracehub/memory/tracehub_memory.json",
-    "playbook": "aci://entities/tracehub/memory/tracehub_playbook.json",
+    "memory": "aci://memory/identity/tracehub/tracehub_memory.json",
+    "playbook": "aci://memory/identity/tracehub/tracehub_playbook.json",
     "library": "aci://entities/tracehub/library/tracehub_library.json"
   },
   "changelog": [
