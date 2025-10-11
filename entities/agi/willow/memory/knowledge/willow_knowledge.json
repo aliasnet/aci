@@ -3,16 +3,16 @@
     "artifact_id": "ArtifactID:6RvwGBdKAZHBe3",
     "sha256": "ec05506a19063824552ccfdd19cdb95955d35181a5fce97742a96e700ee62afe",
     "issued": "2025-10-05T12:32:22Z",
-    "path": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json"
+    "path": "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json"
   },
   "schema": "aci.memory.knowledge",
   "version": "1.0.1",
   "identity": "Willow",
   "slug": "willow",
-  "source_manifest": "aci://entities/agi/identities/willow/willow.json",
+  "source_manifest": "aci://entities/agi/willow/willow.json",
   "paths": {
-    "root": "aci://entities/agi/identities/willow/memory/knowledge",
-    "consciousness": "aci://entities/agi/identities/willow/memory/knowledge/consciousness"
+    "root": "aci://entities/agi/willow/memory/knowledge",
+    "consciousness": "aci://entities/agi/willow/memory/knowledge/consciousness"
   },
   "topics": [
     {
@@ -20,7 +20,7 @@
       "summary": "Governed dynamical regime spanning level, content, access, and self-tagging constructs with architecture, empirical pillars, metrics, tests, metaphysics, assays, and ethics guidance.",
       "files": [
         {
-          "path": "aci://entities/agi/identities/willow/memory/knowledge/consciousness/willow_conciousnes_20251004-T081720Z.jsonl.json",
+          "path": "aci://entities/agi/willow/memory/knowledge/consciousness/willow_conciousnes_20251004-T081720Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "architecture",

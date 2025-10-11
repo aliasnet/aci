@@ -3,15 +3,15 @@
     "artifact_id": "ArtifactID:5afDuVSnZhuen9",
     "sha256": "3640e9ddf63061af94150a9d505b1ba31782ab6ee63c4243aa1793afb17bfce9",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/agi/identities/willow/memory/willow_memory.json"
+    "path": "aci://entities/agi/willow/memory/willow_memory.json"
   },
   "schema": "aci.memory.manifest",
   "version": "1.0.0",
   "identity": "Willow",
   "slug": "willow",
-  "source_manifest": "aci://entities/agi/identities/willow/willow.json",
+  "source_manifest": "aci://entities/agi/willow/willow.json",
   "paths": {
-    "root": "aci://entities/agi/identities/willow/memory",
+    "root": "aci://entities/agi/willow/memory",
     "timeline": "YYYY/MM/DD"
   },
   "notes": [

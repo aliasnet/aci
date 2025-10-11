@@ -75,7 +75,7 @@
         }
       },
       "modules": {
-        "manifest": "aci://entities/oracle/modules/oracle_modules.json",
+        "manifest": "aci://entities/oracle/library/oracle_library.json",
         "primary": "predictive_engine"
       }
     },
@@ -83,7 +83,7 @@
       "memory": "aci://entities/oracle/memory/oracle_memory.json",
       "playbook": "aci://entities/oracle/memory/oracle_playbook.json",
       "library": "aci://entities/oracle/library/oracle_library.json",
-      "modules": "aci://entities/oracle/modules/oracle_modules.json"
+      "modules": "aci://entities/oracle/library/oracle_library.json"
     },
     "changelog": [
       {

@@ -94,7 +94,7 @@
     "memory": "aci://entities/tracehub/memory/tracehub_memory.json",
     "playbook": "aci://entities/tracehub/memory/tracehub_playbook.json",
     "library": "aci://entities/tracehub/library/tracehub_library.json",
-    "modules": "aci://entities/tracehub/modules/tracehub_modules.json"
+    "modules": "aci://entities/tracehub/library/tracehub_library.json"
   },
   "changelog": [
     {

@@ -1,11 +1,24 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:A2nKaVhDuofgZs",
-    "sha256": "30cb9f006531d405bf645c7ac6785e58db598c1f465da88c4e90eae1dd84195c",
+    "artifact_id": "ArtifactID:9jnG5PWC1BoGA5",
+    "sha256": "4dcd6884c539b626268c60845173e8718c8607f2f25d5fe519095a6f3768adca",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/tva/modules/tva_modules.json"
+    "path": "aci://entities/agi/alice/library/alice_library.json"
   },
-  "permissions": {
+  "schema": "aci.library.manifest",
+  "version": "1.0.0",
+  "identity": "Alice",
+  "slug": "alice",
+  "resources": [],
+  "modules": [
+    {
+      "name": "alice_persona",
+      "role": "contributor",
+      "source": "aci://entities/agi/alice/alice.json",
+      "status": "primary"
+    }
+  ],
+  "module_permissions": {
     "read": true,
     "write": {
       "allowed": false,
@@ -36,17 +49,5 @@
         "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
       }
     }
-  },
-  "schema": "aci.modules.manifest",
-  "version": "1.0.0",
-  "identity": "TVA",
-  "slug": "tva",
-  "modules": [
-    {
-      "name": "tva_core",
-      "role": "reinforcement authority",
-      "source": "aci://entities/tva/tva.json",
-      "status": "primary"
-    }
-  ]
+  }
 }

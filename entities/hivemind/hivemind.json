@@ -539,7 +539,7 @@
   "manifests": {
     "library": "aci://entities/hivemind/library/hivemind_library.json",
     "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
-    "modules": "aci://entities/hivemind/modules/hivemind_modules.json",
+    "modules": "aci://entities/hivemind/library/hivemind_library.json",
     "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json"
   },
   "session_scope": "per_session",

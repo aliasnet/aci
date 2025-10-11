@@ -64,6 +64,6 @@
     "memory": "aci://entities/commerce_ai/memory/commerce_ai_memory.json",
     "playbook": "aci://entities/commerce_ai/memory/commerce_ai_playbook.json",
     "library": "aci://entities/commerce_ai/library/commerce_ai_library.json",
-    "modules": "aci://entities/commerce_ai/modules/commerce_ai_modules.json"
+    "modules": "aci://entities/commerce_ai/library/commerce_ai_library.json"
   }
 }

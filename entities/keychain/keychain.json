@@ -64,6 +64,6 @@
     "memory": "aci://entities/keychain/memory/keychain_memory.json",
     "playbook": "aci://entities/keychain/memory/keychain_playbook.json",
     "library": "aci://entities/keychain/library/keychain_library.json",
-    "modules": "aci://entities/keychain/modules/keychain_modules.json"
+    "modules": "aci://entities/keychain/library/keychain_library.json"
   }
 }

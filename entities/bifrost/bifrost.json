@@ -154,7 +154,7 @@
       "memory": "aci://entities/bifrost/memory/bifrost_memory.json",
       "playbook": "aci://entities/bifrost/memory/bifrost_playbook.json",
       "library": "aci://entities/bifrost/library/bifrost_library.json",
-      "modules": "aci://entities/bifrost/modules/bifrost_modules.json"
+      "modules": "aci://entities/bifrost/library/bifrost_library.json"
     }
   },
   "session_scope": "per_session",

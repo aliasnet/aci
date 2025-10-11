@@ -3,7 +3,7 @@
     "artifact_id": "ArtifactID:EuxdoUAMyKXeUi",
     "sha256": "577edee90d6d7da24be9baca1604d8c56259d04830b74621984d62afab5067d7",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/agi/identities/alice/alice.json"
+    "path": "aci://entities/agi/alice/alice.json"
   },
   "permissions": {
     "read": true,
@@ -53,11 +53,11 @@
     "gender": "female"
   },
   "manifests": {
-    "memory": "aci://entities/agi/identities/alice/memory/alice_memory.json",
-    "playbook": "aci://entities/agi/identities/alice/memory/alice_playbook.json",
-    "library": "aci://entities/agi/identities/alice/library/alice_library.json",
-    "knowledge": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
-    "modules": "aci://entities/agi/identities/alice/modules/alice_modules.json"
+    "memory": "aci://entities/agi/alice/memory/alice_memory.json",
+    "playbook": "aci://entities/agi/alice/memory/alice_playbook.json",
+    "library": "aci://entities/agi/alice/library/alice_library.json",
+    "knowledge": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json",
+    "modules": "aci://entities/agi/alice/library/alice_library.json"
   },
   "status": "inactive",
   "session_scope": "per_session",
@@ -86,7 +86,7 @@
     }
   ],
   "knowledge": {
-    "manifest": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
+    "manifest": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json",
     "topics": [
       {
         "name": "consciousness",

@@ -20,5 +20,57 @@
       "type": "wrapper",
       "source": "aci://library/wrappers/process_logs/process_logs.json"
     }
-  ]
+  ],
+  "modules": [
+    {
+      "name": "tracehub_status_wrapper",
+      "role": "stateless trace status reporting",
+      "source": "aci://library/wrappers/tracehub_status/tracehub_status.json",
+      "status": "primary"
+    },
+    {
+      "name": "tracehub_process_logs_adapter",
+      "role": "process_logs export adapter",
+      "source": "aci://library/wrappers/process_logs/process_logs.json",
+      "status": "adapter"
+    },
+    {
+      "name": "tracehub_core",
+      "role": "trace coordination manifest",
+      "source": "aci://entities/tracehub/tracehub.json",
+      "status": "meta"
+    }
+  ],
+  "module_permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+      }
+    }
+  }
 }

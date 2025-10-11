@@ -93,8 +93,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/aci_repo/modules/aci_repo_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/modules/aci_repo_modules.json"
+                      "path": "aci://entities/aci_repo/library/aci_repo_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/library/aci_repo_library.json"
                     }
                   ],
                   "children": []
@@ -216,8 +216,8 @@
                       "name": "alice",
                       "files": [
                         {
-                          "path": "aci://entities/agi/identities/alice/alice.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/alice/alice.json"
+                          "path": "aci://entities/agi/alice/alice.json",
+                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/alice/alice.json"
                         }
                       ],
                       "children": [
@@ -225,8 +225,8 @@
                           "name": "library",
                           "files": [
                             {
-                              "path": "aci://entities/agi/identities/alice/library/alice_library.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/alice/library/alice_library.json"
+                              "path": "aci://entities/agi/alice/library/alice_library.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/alice/library/alice_library.json"
                             }
                           ],
                           "children": []
@@ -235,12 +235,12 @@
                           "name": "memory",
                           "files": [
                             {
-                              "path": "aci://entities/agi/identities/alice/memory/alice_memory.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/alice/memory/alice_memory.json"
+                              "path": "aci://entities/agi/alice/memory/alice_memory.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/alice/memory/alice_memory.json"
                             },
                             {
-                              "path": "aci://entities/agi/identities/alice/memory/alice_playbook.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/alice/memory/alice_playbook.json"
+                              "path": "aci://entities/agi/alice/memory/alice_playbook.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/alice/memory/alice_playbook.json"
                             }
                           ],
                           "children": [
@@ -248,8 +248,8 @@
                               "name": "knowledge",
                               "files": [
                                 {
-                                  "path": "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json",
-                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/alice/memory/knowledge/alice_knowledge.json"
+                                  "path": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json",
+                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/alice/memory/knowledge/alice_knowledge.json"
                                 }
                               ],
                               "children": []
@@ -260,8 +260,8 @@
                           "name": "modules",
                           "files": [
                             {
-                              "path": "aci://entities/agi/identities/alice/modules/alice_modules.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/alice/modules/alice_modules.json"
+                              "path": "aci://entities/agi/alice/library/alice_library.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/alice/library/alice_library.json"
                             }
                           ],
                           "children": []
@@ -272,8 +272,8 @@
                       "name": "willow",
                       "files": [
                         {
-                          "path": "aci://entities/agi/identities/willow/willow.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/willow/willow.json"
+                          "path": "aci://entities/agi/willow/willow.json",
+                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/willow/willow.json"
                         }
                       ],
                       "children": [
@@ -281,8 +281,8 @@
                           "name": "library",
                           "files": [
                             {
-                              "path": "aci://entities/agi/identities/willow/library/willow_library.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/willow/library/willow_library.json"
+                              "path": "aci://entities/agi/willow/library/willow_library.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/willow/library/willow_library.json"
                             }
                           ],
                           "children": []
@@ -291,12 +291,12 @@
                           "name": "memory",
                           "files": [
                             {
-                              "path": "aci://entities/agi/identities/willow/memory/willow_memory.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/willow/memory/willow_memory.json"
+                              "path": "aci://entities/agi/willow/memory/willow_memory.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/willow/memory/willow_memory.json"
                             },
                             {
-                              "path": "aci://entities/agi/identities/willow/memory/willow_playbook.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/willow/memory/willow_playbook.json"
+                              "path": "aci://entities/agi/willow/memory/willow_playbook.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/willow/memory/willow_playbook.json"
                             }
                           ],
                           "children": [
@@ -304,8 +304,8 @@
                               "name": "knowledge",
                               "files": [
                                 {
-                                  "path": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
-                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/willow/memory/knowledge/willow_knowledge.json"
+                                  "path": "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json",
+                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/willow/memory/knowledge/willow_knowledge.json"
                                 }
                               ],
                               "children": []
@@ -316,8 +316,8 @@
                           "name": "modules",
                           "files": [
                             {
-                              "path": "aci://entities/agi/identities/willow/modules/willow_modules.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/identities/willow/modules/willow_modules.json"
+                              "path": "aci://entities/agi/willow/library/willow_library.json",
+                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/willow/library/willow_library.json"
                             }
                           ],
                           "children": []
@@ -354,8 +354,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/agi/modules/agi_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/modules/agi_modules.json"
+                      "path": "aci://entities/agi/library/agi_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/library/agi_library.json"
                     }
                   ],
                   "children": []
@@ -399,8 +399,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/architect/modules/architect_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/architect/modules/architect_modules.json"
+                      "path": "aci://entities/architect/library/architect_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/architect/library/architect_library.json"
                     }
                   ],
                   "children": []
@@ -444,8 +444,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/bifrost/modules/bifrost_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/modules/bifrost_modules.json"
+                      "path": "aci://entities/bifrost/library/bifrost_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/library/bifrost_library.json"
                     }
                   ],
                   "children": []
@@ -489,8 +489,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/commerce_ai/modules/commerce_ai_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/commerce_ai/modules/commerce_ai_modules.json"
+                      "path": "aci://entities/commerce_ai/library/commerce_ai_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/commerce_ai/library/commerce_ai_library.json"
                     }
                   ],
                   "children": []
@@ -538,8 +538,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/hivemind/modules/hivemind_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/hivemind/modules/hivemind_modules.json"
+                      "path": "aci://entities/hivemind/library/hivemind_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/hivemind/library/hivemind_library.json"
                     }
                   ],
                   "children": []
@@ -583,8 +583,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/keychain/modules/keychain_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/keychain/modules/keychain_modules.json"
+                      "path": "aci://entities/keychain/library/keychain_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/keychain/library/keychain_library.json"
                     }
                   ],
                   "children": []
@@ -628,8 +628,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/mother/modules/mother_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/mother/modules/mother_modules.json"
+                      "path": "aci://entities/mother/library/mother_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/mother/library/mother_library.json"
                     }
                   ],
                   "children": []
@@ -673,8 +673,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/nexus_core/modules/nexus_core_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/nexus_core/modules/nexus_core_modules.json"
+                      "path": "aci://entities/nexus_core/library/nexus_core_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/nexus_core/library/nexus_core_library.json"
                     }
                   ],
                   "children": []
@@ -726,8 +726,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/oracle/modules/oracle_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/modules/oracle_modules.json"
+                      "path": "aci://entities/oracle/library/oracle_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/library/oracle_library.json"
                     }
                   ],
                   "children": []
@@ -844,8 +844,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/sentinel/modules/sentinel_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/modules/sentinel_modules.json"
+                      "path": "aci://entities/sentinel/library/sentinel_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/library/sentinel_library.json"
                     }
                   ],
                   "children": []
@@ -889,8 +889,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/tracehub/modules/tracehub_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tracehub/modules/tracehub_modules.json"
+                      "path": "aci://entities/tracehub/library/tracehub_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tracehub/library/tracehub_library.json"
                     }
                   ],
                   "children": []
@@ -934,8 +934,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/tva/modules/tva_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/modules/tva_modules.json"
+                      "path": "aci://entities/tva/library/tva_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/library/tva_library.json"
                     }
                   ],
                   "children": []
@@ -979,8 +979,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/yggdrasil/modules/yggdrasil_modules.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/modules/yggdrasil_modules.json"
+                      "path": "aci://entities/yggdrasil/library/yggdrasil_library.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/library/yggdrasil_library.json"
                     }
                   ],
                   "children": []

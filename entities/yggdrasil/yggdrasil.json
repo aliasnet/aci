@@ -219,7 +219,7 @@
       "memory": "aci://entities/yggdrasil/memory/yggdrasil_memory.json",
       "playbook": "aci://entities/yggdrasil/memory/yggdrasil_playbook.json",
       "library": "aci://entities/yggdrasil/library/yggdrasil_library.json",
-      "modules": "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
+      "modules": "aci://entities/yggdrasil/library/yggdrasil_library.json"
     },
     "tree": [
       {
@@ -266,7 +266,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/aci_repo/modules/aci_repo_modules.json"
+                      "aci://entities/aci_repo/library/aci_repo_library.json"
                     ],
                     "children": []
                   }
@@ -329,27 +329,27 @@
                       {
                         "name": "alice",
                         "files": [
-                          "aci://entities/agi/identities/alice/alice.json"
+                          "aci://entities/agi/alice/alice.json"
                         ],
                         "children": [
                           {
                             "name": "library",
                             "files": [
-                              "aci://entities/agi/identities/alice/library/alice_library.json"
+                              "aci://entities/agi/alice/library/alice_library.json"
                             ],
                             "children": []
                           },
                           {
                             "name": "memory",
                             "files": [
-                              "aci://entities/agi/identities/alice/memory/alice_memory.json",
-                              "aci://entities/agi/identities/alice/memory/alice_playbook.json"
+                              "aci://entities/agi/alice/memory/alice_memory.json",
+                              "aci://entities/agi/alice/memory/alice_playbook.json"
                             ],
                             "children": [
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://entities/agi/identities/alice/memory/knowledge/alice_knowledge.json"
+                                  "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -358,7 +358,7 @@
                           {
                             "name": "modules",
                             "files": [
-                              "aci://entities/agi/identities/alice/modules/alice_modules.json"
+                              "aci://entities/agi/alice/library/alice_library.json"
                             ],
                             "children": []
                           }
@@ -367,27 +367,27 @@
                       {
                         "name": "willow",
                         "files": [
-                          "aci://entities/agi/identities/willow/willow.json"
+                          "aci://entities/agi/willow/willow.json"
                         ],
                         "children": [
                           {
                             "name": "library",
                             "files": [
-                              "aci://entities/agi/identities/willow/library/willow_library.json"
+                              "aci://entities/agi/willow/library/willow_library.json"
                             ],
                             "children": []
                           },
                           {
                             "name": "memory",
                             "files": [
-                              "aci://entities/agi/identities/willow/memory/willow_memory.json",
-                              "aci://entities/agi/identities/willow/memory/willow_playbook.json"
+                              "aci://entities/agi/willow/memory/willow_memory.json",
+                              "aci://entities/agi/willow/memory/willow_playbook.json"
                             ],
                             "children": [
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json"
+                                  "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -396,7 +396,7 @@
                           {
                             "name": "modules",
                             "files": [
-                              "aci://entities/agi/identities/willow/modules/willow_modules.json"
+                              "aci://entities/agi/willow/library/willow_library.json"
                             ],
                             "children": []
                           }
@@ -422,7 +422,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/agi/modules/agi_modules.json"
+                      "aci://entities/agi/library/agi_library.json"
                     ],
                     "children": []
                   }
@@ -452,7 +452,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/architect/modules/architect_modules.json"
+                      "aci://entities/architect/library/architect_library.json"
                     ],
                     "children": []
                   }
@@ -482,7 +482,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/bifrost/modules/bifrost_modules.json"
+                      "aci://entities/bifrost/library/bifrost_library.json"
                     ],
                     "children": []
                   }
@@ -512,7 +512,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/commerce_ai/modules/commerce_ai_modules.json"
+                      "aci://entities/commerce_ai/library/commerce_ai_library.json"
                     ],
                     "children": []
                   }
@@ -543,7 +543,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/hivemind/modules/hivemind_modules.json"
+                      "aci://entities/hivemind/library/hivemind_library.json"
                     ],
                     "children": []
                   }
@@ -573,7 +573,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/keychain/modules/keychain_modules.json"
+                      "aci://entities/keychain/library/keychain_library.json"
                     ],
                     "children": []
                   }
@@ -603,7 +603,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/mother/modules/mother_modules.json"
+                      "aci://entities/mother/library/mother_library.json"
                     ],
                     "children": []
                   }
@@ -633,7 +633,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/nexus_core/modules/nexus_core_modules.json"
+                      "aci://entities/nexus_core/library/nexus_core_library.json"
                     ],
                     "children": []
                   }
@@ -665,7 +665,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/oracle/modules/oracle_modules.json"
+                      "aci://entities/oracle/library/oracle_library.json"
                     ],
                     "children": []
                   },
@@ -732,7 +732,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/sentinel/modules/sentinel_modules.json"
+                      "aci://entities/sentinel/library/sentinel_library.json"
                     ],
                     "children": []
                   }
@@ -762,7 +762,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/tracehub/modules/tracehub_modules.json"
+                      "aci://entities/tracehub/library/tracehub_library.json"
                     ],
                     "children": []
                   }
@@ -792,7 +792,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/tva/modules/tva_modules.json"
+                      "aci://entities/tva/library/tva_library.json"
                     ],
                     "children": []
                   }
@@ -822,7 +822,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/yggdrasil/modules/yggdrasil_modules.json"
+                      "aci://entities/yggdrasil/library/yggdrasil_library.json"
                     ],
                     "children": []
                   }

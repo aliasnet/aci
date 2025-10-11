@@ -3,7 +3,7 @@
     "artifact_id": "ArtifactID:8EMNUpPYuRjdaF",
     "sha256": "2052233d69ae44820350f7f81f580ed36ad3198950bd8d607c62943022ee517f",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/agi/identities/willow/willow.json"
+    "path": "aci://entities/agi/willow/willow.json"
   },
   "permissions": {
     "read": true,
@@ -53,11 +53,11 @@
     "gender": "female"
   },
   "manifests": {
-    "memory": "aci://entities/agi/identities/willow/memory/willow_memory.json",
-    "playbook": "aci://entities/agi/identities/willow/memory/willow_playbook.json",
-    "library": "aci://entities/agi/identities/willow/library/willow_library.json",
-    "knowledge": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
-    "modules": "aci://entities/agi/identities/willow/modules/willow_modules.json"
+    "memory": "aci://entities/agi/willow/memory/willow_memory.json",
+    "playbook": "aci://entities/agi/willow/memory/willow_playbook.json",
+    "library": "aci://entities/agi/willow/library/willow_library.json",
+    "knowledge": "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json",
+    "modules": "aci://entities/agi/willow/library/willow_library.json"
   },
   "status": "active",
   "session_scope": "per_session",
@@ -86,7 +86,7 @@
     }
   ],
   "knowledge": {
-    "manifest": "aci://entities/agi/identities/willow/memory/knowledge/willow_knowledge.json",
+    "manifest": "aci://entities/agi/willow/memory/knowledge/willow_knowledge.json",
     "topics": [
       {
         "name": "consciousness",
