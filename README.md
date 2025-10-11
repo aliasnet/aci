@@ -72,24 +72,24 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       2025/
         10/
           10/
-            agi_governance_session_20251010-T150028Z.jsonl.json
+            agi_<summary_slug>_memory_20251010-T######Z.jsonl.json
       alice/
         alice_memory.json
         alice_playbook.json
         knowledge/
-          alice_<summary_slug>_knowledge_20250926-T192000Z.jsonl.json
+          alice_<summary_slug>_knowledge_20251001-T######Z.jsonl.json
       willow/
         willow_memory.json
         willow_playbook.json
         knowledge/
-          willow_conciousnes_20251004-T081720Z.jsonl.json
+          willow_<summary_slug>_knowledge_20251004-T######Z.jsonl.json
     mother/
       mother_memory.json
       mother_playbook.json
       2025/
         10/
           10/
-            mother_governance_session_20251010-T150028Z.jsonl.json
+            mother_<summary_slug>_memory_20251010-T150028Z.jsonl.json
 ```
 
 ---
