@@ -166,7 +166,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -539,7 +539,6 @@
   "manifests": {
     "library": "aci://entities/hivemind/library/hivemind_library.json",
     "memory": "aci://entities/hivemind/memory/hivemind_memory.json",
-    "modules": "aci://entities/hivemind/library/hivemind_library.json",
     "playbook": "aci://entities/hivemind/memory/hivemind_playbook.json"
   },
   "session_scope": "per_session",

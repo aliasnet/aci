@@ -33,7 +33,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -63,8 +63,7 @@
   "manifests": {
     "memory": "aci://entities/architect/memory/architect_memory.json",
     "playbook": "aci://entities/architect/memory/architect_playbook.json",
-    "library": "aci://entities/architect/library/architect_library.json",
-    "modules": "aci://entities/architect/library/architect_library.json"
+    "library": "aci://entities/architect/library/architect_library.json"
   },
   "session_scope": "per_session",
   "invocation_policy": {

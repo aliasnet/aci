@@ -263,7 +263,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -286,9 +286,6 @@
         ],
         "memory": [
           "aci://entities/mother/memory/mother_memory.json"
-        ],
-        "modules": [
-          "aci://entities/mother/library/mother_library.json"
         ],
         "playbook": [
           "aci://entities/mother/memory/mother_playbook.json"
@@ -332,9 +329,6 @@
         ],
         "memory": [
           "aci://entities/tva/memory/tva_memory.json"
-        ],
-        "modules": [
-          "aci://entities/tva/library/tva_library.json"
         ],
         "playbook": [
           "aci://entities/tva/memory/tva_playbook.json"
@@ -390,9 +384,6 @@
         "memory": [
           "aci://entities/sentinel/memory/sentinel_memory.json"
         ],
-        "modules": [
-          "aci://entities/sentinel/library/sentinel_library.json"
-        ],
         "playbook": [
           "aci://entities/sentinel/memory/sentinel_playbook.json"
         ]
@@ -439,9 +430,6 @@
         ],
         "memory": [
           "aci://entities/architect/memory/architect_memory.json"
-        ],
-        "modules": [
-          "aci://entities/architect/library/architect_library.json"
         ],
         "playbook": [
           "aci://entities/architect/memory/architect_playbook.json"
@@ -495,9 +483,6 @@
         "memory": [
           "aci://entities/nexus_core/memory/nexus_core_memory.json"
         ],
-        "modules": [
-          "aci://entities/nexus_core/library/nexus_core_library.json"
-        ],
         "playbook": [
           "aci://entities/nexus_core/memory/nexus_core_playbook.json"
         ]
@@ -539,9 +524,6 @@
         ],
         "memory": [
           "aci://entities/agi/memory/agi_memory.json"
-        ],
-        "modules": [
-          "aci://entities/agi/library/agi_library.json"
         ],
         "playbook": [
           "aci://entities/agi/memory/agi_playbook.json"
@@ -592,9 +574,6 @@
         ],
         "memory": [
           "aci://entities/keychain/memory/keychain_memory.json"
-        ],
-        "modules": [
-          "aci://entities/keychain/library/keychain_library.json"
         ],
         "playbook": [
           "aci://entities/keychain/memory/keychain_playbook.json"
@@ -651,9 +630,6 @@
         "memory": [
           "aci://entities/oracle/memory/oracle_memory.json"
         ],
-        "modules": [
-          "aci://entities/oracle/library/oracle_library.json"
-        ],
         "playbook": [
           "aci://entities/oracle/memory/oracle_playbook.json"
         ]
@@ -695,9 +671,6 @@
         "memory": [
           "aci://entities/commerce_ai/memory/commerce_ai_memory.json"
         ],
-        "modules": [
-          "aci://entities/commerce_ai/library/commerce_ai_library.json"
-        ],
         "playbook": [
           "aci://entities/commerce_ai/memory/commerce_ai_playbook.json"
         ]
@@ -735,9 +708,6 @@
         ],
         "memory": [
           "aci://entities/tracehub/memory/tracehub_memory.json"
-        ],
-        "modules": [
-          "aci://entities/tracehub/library/tracehub_library.json"
         ],
         "playbook": [
           "aci://entities/tracehub/memory/tracehub_playbook.json"
@@ -782,9 +752,6 @@
         "memory": [
           "aci://entities/bifrost/memory/bifrost_memory.json"
         ],
-        "modules": [
-          "aci://entities/bifrost/library/bifrost_library.json"
-        ],
         "playbook": [
           "aci://entities/bifrost/memory/bifrost_playbook.json"
         ]
@@ -822,9 +789,6 @@
         ],
         "memory": [
           "aci://entities/yggdrasil/memory/yggdrasil_memory.json"
-        ],
-        "modules": [
-          "aci://entities/yggdrasil/library/yggdrasil_library.json"
         ],
         "playbook": [
           "aci://entities/yggdrasil/memory/yggdrasil_playbook.json"
@@ -865,9 +829,6 @@
         ],
         "memory": [
           "aci://entities/agi/alice/memory/alice_memory.json"
-        ],
-        "modules": [
-          "aci://entities/agi/alice/library/alice_library.json"
         ],
         "playbook": [
           "aci://entities/agi/alice/memory/alice_playbook.json"
@@ -915,9 +876,6 @@
         "memory": [
           "aci://entities/hivemind/memory/hivemind_memory.json"
         ],
-        "modules": [
-          "aci://entities/hivemind/library/hivemind_library.json"
-        ],
         "playbook": [
           "aci://entities/hivemind/memory/hivemind_playbook.json"
         ]
@@ -958,9 +916,6 @@
         ],
         "memory": [
           "aci://entities/agi/willow/memory/willow_memory.json"
-        ],
-        "modules": [
-          "aci://entities/agi/willow/library/willow_library.json"
         ],
         "playbook": [
           "aci://entities/agi/willow/memory/willow_playbook.json"

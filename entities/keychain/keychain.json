@@ -33,7 +33,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -63,7 +63,6 @@
   "manifests": {
     "memory": "aci://entities/keychain/memory/keychain_memory.json",
     "playbook": "aci://entities/keychain/memory/keychain_playbook.json",
-    "library": "aci://entities/keychain/library/keychain_library.json",
-    "modules": "aci://entities/keychain/library/keychain_library.json"
+    "library": "aci://entities/keychain/library/keychain_library.json"
   }
 }

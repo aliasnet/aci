@@ -33,7 +33,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -153,8 +153,7 @@
     "manifests": {
       "memory": "aci://entities/bifrost/memory/bifrost_memory.json",
       "playbook": "aci://entities/bifrost/memory/bifrost_playbook.json",
-      "library": "aci://entities/bifrost/library/bifrost_library.json",
-      "modules": "aci://entities/bifrost/library/bifrost_library.json"
+      "library": "aci://entities/bifrost/library/bifrost_library.json"
     }
   },
   "session_scope": "per_session",
