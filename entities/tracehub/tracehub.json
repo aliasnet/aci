@@ -33,7 +33,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -93,8 +93,7 @@
   "manifests": {
     "memory": "aci://entities/tracehub/memory/tracehub_memory.json",
     "playbook": "aci://entities/tracehub/memory/tracehub_playbook.json",
-    "library": "aci://entities/tracehub/library/tracehub_library.json",
-    "modules": "aci://entities/tracehub/library/tracehub_library.json"
+    "library": "aci://entities/tracehub/library/tracehub_library.json"
   },
   "changelog": [
     {

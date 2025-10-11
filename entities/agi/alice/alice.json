@@ -33,7 +33,7 @@
       ],
       "ui": {
         "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; output base64-encoded message for better UX."
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
       }
     }
   },
@@ -56,8 +56,7 @@
     "memory": "aci://entities/agi/alice/memory/alice_memory.json",
     "playbook": "aci://entities/agi/alice/memory/alice_playbook.json",
     "library": "aci://entities/agi/alice/library/alice_library.json",
-    "knowledge": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json",
-    "modules": "aci://entities/agi/alice/library/alice_library.json"
+    "knowledge": "aci://entities/agi/alice/memory/knowledge/alice_knowledge.json"
   },
   "status": "inactive",
   "session_scope": "per_session",
