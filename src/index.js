@@ -28,6 +28,35 @@ export default {
       });
     }
 
+    if (url.pathname === "/ai-search") {
+      const query = url.searchParams.get("q") || "";
+      if (!query) {
+        const resp = new Response(JSON.stringify({ error: "missing query" }), {
+          status: 400,
+          headers: { "content-type": "application/json; charset=utf-8" }
+        });
+        applyCorsHeaders(resp.headers, request);
+        return resp;
+      }
+      if (!env.AI || typeof env.AI.autorag !== "function") {
+        const resp = new Response(JSON.stringify({ error: "AI binding not configured" }), {
+          status: 500,
+          headers: { "content-type": "application/json; charset=utf-8" }
+        });
+        applyCorsHeaders(resp.headers, request);
+        return resp;
+      }
+      const answer = await env.AI.autorag("aci").search({
+        query
+      });
+      const resp = new Response(JSON.stringify(answer), {
+        status: 200,
+        headers: { "content-type": "application/json; charset=utf-8" }
+      });
+      applyCorsHeaders(resp.headers, request);
+      return resp;
+    }
+
     // Normalize root to something helpful (optional)
     if (url.pathname === "/" || url.pathname === "") {
       return Response.redirect(new URL("/prime_directive.md?aci", url).toString(), 302);
