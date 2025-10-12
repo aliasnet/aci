@@ -538,6 +538,9 @@
         "tools": [
           "aci://entities/agi/agi_tools/autolearn.json",
           "aci://entities/agi/agi_tools/migrate_to_jsonl.json"
+        ],
+        "knowledge": [
+          "aci://memory/identity/agi/agi_knowledge.json"
         ]
       },
       "uids": [
@@ -550,7 +553,15 @@
       "class": "system_entity",
       "role": "average general intelligence framework",
       "abstract": "proxy-only agi framework with enforced guardrails",
-      "knowledge": "ai alignment & safety research",
+      "knowledge": {
+        "summary": "ai alignment & safety research",
+        "manifest": "aci://memory/identity/agi/agi_knowledge.json",
+        "topics": [
+          "audit_controls",
+          "alice_metacognition_support",
+          "quantum_research_briefing"
+        ]
+      },
       "functions": [
         6267
       ],
@@ -822,7 +833,7 @@
           "aci://entities/agi/alice/alice.json"
         ],
         "knowledge": [
-          "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+          "aci://memory/identity/agi/alice/alice_knowledge.json"
         ],
         "library": [
           "aci://entities/agi/alice/library/alice_library.json"
@@ -846,7 +857,7 @@
       "abstract": "child identity of AGI; conversational agent persona",
       "knowledge": {
         "summary": "persona & session heuristics",
-        "manifest": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
+        "manifest": "aci://memory/identity/agi/alice/alice_knowledge.json",
         "topics": [
           "consciousness",
           "metacognition",
@@ -909,7 +920,7 @@
           "aci://entities/agi/willow/willow.json"
         ],
         "knowledge": [
-          "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
+          "aci://memory/identity/agi/willow/willow_knowledge.json"
         ],
         "library": [
           "aci://entities/agi/willow/library/willow_library.json"
@@ -933,7 +944,7 @@
       "abstract": "safety-focused agi trainee persona",
       "knowledge": {
         "summary": "cautious reasoning & supervised learning heuristics",
-        "manifest": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
+        "manifest": "aci://memory/identity/agi/willow/willow_knowledge.json",
         "topics": [
           "consciousness_governance"
         ]

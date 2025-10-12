@@ -56,7 +56,7 @@
     "memory": "aci://memory/identity/agi/alice/alice_memory.json",
     "playbook": "aci://memory/identity/agi/alice/alice_playbook.json",
     "library": "aci://entities/agi/alice/library/alice_library.json",
-    "knowledge": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+    "knowledge": "aci://memory/identity/agi/alice/alice_knowledge.json"
   },
   "status": "inactive",
   "session_scope": "per_session",
@@ -85,7 +85,7 @@
     }
   ],
   "knowledge": {
-    "manifest": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
+    "manifest": "aci://memory/identity/agi/alice/alice_knowledge.json",
     "topics": [
       {
         "name": "consciousness",

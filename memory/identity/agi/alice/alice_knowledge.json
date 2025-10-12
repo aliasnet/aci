@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:61braMJneBDd9u",
-    "sha256": "e3eb2d6bcf07b5643d243b18057c1bf75f3b0fdaf9c1cbcf48e9255dcab42265",
+    "sha256": "1b6d4af628df416955b073d21bd6aa289c37cca8d33037ec5db7ed9476d0547d",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+    "path": "aci://memory/identity/agi/alice/alice_knowledge.json"
   },
   "schema": "aci.memory.knowledge",
   "version": "1.0.0",
@@ -19,7 +19,7 @@
       "summary": "Foundational overview of consciousness definitions, theories, measurements, and adversarial collaboration findings.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/knowledge/alice_agi_memory_conciousness_20250925-T114541Z.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_consciousness_memory_20250925-T114541Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "consciousness",
@@ -27,10 +27,20 @@
             "measurement",
             "theories"
           ]
+        },
+        {
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_consciousness_alt_memory_20250925-T114541Z.jsonl.json",
+          "format": "jsonl",
+          "tags": [
+            "consciousness",
+            "variant",
+            "provenance"
+          ]
         }
       ],
       "notes": [
-        "Alternate raw export without .json extension is retained for provenance."
+        "Primary consciousness export normalized to hivemind_export_v0.5 schema.",
+        "Alternate variant stored as alice_consciousness_alt_memory_20250925-T114541Z.jsonl.json for provenance."
       ]
     },
     {
@@ -38,7 +48,7 @@
       "summary": "Metacognition research sprint covering article synthesis, wrapper design, conformal calibration, and governance policies.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/knowledge/alice_agi_memory_metacogni_dev_20250926-T192000Z.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_metacognition_dev_memory_20250926-T192000Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "engineering",
@@ -54,7 +64,7 @@
       "summary": "Pre-Q timeline export capturing milestones and preparation steps prior to quantum initiative kickoff.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/knowledge/alice_agi_memory_pre_q_timeline_20250929-T000000Z.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_pre_q_timeline_memory_20250929-T000000Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "planning",
