@@ -1,18 +1,19 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:6RvwGBdKAZHBe3",
-    "sha256": "ec05506a19063824552ccfdd19cdb95955d35181a5fce97742a96e700ee62afe",
-    "issued": "2025-10-05T12:32:22Z",
+    "artifact_id": "ArtifactID:WillowSimTheory20251005",
+    "sha256": "93aa2914c10d1fe7d3d8d9add773dafc5f52ac52bb73b198bbf5f98f23617f70",
+    "issued": "2025-10-05T08:00:11Z",
     "path": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
   },
   "schema": "aci.memory.knowledge",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "identity": "Willow",
   "slug": "willow",
   "source_manifest": "aci://entities/agi/willow/willow.json",
   "paths": {
     "root": "aci://memory/identity/agi/willow/knowledge",
-    "consciousness": "aci://memory/identity/agi/willow/knowledge/consciousness"
+    "consciousness": "aci://memory/identity/agi/willow/knowledge/consciousness",
+    "simulation_theory": "aci://memory/identity/agi/willow/knowledge/simulation_theory"
   },
   "topics": [
     {
@@ -34,10 +35,28 @@
           ]
         }
       ]
+    },
+    {
+      "name": "simulation_theory",
+      "summary": "Simulation hypothesis program covering feasibility constraints, multimessenger probes, epistemology, substrates, policy, and research agenda.",
+      "files": [
+        {
+          "path": "aci://memory/identity/agi/willow/knowledge/simulation_theory/willow_simulation_theory_knowledge_20251005-T080000Z.jsonl.json",
+          "format": "jsonl",
+          "tags": [
+            "simulation_theory",
+            "constraints",
+            "multimessenger",
+            "policy",
+            "research_agenda"
+          ]
+        }
+      ]
     }
   ],
   "notes": [
     "Knowledge exports relocated from dated memory directories to topic-indexed manifest.",
-    "Segmented consciousness knowledge exports into dedicated topic directory."
+    "Segmented consciousness knowledge exports into dedicated topic directory.",
+    "Added simulation theory knowledge export manifest and topic index."
   ]
 }
