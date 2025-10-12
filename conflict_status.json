@@ -1,0 +1,11 @@
+{
+  "changelog": [
+    "Initial conflict check log for AGI knowledge manifest normalization PR."
+  ],
+  "status": {
+    "base_commit_present": false,
+    "head_branch_clean": true,
+    "notes": "Base commit 7c06c340782e3b27aba1aadeb19855d105a77277 not present locally; merge conflicts could not be simulated."
+  },
+  "version": "0.1.0"
+}
