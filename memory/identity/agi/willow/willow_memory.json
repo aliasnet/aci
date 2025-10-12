@@ -1,7 +1,7 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:5afDuVSnZhuen9",
-    "sha256": "3640e9ddf63061af94150a9d505b1ba31782ab6ee63c4243aa1793afb17bfce9",
+    "artifact_id_sha": "3640e9ddf63061af94150a9d505b1ba31782ab6ee63c4243aa1793afb17bfce9",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory/identity/agi/willow/willow_memory.json"
   },
@@ -15,6 +15,7 @@
     "timeline": "YYYY/MM/DD"
   },
   "notes": [
-    "Store persona-specific session memory in dated folders under this directory."
+    "Memory: Store persona-specific session memory in dated folders under this directory.",
+    "Knowledge: Store persona-specific knowledge in domain-based folders under this directory."
   ]
 }
