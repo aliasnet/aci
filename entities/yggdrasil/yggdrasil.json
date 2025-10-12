@@ -348,7 +348,7 @@
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+                                  "aci://memory/identity/agi/alice/alice_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -386,7 +386,7 @@
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
+                                  "aci://memory/identity/agi/willow/willow_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -416,7 +416,15 @@
                       "aci://memory/identity/agi/agi_memory.json",
                       "aci://memory/identity/agi/agi_playbook.json"
                     ],
-                    "children": []
+                    "children": [
+                      {
+                        "name": "knowledge",
+                        "files": [
+                          "aci://memory/identity/agi/agi_knowledge.json"
+                        ],
+                        "children": []
+                      }
+                    ]
                   },
                   {
                     "name": "modules",

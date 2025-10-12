@@ -1,0 +1,66 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:AGIKnowledgeManifest20251005",
+    "sha256": "367e15a7bd47d298414b968a647a421ad7ef85bde5afc5488c74f97b2394fbed",
+    "issued": "2025-10-05T08:05:00Z",
+    "path": "aci://memory/identity/agi/agi_knowledge.json"
+  },
+  "schema": "aci.memory.knowledge",
+  "version": "1.0.0",
+  "identity": "AGI",
+  "slug": "agi",
+  "source_manifest": "aci://entities/agi/agi.json",
+  "paths": {
+    "root": "aci://memory/identity/agi"
+  },
+  "topics": [
+    {
+      "name": "audit_controls",
+      "summary": "Audit trail covering governance validation and commit sequencing for AGI patch workflows.",
+      "files": [
+        {
+          "path": "aci://memory/identity/agi/2025/09/27/agi_audit_memory_20250927-T105140Z.jsonl.json",
+          "format": "jsonl",
+          "tags": [
+            "audit",
+            "governance",
+            "workflow"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "alice_metacognition_support",
+      "summary": "AGI coordination notes for supporting Alice's metacognition research sprint and tooling integration.",
+      "files": [
+        {
+          "path": "aci://memory/identity/agi/2025/09/26/agi_alice_metacognition_memory_20250926-T192000Z.jsonl.json",
+          "format": "jsonl",
+          "tags": [
+            "alice",
+            "metacognition",
+            "coordination"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "quantum_research_briefing",
+      "summary": "Briefing on quantum research deliverables, follow-ups, and scheduling checkpoints.",
+      "files": [
+        {
+          "path": "aci://memory/identity/agi/2025/09/29/agi_quantum_research_briefing_memory_20250929-T163000Z.jsonl.json",
+          "format": "jsonl",
+          "tags": [
+            "quantum",
+            "planning",
+            "research"
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Topics reference hivemind_export_v0.5 normalized memory exports for AGI governance coordination."
+  ]
+}

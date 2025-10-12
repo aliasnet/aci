@@ -347,7 +347,8 @@
   "manifests": {
     "memory": "aci://memory/identity/agi/agi_memory.json",
     "playbook": "aci://memory/identity/agi/agi_playbook.json",
-    "library": "aci://entities/agi/library/agi_library.json"
+    "library": "aci://entities/agi/library/agi_library.json",
+    "knowledge": "aci://memory/identity/agi/agi_knowledge.json"
   },
   "session_scope": "per_session",
   "invocation_policy": {
