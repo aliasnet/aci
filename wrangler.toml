@@ -1,6 +1,6 @@
 name = "aci"
 main = "src/index.js"
-compatibility_date = "2025-10-11"
+compatibility_date = "2025-10-10"
 workers_dev = false
 
 [[routes]]
