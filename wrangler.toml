@@ -19,6 +19,6 @@ invocation_logs = true
 binding = "AI"
 
 [[r2_buckets]]
-binding = 'MY_BUCKET'
+binding = "aci" 
 bucket_name = "aci"
 remote = true
