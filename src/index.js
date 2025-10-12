@@ -28,6 +28,8 @@ export default {
       });
     }
 
+    const bucket = env["aci-r2"];
+
     if (url.pathname === "/ai-search") {
       const query = url.searchParams.get("q") || "";
       if (!query) {
@@ -38,15 +40,16 @@ export default {
         applyCorsHeaders(resp.headers, request);
         return resp;
       }
-      if (!env.AI || typeof env.AI.autorag !== "function") {
-        const resp = new Response(JSON.stringify({ error: "AI binding not configured" }), {
+      const autorag = env["aci-autorag"];
+      if (!autorag || typeof autorag.search !== "function") {
+        const resp = new Response(JSON.stringify({ error: "aci-autorag binding not configured" }), {
           status: 500,
           headers: { "content-type": "application/json; charset=utf-8" }
         });
         applyCorsHeaders(resp.headers, request);
         return resp;
       }
-      const answer = await env.AI.autorag("aci").search({
+      const answer = await autorag.search({
         query
       });
       const resp = new Response(JSON.stringify(answer), {
@@ -55,6 +58,65 @@ export default {
       });
       applyCorsHeaders(resp.headers, request);
       return resp;
+    }
+
+    if (url.pathname.startsWith("/r2/")) {
+      if (!bucket) {
+        const resp = new Response(JSON.stringify({ error: "aci-r2 binding not configured" }), {
+          status: 500,
+          headers: { "content-type": "application/json; charset=utf-8" }
+        });
+        applyCorsHeaders(resp.headers, request);
+        return resp;
+      }
+
+      const key = decodeURIComponent(url.pathname.replace(/^\/r2\//, "").trim());
+      if (!key) {
+        const resp = new Response(JSON.stringify({ error: "missing object key" }), {
+          status: 400,
+          headers: { "content-type": "application/json; charset=utf-8" }
+        });
+        applyCorsHeaders(resp.headers, request);
+        return resp;
+      }
+
+      const object = wantsHead ? await bucket.head(key) : await bucket.get(key);
+      if (!object) {
+        const resp = new Response(JSON.stringify({ error: "object not found" }), {
+          status: 404,
+          headers: { "content-type": "application/json; charset=utf-8" }
+        });
+        applyCorsHeaders(resp.headers, request);
+        return resp;
+      }
+
+      const headers = new Headers();
+      if (typeof object.writeHttpMetadata === "function") {
+        object.writeHttpMetadata(headers);
+      } else if (object.httpMetadata) {
+        const metadata = object.httpMetadata;
+        if (metadata.contentType) headers.set("content-type", metadata.contentType);
+        if (metadata.contentDisposition) headers.set("content-disposition", metadata.contentDisposition);
+        if (metadata.contentLanguage) headers.set("content-language", metadata.contentLanguage);
+        if (metadata.contentEncoding) headers.set("content-encoding", metadata.contentEncoding);
+        if (metadata.cacheControl) headers.set("cache-control", metadata.cacheControl);
+      }
+      if (object.etag) headers.set("etag", object.etag);
+      if (object.uploaded) headers.set("last-modified", new Date(object.uploaded).toUTCString());
+      if (typeof object.size === "number" && !headers.has("content-length")) {
+        headers.set("content-length", `${object.size}`);
+      }
+      if (!headers.has("cache-control")) {
+        headers.set("cache-control", "private, max-age=0, must-revalidate");
+      }
+
+      applyCorsHeaders(headers, request);
+
+      if (wantsHead) {
+        return new Response(null, { status: 200, headers });
+      }
+
+      return new Response(object.body, { status: 200, headers });
     }
 
     // Normalize root to something helpful (optional)
