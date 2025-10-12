@@ -54,7 +54,7 @@
       "summary": "Pre-Q timeline export capturing milestones and preparation steps prior to quantum initiative kickoff.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/2025/09/29/alice_pre_q_timeline_memory_20250929-T000000Z.jsonl.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_pre_q_timeline_knowledge_20250929-T000000Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "planning",
