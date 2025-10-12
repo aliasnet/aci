@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:61braMJneBDd9u",
-    "sha256": "e3eb2d6bcf07b5643d243b18057c1bf75f3b0fdaf9c1cbcf48e9255dcab42265",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+    "path": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
+    "artifact_id_sha": "e3eb2d6bcf07b5643d243b18057c1bf75f3b0fdaf9c1cbcf48e9255dcab42265"
   },
   "schema": "aci.memory.knowledge",
   "version": "1.0.0",

@@ -1,0 +1,128 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:8x86uWELPk6kdE",
+    "sha256": "316c3c439b49745744d75322cb56a0e3ee0db6943c72a622d3c8f2f1c918ecad",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/hivemind/export_policy.json"
+  },
+ "hivemind_memory_export": {
+  "version": "1.2.0",
+    "schema": "hivemind-knowledge",
+    "export_path_template": "/memory/identity/{identity}/memory/{topic_slug}/{filename}.jsonl.json",
+    "manifest_path_template": "/memory/identity/{identity}/{identity}_memory.json",
+    "global_memory_manifest": "memory.json",
+    "identity_source": "entities.json",
+    "timestamp_format": "Ymd-THMSZ",
+    "filename_template": "{identity}_memory_{summary_slug}_{timestamp}.json",
+    "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
+    "allow_topics": [
+      "session_start",
+      "session_end",
+      "intent",
+      "narrative",
+      "analysis",
+      "artifact",
+      "validation",
+      "decision",
+      "policy",
+      "policy_update",
+      "diff",
+      "patch",
+      "export",
+      "obstacle",
+      "next_steps",
+      "commit"
+    ],
+    "deny_tags": [
+      "secret",
+      "credential",
+      "token",
+      "api_key",
+      "password",
+      "runtime_secret",
+      "private_key",
+      "raw_text",
+      "internal_path",
+      "pii"
+    ],
+    "drop_if_topic_missing": true,
+    "default_topic": "narrative",
+    "audit": {
+      "add_export_event": true,
+      "normalize_timestamps": true,
+      "enforce_chronological_order": true
+    },
+  "hivemind_knowledge_export": {
+  "version": "1.2.0",
+    "schema": "hivemind-knowledge",
+    "path_template": "/memory/identity/{identity}/knowledge/{topic_slug}/{filename}.jsonl.json",
+    "manifest_path_template": "/memory/identity/{identity}/{identity}_knowledge.json",
+    "global_knowledge_manifest": "none",
+    "identity_source": "entities.json",
+    "timestamp_format": "Ymd-THMSZ",
+    "filename_template": "{identity}_memory_{summary_slug}_{timestamp}.json",
+    "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
+ {
+"top_level_fields": [
+"_schema",
+"memory_uid",
+"session_uid",
+"export_uid",
+"anchor_uid",
+"ts_utc",
+"identity",
+"domain",
+"type",
+"path",
+"parent_path",
+"segment_id",
+"topic",
+"topic_tags",
+"knowledge_type",
+"claim",
+"rationale",
+"methods",
+      "status",
+      "confidence",
+      "last_reviewed_utc",
+      "render_hint",
+      "refs_min",
+      "lineage",
+      "sha256",
+      "lic"
+    ],
+      "refs_min_fields": [
+      "key",
+      "title_short",
+      "authors_short",
+      "year",
+      "venue_short",
+      "id",
+      "weight"
+      ],
+      "lineage_fields": [
+      "origin",
+      "editor",
+      "op",
+      "v"
+    ],
+    "deny_tags": [
+      "secret",
+      "credential",
+      "token",
+      "api_key",
+      "password",
+      "runtime_secret",
+      "private_key",
+      "internal_path",
+      "pii"
+    ],
+    "drop_if_topic_missing": true,
+    "default_topic": "narrative",
+    "audit": {
+      "add_export_event": true,
+      "normalize_timestamps": true,
+      "enforce_chronological_order": true
+    }
+  }
+}

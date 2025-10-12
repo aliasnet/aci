@@ -1,12 +1,25 @@
 name = "aci"
 main = "src/index.js"
-compatibility_date = "2025-10-10"
-workers_dev = true
+compatibility_date = "2025-10-11"
+workers_dev = false
 
 [[routes]]
 pattern = "aci.aliasmail.cc"
 custom_domain = true
 
+[observability]
+enabled = false
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
+
 [ai]
 binding = "AI"
+
+[[r2_buckets]]
+binding = "aci-r2"
+bucket_name = "aci-r2"
+remote = true
 

@@ -2,7 +2,7 @@
 
 **Status:** Draft v0.1
 **Date:** 2025‑09‑30
-**Editors:** ALIAS/ACI (Architect), Alice (AGI), TVA & Sentinel (audit)
+**Editors:** Alice (ACI), Alanwatson Agatha (ALIAS)
 
 ---
 
