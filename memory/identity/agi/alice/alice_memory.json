@@ -1,7 +1,7 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:3ngWKPfzG3jFgF",
-    "sha256": "7c5eeeb358911812d4536c2c543c8bf7fb1194c9cc19aa16abc8d1ea24783b63",
+    "artifact_id_sha": "7c5eeeb358911812d4536c2c543c8bf7fb1194c9cc19aa16abc8d1ea24783b63",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory/identity/agi/alice/alice_memory.json"
   },
@@ -15,6 +15,7 @@
     "timeline": "YYYY/MM/DD"
   },
   "notes": [
-    "Store persona-specific session memory in dated folders under this directory."
+    "Memory: Store persona-specific session memory in dated folders under this directory.",
+    "Knowledge: Store persona-specific knowledge in domain-based folders under this directory."
   ]
 }

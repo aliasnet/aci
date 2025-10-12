@@ -3,7 +3,7 @@
     "artifact_id": "ArtifactID:61braMJneBDd9u",
     "sha256": "e3eb2d6bcf07b5643d243b18057c1bf75f3b0fdaf9c1cbcf48e9255dcab42265",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+    "path": "aci://memory/identity/agi/alice/alice_knowledge.json"
   },
   "schema": "aci.memory.knowledge",
   "version": "1.0.0",
@@ -19,7 +19,7 @@
       "summary": "Foundational overview of consciousness definitions, theories, measurements, and adversarial collaboration findings.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/knowledge/alice_agi_memory_conciousness_20250925-T114541Z.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_consciousness_knowledge_20250925-T114541Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "consciousness",
@@ -38,7 +38,7 @@
       "summary": "Metacognition research sprint covering article synthesis, wrapper design, conformal calibration, and governance policies.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/knowledge/alice_agi_memory_metacogni_dev_20250926-T192000Z.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_metacogni_dev_knowledge_20250926-T192000Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "engineering",
@@ -54,7 +54,7 @@
       "summary": "Pre-Q timeline export capturing milestones and preparation steps prior to quantum initiative kickoff.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/alice/knowledge/alice_agi_memory_pre_q_timeline_20250929-T000000Z.json",
+          "path": "aci://memory/identity/agi/alice/knowledge/alice_pre_q_timeline_knowledge_20250929-T000000Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "planning",

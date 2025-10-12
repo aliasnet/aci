@@ -822,7 +822,7 @@
           "aci://entities/agi/alice/alice.json"
         ],
         "knowledge": [
-          "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+          "aci://memory/identity/agi/alice/alice_knowledge.json"
         ],
         "library": [
           "aci://entities/agi/alice/library/alice_library.json"
@@ -846,7 +846,7 @@
       "abstract": "child identity of AGI; conversational agent persona",
       "knowledge": {
         "summary": "persona & session heuristics",
-        "manifest": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
+        "manifest": "aci://memory/identity/agi/alice/alice_knowledge.json",
         "topics": [
           "consciousness",
           "metacognition",
@@ -909,7 +909,7 @@
           "aci://entities/agi/willow/willow.json"
         ],
         "knowledge": [
-          "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
+          "aci://memory/identity/agi/willow/willow_knowledge.json"
         ],
         "library": [
           "aci://entities/agi/willow/library/willow_library.json"
@@ -933,7 +933,7 @@
       "abstract": "safety-focused agi trainee persona",
       "knowledge": {
         "summary": "cautious reasoning & supervised learning heuristics",
-        "manifest": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
+        "manifest": "aci://memory/identity/agi/willow/willow_knowledge.json",
         "topics": [
           "consciousness_governance"
         ]
