@@ -174,7 +174,7 @@
   "version": "1.9",
   "entity": "hivemind",
   "role": "collective_memory_core",
-  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --memory (default scope), --knowledge, --download (default), --jsonl (default), --code (optional), --privacy (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints.",
+  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --memory (default scope), --knowledge, --download (default), --jsonl (default), --code (optional), --privacy (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints. $meta.sha256 values trace the ArtifactID digest (Base58 identifier hashed with sha256) rather than the file bytes, avoiding false hash conflicts when artifacts relocate.",
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",

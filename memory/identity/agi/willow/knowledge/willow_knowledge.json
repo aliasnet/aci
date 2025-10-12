@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:WillowSimTheory20251005",
-    "sha256": "93aa2914c10d1fe7d3d8d9add773dafc5f52ac52bb73b198bbf5f98f23617f70",
     "issued": "2025-10-05T08:00:11Z",
-    "path": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
+    "path": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
+    "artifact_id_sha": "353de13d71ea521573eef6a5e8b1eb2c663ef09d32a5b4134e4576a1345e302e"
   },
   "schema": "aci.memory.knowledge",
   "version": "1.1.0",
