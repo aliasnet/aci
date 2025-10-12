@@ -18,6 +18,6 @@ invocation_logs = true
 [ai]
 binding = "AI"
 
-[r2_buckets]
+[[r2_buckets]] 
 binding = "r2-aci" 
 bucket_name = "aci" 
