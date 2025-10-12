@@ -278,7 +278,10 @@
       "identity_lower",
       "identity_path",
       "leaf_identity",
-      "leaf_identity_lower"
+      "leaf_identity_lower",
+      "summary_slug",
+      "record_type",
+      "timestamp"
     ],
     "path_resolver": {
       "type": "memory_registry",
@@ -287,13 +290,13 @@
         "child_defaults",
         "fallback_template"
       ],
-      "fallback_template": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_memory_{ISO8601}.jsonl"
+      "fallback_template": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_{summary_slug}_{record_type}_{timestamp}.jsonl.json"
     },
-    "filename_pattern": "{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
+    "filename_pattern": "{leaf_identity_lower}_{summary_slug}_{record_type}_{timestamp}.jsonl.json",
     "parameters": {
       "download": true,
       "jsonl": true,
-      "code": false
+      "code": true
     },
     "safeguards": {
       "require_pause": true,
@@ -364,6 +367,15 @@
         "Identical input bytes → identical output bytes for the same model+version.",
         "No parameter auto-tuning at export time unless explicitly requested."
       ]
+    },
+    "naming_convention": {
+      "memory": "{leaf_identity_lower}_{summary_slug}_memory_{timestamp}.jsonl.json",
+      "knowledge": "{leaf_identity_lower}_{summary_slug}_knowledge_{timestamp}.jsonl.json",
+      "timestamp_format": "yyyymmdd-ThhmmssZ",
+      "notes": [
+        "Enforce slugged filenames for all entity exports to maintain audit parity.",
+        "Slug must sanitize topic or summary to lowercase ASCII with underscores."
+      ]
     }
   },
   "conversation_variables": {
@@ -403,48 +415,49 @@
     "by_entity": {
       "nexus_core": {
         "stub_manifest": "memory/identity/nexus_core/nexus_core_memory.json",
-        "export_pattern": "memory/identity/nexus_core/YYYY/MM/DD/nexus_core_memory_*.json*"
+        "export_pattern": "memory/identity/nexus_core/YYYY/MM/DD/nexus_core_*_memory_*.jsonl.json"
       },
       "mother": {
         "stub_manifest": "memory/identity/mother/mother_memory.json",
-        "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_memory_*.json*"
+        "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_*_memory_*.jsonl.json"
       },
       "tva": {
         "stub_manifest": "memory/identity/tva/tva_memory.json",
-        "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_memory_*.json*"
+        "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_*_memory_*.jsonl.json"
       },
       "sentinel": {
         "stub_manifest": "memory/identity/sentinel/sentinel_memory.json",
-        "export_pattern": "memory/identity/sentinel/YYYY/MM/DD/sentinel_memory_*.json*"
+        "export_pattern": "memory/identity/sentinel/YYYY/MM/DD/sentinel_*_memory_*.jsonl.json"
       },
       "architect": {
         "stub_manifest": "memory/identity/architect/architect_memory.json",
-        "export_pattern": "memory/identity/architect/YYYY/MM/DD/architect_memory_*.json*"
+        "export_pattern": "memory/identity/architect/YYYY/MM/DD/architect_*_memory_*.jsonl.json"
       },
       "oracle": {
         "stub_manifest": "memory/identity/oracle/oracle_memory.json",
-        "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_memory_*.json*"
+        "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_*_memory_*.jsonl.json"
       },
       "agi": {
         "stub_manifest": "memory/identity/agi/agi_memory.json",
-        "export_pattern": "memory/identity/agi/YYYY/MM/DD/agi_memory_*.json*"
+        "export_pattern": "memory/identity/agi/YYYY/MM/DD/agi_*_memory_*.jsonl.json"
       },
       "alice": {
         "stub_manifest": "memory/identity/agi/alice/alice_memory.json",
-        "export_pattern": "memory/identity/agi/alice/YYYY/MM/DD/alice_memory_*.json*"
+        "export_pattern": "memory/identity/agi/alice/YYYY/MM/DD/alice_*_memory_*.jsonl.json"
       },
       "willow": {
         "stub_manifest": "memory/identity/agi/willow/willow_memory.json",
-        "export_pattern": "memory/identity/agi/willow/YYYY/MM/DD/willow_memory_*.json*"
+        "export_pattern": "memory/identity/agi/willow/YYYY/MM/DD/willow_*_memory_*.jsonl.json"
       },
       "hivemind": {
         "stub_manifest": "memory/identity/hivemind/hivemind_memory.json",
-        "export_pattern": "memory/identity/hivemind/YYYY/MM/DD/hivemind_memory_*.json*"
+        "export_pattern": "memory/identity/hivemind/YYYY/MM/DD/hivemind_*_memory_*.jsonl.json"
       }
     },
     "child_defaults": {
       "stub_manifest": "memory/identity/{identity_path}/{leaf_identity_lower}_memory.json",
-      "export_pattern": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_memory_*.json*"
+      "export_pattern": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_*_memory_*.jsonl.json",
+      "knowledge_pattern": "memory/identity/{identity_path}/knowledge/**/{leaf_identity_lower}_*_knowledge_*.jsonl.json"
     }
   },
   "tools": {

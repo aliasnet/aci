@@ -248,8 +248,8 @@
                               "name": "knowledge",
                               "files": [
                                 {
-                                  "path": "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json",
-                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/agi/alice/knowledge/alice_knowledge.json"
+                                  "path": "aci://memory/identity/agi/alice/alice_knowledge.json",
+                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/agi/alice/alice_knowledge.json"
                                 }
                               ],
                               "children": []
@@ -304,8 +304,8 @@
                               "name": "knowledge",
                               "files": [
                                 {
-                                  "path": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
-                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/agi/willow/knowledge/willow_knowledge.json"
+                                  "path": "aci://memory/identity/agi/willow/willow_knowledge.json",
+                                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/agi/willow/willow_knowledge.json"
                                 }
                               ],
                               "children": []
