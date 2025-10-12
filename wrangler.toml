@@ -8,7 +8,7 @@ pattern = "aci.aliasmail.cc"
 custom_domain = true
 
 [observability]
-enabled = false
+enabled = true
 
 [observability.logs]
 enabled = true
@@ -17,7 +17,3 @@ invocation_logs = true
 
 [ai]
 binding = "AI"
-
-[[r2_buckets]] 
-binding = "r2-aci" 
-bucket_name = "aci" 
