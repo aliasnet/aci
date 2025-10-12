@@ -16,7 +16,12 @@ head_sampling_rate = 1
 invocation_logs = true
 
 [ai]
-binding = "AI"
+binding = "aci-autorag"
+
+[[r2_buckets]]
+binding = "aci-r2"
+bucket_name = "aci"
+remote = true
 
 [[r2_buckets]]
 binding = "aci-r2"

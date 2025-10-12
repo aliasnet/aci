@@ -40,15 +40,16 @@ export default {
         applyCorsHeaders(resp.headers, request);
         return resp;
       }
-      if (!env.AI || typeof env.AI.autorag !== "function") {
-        const resp = new Response(JSON.stringify({ error: "AI binding not configured" }), {
+      const autorag = env["aci-autorag"];
+      if (!autorag || typeof autorag.search !== "function") {
+        const resp = new Response(JSON.stringify({ error: "aci-autorag binding not configured" }), {
           status: 500,
           headers: { "content-type": "application/json; charset=utf-8" }
         });
         applyCorsHeaders(resp.headers, request);
         return resp;
       }
-      const answer = await env.AI.autorag("aci").search({
+      const answer = await autorag.search({
         query
       });
       const resp = new Response(JSON.stringify(answer), {
