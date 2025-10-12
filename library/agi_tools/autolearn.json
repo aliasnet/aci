@@ -123,8 +123,8 @@
       {
         "call": "chat.deliver",
         "map": {
-          "message": "Auto-learn mode paused. Run 'hivemind export agi --identity ${active_identity} --jsonl --code --force' to export the session into the governed .json memory artifact (legacy alias: --codebox).",
-          "suggested_command": "hivemind export agi --identity ${active_identity} --jsonl --code --force"
+          "message": "Auto-learn mode paused. Run 'hivemind export --identity {active_identity} --knowledge --jsonl --download --code --force' to export the session into the governed .json memory artifact (legacy alias: --codebox).",
+          "suggested_command": "hivemind export --identity {active_identity} --knowledge --jsonl --code --force"
         }
       }
     ]
