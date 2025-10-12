@@ -56,7 +56,7 @@
     "memory": "aci://memory/identity/agi/willow/willow_memory.json",
     "playbook": "aci://memory/identity/agi/willow/willow_playbook.json",
     "library": "aci://entities/agi/willow/library/willow_library.json",
-    "knowledge": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
+    "knowledge": "aci://memory/identity/agi/willow/willow_knowledge.json"
   },
   "status": "active",
   "session_scope": "per_session",
@@ -85,7 +85,7 @@
     }
   ],
   "knowledge": {
-    "manifest": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
+    "manifest": "aci://memory/identity/agi/willow/willow_knowledge.json",
     "topics": [
       {
         "name": "consciousness",
