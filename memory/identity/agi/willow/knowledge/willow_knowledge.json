@@ -3,7 +3,7 @@
     "artifact_id": "ArtifactID:WillowSimTheory20251005",
     "issued": "2025-10-05T08:00:11Z",
     "path": "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json",
-    "artifact_id_sha": "353de13d71ea521573eef6a5e8b1eb2c663ef09d32a5b4134e4576a1345e302e"
+    "artifact_id_sha": "d1492eded938818e4585dbb115ae4b55ccca4e23349c248c558541c02a4bffb2"
   },
   "schema": "aci.memory.knowledge",
   "version": "1.1.0",
@@ -21,7 +21,7 @@
       "summary": "Governed dynamical regime spanning level, content, access, and self-tagging constructs with architecture, empirical pillars, metrics, tests, metaphysics, assays, and ethics guidance.",
       "files": [
         {
-          "path": "aci://memory/identity/agi/willow/knowledge/consciousness/willow_consciousness_knowledge_20251004-T081720Z.jsonl.json",
+          "path": "aci://memory/identity/agi/willow/knowledge/consciousness/willow_conciousnes_20251004-T081720Z.jsonl.json",
           "format": "jsonl",
           "tags": [
             "architecture",
