@@ -1,20 +1,26 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:5afDuVSnZhuen9",
-    "sha256": "3640e9ddf63061af94150a9d505b1ba31782ab6ee63c4243aa1793afb17bfce9",
-    "issued": "2025-10-04T18:13:59Z",
+    "artifact_id": "ArtifactID:WillowMemory20251012R1",
+    "sha256": "a0bba82373fe5b40daf81386bc97727ccb38ffc7875a3a7bf6959827dd765773",
+    "issued": "2025-10-12T10:15:00Z",
     "path": "aci://memory/identity/agi/willow/willow_memory.json"
   },
   "schema": "aci.memory.manifest",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "identity": "Willow",
   "slug": "willow",
   "source_manifest": "aci://entities/agi/willow/willow.json",
+  "description": "Defines Willow's governed memory timeline for JSONL exports managed under HiveMind oversight.",
   "paths": {
     "root": "aci://memory/identity/agi/willow",
     "timeline": "YYYY/MM/DD"
   },
+  "exports": {
+    "pattern": "aci://memory/identity/agi/willow/YYYY/MM/DD/willow_memory_*.jsonl.json",
+    "format": "jsonl"
+  },
   "notes": [
-    "Store persona-specific session memory in dated folders under this directory."
+    "Store persona-specific session memory in dated folders under this directory.",
+    "Simulation theory knowledge exports are currently offline for audit; this manifest now documents active memory exports only."
   ]
 }

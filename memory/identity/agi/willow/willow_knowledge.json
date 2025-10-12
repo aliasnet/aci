@@ -1,19 +1,18 @@
 {
   "$meta": {
-    "artifact_id": "ArtifactID:WillowKnowledge20251005R1",
-    "sha256": "1c8956c67a401f15e7f312376f7ab42b4fd849ad9fbefad22da7740a825ebf21",
-    "issued": "2025-10-05T08:00:24Z",
+    "artifact_id": "ArtifactID:WillowKnowledge20251012R1",
+    "sha256": "157bf4e2081981f94890cd78152decbba4ab9916249f6b014a38ca0907390fb0",
+    "issued": "2025-10-12T10:15:00Z",
     "path": "aci://memory/identity/agi/willow/willow_knowledge.json"
   },
   "schema": "aci.memory.knowledge",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "identity": "Willow",
   "slug": "willow",
   "source_manifest": "aci://entities/agi/willow/willow.json",
   "paths": {
     "root": "aci://memory/identity/agi/willow/knowledge",
-    "consciousness": "aci://memory/identity/agi/willow/knowledge/consciousness",
-    "simulation_theory": "aci://memory/identity/agi/willow/knowledge/simulation_theory"
+    "consciousness": "aci://memory/identity/agi/willow/knowledge/consciousness"
   },
   "topics": [
     {
@@ -35,34 +34,11 @@
           ]
         }
       ]
-    },
-    {
-      "name": "simulation_theory",
-      "summary": "Simulation hypothesis program covering feasibility constraints, multimessenger probes, epistemology, substrates, policy, quantum discord, strategic incentives, and registry standards.",
-      "files": [
-        {
-          "path": "aci://memory/identity/agi/willow/knowledge/simulation_theory/willow_simulation_theory_knowledge_20251005-T080000Z.jsonl.json",
-          "format": "jsonl",
-          "tags": [
-            "simulation_theory",
-            "constraints",
-            "multimessenger",
-            "quantum",
-            "policy",
-            "research_agenda",
-            "game_theory",
-            "registry"
-          ]
-        }
-      ],
-      "notes": [
-        "2025-10-05 export refreshed with multimessenger nulls, quantum-decoherence probes, incentive modeling, and null-registry specification."
-      ]
     }
   ],
   "notes": [
     "Knowledge exports relocated from dated memory directories to topic-indexed manifest.",
     "Segmented consciousness knowledge exports into dedicated topic directory.",
-    "Expanded simulation theory knowledge manifest to include quantum, strategy, and registry materials."
+    "Simulation theory knowledge exports temporarily withdrawn pending refreshed audit-complete artifact before reintroduction."
   ]
 }
