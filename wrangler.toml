@@ -17,8 +17,8 @@ invocation_logs = true
 
 [ai]
 binding = "AI"
+binding = "autorag-aci" 
 
 [[r2_buckets]]
-binding = "aci-r2" 
+binding = "r2-aci" 
 bucket_name = "aci"
-remote = true
