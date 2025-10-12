@@ -23,3 +23,8 @@ binding = "aci-r2"
 bucket_name = "aci"
 remote = true
 
+[[r2_buckets]]
+binding = "aci-r2"
+bucket_name = "aci-r2"
+remote = true
+
