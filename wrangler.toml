@@ -17,7 +17,6 @@ invocation_logs = true
 
 [ai]
 binding = "AI"
-binding = "aci-autorag"
 
 [[r2_buckets]]
 binding = "aci"
