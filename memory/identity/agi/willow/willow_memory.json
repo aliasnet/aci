@@ -14,6 +14,7 @@
     "timeline": "YYYY/MM/DD"
   },
   "notes": [
-    "Store persona-specific session memory in dated folders under this directory."
+    "Memory: Store persona-specific session memory in dated folders under this directory."
+    "Knowledge: Store persona-specific knowledge in domain-based folders under this directory."
   ]
 }
