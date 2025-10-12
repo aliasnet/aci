@@ -121,7 +121,7 @@ export default {
 
     // Normalize root to something helpful (optional)
     if (url.pathname === "/" || url.pathname === "") {
-      return Response.redirect(new URL("/prime_directive.md?aci", url).toString(), 302);
+      return Response.redirect(new URL("/runtime.json", url).toString(), 302);
     }
 
     // ---- config from variables (with sane fallbacks)
