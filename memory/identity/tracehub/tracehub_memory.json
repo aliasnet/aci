@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "TraceHub",
   "slug": "tracehub",
-  "source_manifest": "aci://entities/tracehub/tracehub.json",
+  "source_manifest": "aci://library/audits/tracehub/tracehub.json",
   "description": "TraceHub coordinates correlated tracing across the Temporal Loom with governed audit storage and export controls.",
   "paths": {
     "root": "aci://memory/identity/tracehub",

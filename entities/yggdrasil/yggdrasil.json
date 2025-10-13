@@ -488,36 +488,6 @@
                 ]
               },
               {
-                "name": "commerce_ai",
-                "files": [
-                  "aci://entities/commerce_ai/commerce_ai.json"
-                ],
-                "children": [
-                  {
-                    "name": "library",
-                    "files": [
-                      "aci://entities/commerce_ai/library/commerce_ai_library.json"
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "memory",
-                    "files": [
-                      "aci://memory/identity/commerce_ai/commerce_ai_memory.json",
-                      "aci://memory/identity/commerce_ai/commerce_ai_playbook.json"
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "modules",
-                    "files": [
-                      "aci://entities/commerce_ai/library/commerce_ai_library.json"
-                    ],
-                    "children": []
-                  }
-                ]
-              },
-              {
                 "name": "hivemind",
                 "files": [
                   "aci://entities/hivemind/functions.json",
@@ -543,36 +513,6 @@
                     "name": "modules",
                     "files": [
                       "aci://entities/hivemind/library/hivemind_library.json"
-                    ],
-                    "children": []
-                  }
-                ]
-              },
-              {
-                "name": "keychain",
-                "files": [
-                  "aci://entities/keychain/keychain.json"
-                ],
-                "children": [
-                  {
-                    "name": "library",
-                    "files": [
-                      "aci://entities/keychain/library/keychain_library.json"
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "memory",
-                    "files": [
-                      "aci://memory/identity/keychain/keychain_memory.json",
-                      "aci://memory/identity/keychain/keychain_playbook.json"
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "modules",
-                    "files": [
-                      "aci://entities/keychain/library/keychain_library.json"
                     ],
                     "children": []
                   }
@@ -740,13 +680,13 @@
               {
                 "name": "tracehub",
                 "files": [
-                  "aci://entities/tracehub/tracehub.json"
+                  "aci://library/audits/tracehub/tracehub.json"
                 ],
                 "children": [
                   {
                     "name": "library",
                     "files": [
-                      "aci://entities/tracehub/library/tracehub_library.json"
+                      "aci://library/audits/tracehub/tracehub.json"
                     ],
                     "children": []
                   },
@@ -761,7 +701,7 @@
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/tracehub/library/tracehub_library.json"
+                      "aci://library/audits/tracehub/tracehub.json"
                     ],
                     "children": []
                   }
@@ -836,8 +776,8 @@
               {
                 "name": "aci_audit_runner",
                 "files": [
-                  "aci://library/aci_audit_runner/aci_runner_corpus.v0.2.json",
-                  "aci://library/aci_audit_runner/aci_runner_spec.v0.2.json"
+                  "aci://library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json",
+                  "aci://library/audits/aci_audit_runner/aci_runner_spec.v0.2.json"
                 ],
                 "children": []
               },
@@ -878,15 +818,15 @@
                   {
                     "name": "process_logs",
                     "files": [
-                      "aci://library/wrappers/process_logs/process_log_schema.json",
-                      "aci://library/wrappers/process_logs/process_logs.json"
+                      "aci://library/audits/process_logs/process_logs.json#schema_definition",
+                      "aci://library/audits/process_logs/process_logs.json"
                     ],
                     "children": []
                   },
                   {
                     "name": "tracehub_status",
                     "files": [
-                      "aci://library/wrappers/tracehub_status/tracehub_status.json"
+                      "aci://library/audits/tracehub/tracehub.json"
                     ],
                     "children": []
                   }

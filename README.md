@@ -59,9 +59,16 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   metacognition/
     metacognition.json             # stateless wrapper (v1.1.x+)
     metacognition_options.json     # optional features (e.g., conformal)
-  wrappers/
-    process_logs/                  # reusable wrapper modules (log processors)
-    tracehub_status/               # reusable wrapper modules (TraceHub sync)
+  audits/
+    process_logs/                 # audit wrappers for process log routing
+      process_logs.json           # schema + wrapper manifest
+    tracehub/                     # TraceHub audit wrapper (stateless)
+      tracehub.json               # TraceHub session + export coordination
+    aci_audit_runner/             # audit runner corpus and specs
+      gr_runner_corpus.v0.2.json
+      aci_runner_spec.v0.2.json
+      aci_scheduler_anchor.md
+      adaptive_audit_runner.txt
   ...                              # reusable, stateless modules
 
 /memory/

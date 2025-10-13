@@ -22,7 +22,7 @@ STATE_DIR = os.path.join(ACI_ROOT, "state")
 AUDIT_DIR = os.path.join(ACI_ROOT, "audit", "tmp")
 LOG_DIR = os.path.join(ACI_ROOT, "logs")
 CONFIG_DIR = os.path.join(ACI_ROOT, "config")
-LIB_DIR = os.path.join(ACI_ROOT, "library", "aci_runner")
+LIB_DIR = os.path.join(ACI_ROOT, "library", "audits", "aci_audit_runner")
 SPEC_PATH = os.path.join(CONFIG_DIR, "aci_runner_spec.json")
 COMM_MODES = {"silent", "audit-only", "notify-on-error", "verbose"}
 

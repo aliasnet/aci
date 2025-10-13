@@ -55,13 +55,13 @@
   },
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "audit": {
-    "status_wrapper": "aci://library/wrappers/tracehub_status/tracehub_status.json",
-    "log_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+    "status_wrapper": "aci://library/audits/tracehub/tracehub.json",
+    "log_wrapper": "aci://library/audits/process_logs/process_logs.json",
     "default_mode": "tracehub.session",
-    "export_instruction": "Sentinel audit events are staged in /mnt/tracehub via the tracehub_status wrapper and finalized through process_logs exports."
+    "export_instruction": "Sentinel audit events are staged in /mnt/tracehub via the TraceHub audit wrapper and finalized through process_logs exports."
   },
   "guidance": [
-    "TraceHub session retention now streams into /mnt/tracehub as temporary JSONL buffers managed by the tracehub_status wrapper.",
+    "TraceHub session retention now streams into /mnt/tracehub as temporary JSONL buffers managed by the TraceHub audit wrapper.",
     "TVA ledger checkpoints rely on process_logs exports after Sentinel approval; no persistent router directories remain under /memory/audit.",
     "When persistent exports are required, set export_override to the desired sink metadata and run process_logs.export after the buffers are sealed.",
     "Signature metadata must be included in the payload before export so TVA can seal the record during process_logs export."

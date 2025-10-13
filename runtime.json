@@ -327,7 +327,7 @@
             "tva_ledger.export"
           ],
           "toggle_semantics": {
-            "tracehub_status.buffer": "Default TraceHub buffer writing to /mnt/tracehub/${session_id}.jsonl via the stateless tracehub_status wrapper.",
+            "tracehub_status.buffer": "Default TraceHub buffer writing to /mnt/tracehub/${session_id}.jsonl via the stateless TraceHub audit wrapper.",
             "process_logs.export": "Invoke process_logs.export to surface staged logs once Sentinel and TVA approvals are recorded.",
             "tva_ledger.export": "When toggled on, attach TVA ledger metadata and seals to the exported bundle before process_logs export completes."
           }
@@ -411,7 +411,7 @@
         ],
         "audit": {
           "log_to": [
-            "aci://library/wrappers/tracehub_status/tracehub_status.json",
+            "aci://library/audits/tracehub/tracehub.json",
             "TVA.audit_ledger"
           ],
           "fields": [
@@ -433,7 +433,7 @@
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
         "6) Route to nexus_core (registry bypass allowed if authenticated).",
-        "7) Emit audit entry via tracehub_status wrapper and TVA at start and completion of the block.",
+        "7) Emit audit entry via TraceHub audit wrapper and TVA at start and completion of the block.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
       "compatibility": {
@@ -472,7 +472,7 @@
     "wrapper": {
       "provider": "process_logs",
       "jobs": [],
-      "audit_sink": "aci://library/wrappers/process_logs/process_logs.json",
+      "audit_sink": "aci://library/audits/process_logs/process_logs.json",
       "presence_channel": "nexus.event.scheduler"
     },
     "rag": {
@@ -493,8 +493,8 @@
       }
     },
     "logging": {
-      "tracehub_status_wrapper": "aci://library/wrappers/tracehub_status/tracehub_status.json",
-      "process_logs_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+      "tracehub_status_wrapper": "aci://library/audits/tracehub/tracehub.json",
+      "process_logs_wrapper": "aci://library/audits/process_logs/process_logs.json",
       "output_root": "/mnt/tracehub"
     },
     "changelog": [

@@ -881,7 +881,7 @@
         {
           "call": "json.schema.validate",
           "map": {
-            "schema_file": "library/wrappers/process_logs/process_log_schema.json",
+            "schema_file": "library/audits/process_logs/process_logs.json#schema_definition",
             "data": "$steps.4.object"
           }
         },
@@ -931,7 +931,7 @@
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "library/wrappers/process_logs/process_log_schema.json",
+            "schema": "library/audits/process_logs/process_logs.json#schema_definition",
             "rows": "$steps.0"
           }
         },

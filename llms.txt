@@ -453,51 +453,6 @@
               ]
             },
             {
-              "name": "commerce_ai",
-              "files": [
-                {
-                  "path": "aci://entities/commerce_ai/commerce_ai.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/commerce_ai/commerce_ai.json"
-                }
-              ],
-              "children": [
-                {
-                  "name": "library",
-                  "files": [
-                    {
-                      "path": "aci://entities/commerce_ai/library/commerce_ai_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/commerce_ai/library/commerce_ai_library.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "memory",
-                  "files": [
-                    {
-                      "path": "aci://memory/identity/commerce_ai/commerce_ai_memory.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/commerce_ai/commerce_ai_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/commerce_ai/commerce_ai_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/commerce_ai/commerce_ai_playbook.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "modules",
-                  "files": [
-                    {
-                      "path": "aci://entities/commerce_ai/library/commerce_ai_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/commerce_ai/library/commerce_ai_library.json"
-                    }
-                  ],
-                  "children": []
-                }
-              ]
-            },
-            {
               "name": "hivemind",
               "files": [
                 {
@@ -540,51 +495,6 @@
                     {
                       "path": "aci://entities/hivemind/library/hivemind_library.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/hivemind/library/hivemind_library.json"
-                    }
-                  ],
-                  "children": []
-                }
-              ]
-            },
-            {
-              "name": "keychain",
-              "files": [
-                {
-                  "path": "aci://entities/keychain/keychain.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/keychain/keychain.json"
-                }
-              ],
-              "children": [
-                {
-                  "name": "library",
-                  "files": [
-                    {
-                      "path": "aci://entities/keychain/library/keychain_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/keychain/library/keychain_library.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "memory",
-                  "files": [
-                    {
-                      "path": "aci://memory/identity/keychain/keychain_memory.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/keychain/keychain_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/keychain/keychain_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/keychain/keychain_playbook.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "modules",
-                  "files": [
-                    {
-                      "path": "aci://entities/keychain/library/keychain_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/keychain/library/keychain_library.json"
                     }
                   ],
                   "children": []
@@ -856,8 +766,8 @@
               "name": "tracehub",
               "files": [
                 {
-                  "path": "aci://entities/tracehub/tracehub.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tracehub/tracehub.json"
+                  "path": "aci://library/audits/tracehub/tracehub.json",
+                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
                 }
               ],
               "children": [
@@ -865,8 +775,8 @@
                   "name": "library",
                   "files": [
                     {
-                      "path": "aci://entities/tracehub/library/tracehub_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tracehub/library/tracehub_library.json"
+                      "path": "aci://library/audits/tracehub/tracehub.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
                     }
                   ],
                   "children": []
@@ -889,8 +799,8 @@
                   "name": "modules",
                   "files": [
                     {
-                      "path": "aci://entities/tracehub/library/tracehub_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tracehub/library/tracehub_library.json"
+                      "path": "aci://library/audits/tracehub/tracehub.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
                     }
                   ],
                   "children": []
@@ -997,12 +907,12 @@
               "name": "aci_audit_runner",
               "files": [
                 {
-                  "path": "aci://library/aci_audit_runner/aci_runner_corpus.v0.2.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/aci_audit_runner/aci_runner_corpus.v0.2.json"
+                  "path": "aci://library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json",
+                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
                 },
                 {
-                  "path": "aci://library/aci_audit_runner/aci_runner_spec.v0.2.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/aci_audit_runner/aci_runner_spec.v0.2.json"
+                  "path": "aci://library/audits/aci_audit_runner/aci_runner_spec.v0.2.json",
+                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/aci_audit_runner/aci_runner_spec.v0.2.json"
                 }
               ],
               "children": []
@@ -1060,12 +970,12 @@
                   "name": "process_logs",
                   "files": [
                     {
-                      "path": "aci://library/wrappers/process_logs/process_log_schema.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/wrappers/process_logs/process_log_schema.json"
+                      "path": "aci://library/audits/process_logs/process_logs.json#schema_definition",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/process_logs/process_logs.json#schema_definition"
                     },
                     {
-                      "path": "aci://library/wrappers/process_logs/process_logs.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/wrappers/process_logs/process_logs.json"
+                      "path": "aci://library/audits/process_logs/process_logs.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/process_logs/process_logs.json"
                     }
                   ],
                   "children": []
@@ -1074,8 +984,8 @@
                   "name": "tracehub_status",
                   "files": [
                     {
-                      "path": "aci://library/wrappers/tracehub_status/tracehub_status.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/wrappers/tracehub_status/tracehub_status.json"
+                      "path": "aci://library/audits/tracehub/tracehub.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
                     }
                   ],
                   "children": []
