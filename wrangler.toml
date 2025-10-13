@@ -17,7 +17,7 @@ invocation_logs = true
 
 [[ai]] 
 binding = "WORKERS_AI"
-binding = "AI" 
+binding = "AUTORAG" 
 
 [[r2_buckets]]
 binding = "R2"
