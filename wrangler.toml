@@ -28,7 +28,7 @@ index_name = "autorag"
 
 [durable_objects]
 bindings = [
-  { name = "MCP", class_name = "aliasmcp" }
+  { name = "MCP", class_name = "MyMCP" }
 ]
 
 [browser]
