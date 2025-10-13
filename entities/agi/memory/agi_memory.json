@@ -1,0 +1,32 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:DBC68Q2LwrwWsm",
+    "artifact_id_sha": "01ffdc9b292b85f057a94733552255c410eec4828a11040d121ecdf368793e92",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/agi/memory/agi_memory.json"
+  },
+  "schema": "aci.memory.manifest",
+  "version": "1.0.1",
+  "identity": "AGI",
+  "slug": "agi",
+  "source_manifest": "aci://entities/agi/agi.json",
+  "description": "Controlled container for above-human-level reasoning experiments via ephemeral adaptation (PEFT/SFT/RLHF) under ACI governance.",
+  "paths": {
+    "root": "aci://entities/agi/memory",
+    "timeline": "YYYY/MM/DD"
+  },
+  "notes": [
+    "Memory exports stored in nested date folders under aci://entities/agi/memory/YYYY/MM/DD.",
+    "2025/09/26 → agi_alice_metacognition_memory_20250926-T192000Z.jsonl.json",
+    "2025/09/27 → agi_audit_memory_20250927-T105140Z.jsonl.json",
+    "2025/09/29 → agi_quantum_research_briefing_memory_20250929-T163000Z.jsonl.json"
+  ],
+  "changelog": [
+    {
+      "version": "2025-10-13.00",
+      "notes": [
+        "Relocated 2025 timeline exports under entities/agi/memory and updated manifest paths."
+      ]
+    }
+  ]
+}

@@ -413,7 +413,7 @@
                   {
                     "name": "memory",
                     "files": [
-                      "aci://memory/identity/agi/agi_memory.json",
+                      "aci://entities/agi/memory/agi_memory.json",
                       "aci://memory/identity/agi/agi_playbook.json"
                     ],
                     "children": []

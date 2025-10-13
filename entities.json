@@ -523,7 +523,7 @@
           "aci://entities/agi/library/agi_library.json"
         ],
         "memory": [
-          "aci://memory/identity/agi/agi_memory.json"
+          "aci://entities/agi/memory/agi_memory.json"
         ],
         "playbook": [
           "aci://memory/identity/agi/agi_playbook.json"

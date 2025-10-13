@@ -340,8 +340,8 @@
                   "name": "memory",
                   "files": [
                     {
-                      "path": "aci://memory/identity/agi/agi_memory.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/agi/agi_memory.json"
+                      "path": "aci://entities/agi/memory/agi_memory.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/agi/memory/agi_memory.json"
                     },
                     {
                       "path": "aci://memory/identity/agi/agi_playbook.json",
