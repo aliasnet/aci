@@ -63,10 +63,10 @@
     "caller_hint": "User"
   },
   "memory": {
-    "manifest": "aci://memory/identity/agi/agi_memory.json",
+    "manifest": "aci://entities/agi/memory/agi_memory.json",
     "playbook": "aci://memory/identity/agi/agi_playbook.json",
-    "timeline_root": "aci://memory/identity/agi",
-    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --code flag for parity (legacy alias: --codebox). Timeline directories live under aci://memory/identity/agi/YYYY/MM/DD.",
+    "timeline_root": "aci://entities/agi/memory",
+    "notes": "Governed storage artifacts remain .json; streamed exports use .jsonl with the --code flag for parity (legacy alias: --codebox). Timeline directories live under aci://entities/agi/memory/YYYY/MM/DD.",
     "policy": {
       "export": "hivemind",
       "lock_namespace": "AGI",
@@ -345,7 +345,7 @@
     }
   ],
   "manifests": {
-    "memory": "aci://memory/identity/agi/agi_memory.json",
+    "memory": "aci://entities/agi/memory/agi_memory.json",
     "playbook": "aci://memory/identity/agi/agi_playbook.json",
     "library": "aci://entities/agi/library/agi_library.json"
   },
