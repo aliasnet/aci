@@ -15,16 +15,13 @@ enabled = true
 head_sampling_rate = 1
 invocation_logs = true
 
-[ai]
+[[ai]] 
 binding = "WORKERS_AI"
+binding = "AI" 
 
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "aci"
-
-[[vectorize]]
-binding = "AUTORAG"
-index_name = "autorag-aci"
 
 [durable_objects]
 bindings = [
