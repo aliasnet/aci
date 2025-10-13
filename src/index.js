@@ -196,6 +196,22 @@ export default {
   }
 };
 
+export class aliasmcp {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+  }
+
+  async fetch(request) {
+    const resp = new Response(JSON.stringify({ error: "aliasmcp durable object not implemented" }), {
+      status: 501,
+      headers: { "content-type": "application/json; charset=utf-8" }
+    });
+    applyCorsHeaders(resp.headers, request);
+    return resp;
+  }
+}
+
 // ---------- helpers ----------
 async function isSignedOkay(url, secret) {
   if (!secret) return false;

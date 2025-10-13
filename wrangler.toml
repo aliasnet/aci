@@ -31,5 +31,9 @@ bindings = [
   { name = "ALIASMCP", class_name = "aliasmcp" }
 ]
 
+[[migrations]]
+tag = "v1"
+new_classes = ["aliasmcp"]
+
 [browser]
 binding = "RENDER"
