@@ -28,7 +28,7 @@ export default {
       });
     }
 
-    const bucket = env["aci-r2"];
+    const bucket = env.R2 || env["aci-r2"];
 
     if (url.pathname === "/ai-search") {
       const query = url.searchParams.get("q") || "";
@@ -40,9 +40,9 @@ export default {
         applyCorsHeaders(resp.headers, request);
         return resp;
       }
-      const autorag = env["aci-autorag"];
+      const autorag = env.AUTORAG || env["aci-autorag"];
       if (!autorag || typeof autorag.search !== "function") {
-        const resp = new Response(JSON.stringify({ error: "aci-autorag binding not configured" }), {
+        const resp = new Response(JSON.stringify({ error: "AUTORAG binding not configured" }), {
           status: 500,
           headers: { "content-type": "application/json; charset=utf-8" }
         });
@@ -62,7 +62,7 @@ export default {
 
     if (url.pathname.startsWith("/r2/")) {
       if (!bucket) {
-        const resp = new Response(JSON.stringify({ error: "aci-r2 binding not configured" }), {
+        const resp = new Response(JSON.stringify({ error: "R2 binding not configured" }), {
           status: 500,
           headers: { "content-type": "application/json; charset=utf-8" }
         });
