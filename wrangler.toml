@@ -18,9 +18,8 @@ invocation_logs = true
 [ai]
 binding = "AI"
 
-[[r2_buckets]]
+[r2_buckets]
 binding = "R2"
-bucket_name = "aci"
 
 [durable_objects]
 bindings = [
