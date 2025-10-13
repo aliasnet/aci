@@ -24,7 +24,7 @@ bucket_name = "aci"
 
 [[vectorize]]
 binding = "AUTORAG"
-index_name = "autorag"
+index_name = "autorag-aci"
 
 [durable_objects]
 bindings = [
