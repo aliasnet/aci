@@ -15,9 +15,8 @@ enabled = true
 head_sampling_rate = 1
 invocation_logs = true
 
-[[ai]] 
-binding = "WORKERS_AI"
-binding = "AUTORAG" 
+[ai]
+binding = "AI"
 
 [[r2_buckets]]
 binding = "R2"
