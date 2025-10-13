@@ -558,49 +558,6 @@
         "intelligence_framework"
       ]
     },
-    "entity-007": {
-      "uid": "entity-007",
-      "identity": "keychain",
-      "key": "keychain",
-      "name": "Keychain",
-      "alias": "Keychain",
-      "manifest": "aci://entities/keychain/keychain.json",
-      "manifests": {
-        "identity": [
-          "aci://entities/keychain/keychain.json"
-        ],
-        "library": [
-          "aci://entities/keychain/library/keychain_library.json"
-        ],
-        "memory": [
-          "aci://memory/identity/keychain/keychain_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/keychain/keychain_playbook.json"
-        ]
-      },
-      "uids": [
-        {
-          "uid": "UID:KQQjyJXMmUKWZZ",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      ],
-      "class": "system_entity",
-      "role": "crypto & trust manager",
-      "abstract": "manages cryptography, keys, and trust functions",
-      "knowledge": "cryptographic standards & iam protocols",
-      "functions": [
-        6237,
-        6238,
-        6239,
-        6269
-      ],
-      "allowed_roles": [
-        "security",
-        "infrastructure"
-      ]
-    },
     "entity-008": {
       "uid": "entity-008",
       "identity": "oracle",
@@ -652,87 +609,6 @@
       "allowed_roles": [
         "analysis",
         "prediction"
-      ]
-    },
-    "entity-009": {
-      "uid": "entity-009",
-      "identity": "commerce_ai",
-      "key": "commerce_ai",
-      "name": "Commerce AI",
-      "alias": "Commerce AI",
-      "manifest": "aci://entities/commerce_ai/commerce_ai.json",
-      "manifests": {
-        "identity": [
-          "aci://entities/commerce_ai/commerce_ai.json"
-        ],
-        "library": [
-          "aci://entities/commerce_ai/library/commerce_ai_library.json"
-        ],
-        "memory": [
-          "aci://memory/identity/commerce_ai/commerce_ai_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/commerce_ai/commerce_ai_playbook.json"
-        ]
-      },
-      "uids": [
-        {
-          "uid": "UID:Wd48LAcapUwom5",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      ],
-      "class": "system_entity",
-      "role": "commerce module",
-      "abstract": "parent system for commerce-specific ai modules",
-      "knowledge": "e-commerce automation & retail ai",
-      "functions": [],
-      "allowed_roles": [
-        "commerce",
-        "module"
-      ]
-    },
-    "entity-010": {
-      "uid": "entity-010",
-      "identity": "tracehub",
-      "key": "tracehub",
-      "name": "TraceHub",
-      "alias": "TraceHub",
-      "manifest": "aci://entities/tracehub/tracehub.json",
-      "manifests": {
-        "identity": [
-          "aci://entities/tracehub/tracehub.json"
-        ],
-        "library": [
-          "aci://entities/tracehub/library/tracehub_library.json"
-        ],
-        "memory": [
-          "aci://memory/identity/tracehub/tracehub_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/tracehub/tracehub_playbook.json"
-        ]
-      },
-      "uids": [
-        {
-          "uid": "UID:WrGZ4YTXRXMo5c",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      ],
-      "class": "system_entity",
-      "role": "tracing module",
-      "abstract": "correlated tracing linked to temporal loom heartbeat",
-      "knowledge": "distributed tracing systems & observability",
-      "functions": [
-        6243,
-        6244,
-        6245,
-        6268
-      ],
-      "allowed_roles": [
-        "observability",
-        "telemetry"
       ]
     },
     "entity-011": {

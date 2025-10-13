@@ -54,7 +54,7 @@
       "last_health_check": {
         "timestamp": "2025-03-17T08:00:00Z",
         "result": "green",
-        "notes": "Validated TVA ledger session buffers routed through tracehub_status with process_logs export coordination."
+        "notes": "Validated TVA ledger session buffers routed through TraceHub audit wrapper with process_logs export coordination."
       }
     },
     "functions": {
@@ -79,8 +79,8 @@
       "immutability": "maintain audit trail without enforcing one-way append restrictions"
     },
     "storage": {
-      "buffer_wrapper": "aci://library/wrappers/tracehub_status/tracehub_status.json",
-      "export_wrapper": "aci://library/wrappers/process_logs/process_logs.json",
+      "buffer_wrapper": "aci://library/audits/tracehub/tracehub.json",
+      "export_wrapper": "aci://library/audits/process_logs/process_logs.json",
       "session_path": "/mnt/tracehub/tva_ledger/session",
       "export_path": "/mnt/tracehub/tva_ledger/export",
       "default_mode": "session",

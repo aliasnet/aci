@@ -1,0 +1,70 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:BHufuXzsCVZrg8",
+    "sha256": "54d9550688a7cbd6139e67c4e4f99cf83db15dad808defcf1deddbfb77152a32",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/audits/tracehub/tracehub.json"
+  },
+  "version": "2025-10-04.02",
+  "key": "tracehub",
+  "name": "TraceHub Audit Wrapper",
+  "role": "stateless_audit_router",
+  "abstract": "Coordinates TraceHub session tracing and exports through stateless wrappers using temporary storage in /mnt/tracehub.",
+  "log_policy": {
+    "output_root": "/mnt/tracehub",
+    "retention": "temporary",
+    "export_via": "aci://library/audits/process_logs/process_logs.json",
+    "notes": [
+      "All TraceHub writers must emit structured JSONL into /mnt/tracehub before invoking process_logs.export.",
+      "No persistent audit state is maintained inside the wrapper; exports are coordinated via process_logs."
+    ]
+  },
+  "status_fields": [
+    "state",
+    "since",
+    "coverage",
+    "last_health_check"
+  ],
+  "process_logs": {
+    "wrapper": "aci://library/audits/process_logs/process_logs.json",
+    "notes": [
+      "Use process_logs.append for each buffered record to register with the process_logs pipeline.",
+      "Invoke process_logs.export to surface bundles when downstream systems request TraceHub output."
+    ]
+  },
+  "manual_export": {
+    "prerequisites": [
+      "Obtain TVA + Sentinel approval for persistent retention",
+      "Freeze active TraceHub writers"
+    ],
+    "procedure": [
+      "1) Flush session buffers into /mnt/tracehub as JSONL via the TraceHub audit wrapper.",
+      "2) Call process_logs.append for each buffered record to register with the process_logs pipeline.",
+      "3) Use process_logs.export to bundle approved entries and attach TVA seal metadata (ledger id, approver, timestamp).",
+      "4) Release TraceHub writers after confirming export completion and TVA ledger updates."
+    ],
+    "notes": "Exports are mediated through process_logs; no persistent audit directories remain inside TraceHub."
+  },
+  "health": {
+    "operational_state": "active",
+    "coverage": [
+      "session_traces",
+      "router.audit.tracehub",
+      "nexus_core_heartbeat"
+    ],
+    "last_health_check": {
+      "timestamp": "2025-03-17T08:00:00Z",
+      "result": "green",
+      "notes": "Session pipeline and export toggles validated against TraceHub audit wrapper with process_logs mediation."
+    }
+  },
+  "changelog": [
+    {
+      "version": "2025-10-04.02",
+      "notes": [
+        "Converted TraceHub entity manifest into a stateless audit wrapper and inlined tracehub_status guidance.",
+        "Updated references to process_logs wrapper under library/audits."
+      ]
+    }
+  ]
+}

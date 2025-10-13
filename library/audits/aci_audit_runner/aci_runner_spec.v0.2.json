@@ -3,7 +3,7 @@
     "artifact_id": "ArtifactID:4oci6MbqPmGJ4k",
     "sha256": "77f2dd8b081229fee08f06d93025c490bbc94438b50f7825f034541e3d2a6706",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://library/aci_audit_runner/aci_runner_spec.v0.2.json"
+    "path": "aci://library/audits/aci_audit_runner/aci_runner_spec.v0.2.json"
   },
   "version": "0.2",
   "resolvers": {
@@ -104,7 +104,7 @@
   "jitter": 5,
   "recovery": {
     "corpus_id": "ACI-RC-20251003-v0.2",
-    "path": "library/aci_audit_runner/aci_runner_corpus.v0.2.json",
+    "path": "library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json",
     "sha256": "e4c9c6e317b3457bc46cbad6c0d0a151adb9f05f85056a5a8c179595daa4f394"
   },
   "cadence": {
@@ -119,12 +119,12 @@
   "scheduler_prompt": {
     "summary": "Run an ACI audit burst to keep artifacts warm in /mnt/data.",
     "steps": [
-      "Ensure /mnt/data/aci/library/aci_runner/adaptive_audit_runner.py, /mnt/data/aci/logs/, /mnt/data/aci/state/, and /mnt/data/aci/audit/tmp/ exist (create directories if missing).",
+      "Ensure /mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py, /mnt/data/aci/logs/, /mnt/data/aci/state/, and /mnt/data/aci/audit/tmp/ exist (create directories if missing).",
       "If the runner is missing, rebuild the JSON-native skeleton from the recovery corpus so each cycle writes state-<UTC>.json, audit-<UTC>.json, and an INFO line to aci-YYYYMMDD.log.",
       "Execute the burst with adaptive spacing, enforce at least one safe iteration, cap the run with --max-cycles 1 (or 2 when debugging), and honor the 1800 second burst deadline.",
       "Hold artifacts locally unless requested; report success with 'Audit burst OK (1 cycle).' or gaps with 'MISSING <path> (tried: github, mirror, local, project)'."
     ],
-    "command": "python /mnt/data/aci/library/aci_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent --max-cycles 1 --burst-deadline 1800",
+    "command": "python /mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent --max-cycles 1 --burst-deadline 1800",
     "success_message": "Audit burst OK (1 cycle).",
     "missing_template": "MISSING <path> (tried: github, mirror, local, project)"
   },
@@ -137,8 +137,8 @@
       "library/metacognition/metacognition.json",
       "library/metacognition/metacognition_options.json",
       "entities/yggdrasil/yggdrasil.json",
-      "library/aci_runner/aci_runner_spec.v0.2.json",
-      "library/aci_runner/aci_runner_corpus.v0.2.json"
+      "library/audits/aci_audit_runner/aci_runner_spec.v0.2.json",
+      "library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
     ],
     "success": "Audit burst OK (1 cycle).",
     "on_missing": "MISSING <path> (tried: github, mirror, local, project)"
