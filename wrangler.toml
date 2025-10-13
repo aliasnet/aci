@@ -20,6 +20,7 @@ binding = "WORKERS_AI"
 
 [[r2_buckets]]
 binding = "R2"
+bucket name = "aci" 
 
 [[vectorize]]
 binding = "AUTORAG"
