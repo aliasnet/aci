@@ -15,21 +15,3 @@ enabled = true
 head_sampling_rate = 1
 invocation_logs = true
 
-[ai]
-binding = "AI"
-
-[[r2_buckets]] 
-binding = "R2"
-bucket_name = "aci"
-
-[durable_objects]
-bindings = [
-  { name = "ALIASMCP", class_name = "aliasmcp" }
-]
-
-[[migrations]]
-tag = "v1"
-new_classes = ["aliasmcp"]
-
-[browser]
-binding = "RENDER"
