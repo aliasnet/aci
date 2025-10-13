@@ -20,7 +20,7 @@ binding = "WORKERS_AI"
 
 [[r2_buckets]]
 binding = "R2"
-bucket_name = "aci" 
+bucket_name = "aci"
 
 [[vectorize]]
 binding = "AUTORAG"
@@ -28,7 +28,7 @@ index_name = "autorag"
 
 [durable_objects]
 bindings = [
-  { name = "MCP", class_name = "MyMCP" }
+  { name = "ALIASMCP", class_name = "aliasmcp" }
 ]
 
 [browser]
