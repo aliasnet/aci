@@ -607,7 +607,7 @@
       "description": "Deprecated: AGI-specific export pipeline. Redirects to hivemind unified exporter.",
       "deprecated": true,
       "config": {
-        "policy_file": "/entities/agi/agi_export_policy.json"
+        "policy_file": "/library/agi/agi_export_policy.json"
       },
       "steps": [
         {
