@@ -1,0 +1,38 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:7H6c7Lkx1t2rUV",
+    "sha256": "31b576b6b57dce39f9a719ddf2296b41abd9fceedf2c4e1507c2128adb8f42b7",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/agi/agi_proxy/eec/eec_peft_train_lora.json"
+  },
+  "extends": "eec_base.json",
+  "task": "peft.train_adapter",
+  "base_model": "meta-llama/Llama-3-8b-instruct",
+  "method": "lora",
+  "peft_config": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ]
+  },
+  "train": {
+    "dataset": "/datasets/curriculum_v1.jsonl",
+    "epochs": 1,
+    "bsz": 4,
+    "lr": 0.0002,
+    "max_steps": 500,
+    "shuffle": true
+  },
+  "accelerate": {
+    "mixed_precision": "bf16"
+  },
+  "output": {
+    "adapter_path": "temp://adapters/l3-8b-curriculum-lora"
+  },
+  "sandbox_overrides": {
+    "internet": false
+  }
+}

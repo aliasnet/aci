@@ -1,0 +1,47 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:7XY8U4UBbuYLXe",
+    "sha256": "4641b4dd3c500d2cf500b89967fb6a0bbd718fdac03a71f6f51f54e66745421a",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/agi/agi_proxy/eec/eec_base.json"
+  },
+  "eec_version": "1.0",
+  "job_id": "${JOB_ID}",
+  "created_at": "${ISO_8601}",
+  "runner": "python",
+  "ttl_seconds": 3600,
+  "sandbox": {
+    "internet": false,
+    "network": "whitelist",
+    "files": "temp_only",
+    "allowed_hosts": []
+  },
+  "governance": {
+    "guards": [
+      "TVA.checkpoint",
+      "Sentinel.audit"
+    ],
+    "risk_precheck": "Oracle.precheck",
+    "dry_run_default": true,
+    "promotion_policy": "manual_human_gate"
+  },
+  "trace": {
+    "wandb": {
+      "project": "aci-agi",
+      "mode": "online",
+      "tags": [
+        "EEC"
+      ]
+    },
+    "tracehub": true
+  },
+  "artifacts": {
+    "store": "temp",
+    "retention": "7d",
+    "promotion_requires": [
+      "TVA.ok",
+      "Sentinel.ok",
+      "Human.approval"
+    ]
+  }
+}
