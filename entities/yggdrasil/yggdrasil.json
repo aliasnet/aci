@@ -280,31 +280,6 @@
                 ],
                 "children": [
                   {
-                    "name": "agi_proxy",
-                    "files": [
-                      "aci://library/agi/agi_proxy/agi_proxy.json"
-                    ],
-                    "children": [
-                      {
-                        "name": "eec",
-                        "files": [
-                          "aci://library/agi/agi_proxy/eec/eec_agent_langchain_rag.json",
-                          "aci://library/agi/agi_proxy/eec/eec_base.json",
-                          "aci://library/agi/agi_proxy/eec/eec_eval_agieval.json",
-                          "aci://library/agi/agi_proxy/eec/eec_eval_arc_agi2.json",
-                          "aci://library/agi/agi_proxy/eec/eec_export_hivemind_full.json",
-                          "aci://library/agi/agi_proxy/eec/eec_export_hivemind_session.json",
-                          "aci://library/agi/agi_proxy/eec/eec_faiss_build.json",
-                          "aci://library/agi/agi_proxy/eec/eec_peft_train_lora.json",
-                          "aci://library/agi/agi_proxy/eec/eec_sft_deepspeed.json",
-                          "aci://library/agi/agi_proxy/eec/eec_transformers_infer.json",
-                          "aci://library/agi/agi_proxy/eec/eec_trl_ppo.json"
-                        ],
-                        "children": []
-                      }
-                    ]
-                  },
-                  {
                     "name": "agi_tools",
                     "files": [
                       "aci://library/agi/tools/autolearn.json",

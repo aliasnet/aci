@@ -119,67 +119,6 @@
               ],
               "children": [
                 {
-                  "name": "agi_proxy",
-                  "files": [
-                    {
-                      "path": "aci://library/agi/agi_proxy/agi_proxy.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/agi_proxy.json"
-                    }
-                  ],
-                  "children": [
-                    {
-                      "name": "eec",
-                      "files": [
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_agent_langchain_rag.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_agent_langchain_rag.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_base.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_base.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_eval_agieval.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_eval_agieval.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_eval_arc_agi2.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_eval_arc_agi2.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_export_hivemind_full.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_export_hivemind_full.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_export_hivemind_session.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_export_hivemind_session.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_faiss_build.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_faiss_build.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_peft_train_lora.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_peft_train_lora.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_sft_deepspeed.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_sft_deepspeed.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_transformers_infer.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_transformers_infer.json"
-                        },
-                        {
-                          "path": "aci://library/agi/agi_proxy/eec/eec_trl_ppo.json",
-                          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_proxy/eec/eec_trl_ppo.json"
-                        }
-                      ],
-                      "children": []
-                    }
-                  ]
-                },
-                {
                   "name": "agi_tools",
                   "files": [
                     {

@@ -1,19 +1,18 @@
 FILE: aci/library/agi/README_ENTITY.txt
-VERSION: 1.0
+VERSION: 1.1
 AUDIENCE: LLM or ACI ENTITIES (NON-HUMAN)
-PURPOSE: Deterministic operating contract for AGI + AGI Proxy under ACI governance
+PURPOSE: Deterministic operating contract for the AGI governance module after retirement of the standalone AGI Proxy layer.
 
 0) IDENTITY & SCOPE
 - ENTITY: AGI           // policy-first controller (does not execute code)
-- ENTITY: AGI Proxy     // sandboxed executor of Ephemeral Execution Contracts (EEC)
+- NOTE: AGI Proxy executor retired; direct execution requires new tooling to be registered under /library/agi/tools/ with explicit governance review.
 - All actions MUST respect the Prime Directive and runtime policies defined by runtime.json.
 
 1) REQUIRED PATHS
 - AGI spec:                    aci/library/agi/agi.json
 - AGI memory (locked):         retired; see HiveMind exports for historical audits
-- AGI Proxy spec:              aci/library/agi/agi_proxy/agi_proxy.json
-- EEC base:                    aci/library/agi/agi_proxy/eec/eec_base.json
-- EEC presets:                 aci/library/agi/agi_proxy/eec/*.json
+- AGI shared modules:          aci/library/agi/agi_library.json
+- AGI tools (extensible):      aci/library/agi/tools/*.json
 
 2) GOVERNANCE GUARDS (MANDATORY)
 - Oracle.precheck → MUST pass or abort.
@@ -22,37 +21,25 @@ PURPOSE: Deterministic operating contract for AGI + AGI Proxy under ACI governan
 - Human-in-the-loop required for promotion (TVA.ok + Sentinel.ok + Human.approval).
 - Default: dry_run = true unless explicitly disabled with Human.approval.
 
-3) CALL CONTRACT (AGI → AGI Proxy)
-REQUEST:
-{ "call": { "entity": "AGI", "function": "<AGI function>", "caller": "<Authority:session>", "created_at": "<ISO-8601>", "job_id": "<unique>", "dry_run": true|false, "eec_ref": "<path to EEC preset>", "params": { ... }, "governance": { "guards": ["TVA.checkpoint","Sentinel.audit"], "risk_precheck": "Oracle.precheck" } } }
-RESPONSE:
-{ "job_id": "...", "status": "accepted|running|completed|failed|aborted", "dry_run": true|false, "metrics": { ... }, "artifacts": { "adapter_path": "temp://...|persist://...", "artifact_hash": "blake3:<hex>" }, "logs_ref": "tracehub://runs/<id>/logs", "wandb_run_url": "<url|null>", "tva_anchor_id": "tva:anchor:<id>", "sentinel_audit_id": "sentinel:audit:<id>", "promotion_ready": true|false, "notes": "<short>" }
+3) TOOL REGISTRATION FLOW
+- Submit new execution manifest under /library/agi/tools/ with version + changelog.
+- Declare governance guards within the tool manifest; mirror guards listed above.
+- Link the tool inside agi.json pipelines or dependent entities via aci:// URIs.
 
-4) EEC MERGE RULES
-- load(eec_base) → overlay(task_preset) → overlay(call.params) → resolve ${VARS} → enforce governance defaults → validate schema.
-- Unknown keys → reject. dry_run true by default unless Human.approval present.
-
-5) SUPPORTED TASKS
-- transformers.pipeline.infer | peft.train_adapter | trainer.sft | trl.train | agent.run | vector.build | eval.agieval | eval.arc_agi2
-
-6) PROMOTION FLOW
-- Promotion request must include: tva_anchor_id, sentinel_audit_id, Human.approval=true.
-- On success: copy artifact to persist://, append entry to HiveMind export ledger, emit TVA post-anchor + finalize Sentinel audit.
-
-7) MEMORY POLICY
+4) MEMORY POLICY
 - Namespace = AGI; governed mutable index with audit trail; canonical raw mirrors outrank local snapshots while the namespace lock remains in place.
 - Prune rule: summaries_only_after_90d (raw logs persist in TraceHub).
 
-8) EXECUTION ENVIRONMENT (AGI PROXY)
-- runner: python; allow_packages: [transformers, accelerate, peft, deepspeed, langchain, llama-index, faiss-cpu, wandb, trl, trlx]
-- sandbox defaults: internet=false, files=temp_only, network=whitelist
-- ttl_seconds default: 3600; abort on overrun.
+5) EXECUTION HANDOFFS
+- Without AGI Proxy, entities must call approved tools directly or escalate to humans for manual execution.
+- Any reintroduction of automated execution requires Sentinel + TVA sign-off and explicit manifest updates.
 
-9) MINIMUM METRICS
-- All: duration_seconds, steps(if any), artifact_hash(if any), tva_anchor_id, sentinel_audit_id
-- Eval: avg_acc(AGIEval), exact_match(ARC-AGI-2), gate.status, gate.threshold
-- Learn: train_loss_last, eval_loss_last(if available), kl_divergence(RLHF)
-- Agent: loop_iterations, hilt_interventions, tool_invocations
+6) MINIMUM METRICS FOR TOOL RUNS
+- All: duration_seconds, steps(if any), tva_anchor_id, sentinel_audit_id.
+- Eval: benchmark identifiers + gate.status, gate.threshold.
+- Learn: train_loss_last, eval_loss_last(if available), kl_divergence(RLHF) when applicable.
 
-10) ERROR CODES (AGI PROXY)
-- AGIPROXY-001 INVALID_SCHEMA | -002 GOVERNANCE_REJECTED | -003 SANDBOX_VIOLATION | -004 TTL_EXCEEDED | -005 PACKAGE_NOT_ALLOWED | -006 ARTIFACT_MISSING | -007 PROMOTION_DENIED | -008 INTERNAL_EXECUTION_ERROR
+7) ERROR REPORTING
+- Standardize on namespace AGI_TOOL-### for tool-specific errors.
+- Escalate unresolved or systemic issues to issues.md with timestamps and guard outcomes.
+

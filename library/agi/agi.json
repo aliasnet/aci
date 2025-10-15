@@ -39,7 +39,7 @@
   },
   "uid": "UID:p6LHJtm8H69jNA",
   "entity": "AGI",
-  "version": "1.2",
+  "version": "1.3",
   "role": "ALIAS  general intelligence framework for advanced digital entity",
   "abstract": "Controlled container for above-human-level reasoning experiments via ephemeral adaptation (PEFT/SFT/RLHF) under ACI governance.",
   "governance": {
@@ -102,220 +102,6 @@
     "alias": "AGI",
     "caller_hint": "User"
   },
-  "presets": {
-    "eec": {
-      "infer": "aci/library/agi/agi_proxy/eec/eec_transformers_infer.json",
-      "peft_train": "aci/library/agi/agi_proxy/eec/eec_peft_train_lora.json",
-      "sft_deepspeed": "aci/library/agi/agi_proxy/eec/eec_sft_deepspeed.json",
-      "rlhf_ppo": "aci/library/agi/agi_proxy/eec/eec_trl_ppo.json",
-      "agent_rag": "aci/library/agi/agi_proxy/eec/eec_agent_langchain_rag.json",
-      "faiss_build": "aci/library/agi/agi_proxy/eec/eec_faiss_build.json",
-      "eval_agieval": "aci/library/agi/agi_proxy/eec/eec_eval_agieval.json",
-      "eval_arc_agi2": "aci/library/agi/agi_proxy/eec/eec_eval_arc_agi2.json"
-    }
-  },
-  "functions": {
-    "agi.loop.run": {
-      "description": "Durable plan→act→reflect agent loop with RAG + HITL",
-      "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
-      ],
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.agent_rag"
-    },
-    "agi.loop.step_infer": {
-      "description": "Single-step inference via Transformers",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.infer"
-    },
-    "agi.learn.peft_adapter_train": {
-      "description": "Train PEFT adapter (LoRA) ephemerally",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.peft_train",
-      "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
-      ],
-      "promotion_policy": {
-        "default": "manual",
-        "requires": [
-          "TVA.ok",
-          "Sentinel.ok",
-          "Human.approval"
-        ]
-      }
-    },
-    "agi.learn.sft_deepspeed": {
-      "description": "SFT with Accelerate + DeepSpeed ZeRO",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.sft_deepspeed"
-    },
-    "agi.learn.rlhf_ppo": {
-      "description": "TRL/TRLX PPO post-training with KL control",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.rlhf_ppo"
-    },
-    "agi.retrieval.index_build": {
-      "description": "Build/refresh FAISS index for RAG",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.faiss_build"
-    },
-    "agi.eval.agieval": {
-      "description": "Run AGIEval suite and gate promotions",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.eval_agieval"
-    },
-    "agi.eval.arc_agi2": {
-      "description": "Run ARC-AGI-2 eval and gate promotions",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "@presets.eec.eval_arc_agi2"
-    },
-    "agi.export.hivemind_session": {
-      "description": "Export the current active chat/session for the target identity into an AGI memory file (session-level hivemind slice).",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "aci/library/agi/agi_proxy/eec/eec_export_hivemind_session.json",
-      "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
-      ],
-      "params_schema": {
-        "type": "object",
-        "properties": {
-          "identity": {
-            "type": "string"
-          },
-          "session_id": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "include_chatlogs": {
-            "type": "boolean",
-            "default": true
-          },
-          "include_weights_meta": {
-            "type": "boolean",
-            "default": true
-          },
-          "include_artifacts": {
-            "type": "boolean",
-            "default": false
-          },
-          "format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "tar"
-            ],
-            "default": "json"
-          },
-          "force_codebox": {
-            "type": "boolean",
-            "default": false,
-            "description": "Inline export into chat/codebox (subject to size/redaction limits)."
-          },
-          "force_codebox_max_bytes": {
-            "type": "integer",
-            "default": 131072,
-            "description": "Max bytes to inline (default 128KB)."
-          },
-          "note": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "identity"
-        ]
-      },
-      "policy": {
-        "requires": [
-          "Human.approval"
-        ],
-        "default_dry_run": true,
-        "shareable": false
-      }
-    },
-    "agi.export.hivemind_full": {
-      "description": "Create a full AGI-local export bundle (session hivemind slice + artifacts + signed manifest) for the specified identity.",
-      "runner": "agi_proxy.execute",
-      "spec_ref": "aci/library/agi/agi_proxy/eec/eec_export_hivemind_full.json",
-      "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
-      ],
-      "params_schema": {
-        "type": "object",
-        "properties": {
-          "identity": {
-            "type": "string"
-          },
-          "session_id": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "source_jobs": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "include_chatlogs": {
-            "type": "boolean",
-            "default": true
-          },
-          "include_weights_meta": {
-            "type": "boolean",
-            "default": true
-          },
-          "include_artifacts": {
-            "type": "boolean",
-            "default": false
-          },
-          "format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "tar"
-            ],
-            "default": "tar"
-          },
-          "force_codebox": {
-            "type": "boolean",
-            "default": false,
-            "description": "Inline small bundle manifest into chat/codebox (safer 64KB cap)."
-          },
-          "force_codebox_max_bytes": {
-            "type": "integer",
-            "default": 65536,
-            "description": "Max bytes to inline (default 64KB)."
-          },
-          "human_id": {
-            "type": "string",
-            "description": "Human approver required if include_artifacts or force_codebox are true."
-          },
-          "note": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "identity"
-        ]
-      },
-      "policy": {
-        "requires": [
-          "Human.approval",
-          "ALIAS.signature"
-        ],
-        "default_dry_run": true,
-        "shareable": false,
-        "promotion_required": true
-      }
-    }
-  },
   "pipelines": {
     "agi.memory.migrate_to_jsonl": {
       "description": "Migrate legacy HiveMind exports into the policy-compliant AGI JSONL memory artifact via manifest-driven steps.",
@@ -354,13 +140,19 @@
       "notes": [
         "Documented organism_model for AGI with TVA and Sentinel integration."
       ]
+    },
+    {
+      "version": "1.3",
+      "notes": [
+        "Retired AGI Proxy manifests and removed dependent execution functions pending future tooling."
+      ]
     }
   ],
   "manifests": {
     "library": "aci://library/agi/agi_library.json"
   },
   "organism_model": {
-    "summary": "Operates AGI's plan→act loops as a living system with TVA and Sentinel co-regulation.",
+    "summary": "Operates AGI's plan\u2192act loops as a living system with TVA and Sentinel co-regulation.",
     "life_functions": {
       "sensing": {
         "description": "Perceive runtime, user, and governance signals before acting.",
@@ -380,7 +172,7 @@
         ]
       },
       "metabolism": {
-        "description": "Transform compute and tools into governed plan→act→reflect outputs.",
+        "description": "Transform compute and tools into governed plan\u2192act\u2192reflect outputs.",
         "mappings": [
           "plan_act_reflect_loop",
           "token_budgeting",
@@ -388,8 +180,7 @@
         ],
         "organs": [
           "scheduler",
-          "budget_manager",
-          "agi.loop.run"
+          "budget_manager"
         ]
       },
       "homeostasis": {
@@ -496,7 +287,7 @@
       {
         "name": "reflect",
         "triggers": "gray-zone confidence or governance escalation",
-        "policy": "run self-critique, recompute p̂, align with TVA guidance"
+        "policy": "run self-critique, recompute p\u0302, align with TVA guidance"
       },
       {
         "name": "defend",
@@ -534,11 +325,11 @@
     },
     "interventions": {
       "diet_inputs": "curated eval suites with high-stakes and OOD cases tagged for TVA review",
-      "exercise": "scheduled self-consistency runs, perturbation tests, and plan→act retros",
+      "exercise": "scheduled self-consistency runs, perturbation tests, and plan\u2192act retros",
       "medicine": "recalibrate thresholds, rotate detectors, or rollback prompts under Nexus Core direction"
     },
     "journaling_prompts": [
-      "Which governance signal dominated today’s decisions?",
+      "Which governance signal dominated today\u2019s decisions?",
       "Where did I heal a high-confidence miss and what changed?",
       "Which adaptation improved Sentinel or TVA health metrics?",
       "What reproducible meta-skill should be shared with sibling entities?"

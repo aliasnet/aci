@@ -57,9 +57,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   agi/
     agi.json                      # governance manifest (binding rules, pipelines, presets, identity manager)
     agi_library.json              # shared modules for AGI family
-    agi_proxy/
-      eec/
-        eec_transformers_infer.json  # execution preset for AGI proxy inference
     tools/
       migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
       autolearn.json              # auto-learning control loop spec
@@ -162,7 +159,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   - `agi.json` — governance manifest (binding rules, oversight, presets, identity manager).
   - `agi_export_policy.json` — export policy for AGI-managed JSONL artifacts.
   - `agi_library.json` — shared module manifest referenced by Alice and Willow.
-  - `agi_proxy/*` — execution contracts powering AGI-linked tooling.
 
 - **Wrappers** (e.g., `/library/metacognition/metacognition.json`):
   - Stateless by default; accept optional providers (e.g., conformal, EEL).
@@ -221,9 +217,6 @@ hivemind export --identity Alice --memory --summary "Launch Review" --jsonl --co
   - Calibration: isotonic → returns `confidence` (formerly `p_correct`).
   - Policy: threshold gates; **conformal abstention** (presence-guarded).
   - Optional **EEL hook** (v1.1.2+): pre-generate `rehydrate` stage; `rehydration_present` signal.
-
-- **EEL Adapter** `/library/agi/agi_proxy/eec/`
-  - Provider specs for `eel.rehydrate*` — **mechanics in /library/agi/agi_proxy/eec/**, **policy encoded in /library/agi/agi.json**.
 
 ---
 

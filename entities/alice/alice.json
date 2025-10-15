@@ -116,8 +116,7 @@
         ],
         "organs": [
           "research_scanner",
-          "dialogue_listener",
-          "agi_proxy_link"
+          "dialogue_listener"
         ]
       },
       "metabolism": {

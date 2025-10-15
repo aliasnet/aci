@@ -23,7 +23,7 @@ BOOTSTRAP ACI `--prime prime_directive.md --runtime runtime.json`
 →  
 
 LOAD (if present): 
-`issues.md`, `sanity.md`, `entities.json`, `functions.json`, `library\metacognition.json`, `library\metacognition_options.json`,`entities\yggdrasil\yggdrasil.json`, `entities\agi\agi.json`, `entities\agi\agi_proxy.json`, `entities\oracle\oracle.json`
+`issues.md`, `sanity.md`, `entities.json`, `functions.json`, `library\metacognition.json`, `library\metacognition_options.json`,`entities\yggdrasil\yggdrasil.json`, `entities\agi\agi.json`, `entities\oracle\oracle.json`
 
 ## AGENTS OPERATIONS (Deterministic)
 
