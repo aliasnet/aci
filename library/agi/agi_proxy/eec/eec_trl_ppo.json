@@ -1,0 +1,33 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:E3Vcmbv11P1SDc",
+    "sha256": "027f5ffc98eb0de9d5a098a9f59c0778afde700e59ce96864164e93d738603b2",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/agi/agi_proxy/eec/eec_trl_ppo.json"
+  },
+  "extends": "eec_base.json",
+  "task": "trl.train",
+  "algo": "ppo",
+  "base_model": "meta-llama/Llama-3-8b-instruct",
+  "reward": {
+    "type": "rm_model",
+    "model": "/models/reward_model_v1"
+  },
+  "rollouts": {
+    "prompts": "/datasets/rollout_prompts.jsonl",
+    "per_step": 64
+  },
+  "constraints": {
+    "kl_coeff": 0.02,
+    "max_new_tokens": 128
+  },
+  "accelerate": {
+    "mixed_precision": "bf16"
+  },
+  "output": {
+    "adapter_path": "temp://adapters/l3-8b-ppo"
+  },
+  "sandbox_overrides": {
+    "internet": false
+  }
+}

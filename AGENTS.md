@@ -146,7 +146,7 @@ Governance Layer (/aig/)
 Defines sovereignty, homeostasis thresholds, EEL policy, and AGI operational playbooks.
 Enforces calibration, abstention, escalation, and privacy requirements.
 Entity Layer (/entities/)
-Houses identity manifests (<entity>.json) and managers (e.g., agi_identity_manager.json).
+Houses identity manifests (<entity>.json) and managers (e.g., agi.json#identity_manager).
 Establishes active identities, role metadata, and per-entity configuration knobs.
 Capability Layer (/library/)
 Provides stateless modules (wrappers, adapters, planners) that entities compose at runtime.
@@ -165,7 +165,7 @@ Orchestrators/Tools: manage migrations, exports, and automation workflows.
 Promotion from tool → entity requires a stable identity, governance hooks, and placement under /entities/.
 
 4) Identity & Activation
-Identity Manager: /entities/agi/agi_identity_manager.json holds active/default markers and metadata.
+Identity Manager: /library/agi/agi.json#identity_manager holds active/default markers and metadata.
 Activation rules:
 Prefer explicit CLI --identity-key.
 Fallback to "active" marker when implicit activation is acceptable.
@@ -191,7 +191,7 @@ Selective prediction: wrappers must support accept/revise/abstain/escalate decis
 Escalation pathways: AGI escalates to humans when safety budgets exceed thresholds or conformal layers reject high-stakes outputs.
 
 6) Runtime Pipelines & Inline Execution Maps
-Inline pipeline manifests: runtime behaviors are declared directly inside entity and function manifests (functions.json, entities/agi/agi.json, Oracle plugins, etc.), allowing LLM substrates to trace the precise capability stack executed for any invocation.
+Inline pipeline manifests: runtime behaviors are declared directly inside entity and function manifests (functions.json, library/agi/agi.json, Oracle plugins, etc.), allowing LLM substrates to trace the precise capability stack executed for any invocation.
 
 Boot and sandbox flows: bootstrap.json and runtime.json define ordered initialization pipelines (mirror_check → verify_core_files → bootstrap_runtime → render_mother_interface) with sandbox fallbacks, bracketed command handling, and cognitive guidance triggers.
 Command routing: bracketed command blocks ([ ... ] / [[ ... ]]) are parsed and routed through nexus_core, leveraging inline pipelines for authentication, preemption, and audit logging across TraceHub and TVA ledgers.
