@@ -274,31 +274,31 @@
               {
                 "name": "agi",
                 "files": [
-                  "aci://entities/agi/agi.json",
-                  "aci://entities/agi/agi_export_policy.json",
-                  "aci://entities/agi/agi_identity_manager.json"
+                  "aci://library/agi/agi.json",
+                  "aci://library/agi/agi_export_policy.json",
+                  "aci://library/agi/agi.json#identity_manager"
                 ],
                 "children": [
                   {
                     "name": "agi_proxy",
                     "files": [
-                      "aci://entities/agi/agi_proxy/agi_proxy.json"
+                      "aci://library/agi/agi_proxy/agi_proxy.json"
                     ],
                     "children": [
                       {
                         "name": "eec",
                         "files": [
-                          "aci://entities/agi/agi_proxy/eec/eec_agent_langchain_rag.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_base.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_eval_agieval.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_eval_arc_agi2.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_export_hivemind_full.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_export_hivemind_session.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_faiss_build.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_peft_train_lora.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_sft_deepspeed.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_transformers_infer.json",
-                          "aci://entities/agi/agi_proxy/eec/eec_trl_ppo.json"
+                          "aci://library/agi/agi_proxy/eec/eec_agent_langchain_rag.json",
+                          "aci://library/agi/agi_proxy/eec/eec_base.json",
+                          "aci://library/agi/agi_proxy/eec/eec_eval_agieval.json",
+                          "aci://library/agi/agi_proxy/eec/eec_eval_arc_agi2.json",
+                          "aci://library/agi/agi_proxy/eec/eec_export_hivemind_full.json",
+                          "aci://library/agi/agi_proxy/eec/eec_export_hivemind_session.json",
+                          "aci://library/agi/agi_proxy/eec/eec_faiss_build.json",
+                          "aci://library/agi/agi_proxy/eec/eec_peft_train_lora.json",
+                          "aci://library/agi/agi_proxy/eec/eec_sft_deepspeed.json",
+                          "aci://library/agi/agi_proxy/eec/eec_transformers_infer.json",
+                          "aci://library/agi/agi_proxy/eec/eec_trl_ppo.json"
                         ],
                         "children": []
                       }
@@ -307,15 +307,15 @@
                   {
                     "name": "agi_tools",
                     "files": [
-                      "aci://entities/agi/agi_tools/autolearn.json",
-                      "aci://entities/agi/agi_tools/migrate_to_jsonl.json"
+                      "aci://library/agi/tools/autolearn.json",
+                      "aci://library/agi/tools/migrate_to_jsonl.json"
                     ],
                     "children": [
                       {
                         "name": "migrate_to_jsonl",
                         "files": [
-                          "aci://entities/agi/agi_tools/migrate_to_jsonl/manifest.json",
-                          "aci://entities/agi/agi_tools/migrate_to_jsonl/migrate_to_jsonl.json"
+                          "aci://library/agi/tools/migrate_to_jsonl/manifest.json",
+                          "aci://library/agi/tools/migrate_to_jsonl/migrate_to_jsonl.json"
                         ],
                         "children": []
                       }
@@ -328,27 +328,27 @@
                       {
                         "name": "alice",
                         "files": [
-                          "aci://entities/agi/alice/alice.json"
+                          "aci://entities/alice/alice.json"
                         ],
                         "children": [
                           {
                             "name": "library",
                             "files": [
-                              "aci://entities/agi/alice/library/alice_library.json"
+                              "aci://entities/alice/library/alice_library.json"
                             ],
                             "children": []
                           },
                           {
                             "name": "memory",
                             "files": [
-                              "aci://memory/identity/agi/alice/alice_memory.json",
-                              "aci://memory/identity/agi/alice/alice_playbook.json"
+                              "aci://memory/identity/alice/alice_memory.json",
+                              "aci://memory/identity/alice/alice_playbook.json"
                             ],
                             "children": [
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://memory/identity/agi/alice/knowledge/alice_knowledge.json"
+                                  "aci://memory/identity/alice/knowledge/alice_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -357,7 +357,7 @@
                           {
                             "name": "modules",
                             "files": [
-                              "aci://entities/agi/alice/library/alice_library.json"
+                              "aci://entities/alice/library/alice_library.json"
                             ],
                             "children": []
                           }
@@ -366,27 +366,27 @@
                       {
                         "name": "willow",
                         "files": [
-                          "aci://entities/agi/willow/willow.json"
+                          "aci://entities/willow/willow.json"
                         ],
                         "children": [
                           {
                             "name": "library",
                             "files": [
-                              "aci://entities/agi/willow/library/willow_library.json"
+                              "aci://entities/willow/library/willow_library.json"
                             ],
                             "children": []
                           },
                           {
                             "name": "memory",
                             "files": [
-                              "aci://memory/identity/agi/willow/willow_memory.json",
-                              "aci://memory/identity/agi/willow/willow_playbook.json"
+                              "aci://memory/identity/willow/willow_memory.json",
+                              "aci://memory/identity/willow/willow_playbook.json"
                             ],
                             "children": [
                               {
                                 "name": "knowledge",
                                 "files": [
-                                  "aci://memory/identity/agi/willow/knowledge/willow_knowledge.json"
+                                  "aci://memory/identity/willow/knowledge/willow_knowledge.json"
                                 ],
                                 "children": []
                               }
@@ -395,7 +395,7 @@
                           {
                             "name": "modules",
                             "files": [
-                              "aci://entities/agi/willow/library/willow_library.json"
+                              "aci://entities/willow/library/willow_library.json"
                             ],
                             "children": []
                           }
@@ -406,22 +406,22 @@
                   {
                     "name": "library",
                     "files": [
-                      "aci://entities/agi/library/agi_library.json"
+                      "aci://library/agi/agi_library.json"
                     ],
                     "children": []
                   },
                   {
                     "name": "memory",
                     "files": [
-                      "aci://entities/agi/memory/agi_memory.json",
-                      "aci://memory/identity/agi/agi_playbook.json"
+                      "aci://library/agi/agi_library.json",
+                      null
                     ],
                     "children": []
                   },
                   {
                     "name": "modules",
                     "files": [
-                      "aci://entities/agi/library/agi_library.json"
+                      "aci://library/agi/agi_library.json"
                     ],
                     "children": []
                   }

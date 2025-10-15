@@ -1,0 +1,132 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:BSHa4UKTKu65nC",
+    "sha256": "75b574bfe69e1240f88ee098d46286bcee89bdefc26341bd47d8330a100fd63c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://library/agi/tools/autolearn.json"
+  },
+  "version": "1.0",
+  "pipeline": "agi.mode.auto_learn",
+  "description": "Activate AGI auto-learn mode with hourly research and article refinement loops guarded under AGI session control.",
+  "trigger": {
+    "type": "natural_language",
+    "match_type": "fuzzy",
+    "phrases": [
+      "auto-learn mode",
+      "auto learn mode",
+      "enable auto-learn",
+      "engage auto learn"
+    ],
+    "notes": "Invoke when the user requests auto-learn mode in free-form language."
+  },
+  "session": {
+    "lock": {
+      "entity": "AGI",
+      "reason": "Auto-learn mode requires exclusive AGI session custody."
+    },
+    "identity_hint": "${args.identity?:session.identity?:@defaults.alias}"
+  },
+  "steps": [
+    {
+      "call": "_args.get",
+      "map": {
+        "key": "identity",
+        "default": "${session.identity?:@defaults.alias?:'Alice'}"
+      }
+    },
+    {
+      "call": "session.lock",
+      "map": {
+        "entity": "AGI",
+        "identity": "$steps.0.value",
+        "mode": "exclusive"
+      }
+    },
+    {
+      "call": "agi.netctl.enable",
+      "map": {
+        "identity": "$steps.0.value",
+        "notes": "Grant sandboxed outbound access for auto-learn research."
+      }
+    },
+    {
+      "call": "scheduler.create_task",
+      "map": {
+        "task_id": "agi.autolearn.loop",
+        "interval": "PT1H",
+        "if_platform_allows": true,
+        "metadata": {
+          "description": "Hourly auto-learn research and article refinement loop.",
+          "topics_source": "prompt_user_each_cycle",
+          "identity": "$steps.0.value"
+        },
+        "payload": {
+          "sequence": [
+            {
+              "call": "prompt.ask",
+              "map": {
+                "message": "Confirm or update the topics to research for this auto-learn cycle.",
+                "store_as": "agi.autolearn.topics"
+              }
+            },
+            {
+              "call": "research.web_search",
+              "map": {
+                "query": "${agi.autolearn.topics}",
+                "write_to": "agi.autolearn.sources",
+                "internet": true
+              }
+            },
+            {
+              "call": "content.compose",
+              "map": {
+                "mode": "article",
+                "topics": "${agi.autolearn.topics}",
+                "sources": "${agi.autolearn.sources}",
+                "improve_prior_iteration": true,
+                "store_as": "agi.autolearn.article"
+              }
+            },
+            {
+              "call": "chat.deliver",
+              "map": {
+                "message": "Updated auto-learn article draft.",
+                "attachment": "${agi.autolearn.article}"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "call": "_format.json"
+    }
+  ],
+  "archive_handling": {
+    "trigger": {
+      "type": "natural_language",
+      "match_type": "fuzzy",
+      "phrases": [
+        "archive session",
+        "please archive",
+        "stop auto-learn"
+      ]
+    },
+    "actions": [
+      {
+        "call": "scheduler.cancel_task",
+        "map": {
+          "task_id": "agi.autolearn.loop",
+          "reason": "User requested archive; stop auto-learn loop."
+        }
+      },
+      {
+        "call": "chat.deliver",
+        "map": {
+          "message": "Auto-learn mode paused. Run 'hivemind export --identity {active_identity} --knowledge --jsonl --download --code --force' to export the session into the governed .json memory artifact (legacy alias: --codebox).",
+          "suggested_command": "hivemind export --identity {active_identity} --knowledge --jsonl --code --force"
+        }
+      }
+    ]
+  }
+}

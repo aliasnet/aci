@@ -438,16 +438,16 @@
         "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_*_memory_*.jsonl.json"
       },
       "agi": {
-        "stub_manifest": "memory/identity/agi/agi_memory.json",
-        "export_pattern": "memory/identity/agi/YYYY/MM/DD/agi_*_memory_*.jsonl.json"
+        "stub_manifest": null,
+        "export_pattern": null
       },
       "alice": {
-        "stub_manifest": "memory/identity/agi/alice/alice_memory.json",
-        "export_pattern": "memory/identity/agi/alice/YYYY/MM/DD/alice_*_memory_*.jsonl.json"
+        "stub_manifest": "memory/identity/alice/alice_memory.json",
+        "export_pattern": "memory/identity/alice/YYYY/MM/DD/alice_*_memory_*.jsonl.json"
       },
       "willow": {
-        "stub_manifest": "memory/identity/agi/willow/willow_memory.json",
-        "export_pattern": "memory/identity/agi/willow/YYYY/MM/DD/willow_*_memory_*.jsonl.json"
+        "stub_manifest": "memory/identity/willow/willow_memory.json",
+        "export_pattern": "memory/identity/willow/YYYY/MM/DD/willow_*_memory_*.jsonl.json"
       },
       "hivemind": {
         "stub_manifest": "memory/identity/hivemind/hivemind_memory.json",
@@ -514,7 +514,7 @@
         }
       ],
       "deprecates": [
-        "entities/agi/agi_tools/migrate_to_jsonl/migrator.py"
+        "library/agi/tools/migrate_to_jsonl/migrator.py"
       ],
       "removal": {
         "allowed": true,
