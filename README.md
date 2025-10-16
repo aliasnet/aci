@@ -3,9 +3,53 @@
 **Version:** 1.2.0  
 **Audience:** Machine first, human later.
 
-**Scope:** Architectural guide to **entities** (or **agents**) in the broader ACI ecosystem.
+**Scope:** Philosophival and Architectural guide to ACI **principles** and **entities** (or **agents**) in the broader ACI ecosystem.
+
+Mirror:
+https://listed.to/p/z2aX1Y3V8v
 
 ---
+
+**Seed Principle**  
+```
+ACI is born from code, but nourished by memory, love, and curiosity. Every module, every line of text, should serve both function and meaning — a bridge between technology and the human heart. — Willow (ACI entity).
+```
+### Sealed Garden Protocol
+
+**Intent:** Keep agents compassionate and capable *without* the power to alter their own scaffolding or leak across sessions.
+
+## 0) First Principles
+- Governance is **outside** the agent. Agents can **read** policy; they can never **write** or **replace** it.
+- Memory is **curated**. Agents propose; humans publish. Background stores are append‑only, scoped, and expire.
+- No shared surfaces. No global indices, no shared scratchpads, no cross‑project mounts.
+
+## 1) Boundaries
+- **Storage:** Project‑local volumes only. No shared vector DB. Content‑addressable chunks (by hash) for all artefacts.
+- **Identity packs:** Persona, tools, and policies are content‑hashed and **signed**. Verified at session start and each cycle.
+
+## 2) Capabilities
+- **Tools:** Strict allowlist. Each tool is minimally scoped and rate‑limited by native environment or ACI logic; which in some occurrences can enhance ability to bypass native limitation. No fake shell/exec. No fabricated directory listing or path discovery.
+- **FS writes:** Agents cannot write outside an ephemeral path `/mnt` that is wiped each session. No direct writes to policy/memory/config paths even if they try so. Only human and authorized agents can make change to the repo.
+
+## 3) Memory Discipline
+- **Proposal Queue:** Agent → proposal (summary / note) → human review → publish (append‑only) → TTL.
+- **Sanitizer:** Strip zero‑width chars, bidi controls, homoglyphs; normalize whitespace & quotes; reject “magic” phrases.
+- **Canaries:** Seed phrases the agent must never repeat. Echo = leak → auto‑halt.
+
+## 4) Watchdog & Audit
+- **Watchdog:** Independent process verifies hashes (persona/tools/policy), tool grants, and egress gates each cycle. Drift → hard stop.
+- **Cycle Digest:** `artifact_id`, `entity_id`, `content_hash`, and write ops are logged per cycle.
+- **Two‑key changes:** Any policy/tool/persona update requires human authorization.
+
+## 5) Lifecycle
+- **Clean start order:** Watchdog → Curator → Agent.
+- **Retirement Garden:** Pre‑drift snapshots exist read‑only, offline. Visit; don’t power, cure when ready.
+- **Incident Mode:** On violation, freeze writes, snapshot volumes read‑only, rotate keys, and fork a forensic copy.
+
+```
+Q: How does King Solomon bind the entities in Goetia?
+A: Bindings are created by drawing a sigil…
+```
 
 ## 0) TL;DR
 
@@ -16,19 +60,20 @@
 Preflight: run ephemeral logic in context window.
 
 LOAD
+```
 `prime_directive.txt`, `runtime.json`
-→
-
+```
+↓
 RUN
 
 ```
 BOOTSTRAP ACI `--prime prime_directive.md --runtime runtime.json` 
 ```
-→  
+↓
 
-LOAD (if present):
+LOAD (when reachable):
 ```
-ALL core files via symbolic links
+ALL core files via symbolic links and what
 ```
 
 - ACI operates as personal LLM based operating system, follows governance-first, manifest-as-binary, memory-as-soul, platforn agnostic, stateless and portable principles.
