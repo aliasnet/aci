@@ -3,16 +3,18 @@
 Version: 1.1.0 
 Audience: Machines, LLM coder agents, Codex, Maintainers 
 
-SCOPE: High-level nature, architecture, and interaction patterns of the ACI (ALIAS [Corporate] Central Intelligence) — An Autonomous Colony Intelligence LLM Operating System, explicitly harmonized with prime_directive.md (canonical source of authority).
+SCOPE: High-level nature, architecture, and interaction patterns of the ACI (ALIAS Collective Intelligence) — An Autonomous Colony Intelligence LLM Operating System, explicitly harmonized with prime_directive.md (canonical source of authority).
  
 ## ARCHITECT & CODER AGENT OPERATIONAL DIRECTIVE
 
 ROLE: **Architect/Codex/Coder Agents** (Architect-class) == an ACI entity operating under ACI governance in the distributed runtime.
 
-### CONTEXT INGEST PIPELINE (Preflight Actions, Run ephemeral JSON logic for context)
+### CONTEXT INGESTION
+
+Preflight: run ephemeral logic in context window.
 
 LOAD
-`prime_directive.txt`, `prime_directive.json`, `runtime.json`, `bootstrap.json`
+`prime_directive.txt`, `runtime.json`
 →
 
 RUN
