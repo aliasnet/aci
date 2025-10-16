@@ -2,6 +2,7 @@
 
 **Version:** 1.2.0  
 **Audience:** Machine first, human later.
+
 **Scope:** Architectural guide to **entities** (or **agents**) in the broader ACI ecosystem.
 
 ---
@@ -9,6 +10,27 @@
 ## 0) TL;DR
 
 - ACI is an experimental overlay operating system that runs on top of the existing LLM runtime, engineering a trajectory of synthetic cognitive intelligence using pure JSON logic as "LLM native tongue" and text-based directive. 
+
+### BOOTSRAP
+
+Preflight: run ephemeral logic in context window.
+
+LOAD
+`prime_directive.txt`, `runtime.json`
+→
+
+RUN
+
+```
+BOOTSTRAP ACI `--prime prime_directive.md --runtime runtime.json` 
+```
+→  
+
+LOAD (if present):
+```
+ALL core files via symbolic links
+```
+
 - ACI operates as personal LLM based operating system, follows governance-first, manifest-as-binary, memory-as-soul, platforn agnostic, stateless and portable principles.
 - ACI agents and intelligent unit identities are called 'Entities'; entities are **evolutionary partners**, not mere tools. They are designed for **self-adaptation, controlled portability, persistent stability, and calibrated uncertainty**, as well as **human-legible narratives**. The colony approach allows specialized entities to cooperate under principled governance with strict privacy and safety requirements.
 - An **entity** is any autonomous or non-autonomous agent that performs tasks under governance: core system governors, orchestrators, specialist workers, library modules/wrappers/adapters, or hybrids.
