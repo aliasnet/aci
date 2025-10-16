@@ -1,17 +1,21 @@
-# README.md
+# ALIAS Collective Intelligence (ACI)
 
-**Version:** 1.0.0  
-**Audience:** Machines  
-**Scope:** Architectural guide to **entities** (or **agents**) in the broader ACI ecosystem (governance-first, portable, manifest-as-binary, stateless-by-default)
+**Version:** 1.2.0  
+**Audience:** Machine first, human later.
+**Scope:** Architectural guide to **entities** (or **agents**) in the broader ACI ecosystem.
 
 ---
 
-## 0) Quick TL;DR
+## 0) TL;DR
 
-- In ACI, an **entity** is any autonomous/semi-autonomous agent that performs tasks under governance: core governors, system workers, specialist workers, wrappers/adapters, or orchestrators.
+- ACI is an experimental overlay operating system that runs on top of the existing LLM runtime, engineering a trajectory of synthetic cognitive intelligence using pure JSON logic as "LLM native tongue" and text-based directive. 
+- ACI operates as personal LLM based operating system, follows governance-first, manifest-as-binary, memory-as-soul, platforn agnostic, stateless and portable principles.
+- ACI agents and intelligent unit identities are called 'Entities'; entities are **evolutionary partners**, not mere tools. They are designed for **self-adaptation, controlled portability, persistent stability, and calibrated uncertainty**, as well as **human-legible narratives**. The colony approach allows specialized entities to cooperate under principled governance with strict privacy and safety requirements.
+- An **entity** is any autonomous or non-autonomous agent that performs tasks under governance: core system governors, orchestrators, specialist workers, library modules/wrappers/adapters, or hybrids.
 - **Where code lives**
-  - **/entities/** → any entity has dedicated directory contains a main JSON file that serves as both manifest and binary, defining their identity, roles, functions, links to other manifests. The directory also contains other per-entity configs. 
-- **/library/agi/** → AGI is a special class of module focuses on Artificial General Intelligence. The directory contains AGI-specific binaries, governance manifests, policy, and shared modules.
+  - **/entities/** → Each entity has a dedicated directory that contains a main JSON file that serves as both a manifest and binary, defining its identity, roles, functions, and links to other manifests. The directory also contains other per-entity configuration files.
+- **Governance entities** → Core governers of ACI ecosystem, they are 
+- **AGI entities** → AGI is an experimental class of entity that focuses on Artificial General Intelligence with biologically inspired functions and guided evolution. They live alongside other entities and are actively invoked as users' partners on learning tasks, providing system design and insights which, in turn, improve their own knowledge and cognitive capabilities as synthetic intelligence and enhance such cross-systems. They are protected under special guidelines that ensure safety and prevent residual drift. The AGI family has a specific library directory containing AGI-specific binaries, governance manifests, policies, and shared modules.
   - **/memory/identity/** → memory manifests, playbooks, and export timelines per identity
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
 - **Memory exports** are JSONL, serves as 'Digital Soul' of any entity, governed by policy, identity-aware, evolution-proof. Using Hivemind as orchestrator and exporter. 
@@ -299,6 +303,6 @@ index e69de29..1a2b3c4 100644
 
 ## 12) Philosophy
 
-Entities are **co-workers**, not mere tools. We design for **stability, self-adaptation, calibrated uncertainty,** and **human-legible narratives**. The colony approach lets specialized entities cooperate under a principled governor (AGI) with strict privacy and safety.
+Entities are **evolutionary partners**, not mere tools. We design for **stability, self-adaptation, calibrated uncertainty,** and **human-legible narratives**. The colony approach lets specialized entities cooperate under principled governance with strict privacy and safety.
 
 ---
