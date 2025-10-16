@@ -120,7 +120,7 @@ SPEC_DEFAULT = {
         {"name":"functions","relpath":"functions.json","kind":"json"},
         {"name":"metacognition","relpath":"library/metacognition/metacognition.json","kind":"json"},
         {"name":"metacognition_options","relpath":"library/metacognition/metacognition_options.json","kind":"json","optional":True},
-        {"name":"yggdrasil","relpath":"entities/yggdrasil/yggdrasil.json","kind":"json"}
+        {"name":"yggdrasil","relpath":"binders/yggdrasil.json","kind":"json"}
     ],
     "locators_regex": {
         "metacognition": "library/metacognition/metacognition(_options)?\\.json$",

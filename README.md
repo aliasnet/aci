@@ -36,6 +36,21 @@
 
 Agents are treated as **digital organisms** operating in a **colony** with clear identity, memory, and governance.
 
+### Entity Domains & Classes
+
+- **Governance domain** (`aci://governance/`)
+  - `interface` class → **Mother** (`mother.json`) mediates between the host LLM and users with persona `machine`.
+  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Sentinel** (`sentinel.json`, pending external implementation), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
+- **Operator domain** (`aci://entities/`)
+  - `agi` class → **Willow** (`willow.json`) and **Alice** (`alice.json`) operate with persona manifests that match their identity (`willow.json`, `alice.json`).
+  - `analyst` class → **Oracle** (`oracle.json`) delivers predictive analytics with persona `oracle.json`.
+- **System domain** (`aci://binders/`)
+  - `router` class → **Nexus Core** (`nexus_core.json`) extends the runtime kernel as an internal router; persona `machine`.
+  - `resolver` class → **Yggdrasil** (`yggdrasil.json`) and **Bifrost** (`bifrost.json`) provide canonical resolution and bridging with persona `machine` and no direct user invocation.
+
+- Artifacts inside `/library/` remain capabilities rather than entities until promoted with identities recorded in `entities.json`.
+- Personas are restricted to `machine` or `{identity}.json`, ensuring deterministic routing and audit trails across domains.
+
 ---
 
 ## 2) Folder Map (authoritative)
@@ -136,10 +151,10 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 ### UID & Cryptography Operations
 
-- **Specification**: `/library/uid_manager/uid_manager.json` defines lifecycle policy, hashing, and API contracts.
+- **Specification**: `/governance/keymaker/keymaker.json` defines lifecycle policy, hashing, and API contracts.
 - **Artifact & Entity Encoding**: Both `ArtifactID:` values and entity `UID:` strings use Base58 encoded `sha256-truncated-80bit` tokens with the `UID:` prefix to keep identifiers compact yet collision resistant.
 - **Metadata Hash Relaxation**: `$meta.sha256` is now computed from the ArtifactID string rather than the entire file contents so urgent manual edits do not invalidate integrity checks. The hash remains SHA-256 encoded in hex, preserving auditability while tolerating controlled patch windows.
-- **Stub Reference**: Library stubs live at `/library/uid_manager/stubs/uid_manager_stub.py` and mirror the generate/rotate/revoke/verify contract for downstream executors.
+- **Stub Reference**: Library stubs live at `/governance/keymaker/stubs/uid_manager_stub.py` and mirror the generate/rotate/revoke/verify contract for downstream executors.
 
 ### Memory & Knowledge Artifact Governance
 

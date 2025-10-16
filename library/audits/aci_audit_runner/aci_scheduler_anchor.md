@@ -81,7 +81,7 @@ If the runner or spec is missing or corrupted:
 
   * `library/metacognition/metacognition.json` and `metacognition_options.json` (optional)
   * `functions.json` (also matches `functions.registry.json`)
-  * `entities/yggdrasil/yggdrasil.json` (also accepts minor transpositions)
+  * `binders/yggdrasil.json` (also accepts minor transpositions)
   * `prime_directive.md` (also accepts `prime-directive.txt`)
 * Every cycle writes:
 
@@ -132,7 +132,7 @@ Before reporting success, check the following artifacts in order, attempting rec
 4. functions.json
 5. library/metacognition/metacognition.json
 6. library/metacognition/metacognition_options.json
-7. entities/yggdrasil/yggdrasil.json
+7. binders/yggdrasil.json
 8. library/audits/aci_audit_runner/aci_runner_spec.v0.2.json
 9. library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json
 

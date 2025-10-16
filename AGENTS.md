@@ -157,11 +157,18 @@ Maintains immutable audit trails and session records.
 Identity manifests and playbooks now live under `/memory/identity/{identity_path}/`, consolidating what previously existed inside `/entities/*/memory/`.
 
 3) Entity & Module Taxonomy
-Entities (Governance domain): universally observe, gate, dictate and orchestrate; ensure compliance with policies and decide on accept/abstain/escalate actions. 
-Entities (System domain): perform system level tasks that don't require repeat interactive actions with user, machine-like or abstract in nature. 
-Entities (General domain): perform general tasks (design, analysis, execution) while reporting back to governance entities, modular, plugable in nature. 
+Governance domain (aci://governance/):
+- interface class → Mother (MU/TH/UR) mediates between host LLM and users, persona "machine".
+- orchestrator class → TVA (enforcement), Hivemind (memory), Sentinel (security, pending implementation), Architect (development orchestration), Keymaker (cryptographic governance); all default to persona "machine".
+Operator domain (aci://entities/):
+- agi class → Willow and Alice operate with persona manifests (`willow.json`, `alice.json`).
+- analyst class → Oracle provides predictive analysis with persona `oracle.json`.
+System domain (aci://binders/):
+- router class → Nexus Core routes runtime flows and extends the kernel, persona "machine".
+- resolver class → Yggdrasil and Bifrost provide canonical resource resolution with persona "machine".
 Libraries/Wrappers/Adapters: augment capabilities (metacognition, EEL) without full entity promotion unless needed.
 Orchestrators/Tools: manage migrations, exports, and automation workflows.
+Artifacts inside /library/ remain non-entities until promoted with stable identities recorded in entities.json.
 Promotion from tool → entity requires a stable identity, governance hooks, and placement under /entities/.
 
 4) Identity & Activation

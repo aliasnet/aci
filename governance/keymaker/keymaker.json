@@ -1,0 +1,161 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:9ud3cDtg9yE2bs",
+    "artifact_id_sha": "603b8a1b3670993956e5ed87009422e049171c2b5ab4fc1ae9051f09e581a76b",
+    "issued": "2025-10-05T00:00:00Z",
+    "path": "aci://governance/keymaker/keymaker.json"
+  },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  },
+  "uid": "UID:Kmkr7X9pQwJ1Vb",
+  "keymaker": {
+    "alias": "Keymaker",
+    "name": "Keymaker",
+    "key": "keymaker",
+    "role": "cryptographic_governor",
+    "description": "Governs ACI cryptographic operations, including UID lifecycle policy and artifact hashing guidance.",
+    "changelog": [
+      {
+        "version": "1.0.0",
+        "notes": [
+          "Initialized UID lifecycle policy with metadata hash relaxation and base58 guidance."
+        ],
+        "date": "2025-10-05"
+      }
+    ],
+    "uid_lifecycle": {
+      "$schema": "/schema/uid-manager.json",
+      "api_contract": {
+        "generate": {
+          "input": {
+            "identity_key": "string"
+          },
+          "output": {
+            "issued": "timestamp",
+            "uid": "string"
+          }
+        },
+        "revoke": {
+          "input": {
+            "identity_key": "string",
+            "uid": "string"
+          },
+          "output": {
+            "revoked": "timestamp",
+            "uid": "string"
+          }
+        },
+        "rotate": {
+          "input": {
+            "identity_key": "string"
+          },
+          "output": {
+            "new_uid": "string",
+            "old_uid": "string"
+          }
+        },
+        "verify": {
+          "input": {
+            "identity_key": "string",
+            "uid": "string"
+          },
+          "output": {
+            "reason": "string",
+            "verified": "boolean"
+          }
+        }
+      },
+      "metadata_policy": {
+        "artifact_hash_basis": "artifact_id",
+        "hash_encoding": "hex",
+        "hash_function": "sha256",
+        "notes": "Compute metadata hashes from the ArtifactID string to tolerate manual manifest edits while preserving UID integrity."
+      },
+      "policy": {
+        "algorithm": "sha256-truncated-80bit",
+        "encoding": "base58",
+        "prefix": "UID:",
+        "rotation": {
+          "allowed": true,
+          "max_ttl_days": 90,
+          "retain_revoked": true,
+          "trigger": [
+            "manual",
+            "suspicious_activity",
+            "ttl_expired"
+          ]
+        }
+      },
+      "pseudo_algorithm": {
+        "generate": [
+          "1. identity_key + timestamp + random_salt",
+          "2. SHA-256",
+          "3. take first 10 bytes (80 bits)",
+          "4. Base58 encode",
+          "5. prefix 'UID:'"
+        ],
+        "revoke": [
+          "locate UID",
+          "set revoked timestamp",
+          "retain for audit"
+        ],
+        "rotate": [
+          "revoke current",
+          "generate new",
+          "append new with revoked=null"
+        ],
+        "verify": [
+          "exists",
+          "revoked is null",
+          "identity.active == true"
+        ]
+      },
+      "stubs": {
+        "executable": false,
+        "reference": "aci://governance/keymaker/stubs/uid_manager_stub.py"
+      },
+      "version": "1.0.0"
+    }
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-016",
+    "registry_uid": "UID:Kmkr7X9pQwJ1Vb",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "governance",
+      "cryptography"
+    ]
+  }
+}

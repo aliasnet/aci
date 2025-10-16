@@ -53,7 +53,7 @@
     }
   ],
   "exports": {
-    "contract": "aci://entities/hivemind/hivemind.json#/$defs/record_contract",
+    "contract": "aci://governance/hivemind/hivemind.json#/$defs/record_contract",
     "entity_binding": {
       "field": "entity_uid",
       "registry": "aci://entities.json#identity_registry.identities",

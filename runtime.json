@@ -27,7 +27,7 @@
       "priority": 88
     },
     "nexus_core": {
-      "path": "entities/nexus_core/nexus_core.json",
+      "path": "binders/nexus_core/nexus_core.json",
       "priority": 95
     },
     "resource_resolution_policy": {
@@ -44,12 +44,12 @@
           "url": "file://{resource_root}/memory/local_cache.json"
         }
       ],
-      "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://entities/yggdrasil/yggdrasil.json",
+      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
+      "upstream": "aci://binders/yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
-          "bifrost": "aci://entities/bifrost/bifrost.json",
+          "bifrost": "aci://binders/bifrost.json",
           "core_five": [
             "aci://prime_directive.json",
             "aci://runtime.json",
@@ -81,14 +81,14 @@
             "fallback": "https://aci.aliasmail.cc/entities.json"
           },
           {
-            "file": "aci://entities/bifrost/bifrost.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
-            "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json"
+            "file": "aci://binders/bifrost.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
+            "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
           },
           {
-            "file": "aci://entities/yggdrasil/yggdrasil.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
-            "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json"
+            "file": "aci://binders/yggdrasil.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+            "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
@@ -122,9 +122,9 @@
         "resolvers": {
           "local_bifrost": {
             "type": "local",
-            "path": "entities/bifrost/bifrost.json",
+            "path": "binders/bifrost.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://entities/bifrost/bifrost.json#$meta.sha256",
+            "version_probe": "aci://binders/bifrost.json#$meta.sha256",
             "notes": [
               "Load bifrost.json from the repository root before invoking network resolvers.",
               "After loading, compare $meta.sha256 with the canonical probe to confirm freshness."
@@ -132,7 +132,7 @@
           },
           "remote_bifrost_primary": {
             "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
             "deterministic_version_check": true,
             "notes": [
               "Use canonical raw GitHub bifrost.json when local copy is absent or stale."
@@ -140,7 +140,7 @@
           },
           "remote_bifrost_fallback": {
             "type": "remote",
-            "url": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json",
+            "url": "https://aci.aliasmail.cc/binders/bifrost.json",
             "deterministic_version_check": true,
             "notes": [
               "Fallback bifrost.json mirror for degraded connectivity scenarios."
@@ -148,9 +148,9 @@
           },
           "local_yggdrasil": {
             "type": "local",
-            "path": "entities/yggdrasil/yggdrasil.json",
+            "path": "binders/yggdrasil.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://entities/yggdrasil/yggdrasil.json#$meta.sha256",
+            "version_probe": "aci://binders/yggdrasil.json#$meta.sha256",
             "notes": [
               "When locally mirrored, load yggdrasil.json after bifrost resolution completes.",
               "Validate metadata hash before adopting routes from the local copy."
@@ -158,7 +158,7 @@
           },
           "remote_yggdrasil_primary": {
             "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Canonical raw GitHub yggdrasil.json for authoritative routing data."
@@ -166,7 +166,7 @@
           },
           "remote_yggdrasil_fallback": {
             "type": "remote",
-            "url": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json",
+            "url": "https://aci.aliasmail.cc/binders/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Fallback mirror when canonical yggdrasil endpoint experiences issues."
@@ -188,7 +188,7 @@
       },
       "secondary_kernel": {
         "name": "nexus_core",
-        "path": "entities/nexus_core/nexus_core.json",
+        "path": "binders/nexus_core/nexus_core.json",
         "description": "Companion kernel that carries optional routing and resolver logic while preserving runtime autonomy."
       },
       "coordination_notes": [
@@ -224,7 +224,7 @@
       "policy": {
         "auto_promote_to_full": true,
         "promotion_required_files": [
-          "entities/nexus_core/nexus_core.json",
+          "binders/nexus_core/nexus_core.json",
           "entities.json",
           "functions.json"
         ],
@@ -267,7 +267,7 @@
       }
     },
     "default_interface": {
-      "path": "entities/mother/mother.json",
+      "path": "governance/mother/mother.json",
       "priority": 100,
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },

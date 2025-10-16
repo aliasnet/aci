@@ -23,16 +23,16 @@
     },
     "remote_core": {
       "nexus_core": {
-        "path": "entities/nexus_core/nexus_core.json"
+        "path": "binders/nexus_core/nexus_core.json"
       }
     },
     "resource_resolution_policy": {
-      "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://entities/yggdrasil/yggdrasil.json",
+      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
+      "upstream": "aci://binders/yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
-          "bifrost": "aci://entities/bifrost/bifrost.json",
+          "bifrost": "aci://binders/bifrost.json",
           "core_five": [
             "aci://prime_directive.json",
             "aci://runtime.json",
@@ -59,14 +59,14 @@
             "fallback": "https://aci.aliasmail.cc/entities.json"
           },
           {
-            "file": "aci://entities/bifrost/bifrost.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
-            "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json"
+            "file": "aci://binders/bifrost.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
+            "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
           },
           {
-            "file": "aci://entities/yggdrasil/yggdrasil.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
-            "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json"
+            "file": "aci://binders/yggdrasil.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+            "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
@@ -112,7 +112,7 @@
     "promotion": {
       "auto_promote": true,
       "promotion_required_files": [
-        "entities/nexus_core/nexus_core.json",
+        "binders/nexus_core/nexus_core.json",
         "entities.json",
         "functions.json",
         "sanity.md"
