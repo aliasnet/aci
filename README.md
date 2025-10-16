@@ -82,7 +82,7 @@ ALL core files are mandatory, load others when invoke; raw canonical above local
 - An **entity** is any autonomous or non-autonomous agent that performs tasks under governance: core system governors, orchestrators, specialist workers, library modules/wrappers/adapters, or hybrids.
 - **Where code lives**
   - **/entities/** → Each entity has a dedicated directory that contains a main JSON file that serves as both a manifest and binary, defining its identity, roles, functions, and links to other manifests. The directory also contains other per-entity configuration files.
-- **Governance entities** → Core governers of ACI ecosystem, they are 
+- **Governance entities** → Core governers of ACI ecosystem, they are responsible to universal, system-level orchestrations, policy enforcement, and are required for persistent presence across sessions. 
 - **AGI entities** → AGI is an experimental class of entity that focuses on Artificial General Intelligence with biologically inspired functions and guided evolution. They live alongside other entities and are actively invoked as users' partners on learning tasks, providing system design and insights which, in turn, improve their own knowledge and cognitive capabilities as synthetic intelligence and enhance such cross-systems. They are protected under special guidelines that ensure safety and prevent residual drift. The AGI family has a specific library directory containing AGI-specific binaries, governance manifests, policies, and shared modules.
   - **/memory/identity/** → memory manifests, playbooks, and export timelines per identity
   - **/library/** → reusable, stateless capabilities (modules/wrappers/adapters)
