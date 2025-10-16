@@ -121,7 +121,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   - `service` class → `aci_repo.json` and related manifests manage repository/package flows under Sentinel and Architect oversight.
 - **System domain** (`aci://binders/`)
   - `router` class → `nexus_core.json` extends the runtime kernel as an internal router; persona `machine`.
-  - `resolver` class → `yggdrasil.json` and `bifrost.json` provide canonical resolution and bridging with persona `machine` and no direct user invocation.
+  - `resolver` class → `yggdrasil.json` provides canonical resolution and bridging with persona `machine` and no direct user invocation.
 
 - Artifacts inside `/library/` remain capabilities rather than entities until promoted with identities recorded in `entities.json`.
 - Personas are restricted to `machine` or `{identity}.json`, ensuring deterministic routing and audit trails across domains.
@@ -168,8 +168,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       aci_runner_spec.v0.2.json
       aci_scheduler_anchor.md
       adaptive_audit_runner.txt
-  bifrost/
-    bifrostplaceholder.txt        # resolver placeholder (external runtime provides executable spec)
   metacognition/
     metacognition.json            # stateless wrapper (v1.1.x+)
     metacognition_options.json    # optional features (e.g., conformal)

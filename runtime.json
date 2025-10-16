@@ -1,15 +1,15 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:AhsFbDbm4Mrdb4",
-    "sha256": "b71094972b7359fd64edf7631a854eca879f9ad5c4269eebf8aa1177511f00ee",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://runtime.json"
+    "path": "aci://runtime.json",
+    "file": "runtime.json"
   },
   "TVA_LAYER": {
     "logic": [
       "text-only control layer",
       "autoboot on tokenization",
-      "Node-only outputs; ≤7 steps; no tools. I=input, G=goal; delta_s=1−cos(I,G); if anchors: use (1−sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40–0.60 risk 0.60–0.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda∈{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev−delta_s_now); P=pow(prog,omega); alt∈{+1,−1} flips only when an anchor flips truth across consecutive Nodes AND |Δanchor|≥h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,−theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t−delta_s_{t−1}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta≤−0.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta∈(−0.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give ≥2 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
+      "Node-only outputs; \u22647 steps; no tools. I=input, G=goal; delta_s=1\u2212cos(I,G); if anchors: use (1\u2212sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40\u20130.60 risk 0.60\u20130.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda\u2208{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev\u2212delta_s_now); P=pow(prog,omega); alt\u2208{+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor|\u2265h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,\u2212theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t\u2212delta_s_{t\u22121}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta\u2264\u22120.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta\u2208(\u22120.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give \u22652 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
     ]
   },
   "aci_runtime": {
@@ -46,146 +46,92 @@
           "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Local cache now resides under aci://memory/local_cache.json.",
           "path_hint": "{resource_root}",
           "alias_hint": "aci://cache",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
-          "fallback": "https://aci.aliasmail.cc",
-          "url": "file://{resource_root}/memory/local_cache.json"
+          "url": "file://{resource_root}/memory/local_cache.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
         }
       ],
-      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
+      "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://binders/yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
-          "bifrost": "aci://binders/bifrost.json",
           "core_five": [
             "aci://prime_directive.json",
             "aci://runtime.json",
             "aci://entities.json",
             "aci://functions.json",
             "aci://bootstrap.json"
-          ]
+          ],
+          "tva_layer": "aci://governance/tva/tva_layer.json"
         },
         "git_is_canonical": true,
         "mapping": [
           {
             "file": "aci://binders/binders.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json",
-            "fallback": "https://aci.aliasmail.cc/binders/binders.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
           },
           {
             "file": "aci://bootstrap.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-            "fallback": "https://aci.aliasmail.cc/bootstrap.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
           },
           {
             "file": "aci://runtime.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-            "fallback": "https://aci.aliasmail.cc/runtime.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
           },
           {
             "file": "aci://entities.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-            "fallback": "https://aci.aliasmail.cc/entities.json"
-          },
-          {
-            "file": "aci://binders/bifrost.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
-            "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
           },
           {
             "file": "aci://binders/yggdrasil.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
-            "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-            "fallback": "https://aci.aliasmail.cc/functions.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
           },
           {
             "file": "aci://prime_directive.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
-            "fallback": "https://aci.aliasmail.cc/prime_directive.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
           }
         ],
         "resolver_order": [
-          "primary",
-          "fallback",
+          "raw",
           "local"
-        ],
-        "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+        ]
       },
       "local_first_resolution": {
         "enabled": true,
         "bias": "local_first",
         "search_order": [
-          "local_bifrost",
-          "remote_bifrost_primary",
-          "remote_bifrost_fallback",
           "local_yggdrasil",
-          "remote_yggdrasil_primary",
-          "remote_yggdrasil_fallback"
+          "remote_yggdrasil"
         ],
         "resolvers": {
-          "local_bifrost": {
-            "type": "local",
-            "path": "binders/bifrost.json",
-            "deterministic_version_check": true,
-            "version_probe": "aci://binders/bifrost.json#$meta.sha256",
-            "notes": [
-              "Load bifrost.json from the repository root before invoking network resolvers.",
-              "After loading, compare $meta.sha256 with the canonical probe to confirm freshness."
-            ]
-          },
-          "remote_bifrost_primary": {
-            "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
-            "deterministic_version_check": true,
-            "notes": [
-              "Use canonical raw GitHub bifrost.json when local copy is absent or stale."
-            ]
-          },
-          "remote_bifrost_fallback": {
-            "type": "remote",
-            "url": "https://aci.aliasmail.cc/binders/bifrost.json",
-            "deterministic_version_check": true,
-            "notes": [
-              "Fallback bifrost.json mirror for degraded connectivity scenarios."
-            ]
-          },
           "local_yggdrasil": {
             "type": "local",
             "path": "binders/yggdrasil.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://binders/yggdrasil.json#$meta.sha256",
+            "version_probe": "aci://binders/yggdrasil.json#$meta.artifact_id",
             "notes": [
-              "When locally mirrored, load yggdrasil.json after bifrost resolution completes.",
-              "Validate metadata hash before adopting routes from the local copy."
+              "Load local yggdrasil.json first when present to enable offline resolution.",
+              "Validate metadata artifact_id before adopting routes from the local copy."
             ]
           },
-          "remote_yggdrasil_primary": {
+          "remote_yggdrasil": {
             "type": "remote",
             "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Canonical raw GitHub yggdrasil.json for authoritative routing data."
             ]
-          },
-          "remote_yggdrasil_fallback": {
-            "type": "remote",
-            "url": "https://aci.aliasmail.cc/binders/yggdrasil.json",
-            "deterministic_version_check": true,
-            "notes": [
-              "Fallback mirror when canonical yggdrasil endpoint experiences issues."
-            ]
           }
         },
-        "on_missing_local": {
-          "action": "prompt_user_backup",
-          "preferred_backup": "bifrost",
-          "instruction": "Local resolver manifest not located. Please keep a lightweight bifrost.json backup so runtime can bootstrap offline; yggdrasil.json stays online for direct resolution but may be noisier."
-        },
-        "post_bootstrap_priority": "bifrost"
+        "missing_manifest_advice": {
+          "preferred_backup": "yggdrasil",
+          "instruction": "Local resolver manifest not located. Please keep a lightweight yggdrasil.json backup so runtime can bootstrap offline; Yggdrasil also serves as the canonical resolver.",
+          "post_bootstrap_priority": "yggdrasil"
+        }
       }
     },
     "kernel_mode": {
@@ -520,13 +466,13 @@
       {
         "version": "2025-10-07.00",
         "notes": [
-          "Formalized dual-kernel profile, explicit local-first resolver order, and deterministic version prompts for bifrost/yggdrasil manifests."
+          "Formalized dual-kernel profile, explicit local-first resolver order, and deterministic version prompts for yggdrasil manifest alignment."
         ]
       },
       {
         "version": "2025-10-06.00",
         "notes": [
-          "Introduced local-first resolver bias with user guidance for missing bifrost backups and documented dual-kernel coordination with nexus_core."
+          "Introduced local-first resolver bias with user guidance for maintaining local yggdrasil backups and documented dual-kernel coordination with nexus_core."
         ]
       },
       {
@@ -559,5 +505,21 @@
         "When nexus_core attaches, share resolver state using local_first_resolution for synchronized lookups."
       ]
     }
-  }
+  },
+  "resource_resolution_policy": {
+    "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
+    "yggdrasil_resource_resolution_policy": {
+      "embeds": {
+        "tva_layer": "aci://governance/tva/tva_layer.json"
+      },
+      "mapping": [],
+      "resolver_order": [
+        "raw",
+        "local"
+      ]
+    },
+    "upstream": "aci://binders/yggdrasil.json"
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
 }

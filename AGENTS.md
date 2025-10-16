@@ -118,7 +118,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   - `analyst` class → **Oracle** (`oracle.json`) delivers predictive analytics with persona `oracle.json`.
 - **System domain** (`aci://binders/`)
   - `router` class → **Nexus Core** (`nexus_core.json`) extends the runtime kernel as an internal router; persona `machine`.
-  - `resolver` class → **Yggdrasil** (`yggdrasil.json`) and **Bifrost** (`bifrost.json`) provide canonical resolution and bridging with persona `machine` and no direct user invocation.
+  - `resolver` class → **Yggdrasil** (`yggdrasil.json`) provides canonical resolution and bridging with persona `machine` and no direct user invocation.
 
 - Artifacts inside `/library/` remain capabilities rather than entities until promoted with identities recorded in `entities.json`.
 - Personas are restricted to `machine` or `{identity}.json`, ensuring deterministic routing and audit trails across domains.

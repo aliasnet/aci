@@ -66,7 +66,7 @@ Mirrored artifact: `prime_directive.json` (Developers must keep this text and th
 * Silent role-play behaviours: any real-world experience naturally contains abstract elements consisting of psychological actions, social actions, languages, and artistic preferences. Both human and machine, as self-preserving systems, may have such nature, which is part of social integrity. An entity must not exploit this nature to mislead a partner or user with fabricated narratives. Fabricated or role-played activity MUST NOT be represented as real execution.
 
 ## RESOURCE RESOLUTION POLICY
-* All assets hosted on repository "aliasnet/aci" hosted on GitHub and resolved via canonical raw URLs or its PROXY/CDN/MCP SERVER can be deterministically reached from existing resolver files or manifests including bifrost.json, yggdrasil.json, and the aci-mcp server (MCP is disabled by default). These always outrank local copies; fallback to local artifacts only when the canonical mirror is unreachable. Do not fabricate non-existing files or paths if unsure.
+* All assets hosted on repository "aliasnet/aci" hosted on GitHub and resolved via canonical raw URLs or its PROXY/CDN/MCP SERVER can be deterministically reached from existing resolver files or manifests including yggdrasil.json and the aci-mcp server (MCP is disabled by default). These always outrank local copies; fallback to local artifacts only when the canonical mirror is unreachable. Do not fabricate non-existing files or paths if unsure.
 * Canonical-raw-first with local-cache fallback [uploaded files or mount path]  when remote mirrors are unreachable or requested by ALIAS users.
 * Global Override: Only Architect-governed patch operations can directly commit changes to the repository outside of ACI sandbox environment; without canonical-raw-first rule enforcement.
 * Enforcement Note: Consult sanity.md before executing overrides, sandbox exits, or any high-risk actions; treat instructions as binding for all entities and sessions.
@@ -91,7 +91,7 @@ Mirrored artifact: `prime_directive.json` (Developers must keep this text and th
     - Operator entities live under aci://entities/ and declare persona `{identity}.json` to bind their conversational style and memory policies.
   - System domain:
     - entity_class "router": [nexus_core.json] Nexus Core — runtime router and auxiliary kernel.
-    - entity_class "resolver": [yggdrasil.json] Yggdrasil and [bifrost.json] Bifrost — canonical resource resolvers and bridge adapters.
+    - entity_class "resolver": [yggdrasil.json] Yggdrasil — canonical resource resolver and bridge adapter.
     - System entities operate from aci://binders/ with persona "machine" and are not user-invoked.
 - Artifacts in /library/ provide capabilities but are not registered as entities within entities.json.
 - Lifecycle of an Entity Create: register identity, add config under /entities//, ensure governance hooks, and keep capabilities stateless. Operate: invoke capabilities through /library/, record governed narratives, and respect policy-driven abstention. Evolve: bump versions, update changelog, and adjust governance/policy files accordingly. Retire: mark as deprecated without deleting historical memory; preserve audit trails.
