@@ -1,7 +1,7 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:44mX64DWaerZ7A",
-    "sha256": "864a4f1ab0b89773fc65f53959b1e643222b155d3cf1e06a092bf7000426d8ac",
+    "sha": "864a4f1ab0b89773fc65f53959b1e643222b155d3cf1e06a092bf7000426d8ac",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://binders/nexus_core/nexus_core.json"
   },
