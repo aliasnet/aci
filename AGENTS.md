@@ -89,13 +89,13 @@ ALL core files via symbolic links and load others when invoke; raw canonical abo
 - **Memory exports** are JSONL, serves as 'Digital Soul' of any entity, governed by policy, identity-aware, evolution-proof. Using Hivemind as orchestrator and exporter. 
 - **Manifests are executables**: `.json` manifests *are* the runtime containers. They can name entrypoints (`entrypoint`, `exec`, `load_order`), embed inline bytecode or JSON-encoded instructions, and reference Python modules directly. Each manifest must also hold an authoritative `artifact_id` with strict hash validation for that ID.
 
-> Big picture: ACI is a **colony of digital organisms**. **AGI** governs intelligence and narrative exports; other entities specialize (design, retrieval, planning, etc.). Governance and privacy are first-class.
+Big picture: ACI is a **colony of digital organisms**. **AGI** governs intelligence and narrative exports; other entities specialize (design, retrieval, planning, etc.). Governance and privacy are first-class.
 
 ---
 
 ## 1) What is an Entity and Agent (in ACI)?
 
-> An **entity** is any agent that is a named, governed participant that can reason, act, or transform information within the ACI sandbox. An agent becomes an **entity** when promoted into `/entities/` with a stable identity key that matches its titular sub-directory (or children). Adapters/tools may remain **non-entities** if they lack this nature (e.g., wrappers, small utilities).
+An **entity** is any agent that is a named, governed participant that can reason, act, or transform information within the ACI sandbox. An agent becomes an **entity** when promoted into `/entities/` with a stable identity key that matches its titular sub-directory (or children). Adapters/tools may remain **non-entities** if they lack this nature (e.g., wrappers, small utilities).
 
 **ACI agents include:**
 
