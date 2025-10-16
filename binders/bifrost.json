@@ -6,7 +6,7 @@
     "path": "aci://binders/bifrost.json"
   },
   "TVA_LAYER": {
-      "variant": "full", 
+      "variant": "primary", 
       "function": [
         "text-only control layer", 
         "autoboot on tokenization",
