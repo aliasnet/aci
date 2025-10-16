@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:E3nwdFADYS3SPo",
-    "sha256": "cb5971df6e7f56f5f7bebd4df17a61b88dbda60a05c2bd108211062f80ced5f9",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://memory/local_cache.json"
+    "path": "aci://memory/local_cache.json",
+    "file": "local_cache.json"
   },
   "local_cache": {
     "version": "1.1.1",
@@ -104,7 +104,7 @@
         "resolve_order": "validate_local_then_return",
         "on_failure": {
           "action": "fallback_to_connector",
-          "target": "aci://binders/bifrost.json#bifrost_resource_resolution_policy",
+          "target": "aci://binders/yggdrasil.json#resource_resolution_policy",
           "alert": "resource.validation_failed"
         }
       },
@@ -118,8 +118,7 @@
       "README.md": "{resource_root}/README.md",
       "runtime.json": "{resource_root}/runtime.json",
       "binders/yggdrasil.json": "{resource_root}/binders/yggdrasil.json",
-      "entities.json": "{resource_root}/entities.json",
-      "binders/bifrost.json": "{resource_root}/binders/bifrost.json"
+      "entities.json": "{resource_root}/entities.json"
     },
     "signatures": {
       "required": [
@@ -155,5 +154,7 @@
     "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
     "fallback": "https://aci.aliasmail.cc",
     "resource_slug": "aliasnet/aci"
-  }
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
 }
