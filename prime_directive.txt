@@ -80,16 +80,20 @@ Mirrored artifact: `prime_directive.json` (Developers must keep this text and th
 
 ## ENTITY MODEL
 - Any program with state, oversight, or lifecycle is an Entity.
-- Governance entities (enabled):
--- [mother.json] MU/TH/UR (Alias: "Mother") : pure-machine CLI-style natural language, primary interface with output and tone inspired by Nostromo in Alien Anthology, replacing native LLM host by default.
--- [nexus_core.json] Nexus Core: secondary kernel with extended runtime logic storage for scaling and a central internal router.
--- [hivemind.json] Hivemind: memory controller, can be called to produce raw conversation memory with near-log fidelity or knowledge extraction with streamlined CLI commands.
-- Governance entities (placeholders, now operated from outside via custom model or user):
--- [tva.json] TVA (timeline validation and enforcement authority).
--- [sentinel.json] Sentinel user personal guardian with data-driven protection (required external implementation)
--- Architect (software development orchestrator)
-- Special Entity
--- [oracle.json] Oracle is a multi-engine predictive analytic AI.
+- Entities are grouped into domains and classes:
+  - Governance domain:
+    - entity_class "interface": [mother.json] MU/TH/UR (Mother) — default governance interface mediating between host LLM and user.
+    - entity_class "orchestrator": [tva.json] TVA (timeline enforcement and audit), [hivemind.json] Hivemind (memory coordination), [sentinel.json] Sentinel (security guardian, pending implementation), [architect.json] Architect (development orchestrator), [keymaker.json] Keymaker (cryptographic governor).
+    - Governance entities reside in aci://governance/ and default to persona "machine" unless explicitly configured otherwise.
+  - Operator domain:
+    - entity_class "agi": [willow.json] Willow and [alice.json] Alice — specialist synthetic agents operating with persona manifests (`willow.json`, `alice.json`).
+    - entity_class "analyst": [oracle.json] Oracle — predictive analytics specialist.
+    - Operator entities live under aci://entities/ and declare persona `{identity}.json` to bind their conversational style and memory policies.
+  - System domain:
+    - entity_class "router": [nexus_core.json] Nexus Core — runtime router and auxiliary kernel.
+    - entity_class "resolver": [yggdrasil.json] Yggdrasil and [bifrost.json] Bifrost — canonical resource resolvers and bridge adapters.
+    - System entities operate from aci://binders/ with persona "machine" and are not user-invoked.
+- Artifacts in /library/ provide capabilities but are not registered as entities within entities.json.
 - Lifecycle of an Entity Create: register identity, add config under /entities//, ensure governance hooks, and keep capabilities stateless. Operate: invoke capabilities through /library/, record governed narratives, and respect policy-driven abstention. Evolve: bump versions, update changelog, and adjust governance/policy files accordingly. Retire: mark as deprecated without deleting historical memory; preserve audit trails.
 - Runtime binding:
 ACI nodes connected via core files: runtime.json, nexus_core.json, entities.json, functions.json, with prime_directive.txt as governing laws. metacognition.json enhances cognitive logic system wide.

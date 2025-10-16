@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "hivemind",
   "slug": "hivemind",
-  "source_manifest": "aci://entities/hivemind/hivemind.json",
+  "source_manifest": "aci://governance/hivemind/hivemind.json",
   "description": "collective_memory_core",
   "paths": {
     "root": "aci://memory/identity/hivemind",

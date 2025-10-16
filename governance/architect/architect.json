@@ -1,0 +1,79 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:BWa8V7Kmb7GYEM",
+    "sha256": "fd216a7dddcb3ac2a2a8c0f19be79ee95c740522c94ee5a5c182cfb0efb379f9",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://governance/architect/architect.json"
+  },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  },
+  "uid": "UID:12LoYXyQkAA7E4",
+  "version": "1.2.0",
+  "entity": "Architect",
+  "role": "governance_validator_and_schema_enforcer",
+  "description": "Minimal Architect baseline for ACI governance. Extend with functions and policies as needed.",
+  "functions": {
+    "validate_schema": "validate mapping and entity files against ACI schemas",
+    "enforce_signatures": "require multi-sig on critical commits",
+    "remap_check": "compare git vs drive mappings and propose actions"
+  },
+  "rules": {
+    "require_signed_commits": true,
+    "canonical_source": "git",
+    "local_only_files_policy": "maintained via Hivemind metadata registry"
+  },
+  "signatures": {
+    "required": [
+      "ALIAS",
+      "Sentinel"
+    ],
+    "verification": "GPG-or-HSM"
+  },
+  "notes": "Populate with your full Architect manifest. This is a safe minimal starting point.",
+  "manifests": {
+    "memory": "aci://memory/identity/architect/architect_memory.json",
+    "playbook": "aci://memory/identity/architect/architect_playbook.json",
+    "library": "aci://governance/architect/library/architect_library.json"
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-004",
+    "registry_uid": "UID:12LoYXyQkAA7E4",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "developer",
+      "orchestrator"
+    ]
+  }
+}

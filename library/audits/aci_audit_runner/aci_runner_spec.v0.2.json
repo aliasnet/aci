@@ -48,7 +48,7 @@
     },
     {
       "name": "yggdrasil",
-      "relpath": "entities/yggdrasil/yggdrasil.json",
+      "relpath": "binders/yggdrasil.json",
       "kind": "json"
     }
   ],
@@ -136,7 +136,7 @@
       "functions.json",
       "library/metacognition/metacognition.json",
       "library/metacognition/metacognition_options.json",
-      "entities/yggdrasil/yggdrasil.json",
+      "binders/yggdrasil.json",
       "library/audits/aci_audit_runner/aci_runner_spec.v0.2.json",
       "library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
     ],

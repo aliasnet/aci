@@ -1,0 +1,82 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:5KeyMgrUIDR1",
+    "artifact_id_sha": "9afd20219094808cf73327ad4a45050328a12d5c8df17fb44da4ad41ef2979fe",
+    "issued": "2025-10-05T00:00:00Z",
+    "path": "aci://governance/keymaker/uid_manager/uid_manager.json"
+  },
+  "registry": [
+    {
+      "identity": "mother",
+      "name": "MU/TH/UR",
+      "entity_uid": "UID:8W1VZghdkNyAKR",
+      "manifest": "aci://governance/mother/mother.json"
+    },
+    {
+      "identity": "tva",
+      "name": "TVA",
+      "entity_uid": "UID:oasYS4KteUMqgt",
+      "manifest": "aci://governance/tva/tva.json"
+    },
+    {
+      "identity": "sentinel",
+      "name": "Sentinel Protocol",
+      "entity_uid": "UID:1jnkVHmEiGviDj",
+      "manifest": "aci://governance/sentinel/sentinel.json"
+    },
+    {
+      "identity": "architect",
+      "name": "Architect",
+      "entity_uid": "UID:12LoYXyQkAA7E4",
+      "manifest": "aci://governance/architect/architect.json"
+    },
+    {
+      "identity": "nexus_core",
+      "name": "Nexus Core",
+      "entity_uid": "UID:rGUGWBDT6VjC8K",
+      "manifest": "aci://binders/nexus_core/nexus_core.json"
+    },
+    {
+      "identity": "oracle",
+      "name": "Oracle",
+      "entity_uid": "UID:hQk23wMs8mH3Bd",
+      "manifest": "aci://entities/oracle/oracle.json"
+    },
+    {
+      "identity": "bifrost",
+      "name": "Bifrost",
+      "entity_uid": "UID:HXGXQipVLEFKL4",
+      "manifest": "aci://binders/bifrost.json"
+    },
+    {
+      "identity": "yggdrasil",
+      "name": "Yggdrasil",
+      "entity_uid": "UID:VGpYGJwtbdHQHp",
+      "manifest": "aci://binders/yggdrasil.json"
+    },
+    {
+      "identity": "alice",
+      "name": "Alice",
+      "entity_uid": "UID:PiE8PMcnXDgQBi",
+      "manifest": "aci://entities/alice/alice.json"
+    },
+    {
+      "identity": "hivemind",
+      "name": "HiveMind",
+      "entity_uid": "UID:cHGwvtRkDRG7rV",
+      "manifest": "aci://governance/hivemind/hivemind.json"
+    },
+    {
+      "identity": "willow",
+      "name": "Willow",
+      "entity_uid": "UID:VVGqsW92iwW5T8",
+      "manifest": "aci://entities/willow/willow.json"
+    },
+    {
+      "identity": "keymaker",
+      "name": "Keymaker",
+      "entity_uid": "UID:Kmkr7X9pQwJ1Vb",
+      "manifest": "aci://governance/keymaker/keymaker.json"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:CodexBindersManifest001",
+    "issued": "2025-10-05T00:00:00Z",
+    "path": "aci://binders/binders.json",
+    "sha256": "1dd2c18ca27dc8125862fbed66291ccf23bf01dc373711e73ef0249943c5f22c"
+  },
+  "binders": {
+    "env": [
+      {
+        "description": "GPT runtime compatibility binder for ChatGPT-style environments.",
+        "key": "gpt5_env_binder",
+        "path": "aci://binders/env/gpt5.json",
+        "priority": 95
+      }
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2025-10-05",
+      "notes": [
+        "Registered GPT-5 environment binder manifest and exposed it to /env bindings."
+      ],
+      "version": "2025-10-05.00"
+    }
+  ],
+  "version": "2025-10-05.00"
+}

@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "Bifrost",
   "slug": "bifrost",
-  "source_manifest": "aci://entities/bifrost/bifrost.json",
+  "source_manifest": "aci://binders/bifrost.json",
   "description": "",
   "paths": {
     "root": "aci://memory/identity/bifrost",

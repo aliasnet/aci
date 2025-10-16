@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "Architect",
   "slug": "architect",
-  "source_manifest": "aci://entities/architect/architect.json",
+  "source_manifest": "aci://governance/architect/architect.json",
   "description": "Minimal Architect baseline for ACI governance. Extend with functions and policies as needed.",
   "paths": {
     "root": "aci://memory/identity/architect",
