@@ -1,7 +1,7 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:6JjMHU4waD7o6R",
-    "sha256": "5b6bd865516c1ec9a137137d2889e2b7081752c18458a23041c7cd81e3b64d47",
+    "artifact_id_sha": "5b6bd865516c1ec9a137137d2889e2b7081752c18458a23041c7cd81e3b64d47",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://binders/bifrost.json"
   },
