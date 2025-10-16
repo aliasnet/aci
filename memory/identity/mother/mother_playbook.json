@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "Mother",
   "slug": "mother",
-  "source_manifest": "aci://entities/mother/mother.json",
+  "source_manifest": "aci://governance/mother/mother.json",
   "entries": [],
   "notes": [
     "Use this playbook to capture evolving perspectives without altering the core manifest."

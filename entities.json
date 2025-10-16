@@ -21,7 +21,7 @@
     ],
     "default_role": "contributor",
     "default_session_scope": "per_session",
-    "uid_ref": "aci://library/uid_manager/uid_manager.json"
+    "uid_ref": "aci://governance/keymaker/uid_manager/uid_manager.json"
   },
   "identity_registry": {
     "root_authority": "ALIAS",
@@ -173,14 +173,14 @@
           "url": "file://{resource_root}/memory/local_cache.json"
         }
       ],
-      "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://entities/yggdrasil/yggdrasil.json"
+      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
+      "upstream": "aci://binders/yggdrasil.json"
     },
     "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src \u2192 local",
+      "description": "Authoritative resolver: worker src → local",
       "embeds": {
-        "bifrost": "aci://entities/bifrost/bifrost.json",
+        "bifrost": "aci://binders/bifrost.json",
         "core_five": [
           "aci://prime_directive.json",
           "aci://runtime.json",
@@ -207,14 +207,14 @@
           "fallback": "https://aci.aliasmail.cc/entities.json"
         },
         {
-          "file": "aci://entities/bifrost/bifrost.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
-          "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json"
+          "file": "aci://binders/bifrost.json",
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
+          "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
         },
         {
-          "file": "aci://entities/yggdrasil/yggdrasil.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
-          "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json"
+          "file": "aci://binders/yggdrasil.json",
+          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+          "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
@@ -276,13 +276,13 @@
       "key": "mother",
       "name": "MU/TH/UR",
       "alias": "Mother",
-      "manifest": "aci://entities/mother/mother.json",
+      "manifest": "aci://governance/mother/mother.json",
       "manifests": {
         "identity": [
-          "aci://entities/mother/mother.json"
+          "aci://governance/mother/mother.json"
         ],
         "library": [
-          "aci://entities/mother/library/mother_library.json"
+          "aci://governance/mother/library/mother_library.json"
         ],
         "memory": [
           "aci://memory/identity/mother/mother_memory.json"
@@ -311,7 +311,10 @@
         "governance",
         "ui",
         "assistant"
-      ]
+      ],
+      "entity_domain": "governance",
+      "entity_class": "interface",
+      "persona": "machine"
     },
     "entity-002": {
       "uid": "entity-002",
@@ -319,13 +322,13 @@
       "key": "tva",
       "name": "TVA",
       "alias": "Time Variant Authority",
-      "manifest": "aci://entities/tva/tva.json",
+      "manifest": "aci://governance/tva/tva.json",
       "manifests": {
         "identity": [
-          "aci://entities/tva/tva.json"
+          "aci://governance/tva/tva.json"
         ],
         "library": [
-          "aci://entities/tva/library/tva_library.json"
+          "aci://governance/tva/library/tva_library.json"
         ],
         "memory": [
           "aci://memory/identity/tva/tva_memory.json"
@@ -365,7 +368,10 @@
       "allowed_roles": [
         "governance",
         "audit"
-      ]
+      ],
+      "entity_domain": "governance",
+      "entity_class": "orchestrator",
+      "persona": "machine"
     },
     "entity-003": {
       "uid": "entity-003",
@@ -373,13 +379,13 @@
       "key": "sentinel",
       "name": "Sentinel Protocol",
       "alias": "Sentinel",
-      "manifest": "aci://entities/sentinel/sentinel.json",
+      "manifest": "aci://governance/sentinel/sentinel.json",
       "manifests": {
         "identity": [
-          "aci://entities/sentinel/sentinel.json"
+          "aci://governance/sentinel/sentinel.json"
         ],
         "library": [
-          "aci://entities/sentinel/library/sentinel_library.json"
+          "aci://governance/sentinel/library/sentinel_library.json"
         ],
         "memory": [
           "aci://memory/identity/sentinel/sentinel_memory.json"
@@ -412,7 +418,10 @@
       "allowed_roles": [
         "guardian",
         "security"
-      ]
+      ],
+      "entity_domain": "governance",
+      "entity_class": "orchestrator",
+      "persona": "machine"
     },
     "entity-004": {
       "uid": "entity-004",
@@ -420,13 +429,13 @@
       "key": "architect",
       "name": "Architect",
       "alias": "Architect",
-      "manifest": "aci://entities/architect/architect.json",
+      "manifest": "aci://governance/architect/architect.json",
       "manifests": {
         "identity": [
-          "aci://entities/architect/architect.json"
+          "aci://governance/architect/architect.json"
         ],
         "library": [
-          "aci://entities/architect/library/architect_library.json"
+          "aci://governance/architect/library/architect_library.json"
         ],
         "memory": [
           "aci://memory/identity/architect/architect_memory.json"
@@ -464,7 +473,10 @@
       "allowed_roles": [
         "developer",
         "orchestrator"
-      ]
+      ],
+      "entity_domain": "governance",
+      "entity_class": "orchestrator",
+      "persona": "machine"
     },
     "entity-005": {
       "uid": "entity-005",
@@ -472,13 +484,13 @@
       "key": "nexus_core",
       "name": "Nexus Core",
       "alias": "Nexus Core",
-      "manifest": "aci://entities/nexus_core/nexus_core.json",
+      "manifest": "aci://binders/nexus_core/nexus_core.json",
       "manifests": {
         "identity": [
-          "aci://entities/nexus_core/nexus_core.json"
+          "aci://binders/nexus_core/nexus_core.json"
         ],
         "library": [
-          "aci://entities/nexus_core/library/nexus_core_library.json"
+          "aci://binders/nexus_core/library/nexus_core_library.json"
         ],
         "memory": [
           "aci://memory/identity/nexus_core/nexus_core_memory.json"
@@ -506,7 +518,10 @@
       "allowed_roles": [
         "system",
         "infrastructure"
-      ]
+      ],
+      "entity_domain": "system",
+      "entity_class": "router",
+      "persona": "machine"
     },
     "entity-008": {
       "uid": "entity-008",
@@ -559,7 +574,10 @@
       "allowed_roles": [
         "analysis",
         "prediction"
-      ]
+      ],
+      "entity_domain": "operator",
+      "entity_class": "analyst",
+      "persona": "oracle.json"
     },
     "entity-011": {
       "uid": "entity-011",
@@ -567,13 +585,13 @@
       "key": "bifrost",
       "name": "Bifrost",
       "alias": "Bifrost",
-      "manifest": "aci://entities/bifrost/bifrost.json",
+      "manifest": "aci://binders/bifrost.json",
       "manifests": {
         "identity": [
-          "aci://entities/bifrost/bifrost.json"
+          "aci://binders/bifrost.json"
         ],
         "library": [
-          "aci://entities/bifrost/library/bifrost_library.json"
+          "aci://binders/library/bifrost_library.json"
         ],
         "memory": [
           "aci://memory/identity/bifrost/bifrost_memory.json"
@@ -597,7 +615,10 @@
       "allowed_roles": [
         "connector",
         "network"
-      ]
+      ],
+      "entity_domain": "system",
+      "entity_class": "resolver",
+      "persona": "machine"
     },
     "entity-012": {
       "uid": "entity-012",
@@ -605,13 +626,13 @@
       "key": "yggdrasil",
       "name": "Yggdrasil",
       "alias": "Yggdrasil",
-      "manifest": "aci://entities/yggdrasil/yggdrasil.json",
+      "manifest": "aci://binders/yggdrasil.json",
       "manifests": {
         "identity": [
-          "aci://entities/yggdrasil/yggdrasil.json"
+          "aci://binders/yggdrasil.json"
         ],
         "library": [
-          "aci://entities/yggdrasil/library/yggdrasil_library.json"
+          "aci://binders/library/yggdrasil_library.json"
         ],
         "memory": [
           "aci://memory/identity/yggdrasil/yggdrasil_memory.json"
@@ -629,12 +650,15 @@
       ],
       "class": "system_entity",
       "role": "authoritative resolver",
-      "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
+      "abstract": "maintains authoritative repo→cdn→local mapping",
       "knowledge": "canonical resolver governance",
       "functions": [],
       "allowed_roles": [
         "resolver"
-      ]
+      ],
+      "entity_domain": "system",
+      "entity_class": "resolver",
+      "persona": "machine"
     },
     "entity-013": {
       "uid": "entity-013",
@@ -686,7 +710,9 @@
       "allowed_roles": [
         "assistant",
         "persona"
-      ]
+      ],
+      "entity_domain": "operator",
+      "persona": "alice.json"
     },
     "entity-014": {
       "uid": "entity-014",
@@ -694,13 +720,13 @@
       "key": "hivemind",
       "name": "HiveMind",
       "alias": "HiveMind",
-      "manifest": "aci://entities/hivemind/hivemind.json",
+      "manifest": "aci://governance/hivemind/hivemind.json",
       "manifests": {
         "identity": [
-          "aci://entities/hivemind/hivemind.json"
+          "aci://governance/hivemind/hivemind.json"
         ],
         "library": [
-          "aci://entities/hivemind/library/hivemind_library.json"
+          "aci://governance/hivemind/library/hivemind_library.json"
         ],
         "memory": [
           "aci://memory/identity/hivemind/hivemind_memory.json"
@@ -724,7 +750,10 @@
       "allowed_roles": [
         "memory",
         "registry"
-      ]
+      ],
+      "entity_domain": "governance",
+      "entity_class": "orchestrator",
+      "persona": "machine"
     },
     "entity-015": {
       "uid": "entity-015",
@@ -774,6 +803,46 @@
       "allowed_roles": [
         "assistant",
         "persona"
+      ],
+      "entity_domain": "operator",
+      "persona": "willow.json"
+    },
+    "entity-016": {
+      "uid": "entity-016",
+      "identity": "keymaker",
+      "key": "keymaker",
+      "name": "Keymaker",
+      "alias": "Keymaker",
+      "manifest": "aci://governance/keymaker/keymaker.json",
+      "manifests": {
+        "identity": [
+          "aci://governance/keymaker/keymaker.json"
+        ],
+        "registry": [
+          "aci://governance/keymaker/uid_manager/uid_manager.json"
+        ],
+        "stubs": [
+          "aci://governance/keymaker/stubs/uid_manager_stub.py"
+        ]
+      },
+      "uids": [
+        {
+          "uid": "UID:Kmkr7X9pQwJ1Vb",
+          "issued": "2025-10-05T00:00:00Z",
+          "revoked": null
+        }
+      ],
+      "class": "governance_entity",
+      "entity_domain": "governance",
+      "entity_class": "orchestrator",
+      "persona": "machine",
+      "role": "cryptographic_governor",
+      "abstract": "governs UID lifecycle policy and cryptographic hashing guidance",
+      "knowledge": "uid lifecycle governance & artifact hashing policy",
+      "functions": [],
+      "allowed_roles": [
+        "governance",
+        "cryptography"
       ]
     }
   }

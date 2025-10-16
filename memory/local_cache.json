@@ -104,7 +104,7 @@
         "resolve_order": "validate_local_then_return",
         "on_failure": {
           "action": "fallback_to_connector",
-          "target": "aci://entities/bifrost/bifrost.json#bifrost_resource_resolution_policy",
+          "target": "aci://binders/bifrost.json#bifrost_resource_resolution_policy",
           "alert": "resource.validation_failed"
         }
       },
@@ -117,9 +117,9 @@
     "link_index": {
       "README.md": "{resource_root}/README.md",
       "runtime.json": "{resource_root}/runtime.json",
-      "entities/yggdrasil/yggdrasil.json": "{resource_root}/entities/yggdrasil/yggdrasil.json",
+      "binders/yggdrasil.json": "{resource_root}/binders/yggdrasil.json",
       "entities.json": "{resource_root}/entities.json",
-      "entities/bifrost/bifrost.json": "{resource_root}/entities/bifrost/bifrost.json"
+      "binders/bifrost.json": "{resource_root}/binders/bifrost.json"
     },
     "signatures": {
       "required": [

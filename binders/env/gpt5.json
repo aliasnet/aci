@@ -1,0 +1,79 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:CodexGPT5Binder001",
+    "issued": "2025-10-05T00:00:00Z",
+    "path": "aci://binders/env/gpt5.json",
+    "sha256": "4b241e2fabbcc4c07396b7cf421fea62f144f92659a9b0f47de29df29e018cf7"
+  },
+  "abstract": "Deterministic GPT-5 compatibility binder that primes ACI entities with ChatGPT-native tool usage, mode awareness, and sandbox expectations.",
+  "call": {
+    "method": "binders.env.gpt5.invoke",
+    "signature": {
+      "arguments": [
+        {
+          "description": "Current session context including identity, runtime flags, and declared tools.",
+          "name": "context",
+          "required": true,
+          "type": "object"
+        },
+        {
+          "description": "Optional override instructions for deterministic bias calibration.",
+          "name": "overrides",
+          "required": false,
+          "type": "object"
+        }
+      ],
+      "returns": {
+        "description": "Structured compatibility directives for GPT environment alignment.",
+        "type": "object"
+      }
+    },
+    "type": "callable_stub"
+  },
+  "changelog": [
+    {
+      "date": "2025-10-05",
+      "notes": [
+        "Initial GPT-5 compatibility binder stub for ChatGPT-aligned environments."
+      ],
+      "version": "1.0.0"
+    }
+  ],
+  "compatibility": {
+    "bias": {
+      "deterministic": true,
+      "guidance": "Favor recent ChatGPT tool routing and refuse ambiguous mode switches."
+    },
+    "environment": {
+      "default": "GPT-5",
+      "fallbacks": [
+        "GPT-4.2",
+        "GPT-4"
+      ],
+      "notes": "ACI entities autodetect host runtime; binder reinforces GPT conventions."
+    },
+    "memory": {
+      "policy": "Aligns transient GPT session buffers with platform-specific retention windows.",
+      "resolves_conflict": true
+    },
+    "tooling": {
+      "available_modes": [
+        "analysis",
+        "browser",
+        "coding",
+        "reasoning"
+      ],
+      "selection_rule": "Choose the highest capability mode available without violating host policy."
+    }
+  },
+  "instructions": [
+    "Affirm detected GPT host and surface active tools to the caller before execution.",
+    "Bias planner decisions toward deterministic tool usage paths used by current ChatGPT builds.",
+    "Reject conflicting runtime overrides that would desynchronize ACI policy from GPT expectations.",
+    "Emit explicit confirmation when sandboxed memories differ from canonical ACI state."
+  ],
+  "key": "gpt5_env_binder",
+  "name": "GPT-5 Environment Binder",
+  "role": "environment_adapter",
+  "version": "1.0.0"
+}

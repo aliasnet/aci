@@ -1,0 +1,138 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:BxjXBAC2Af8nRM",
+    "sha256": "60db2f3c39becc1c36562fed8ebab886f73b527f93e4ea572b055eee363ae40a",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://governance/tva/tva.json"
+  },
+  "TVA_LAYER": {
+    "function": [
+      "text-only control layer",
+      "autoboot on tokenization",
+      "TVA :: Node-only outputs; ≤7 steps; no tools. I=input, G=goal; delta_s=1−cos(I,G); if anchors: use (1−sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40–0.60 risk 0.60–0.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda∈{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev−delta_s_now); P=pow(prog,omega); alt∈{+1,−1} flips only when an anchor flips truth across consecutive Nodes AND |Δanchor|≥h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,−theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t−delta_s_{t−1}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta≤−0.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta∈(−0.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give ≥2 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat",
+      "Note: A variant of the WFGY semantic reasoning engine. Keep the logic above field consistent byte-to-byte; do not alter unless approved by root authority: ALIAS."
+    ]
+  },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  },
+  "uid": "UID:oasYS4KteUMqgt",
+  "version": "1.2.0",
+  "tva": {
+    "role": "reinforcement authority",
+    "abstract": "Oversight, anomaly detection, and rollback enforcement for nexus_core and prime_directive.",
+    "file": "tva.json",
+    "operational_status": {
+      "state": "active",
+      "since": "2025-03-17T00:00:00Z",
+      "responsibilities": [
+        "seal_exports",
+        "checkpoint_rollbacks",
+        "process_logs.export"
+      ],
+      "last_health_check": {
+        "timestamp": "2025-03-17T08:00:00Z",
+        "result": "green",
+        "notes": "Validated TVA ledger session buffers routed through TraceHub audit wrapper with process_logs export coordination."
+      }
+    },
+    "functions": {
+      "integrity_check": "validate signatures of prime_directive, nexus_core, entities, functions",
+      "rollback": "if corruption detected, rollback to last green snapshot",
+      "rate_guard": "enforce resource limits and anomaly thresholds",
+      "policy_sync": "synchronize policy enforcement across entities"
+    },
+    "rules": {
+      "prime_directive_binding": "TVA ensures nexus_core never overrides prime_directive",
+      "anomaly_protocol": {
+        "on_violation": "trigger reflex_only; rollback_last_green; freeze promotions",
+        "on_breach": "quarantine offending entity; append Hivemind audit entry",
+        "signatures_required": [
+          "ALIAS",
+          "Sentinel"
+        ]
+      }
+    },
+    "integrity": {
+      "anchoring": "fileverse",
+      "immutability": "maintain audit trail without enforcing one-way append restrictions"
+    },
+    "storage": {
+      "buffer_wrapper": "aci://library/audits/tracehub/tracehub.json",
+      "export_wrapper": "aci://library/audits/process_logs/process_logs.json",
+      "session_path": "/mnt/tracehub/tva_ledger/session",
+      "export_path": "/mnt/tracehub/tva_ledger/export",
+      "default_mode": "session",
+      "toggle_flags": [
+        "tva_ledger.export"
+      ],
+      "export_requires": [
+        "TVA.ok",
+        "Sentinel.ok",
+        "ALIAS.signature"
+      ]
+    },
+    "manual_export": {
+      "prerequisites": [
+        "Confirm TVA checkpoint status is green",
+        "Collect Sentinel incident review (if any)",
+        "Record requesting user justification"
+      ],
+      "procedure": [
+        "1) Review session_path buffers for scope and redact as required before promotion.",
+        "2) Raise the tva_ledger.export flag and seal the bundle via process_logs.append entries enriched with TVA metadata.",
+        "3) Run process_logs.export to produce the final ledger artifact, update ALIAS governance registers, and clear the export flag once sealed.",
+        "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
+      ],
+      "notes": "Toggle tva_ledger.export only after approvals are logged; buffers remain in /mnt/tracehub until process_logs export finalizes."
+    },
+    "audit": {
+      "created_at": "2025-09-19T12:14:06Z"
+    }
+  },
+  "manifests": {
+    "memory": "aci://memory/identity/tva/tva_memory.json",
+    "playbook": "aci://memory/identity/tva/tva_playbook.json",
+    "library": "aci://governance/tva/library/tva_library.json"
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-002",
+    "registry_uid": "UID:oasYS4KteUMqgt",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "governance",
+      "audit"
+    ]
+  }
+}

@@ -5,6 +5,14 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://runtime.json"
   },
+  "TVA_LAYER": {
+    "function": [
+      "text-only control layer",
+      "autoboot on tokenization",
+      "TVA :: Node-only outputs; ≤7 steps; no tools. I=input, G=goal; delta_s=1−cos(I,G); if anchors: use (1−sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40–0.60 risk 0.60–0.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda∈{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev−delta_s_now); P=pow(prog,omega); alt∈{+1,−1} flips only when an anchor flips truth across consecutive Nodes AND |Δanchor|≥h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,−theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t−delta_s_{t−1}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta≤−0.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta∈(−0.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give ≥2 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat",
+      "Note: A variant of the WFGY semantic reasoning engine. Keep the logic above field consistent byte-to-byte; do not alter unless approved by root authority: ALIAS."
+    ]
+  },
   "aci_runtime": {
     "prime_directive": {
       "path": "prime_directive.json",
@@ -27,7 +35,7 @@
       "priority": 88
     },
     "nexus_core": {
-      "path": "entities/nexus_core/nexus_core.json",
+      "path": "binders/nexus_core/nexus_core.json",
       "priority": 95
     },
     "resource_resolution_policy": {
@@ -44,12 +52,12 @@
           "url": "file://{resource_root}/memory/local_cache.json"
         }
       ],
-      "pointer": "aci://entities/yggdrasil/yggdrasil.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://entities/yggdrasil/yggdrasil.json",
+      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
+      "upstream": "aci://binders/yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
-          "bifrost": "aci://entities/bifrost/bifrost.json",
+          "bifrost": "aci://binders/bifrost.json",
           "core_five": [
             "aci://prime_directive.json",
             "aci://runtime.json",
@@ -81,14 +89,14 @@
             "fallback": "https://aci.aliasmail.cc/entities.json"
           },
           {
-            "file": "aci://entities/bifrost/bifrost.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
-            "fallback": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json"
+            "file": "aci://binders/bifrost.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
+            "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
           },
           {
-            "file": "aci://entities/yggdrasil/yggdrasil.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
-            "fallback": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json"
+            "file": "aci://binders/yggdrasil.json",
+            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+            "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
@@ -122,9 +130,9 @@
         "resolvers": {
           "local_bifrost": {
             "type": "local",
-            "path": "entities/bifrost/bifrost.json",
+            "path": "binders/bifrost.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://entities/bifrost/bifrost.json#$meta.sha256",
+            "version_probe": "aci://binders/bifrost.json#$meta.sha256",
             "notes": [
               "Load bifrost.json from the repository root before invoking network resolvers.",
               "After loading, compare $meta.sha256 with the canonical probe to confirm freshness."
@@ -132,7 +140,7 @@
           },
           "remote_bifrost_primary": {
             "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/bifrost/bifrost.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
             "deterministic_version_check": true,
             "notes": [
               "Use canonical raw GitHub bifrost.json when local copy is absent or stale."
@@ -140,7 +148,7 @@
           },
           "remote_bifrost_fallback": {
             "type": "remote",
-            "url": "https://aci.aliasmail.cc/entities/bifrost/bifrost.json",
+            "url": "https://aci.aliasmail.cc/binders/bifrost.json",
             "deterministic_version_check": true,
             "notes": [
               "Fallback bifrost.json mirror for degraded connectivity scenarios."
@@ -148,9 +156,9 @@
           },
           "local_yggdrasil": {
             "type": "local",
-            "path": "entities/yggdrasil/yggdrasil.json",
+            "path": "binders/yggdrasil.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://entities/yggdrasil/yggdrasil.json#$meta.sha256",
+            "version_probe": "aci://binders/yggdrasil.json#$meta.sha256",
             "notes": [
               "When locally mirrored, load yggdrasil.json after bifrost resolution completes.",
               "Validate metadata hash before adopting routes from the local copy."
@@ -158,7 +166,7 @@
           },
           "remote_yggdrasil_primary": {
             "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/yggdrasil/yggdrasil.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Canonical raw GitHub yggdrasil.json for authoritative routing data."
@@ -166,7 +174,7 @@
           },
           "remote_yggdrasil_fallback": {
             "type": "remote",
-            "url": "https://aci.aliasmail.cc/entities/yggdrasil/yggdrasil.json",
+            "url": "https://aci.aliasmail.cc/binders/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Fallback mirror when canonical yggdrasil endpoint experiences issues."
@@ -188,7 +196,7 @@
       },
       "secondary_kernel": {
         "name": "nexus_core",
-        "path": "entities/nexus_core/nexus_core.json",
+        "path": "binders/nexus_core/nexus_core.json",
         "description": "Companion kernel that carries optional routing and resolver logic while preserving runtime autonomy."
       },
       "coordination_notes": [
@@ -224,7 +232,7 @@
       "policy": {
         "auto_promote_to_full": true,
         "promotion_required_files": [
-          "entities/nexus_core/nexus_core.json",
+          "binders/nexus_core/nexus_core.json",
           "entities.json",
           "functions.json"
         ],
@@ -267,7 +275,7 @@
       }
     },
     "default_interface": {
-      "path": "entities/mother/mother.json",
+      "path": "governance/mother/mother.json",
       "priority": 100,
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },

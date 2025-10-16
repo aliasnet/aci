@@ -10,8 +10,8 @@
   "role": "package_manager",
   "notes": "Standalone, mirror-agnostic package manager for ACI. All instructions inline; only external state file is aci_repo_manifest.",
   "references": {
-    "bifrost": "entities/bifrost/bifrost.json",
-    "yggdrasil": "entities/yggdrasil/yggdrasil.json"
+    "bifrost": "binders/bifrost.json",
+    "yggdrasil": "binders/yggdrasil.json"
   },
   "resolution_policy": {
     "primary": "bifrost",
