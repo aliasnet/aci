@@ -2,7 +2,7 @@
   "$meta": {
     "artifact_id": "ArtifactID:5Qait9JyLjCoQ8",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://binders/yggdrasil.json",
+    "path": "aci://yggdrasil.json",
     "file": "yggdrasil.json"
   },
   "permissions": {
@@ -74,7 +74,7 @@
     "knowledge": "canonical resolver governance",
     "name": "Yggdrasil",
     "references": {
-      "policy": "aci://binders/yggdrasil.json"
+      "policy": "aci://yggdrasil.json"
     },
     "role": "authoritative repository and CDN resolver",
     "version": "1.3.0",
@@ -109,8 +109,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
         },
         {
-          "file": "aci://binders/yggdrasil.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+          "file": "aci://yggdrasil.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
@@ -966,8 +966,8 @@
                 "files": [
                   {
                     "name": "yggdrasil.json",
-                    "path": "aci://binders/yggdrasil.json",
-                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+                    "path": "aci://yggdrasil.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
                   }
                 ],
                 "children": [
@@ -1193,8 +1193,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
         },
         {
-          "file": "aci://binders/yggdrasil.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+          "file": "aci://yggdrasil.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
@@ -1221,6 +1221,6 @@
       "resolver"
     ]
   },
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

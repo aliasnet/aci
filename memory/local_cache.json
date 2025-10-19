@@ -104,7 +104,7 @@
         "resolve_order": "validate_local_then_return",
         "on_failure": {
           "action": "fallback_to_connector",
-          "target": "aci://binders/yggdrasil.json#resource_resolution_policy",
+          "target": "aci://yggdrasil.json#resource_resolution_policy",
           "alert": "resource.validation_failed"
         }
       },
@@ -117,7 +117,7 @@
     "link_index": {
       "README.md": "{resource_root}/README.md",
       "runtime.json": "{resource_root}/runtime.json",
-      "binders/yggdrasil.json": "{resource_root}/binders/yggdrasil.json",
+      "yggdrasil.json": "{resource_root}/yggdrasil.json",
       "entities.json": "{resource_root}/entities.json"
     },
     "signatures": {
@@ -156,5 +156,5 @@
     "resource_slug": "aliasnet/aci"
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

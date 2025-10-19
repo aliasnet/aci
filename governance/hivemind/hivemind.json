@@ -574,5 +574,5 @@
     ]
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/hivemind/hivemind.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

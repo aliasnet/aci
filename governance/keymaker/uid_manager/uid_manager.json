@@ -46,7 +46,7 @@
       "identity": "yggdrasil",
       "name": "Yggdrasil",
       "entity_uid": "UID:VGpYGJwtbdHQHp",
-      "manifest": "aci://binders/yggdrasil.json"
+      "manifest": "aci://yggdrasil.json"
     },
     {
       "identity": "alice",
@@ -74,5 +74,5 @@
     }
   ],
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/keymaker/uid_manager/uid_manager.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

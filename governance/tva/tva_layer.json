@@ -16,7 +16,7 @@
     "mapping": {
       "entries": [
         {
-          "path": "aci://binders/yggdrasil.json",
+          "path": "aci://yggdrasil.json",
           "role": "embedded"
         },
         {
@@ -40,5 +40,5 @@
     }
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/tva_layer.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

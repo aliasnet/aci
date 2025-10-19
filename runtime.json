@@ -50,8 +50,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
         }
       ],
-      "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
-      "upstream": "aci://binders/yggdrasil.json",
+      "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+      "upstream": "aci://yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
@@ -83,8 +83,8 @@
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
           },
           {
-            "file": "aci://binders/yggdrasil.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+            "file": "aci://yggdrasil.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
@@ -110,9 +110,9 @@
         "resolvers": {
           "local_yggdrasil": {
             "type": "local",
-            "path": "binders/yggdrasil.json",
+            "path": "yggdrasil.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://binders/yggdrasil.json#$meta.artifact_id",
+            "version_probe": "aci://yggdrasil.json#$meta.artifact_id",
             "notes": [
               "Load local yggdrasil.json first when present to enable offline resolution.",
               "Validate metadata artifact_id before adopting routes from the local copy."
@@ -120,7 +120,7 @@
           },
           "remote_yggdrasil": {
             "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Canonical raw GitHub yggdrasil.json for authoritative routing data."
@@ -507,7 +507,7 @@
     }
   },
   "resource_resolution_policy": {
-    "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
     "yggdrasil_resource_resolution_policy": {
       "embeds": {
         "tva_layer": "aci://governance/tva/tva_layer.json"
@@ -518,8 +518,8 @@
         "local"
       ]
     },
-    "upstream": "aci://binders/yggdrasil.json"
+    "upstream": "aci://yggdrasil.json"
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

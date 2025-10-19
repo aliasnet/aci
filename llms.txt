@@ -4,7 +4,7 @@
     "role": "aci_mcp_server",
     "description": "Local mirror of Yggdrasil-linked directory tree for MCP server anchoring"
   },
-  "source_manifest": "aci://binders/yggdrasil.json",
+  "source_manifest": "aci://yggdrasil.json",
   "tree": [
     {
       "name": ".",
@@ -842,8 +842,8 @@
               "name": "yggdrasil",
               "files": [
                 {
-                  "path": "aci://binders/yggdrasil.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+                  "path": "aci://yggdrasil.json",
+                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json",
                   "name": "yggdrasil.json"
                 }
               ],
@@ -1033,5 +1033,5 @@
     }
   ],
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/llms.txt",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

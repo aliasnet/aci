@@ -6,8 +6,8 @@
     "file": "functions.json"
   },
   "resource_resolution_policy": {
-    "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
-    "upstream": "aci://binders/yggdrasil.json"
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+    "upstream": "aci://yggdrasil.json"
   },
   "functions": {
     "scheduler.task.create": {
@@ -1317,8 +1317,8 @@
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
       },
       {
-        "file": "aci://binders/yggdrasil.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+        "file": "aci://yggdrasil.json",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
       },
       {
         "file": "aci://functions.json",
@@ -1344,5 +1344,5 @@
     }
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

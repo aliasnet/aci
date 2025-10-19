@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "Yggdrasil",
   "slug": "yggdrasil",
-  "source_manifest": "aci://binders/yggdrasil.json",
+  "source_manifest": "aci://yggdrasil.json",
   "entries": [],
   "notes": [
     "Use this playbook to capture evolving perspectives without altering the core manifest."
