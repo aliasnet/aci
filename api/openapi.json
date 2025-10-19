@@ -1,5 +1,5 @@
 {
-  "title": "OpenAPI",
+  "module": "OpenAPI",
   "version": "1.0",
   "catalog": "LLM-based headless open APIs (no-auth; direct-fetch)",
   "workflow": {
