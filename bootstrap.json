@@ -27,8 +27,8 @@
       }
     },
     "resource_resolution_policy": {
-      "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
-      "upstream": "aci://binders/yggdrasil.json",
+      "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+      "upstream": "aci://yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
@@ -56,8 +56,8 @@
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
           },
           {
-            "file": "aci://binders/yggdrasil.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+            "file": "aci://yggdrasil.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
@@ -119,7 +119,7 @@
     "notes": "Manifest enforces preflight promotion check. If promotion fails, runtime enters sandbox and waits (with retries) before final decision."
   },
   "resource_resolution_policy": {
-    "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
     "embeds": {
       "tva_layer": "aci://governance/tva/tva_layer.json"
     },
@@ -130,5 +130,5 @@
     ]
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

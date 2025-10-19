@@ -172,8 +172,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
         }
       ],
-      "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
-      "upstream": "aci://binders/yggdrasil.json"
+      "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+      "upstream": "aci://yggdrasil.json"
     },
     "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
     "yggdrasil_resource_resolution_policy": {
@@ -203,8 +203,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
         },
         {
-          "file": "aci://binders/yggdrasil.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+          "file": "aci://yggdrasil.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
@@ -571,10 +571,10 @@
       "key": "yggdrasil",
       "name": "Yggdrasil",
       "alias": "Yggdrasil",
-      "manifest": "aci://binders/yggdrasil.json",
+      "manifest": "aci://yggdrasil.json",
       "manifests": {
         "identity": [
-          "aci://binders/yggdrasil.json"
+          "aci://yggdrasil.json"
         ],
         "library": [
           "aci://binders/library/yggdrasil_library.json"
@@ -792,5 +792,5 @@
     }
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }
