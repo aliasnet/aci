@@ -2,7 +2,7 @@
   "$meta": {
     "artifact_id": "ArtifactID:5KeyMgrUIDR1",
     "issued": "2025-10-05T00:00:00Z",
-    "path": "aci://governance/keymaker/uid_manager/uid_manager.json",
+    "path": "aci://entities/keymaker/uid_manager/uid_manager.json",
     "file": "uid_manager.json"
   },
   "registry": [
@@ -10,31 +10,25 @@
       "identity": "mother",
       "name": "MU/TH/UR",
       "entity_uid": "UID:8W1VZghdkNyAKR",
-      "manifest": "aci://governance/mother/mother.json"
+      "manifest": "aci://entities/mother/mother.json"
     },
     {
       "identity": "tva",
       "name": "TVA",
       "entity_uid": "UID:oasYS4KteUMqgt",
-      "manifest": "aci://governance/tva/tva.json"
+      "manifest": "aci://entities/tva/tva.json"
     },
     {
       "identity": "sentinel",
       "name": "Sentinel Protocol",
       "entity_uid": "UID:1jnkVHmEiGviDj",
-      "manifest": "aci://governance/sentinel/sentinel.json"
+      "manifest": "aci://entities/sentinel/sentinel.json"
     },
     {
       "identity": "architect",
       "name": "Architect",
       "entity_uid": "UID:12LoYXyQkAA7E4",
-      "manifest": "aci://governance/architect/architect.json"
-    },
-    {
-      "identity": "nexus_core",
-      "name": "Nexus Core",
-      "entity_uid": "UID:rGUGWBDT6VjC8K",
-      "manifest": "aci://binders/nexus_core/nexus_core.json"
+      "manifest": "aci://entities/architect/architect.json"
     },
     {
       "identity": "oracle",
@@ -46,7 +40,7 @@
       "identity": "yggdrasil",
       "name": "Yggdrasil",
       "entity_uid": "UID:VGpYGJwtbdHQHp",
-      "manifest": "aci://yggdrasil.json"
+      "manifest": "aci://binders/yggdrasil.json"
     },
     {
       "identity": "alice",
@@ -58,7 +52,7 @@
       "identity": "hivemind",
       "name": "HiveMind",
       "entity_uid": "UID:cHGwvtRkDRG7rV",
-      "manifest": "aci://governance/hivemind/hivemind.json"
+      "manifest": "aci://entities/hivemind/hivemind.json"
     },
     {
       "identity": "willow",
@@ -70,9 +64,9 @@
       "identity": "keymaker",
       "name": "Keymaker",
       "entity_uid": "UID:Kmkr7X9pQwJ1Vb",
-      "manifest": "aci://governance/keymaker/keymaker.json"
+      "manifest": "aci://entities/keymaker/keymaker.json"
     }
   ],
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/keymaker/uid_manager/uid_manager.json",
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/keymaker/uid_manager/uid_manager.json",
   "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }
