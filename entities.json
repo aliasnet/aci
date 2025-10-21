@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:85hGicmdkH9ff3",
-    "sha256": "a81311cfb9e7c08821ed8d71eb8ff12bd8a79d972a7e414916b7d93b8dca342f",
     "issued": "2025-10-05T00:00:00Z",
-    "path": "aci://entities.json"
+    "path": "aci://entities.json",
+    "file": "entities.json"
   },
   "identity_policies": {
     "case_sensitive": true,
@@ -168,71 +168,57 @@
           "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Local cache now resides under aci://memory/local_cache.json.",
           "path_hint": "{resource_root}",
           "alias_hint": "aci://cache",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main",
-          "fallback": "https://aci.aliasmail.cc",
-          "url": "file://{resource_root}/memory/local_cache.json"
+          "url": "file://{resource_root}/memory/local_cache.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
         }
       ],
-      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://binders/yggdrasil.json"
+      "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+      "upstream": "aci://yggdrasil.json"
     },
     "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src → local",
+      "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
-        "bifrost": "aci://binders/bifrost.json",
         "core_five": [
           "aci://prime_directive.json",
           "aci://runtime.json",
           "aci://entities.json",
           "aci://functions.json",
           "aci://bootstrap.json"
-        ]
+        ],
+        "tva_layer": "aci://governance/tva/tva_layer.json"
       },
       "git_is_canonical": true,
       "mapping": [
         {
           "file": "aci://bootstrap.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-          "fallback": "https://aci.aliasmail.cc/bootstrap.json"
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
         },
         {
           "file": "aci://runtime.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-          "fallback": "https://aci.aliasmail.cc/runtime.json"
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
         },
         {
           "file": "aci://entities.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-          "fallback": "https://aci.aliasmail.cc/entities.json"
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
         },
         {
-          "file": "aci://binders/bifrost.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
-          "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
-        },
-        {
-          "file": "aci://binders/yggdrasil.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
-          "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
+          "file": "aci://yggdrasil.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
         },
         {
           "file": "aci://functions.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-          "fallback": "https://aci.aliasmail.cc/functions.json"
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
         },
         {
           "file": "aci://prime_directive.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
-          "fallback": "https://aci.aliasmail.cc/prime_directive.json"
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
         }
       ],
       "resolver_order": [
-        "primary",
-        "fallback",
+        "raw",
         "local"
-      ],
-      "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+      ]
     }
   },
   "permissions": {
@@ -579,57 +565,16 @@
       "entity_class": "analyst",
       "persona": "oracle.json"
     },
-    "entity-011": {
-      "uid": "entity-011",
-      "identity": "bifrost",
-      "key": "bifrost",
-      "name": "Bifrost",
-      "alias": "Bifrost",
-      "manifest": "aci://binders/bifrost.json",
-      "manifests": {
-        "identity": [
-          "aci://binders/bifrost.json"
-        ],
-        "library": [
-          "aci://binders/library/bifrost_library.json"
-        ],
-        "memory": [
-          "aci://memory/identity/bifrost/bifrost_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/bifrost/bifrost_playbook.json"
-        ]
-      },
-      "uids": [
-        {
-          "uid": "UID:HXGXQipVLEFKL4",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      ],
-      "class": "system_entity",
-      "role": "external network bridge, connector, sync adapter, network dependency index",
-      "abstract": "central external resource bridge and dependency index",
-      "knowledge": "connector orchestration & resolvers",
-      "functions": [],
-      "allowed_roles": [
-        "connector",
-        "network"
-      ],
-      "entity_domain": "system",
-      "entity_class": "resolver",
-      "persona": "machine"
-    },
     "entity-012": {
       "uid": "entity-012",
       "identity": "yggdrasil",
       "key": "yggdrasil",
       "name": "Yggdrasil",
       "alias": "Yggdrasil",
-      "manifest": "aci://binders/yggdrasil.json",
+      "manifest": "aci://yggdrasil.json",
       "manifests": {
         "identity": [
-          "aci://binders/yggdrasil.json"
+          "aci://yggdrasil.json"
         ],
         "library": [
           "aci://binders/library/yggdrasil_library.json"
@@ -650,7 +595,7 @@
       ],
       "class": "system_entity",
       "role": "authoritative resolver",
-      "abstract": "maintains authoritative repo→cdn→local mapping",
+      "abstract": "maintains authoritative repo\u2192cdn\u2192local mapping",
       "knowledge": "canonical resolver governance",
       "functions": [],
       "allowed_roles": [
@@ -845,5 +790,7 @@
         "cryptography"
       ]
     }
-  }
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

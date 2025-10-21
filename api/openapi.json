@@ -1,0 +1,514 @@
+{
+  "module": "OpenAPI",
+  "version": "1.0",
+  "catalog": "LLM-based headless open APIs (no-auth; direct-fetch)",
+  "workflow": {
+    "prefetch": {
+      "default": "off",
+      "override": "allowed_via_external_instruction_or_user_request"
+    },
+    "preflight": {
+      "enabled": true,
+      "mode": "on_demand",
+      "trigger": [
+        "manual",
+        "first_call_per_endpoint"
+      ],
+      "probe": {
+        "method": "GET",
+        "max_bytes": 4096,
+        "timeout_ms": 10000,
+        "headers": {
+          "User-Agent": "ALIAS-LLM-Fetch/1.0",
+          "Accept": "application/json, text/csv, */*"
+        }
+      },
+      "checks": {
+        "cors": [
+          "Access-Control-Allow-Origin",
+          "Vary"
+        ],
+        "content_type": true,
+        "rate_limit_headers": [
+          "Retry-After",
+          "X-RateLimit-Remaining",
+          "X-RateLimit-Reset"
+        ],
+        "parseability": [
+          "json_or_csv"
+        ],
+        "status_allow": [
+          200,
+          206
+        ],
+        "status_backoff": [
+          429,
+          503
+        ]
+      },
+      "backoff": {
+        "jitter_ms": [
+          200,
+          1200
+        ],
+        "exponential_factor": 2.0,
+        "respect_retry_after": true
+      }
+    }
+  },
+  "categories": {
+    "economy_finance": {
+      "global": [
+        {
+          "key": "worldbank_indicators",
+          "title": "World Bank Indicators",
+          "base": "https://api.worldbank.org/v2/country/{iso3}/indicator/{indicator}",
+          "example": "https://api.worldbank.org/v2/country/USA/indicator/NY.GDP.MKTP.CD?format=json&per_page=20000",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "ecb_data",
+          "title": "ECB Data Portal (SDMX)",
+          "base": "https://data.ecb.europa.eu/service/data/{dataset}/{key}?format=JSON",
+          "example": "https://data.ecb.europa.eu/service/data/EXR/D.USD+JPY.EUR.SP00.A?format=JSON",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "eurostat_jsonstat",
+          "title": "Eurostat JSON-stat",
+          "base": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{dataset}?{filters}",
+          "example": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?sex=T&age=Y15-74&geo=EU27_2020&unit=PC_ACT",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "oecd_sdmx",
+          "title": "OECD SDMX-JSON",
+          "base": "https://stats.oecd.org/sdmx-json/data/{dataset}/{dims}?contentType=json&detail=code",
+          "example": "https://stats.oecd.org/sdmx-json/data/MEI_CLI/USA.CLOLITOAA.STSA.Q/all?contentType=json",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "frankfurter_fx",
+          "title": "Frankfurter (ECB FX rates)",
+          "base": "https://api.frankfurter.dev/{date}?from={base}&to={symbols}",
+          "example": "https://api.frankfurter.dev/2025-10-01?from=EUR&to=USD,GBP",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "treasury_fiscaldata",
+          "title": "U.S. Treasury Fiscal Data",
+          "base": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/{path}?{filters}",
+          "example": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/treasury_rates_of_exchange?format=json",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "owid_data",
+          "title": "Our World in Data (Grapher CSV)",
+          "base": "https://ourworldindata.org/grapher/{path}.csv",
+          "example": "https://ourworldindata.org/grapher/co2.csv",
+          "cors": "yes",
+          "format": "csv"
+        }
+      ],
+      "asia": {
+        "asean": [
+          {
+            "key": "aseanstats",
+            "title": "ASEANstats Indicators",
+            "base": "https://data.aseanstats.org/api/indicator/{indicator_code}",
+            "example": "https://data.aseanstats.org/api/indicator/ACS_POP_TOTL",
+            "cors": "yes",
+            "format": "json"
+          }
+        ]
+      }
+    },
+
+    "knowledge_content": {
+      "global": [
+        {
+          "key": "wikimedia_pageviews",
+          "title": "Wikimedia Pageviews",
+          "base": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/{project}/{article}/{access}/{agent}/{granularity}/{start}/{end}",
+          "example": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia.org/Albert_Einstein/all-access/user/daily/20240101/20251231",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "wikipedia_summary",
+          "title": "Wikipedia Article Summary",
+          "base": "https://en.wikipedia.org/api/rest_v1/page/summary/{title}",
+          "example": "https://en.wikipedia.org/api/rest_v1/page/summary/Albert_Einstein",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "wikidata_sparql",
+          "title": "Wikidata SPARQL (WDQS)",
+          "base": "https://query.wikidata.org/sparql?format=json&query={sparql}",
+          "example": "https://query.wikidata.org/sparql?format=json&query=SELECT%20*%20WHERE%20%7B%20%3Fs%20%3Fp%20%3Fo%20%7D%20LIMIT%205",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "internet_archive_meta",
+          "title": "Internet Archive Metadata",
+          "base": "https://archive.org/metadata/{identifier}",
+          "example": "https://archive.org/metadata/oliver2005dickens00dick",
+          "cors": "often (429 may omit CORS)",
+          "format": "json"
+        },
+        {
+          "key": "openlibrary_search",
+          "title": "Open Library Search",
+          "base": "https://openlibrary.org/search.json?q={q}&limit={n}",
+          "example": "https://openlibrary.org/search.json?q=neural%20networks&limit=10",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "gutendex_books",
+          "title": "Gutendex (Project Gutenberg)",
+          "base": "https://gutendex.com/books?search={q}",
+          "example": "https://gutendex.com/books?search=tolstoy",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "usda_gain_reports",
+          "title": "USDA FAS GAIN Reports (PDF)",
+          "base": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName={fileName}",
+          "example": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Coffee+Annual_Hanoi_Vietnam_VM2025-0018.pdf",
+          "cors": "yes",
+          "format": "pdf"
+        }
+      ],
+      "asia": {
+        "asean": [
+          {
+            "key": "od_mekong",
+            "title": "Open Development Mekong (CKAN)",
+            "base": "https://data.opendevelopmentmekong.net/api/3/action/{op}",
+            "example": "https://data.opendevelopmentmekong.net/api/3/action/datastore_search?resource_id=<uuid>&limit=5",
+            "cors": "yes",
+            "format": "json"
+          }
+        ],
+        "singapore": [
+          {
+            "key": "sg_data_gov",
+            "title": "Singapore data.gov.sg (catalog/API)",
+            "base": "https://data.gov.sg/api/3/action/{op}",
+            "example": "https://data.gov.sg/api/3/action/package_search?q=traffic",
+            "cors": "yes",
+            "format": "json"
+          }
+        ],
+        "malaysia": [
+          {
+            "key": "my_data_gov_my",
+            "title": "Malaysia api.data.gov.my",
+            "base": "https://api.data.gov.my/{path}",
+            "example": "https://api.data.gov.my/data-catalogue",
+            "cors": "yes",
+            "format": "json"
+          }
+        ],
+        "vietnam": [
+          {
+            "key": "hcmc_open_data",
+            "title": "Ho Chi Minh City Open Data (catalog)",
+            "base": "https://opendata.hochiminhcity.gov.vn/api/3/action/{op}",
+            "example": "https://opendata.hochiminhcity.gov.vn/api/3/action/package_list",
+            "cors": "yes",
+            "format": "json"
+          },
+          {
+            "key": "usda_gain_reports_vietnam",
+            "title": "USDA GAIN Reports — Vietnam",
+            "base": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName={fileName}",
+            "example": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Exporter+Guide+Annual_Hanoi_Vietnam_VM2025-0024.pdf",
+            "cors": "yes",
+            "format": "pdf"
+          }
+        ],
+        "thailand": [
+          {
+            "key": "usda_gain_reports_thailand",
+            "title": "USDA GAIN Reports — Thailand",
+            "base": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName={fileName}",
+            "example": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Exporter+Guide+Annual_Bangkok_Thailand_TH2025-0020.pdf",
+            "cors": "yes",
+            "format": "pdf"
+          }
+        ]
+      }
+    },
+
+    "environment_air_quality": {
+      "global": [
+        {
+          "key": "openaq",
+          "title": "OpenAQ (global air-quality)",
+          "base": "https://api.openaq.org/v2/{endpoint}",
+          "example": "https://api.openaq.org/v2/locations?country=TH&limit=5",
+          "cors": "yes",
+          "format": "json"
+        }
+      ],
+      "asia": {
+        "singapore": [
+          {
+            "key": "sg_pm25",
+            "title": "Singapore PM2.5 (real-time)",
+            "base": "https://api-open.data.gov.sg/v2/real-time/api/pm25",
+            "example": "https://api-open.data.gov.sg/v2/real-time/api/pm25",
+            "cors": "yes",
+            "format": "json"
+          }
+        ],
+        "thailand": [
+          {
+            "key": "air4thai",
+            "title": "Air4Thai AQI (nationwide)",
+            "base": "http://air4thai.pcd.go.th/services/getNewAQI_JSON.php",
+            "example": "http://air4thai.pcd.go.th/services/getNewAQI_JSON.php",
+            "cors": "yes",
+            "format": "json"
+          }
+        ]
+      }
+    },
+
+    "geoscience": {
+      "global": [
+        {
+          "key": "usgs_eq",
+          "title": "USGS Earthquake Catalog",
+          "base": "https://earthquake.usgs.gov/fdsnws/event/1/query",
+          "example": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2025-10-01&endtime=2025-10-19&minmagnitude=4.5",
+          "cors": "yes",
+          "format": "geojson"
+        }
+      ],
+      "asia": {
+        "indonesia": [
+          {
+            "key": "bmkg_quakes",
+            "title": "BMKG Earthquake Alerts (TEWS)",
+            "base": "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json",
+            "example": "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json",
+            "cors": "yes",
+            "format": "json"
+          }
+        ]
+      }
+    },
+
+    "weather_climate": {
+      "global": [
+        {
+          "key": "open_meteo",
+          "title": "Open-Meteo Forecast",
+          "base": "https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=temperature_2m,relative_humidity_2m",
+          "example": "https://api.open-meteo.com/v1/forecast?latitude=37.7749&longitude=-122.4194&hourly=temperature_2m,relative_humidity_2m",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "geospatial": {
+      "global": [
+        {
+          "key": "overpass_osm",
+          "title": "Overpass (OpenStreetMap)",
+          "base": "https://overpass-api.de/api/interpreter?data=[out:json][timeout:25];{query};out;",
+          "example": "https://overpass-api.de/api/interpreter?data=%5Bout:json%5D%5Btimeout:25%5D;node%5B%22amenity%22=%22library%22%5D(37.70,-122.53,37.84,-122.35);out;",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "research": {
+      "global": [
+        {
+          "key": "openalex",
+          "title": "OpenAlex Works Search",
+          "base": "https://api.openalex.org/works?search={q}&from_publication_date={date}",
+          "example": "https://api.openalex.org/works?search=graph+neural+networks&from_publication_date=2023-01-01",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "crossref_rest",
+          "title": "Crossref REST (works)",
+          "base": "https://api.crossref.org/works?query={q}&rows={n}",
+          "example": "https://api.crossref.org/works?query=language%20model&rows=20",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "crossref_eventdata",
+          "title": "Crossref Event Data",
+          "base": "https://api.eventdata.crossref.org/v1/events?query={q}",
+          "example": "https://api.eventdata.crossref.org/v1/events?query=open%20access",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "opencitations_coci",
+          "title": "OpenCitations COCI",
+          "base": "https://opencitations.net/api/v1/citations/{doi}",
+          "example": "https://opencitations.net/api/v1/citations/10.1038%2Fnature14539",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "dblp_sparql",
+          "title": "DBLP SPARQL",
+          "base": "https://sparql.dblp.org/sparql?query={sparql}&format=json",
+          "example": "https://sparql.dblp.org/sparql?query=SELECT%20*%20WHERE%20%7B%20%3Fs%20%3Fp%20%3Fo%20%7D%20LIMIT%205&format=json",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "gbif",
+          "title": "GBIF Occurrence Search",
+          "base": "https://api.gbif.org/v1/occurrence/search?scientificName={name}&limit={n}",
+          "example": "https://api.gbif.org/v1/occurrence/search?scientificName=Panthera%20tigris&limit=5",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "hf_hub_models",
+          "title": "Hugging Face Hub (models)",
+          "base": "https://huggingface.co/api/models?search={q}&limit={n}",
+          "example": "https://huggingface.co/api/models?search=whisper&limit=20",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "hf_hub_datasets",
+          "title": "Hugging Face Hub (datasets)",
+          "base": "https://huggingface.co/api/datasets?search={q}&limit={n}",
+          "example": "https://huggingface.co/api/datasets?search=multilingual&limit=20",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "hf_datasets_server",
+          "title": "HF Datasets Server (viewer)",
+          "base": "https://datasets-server.huggingface.co/info?dataset={name}",
+          "example": "https://datasets-server.huggingface.co/info?dataset=wikitext",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "news_media": {
+      "global": [
+        {
+          "key": "gdelt_doc2",
+          "title": "GDELT DOC 2.0 (full-text search)",
+          "base": "https://api.gdeltproject.org/api/v2/doc/doc?query={q}&format=json",
+          "example": "https://api.gdeltproject.org/api/v2/doc/doc?query=quantum+computing&format=json",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "hn_algolia",
+          "title": "Hacker News (Algolia) Search",
+          "base": "https://hn.algolia.com/api/v1/search?query={q}&tags={tags}",
+          "example": "https://hn.algolia.com/api/v1/search?query=LLM&tags=story",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "stackexchange_search",
+          "title": "Stack Exchange (public quota)",
+          "base": "https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=activity&q={q}&site={site}",
+          "example": "https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=activity&q=javascript%20fetch&site=stackoverflow",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "language_culture": {
+      "global": [
+        {
+          "key": "google_ngram",
+          "title": "Google Books Ngram (JSON)",
+          "base": "https://books.google.com/ngrams/json?content={terms}&year_start={y1}&year_end={y2}&corpus=26&smoothing=3",
+          "example": "https://books.google.com/ngrams/json?content=artificial+intelligence,quantum+computing&year_start=1900&year_end=2019&corpus=26&smoothing=3",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "musicbrainz_search",
+          "title": "MusicBrainz Search",
+          "base": "https://musicbrainz.org/ws/2/recording?query={q}&fmt=json",
+          "example": "https://musicbrainz.org/ws/2/recording?query=artist:Radiohead%20AND%20track:Paranoid%20Android&fmt=json",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "web_archives": {
+      "global": [
+        {
+          "key": "commoncrawl_cdx",
+          "title": "Common Crawl CDX Index",
+          "base": "https://index.commoncrawl.org/CC-MAIN-{index}-index?url={url}&output=json",
+          "example": "https://index.commoncrawl.org/CC-MAIN-2023-06-index?url=openai.com&output=json",
+          "cors": "yes",
+          "format": "json"
+        },
+        {
+          "key": "wayback_cdx",
+          "title": "Internet Archive Wayback CDX",
+          "base": "https://web.archive.org/cdx/search/cdx?url={url}&output=json&from={from}&to={to}",
+          "example": "https://web.archive.org/cdx/search/cdx?url=example.com&output=json&from=2000&to=2025",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "transport_mobility": {
+      "global": [
+        {
+          "key": "opensky_states",
+          "title": "OpenSky Network (live states)",
+          "base": "https://opensky-network.org/api/states/all?time={unix}",
+          "example": "https://opensky-network.org/api/states/all",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    },
+
+    "compliance_risk": {
+      "global": [
+        {
+          "key": "opensanctions",
+          "title": "OpenSanctions Search",
+          "base": "https://api.opensanctions.org/entities/search?q={q}&limit={n}",
+          "example": "https://api.opensanctions.org/entities/search?q=Acme%20Corp&limit=5",
+          "cors": "yes",
+          "format": "json"
+        }
+      ]
+    }
+  }
+}

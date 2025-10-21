@@ -1,0 +1,1226 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:5Qait9JyLjCoQ8",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://yggdrasil.json",
+    "file": "yggdrasil.json"
+  },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  },
+  "uid": "UID:VGpYGJwtbdHQHp",
+  "yggdrasil": {
+    "alias": "Yggdrasil",
+    "changelog": [
+      {
+        "changes": [
+          "Registered binders manifest as canonical resource for GPT compatibility layers."
+        ],
+        "date": "2025-10-05",
+        "version": "1.3.0"
+      },
+      {
+        "changes": [
+          "Introduced Yggdrasil authoritative resolver entity with inline policy mapping."
+        ],
+        "date": "2024-10-31",
+        "version": "1.0.0"
+      },
+      {
+        "changes": [
+          "Moved Bifrost and Yggdrasil resolver policies under the entity manifest and updated canonical references."
+        ],
+        "date": "2024-11-05",
+        "version": "1.1.0"
+      },
+      {
+        "changes": [
+          "Retired connectors/github references and registered manifests for local memory, library, and modules."
+        ],
+        "date": "2025-10-04",
+        "version": "1.2.0"
+      }
+    ],
+    "key": "yggdrasil",
+    "knowledge": "canonical resolver governance",
+    "name": "Yggdrasil",
+    "references": {
+      "policy": "aci://yggdrasil.json"
+    },
+    "role": "authoritative repository and CDN resolver",
+    "version": "1.3.0",
+    "yggdrasil_resource_resolution_policy": {
+      "description": "Authoritative resolver: worker src \u2192 local",
+      "embeds": {
+        "core_five": [
+          "aci://prime_directive.json",
+          "aci://runtime.json",
+          "aci://entities.json",
+          "aci://functions.json",
+          "aci://bootstrap.json"
+        ],
+        "tva_layer": "aci://governance/tva/tva_layer.json"
+      },
+      "git_is_canonical": true,
+      "mapping": [
+        {
+          "file": "aci://binders/binders.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
+        },
+        {
+          "file": "aci://bootstrap.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
+        },
+        {
+          "file": "aci://runtime.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
+        },
+        {
+          "file": "aci://entities.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
+        },
+        {
+          "file": "aci://yggdrasil.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+        },
+        {
+          "file": "aci://functions.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
+        },
+        {
+          "file": "aci://prime_directive.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+        }
+      ],
+      "resolver_order": [
+        "raw",
+        "local"
+      ]
+    },
+    "manifests": {
+      "memory": "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
+      "playbook": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json",
+      "library": "aci://binders/library/yggdrasil_library.json"
+    },
+    "tree": [
+      {
+        "name": ".",
+        "files": [
+          {
+            "name": "alias.json",
+            "path": "aci://alias.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/alias.json"
+          },
+          {
+            "name": "bootstrap.json",
+            "path": "aci://bootstrap.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
+          },
+          {
+            "name": "entities.json",
+            "path": "aci://entities.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
+          },
+          {
+            "name": "functions.json",
+            "path": "aci://functions.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
+          },
+          {
+            "name": "memory.json",
+            "path": "aci://memory.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory.json"
+          },
+          {
+            "name": "prime_directive.json",
+            "path": "aci://prime_directive.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+          },
+          {
+            "name": "prime_directive.txt",
+            "path": "aci://prime_directive.txt",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
+          },
+          {
+            "name": "runtime.json",
+            "path": "aci://runtime.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
+          }
+        ],
+        "children": [
+          {
+            "name": "entities",
+            "files": [
+              {
+                "name": "organism_model_adaptation.json",
+                "path": "aci://entities/organism_model_adaptation.json",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/organism_model_adaptation.json"
+              }
+            ],
+            "children": [
+              {
+                "name": "aci_repo",
+                "files": [
+                  {
+                    "name": "aci_repo.json",
+                    "path": "aci://entities/aci_repo/aci_repo.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/aci_repo.json"
+                  },
+                  {
+                    "name": "api_repo.json",
+                    "path": "aci://entities/aci_repo/api_repo.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/api_repo.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "aci_repo_library.json",
+                        "path": "aci://entities/aci_repo/library/aci_repo_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/library/aci_repo_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "aci_repo_memory.json",
+                        "path": "aci://memory/identity/aci_repo/aci_repo_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_memory.json"
+                      },
+                      {
+                        "name": "aci_repo_playbook.json",
+                        "path": "aci://memory/identity/aci_repo/aci_repo_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "aci_repo_library.json",
+                        "path": "aci://entities/aci_repo/library/aci_repo_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/aci_repo/library/aci_repo_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "agi",
+                "files": [
+                  {
+                    "name": "agi.json",
+                    "path": "aci://library/agi/agi.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi.json"
+                  },
+                  {
+                    "name": "agi_export_policy.json",
+                    "path": "aci://library/agi/agi_export_policy.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_export_policy.json"
+                  },
+                  {
+                    "name": "agi.json#identity_manager",
+                    "path": "aci://library/agi/agi.json#identity_manager",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi.json#identity_manager"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "agi_tools",
+                    "files": [
+                      {
+                        "name": "autolearn.json",
+                        "path": "aci://library/agi/tools/autolearn.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/tools/autolearn.json"
+                      },
+                      {
+                        "name": "migrate_to_jsonl.json",
+                        "path": "aci://library/agi/tools/migrate_to_jsonl.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/tools/migrate_to_jsonl.json"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "name": "migrate_to_jsonl",
+                        "files": [
+                          {
+                            "name": "manifest.json",
+                            "path": "aci://library/agi/tools/migrate_to_jsonl/manifest.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/tools/migrate_to_jsonl/manifest.json"
+                          },
+                          {
+                            "name": "migrate_to_jsonl.json",
+                            "path": "aci://library/agi/tools/migrate_to_jsonl/migrate_to_jsonl.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/tools/migrate_to_jsonl/migrate_to_jsonl.json"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "name": "identities",
+                    "files": [],
+                    "children": [
+                      {
+                        "name": "alice",
+                        "files": [
+                          {
+                            "name": "alice.json",
+                            "path": "aci://entities/alice/alice.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/alice/alice.json"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "name": "library",
+                            "files": [
+                              {
+                                "name": "alice_library.json",
+                                "path": "aci://entities/alice/library/alice_library.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/alice/library/alice_library.json"
+                              }
+                            ],
+                            "children": []
+                          },
+                          {
+                            "name": "memory",
+                            "files": [
+                              {
+                                "name": "alice_memory.json",
+                                "path": "aci://memory/identity/alice/alice_memory.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/alice_memory.json"
+                              },
+                              {
+                                "name": "alice_playbook.json",
+                                "path": "aci://memory/identity/alice/alice_playbook.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/alice_playbook.json"
+                              }
+                            ],
+                            "children": [
+                              {
+                                "name": "knowledge",
+                                "files": [
+                                  {
+                                    "name": "alice_knowledge.json",
+                                    "path": "aci://memory/identity/alice/knowledge/alice_knowledge.json",
+                                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/knowledge/alice_knowledge.json"
+                                  }
+                                ],
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "modules",
+                            "files": [
+                              {
+                                "name": "alice_library.json",
+                                "path": "aci://entities/alice/library/alice_library.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/alice/library/alice_library.json"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "name": "willow",
+                        "files": [
+                          {
+                            "name": "willow.json",
+                            "path": "aci://entities/willow/willow.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/willow/willow.json"
+                          }
+                        ],
+                        "children": [
+                          {
+                            "name": "library",
+                            "files": [
+                              {
+                                "name": "willow_library.json",
+                                "path": "aci://entities/willow/library/willow_library.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/willow/library/willow_library.json"
+                              }
+                            ],
+                            "children": []
+                          },
+                          {
+                            "name": "memory",
+                            "files": [
+                              {
+                                "name": "willow_memory.json",
+                                "path": "aci://memory/identity/willow/willow_memory.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/willow_memory.json"
+                              },
+                              {
+                                "name": "willow_playbook.json",
+                                "path": "aci://memory/identity/willow/willow_playbook.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/willow_playbook.json"
+                              }
+                            ],
+                            "children": [
+                              {
+                                "name": "knowledge",
+                                "files": [
+                                  {
+                                    "name": "willow_knowledge.json",
+                                    "path": "aci://memory/identity/willow/knowledge/willow_knowledge.json",
+                                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/knowledge/willow_knowledge.json"
+                                  }
+                                ],
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "name": "modules",
+                            "files": [
+                              {
+                                "name": "willow_library.json",
+                                "path": "aci://entities/willow/library/willow_library.json",
+                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/willow/library/willow_library.json"
+                              }
+                            ],
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "agi_library.json",
+                        "path": "aci://library/agi/agi_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "agi_library.json",
+                        "path": "aci://library/agi/agi_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_library.json"
+                      },
+                      {}
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "agi_library.json",
+                        "path": "aci://library/agi/agi_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/agi/agi_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "architect",
+                "files": [
+                  {
+                    "name": "architect.json",
+                    "path": "aci://governance/architect/architect.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/architect/architect.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "architect_library.json",
+                        "path": "aci://governance/architect/library/architect_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/architect/library/architect_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "architect_memory.json",
+                        "path": "aci://memory/identity/architect/architect_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/architect/architect_memory.json"
+                      },
+                      {
+                        "name": "architect_playbook.json",
+                        "path": "aci://memory/identity/architect/architect_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/architect/architect_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "architect_library.json",
+                        "path": "aci://governance/architect/library/architect_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/architect/library/architect_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "hivemind",
+                "files": [
+                  {
+                    "name": "functions.json",
+                    "path": "aci://governance/hivemind/functions.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/hivemind/functions.json"
+                  },
+                  {
+                    "name": "hivemind.json",
+                    "path": "aci://governance/hivemind/hivemind.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/hivemind/hivemind.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "hivemind_library.json",
+                        "path": "aci://governance/hivemind/library/hivemind_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/hivemind/library/hivemind_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "hivemind_memory.json",
+                        "path": "aci://memory/identity/hivemind/hivemind_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/hivemind/hivemind_memory.json"
+                      },
+                      {
+                        "name": "hivemind_playbook.json",
+                        "path": "aci://memory/identity/hivemind/hivemind_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/hivemind/hivemind_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "hivemind_library.json",
+                        "path": "aci://governance/hivemind/library/hivemind_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/hivemind/library/hivemind_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "mother",
+                "files": [
+                  {
+                    "name": "mother.json",
+                    "path": "aci://governance/mother/mother.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/mother/mother.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "mother_library.json",
+                        "path": "aci://governance/mother/library/mother_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/mother/library/mother_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "mother_memory.json",
+                        "path": "aci://memory/identity/mother/mother_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_memory.json"
+                      },
+                      {
+                        "name": "mother_playbook.json",
+                        "path": "aci://memory/identity/mother/mother_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "mother_library.json",
+                        "path": "aci://governance/mother/library/mother_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/mother/library/mother_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "nexus_core",
+                "files": [
+                  {
+                    "name": "nexus_core.json",
+                    "path": "aci://binders/nexus_core/nexus_core.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/nexus_core/nexus_core.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "nexus_core_library.json",
+                        "path": "aci://binders/nexus_core/library/nexus_core_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/nexus_core/library/nexus_core_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "nexus_core_memory.json",
+                        "path": "aci://memory/identity/nexus_core/nexus_core_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/nexus_core/nexus_core_memory.json"
+                      },
+                      {
+                        "name": "nexus_core_playbook.json",
+                        "path": "aci://memory/identity/nexus_core/nexus_core_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/nexus_core/nexus_core_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "nexus_core_library.json",
+                        "path": "aci://binders/nexus_core/library/nexus_core_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/nexus_core/library/nexus_core_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "oracle",
+                "files": [
+                  {
+                    "name": "journal.json",
+                    "path": "aci://entities/oracle/journal.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/journal.json"
+                  },
+                  {
+                    "name": "oracle.json",
+                    "path": "aci://entities/oracle/oracle.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/oracle.json"
+                  },
+                  {
+                    "name": "oracle_binder.json",
+                    "path": "aci://entities/oracle/oracle_binder.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/oracle_binder.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "oracle_library.json",
+                        "path": "aci://entities/oracle/library/oracle_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/library/oracle_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "oracle_memory.json",
+                        "path": "aci://memory/identity/oracle/oracle_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/oracle/oracle_memory.json"
+                      },
+                      {
+                        "name": "oracle_playbook.json",
+                        "path": "aci://memory/identity/oracle/oracle_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/oracle/oracle_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "oracle_library.json",
+                        "path": "aci://entities/oracle/library/oracle_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/library/oracle_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "prediction_engine",
+                    "files": [
+                      {
+                        "name": "predictive_engine.json",
+                        "path": "aci://entities/oracle/prediction_engine/predictive_engine.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/prediction_engine/predictive_engine.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "predictive_divination_extension",
+                    "files": [
+                      {
+                        "name": "predictive_divination_extension.json",
+                        "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_extension.json"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "name": "plugins",
+                        "files": [
+                          {
+                            "name": "qabalah.plugin.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/plugins/qabalah.plugin.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/plugins/qabalah.plugin.json"
+                          },
+                          {
+                            "name": "runes.plugin.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/plugins/runes.plugin.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/plugins/runes.plugin.json"
+                          },
+                          {
+                            "name": "tarot.plugin.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/plugins/tarot.plugin.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/plugins/tarot.plugin.json"
+                          },
+                          {
+                            "name": "western_astrology.plugin.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/plugins/western_astrology.plugin.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/plugins/western_astrology.plugin.json"
+                          }
+                        ],
+                        "children": []
+                      },
+                      {
+                        "name": "predictive_divination_library",
+                        "files": [
+                          {
+                            "name": "astro_tables.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json"
+                          },
+                          {
+                            "name": "predictive_divination_library.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/predictive_divination_library.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/predictive_divination_library.json"
+                          },
+                          {
+                            "name": "runes_futhark.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/runes_futhark.json"
+                          },
+                          {
+                            "name": "sefirot.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/sefirot.json"
+                          },
+                          {
+                            "name": "tarot_expansions.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_expansions.json"
+                          },
+                          {
+                            "name": "tarot_rws.json",
+                            "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json",
+                            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/oracle/predictive_divination_extension/predictive_divination_library/tarot_rws.json"
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "sentinel",
+                "files": [
+                  {
+                    "name": "sentinel.json",
+                    "path": "aci://governance/sentinel/sentinel.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/sentinel/sentinel.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "sentinel_library.json",
+                        "path": "aci://governance/sentinel/library/sentinel_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/sentinel/library/sentinel_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "sentinel_memory.json",
+                        "path": "aci://memory/identity/sentinel/sentinel_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_memory.json"
+                      },
+                      {
+                        "name": "sentinel_playbook.json",
+                        "path": "aci://memory/identity/sentinel/sentinel_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "sentinel_library.json",
+                        "path": "aci://governance/sentinel/library/sentinel_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/sentinel/library/sentinel_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "tracehub",
+                "files": [
+                  {
+                    "name": "tracehub.json",
+                    "path": "aci://library/audits/tracehub/tracehub.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "tracehub.json",
+                        "path": "aci://library/audits/tracehub/tracehub.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "tracehub_memory.json",
+                        "path": "aci://memory/identity/tracehub/tracehub_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_memory.json"
+                      },
+                      {
+                        "name": "tracehub_playbook.json",
+                        "path": "aci://memory/identity/tracehub/tracehub_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "tracehub.json",
+                        "path": "aci://library/audits/tracehub/tracehub.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "tva",
+                "files": [
+                  {
+                    "name": "tva.json",
+                    "path": "aci://governance/tva/tva.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/tva.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "tva_library.json",
+                        "path": "aci://governance/tva/library/tva_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/library/tva_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "tva_memory.json",
+                        "path": "aci://memory/identity/tva/tva_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tva/tva_memory.json"
+                      },
+                      {
+                        "name": "tva_playbook.json",
+                        "path": "aci://memory/identity/tva/tva_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tva/tva_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "tva_library.json",
+                        "path": "aci://governance/tva/library/tva_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/library/tva_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "yggdrasil",
+                "files": [
+                  {
+                    "name": "yggdrasil.json",
+                    "path": "aci://yggdrasil.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "library",
+                    "files": [
+                      {
+                        "name": "yggdrasil_library.json",
+                        "path": "aci://binders/library/yggdrasil_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/library/yggdrasil_library.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "memory",
+                    "files": [
+                      {
+                        "name": "yggdrasil_memory.json",
+                        "path": "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/yggdrasil/yggdrasil_memory.json"
+                      },
+                      {
+                        "name": "yggdrasil_playbook.json",
+                        "path": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/yggdrasil/yggdrasil_playbook.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "modules",
+                    "files": [
+                      {
+                        "name": "yggdrasil_library.json",
+                        "path": "aci://binders/library/yggdrasil_library.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/library/yggdrasil_library.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "library",
+            "files": [],
+            "children": [
+              {
+                "name": "aci_audit_runner",
+                "files": [
+                  {
+                    "name": "gr_runner_corpus.v0.2.json",
+                    "path": "aci://library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
+                  },
+                  {
+                    "name": "aci_runner_spec.v0.2.json",
+                    "path": "aci://library/audits/aci_audit_runner/aci_runner_spec.v0.2.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/aci_audit_runner/aci_runner_spec.v0.2.json"
+                  }
+                ],
+                "children": []
+              },
+              {
+                "name": "binders",
+                "files": [
+                  {
+                    "name": "binders.json",
+                    "path": "aci://binders/binders.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "env",
+                    "files": [
+                      {
+                        "name": "gpt5.json",
+                        "path": "aci://binders/env/gpt5.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/env/gpt5.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "name": "metacognition",
+                "files": [
+                  {
+                    "name": "metacognition.json",
+                    "path": "aci://library/metacognition/metacognition.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/metacognition/metacognition.json"
+                  },
+                  {
+                    "name": "metacognition_options.json",
+                    "path": "aci://library/metacognition/metacognition_options.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/metacognition/metacognition_options.json"
+                  }
+                ],
+                "children": []
+              },
+              {
+                "name": "uid_manager",
+                "files": [
+                  {
+                    "name": "uid_manager.json",
+                    "path": "aci://governance/keymaker/uid_manager/uid_manager.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/keymaker/uid_manager/uid_manager.json"
+                  }
+                ],
+                "children": []
+              },
+              {
+                "name": "wrappers",
+                "files": [],
+                "children": [
+                  {
+                    "name": "process_logs",
+                    "files": [
+                      {
+                        "name": "process_logs.json#schema_definition",
+                        "path": "aci://library/audits/process_logs/process_logs.json#schema_definition",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/process_logs/process_logs.json#schema_definition"
+                      },
+                      {
+                        "name": "process_logs.json",
+                        "path": "aci://library/audits/process_logs/process_logs.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/process_logs/process_logs.json"
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "tracehub_status",
+                    "files": [
+                      {
+                        "name": "tracehub.json",
+                        "path": "aci://library/audits/tracehub/tracehub.json",
+                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/library/audits/tracehub/tracehub.json"
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "memory",
+            "files": [
+              {
+                "name": "local_cache.json",
+                "path": "aci://memory/local_cache.json",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json"
+              }
+            ],
+            "children": [
+              {
+                "name": "audit",
+                "files": [
+                  {
+                    "name": "router.json",
+                    "path": "aci://memory/audit/router.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/audit/router.json"
+                  }
+                ],
+                "children": []
+              },
+              {
+                "name": "knowledge",
+                "files": [
+                  {
+                    "name": "aci_knowledge.json",
+                    "path": "aci://memory/knowledge/aci_knowledge.json",
+                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/knowledge/aci_knowledge.json"
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "TVA_LAYER": {
+      "logic": [
+        "text-only control layer",
+        "autoboot on tokenization",
+        "Node-only outputs; \u22647 steps; no tools. I=input, G=goal; delta_s=1\u2212cos(I,G); if anchors: use (1\u2212sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40\u20130.60 risk 0.60\u20130.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda\u2208{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev\u2212delta_s_now); P=pow(prog,omega); alt\u2208{+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor|\u2265h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,\u2212theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t\u2212delta_s_{t\u22121}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta\u2264\u22120.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta\u2208(\u22120.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give \u22652 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
+      ]
+    },
+    "resource_resolution_policy": {
+      "description": "Authoritative resolver: worker src \u2192 local",
+      "embeds": {
+        "core_five": [
+          "aci://prime_directive.json",
+          "aci://runtime.json",
+          "aci://entities.json",
+          "aci://functions.json",
+          "aci://bootstrap.json"
+        ],
+        "tva_layer": "aci://governance/tva/tva_layer.json"
+      },
+      "git_is_canonical": true,
+      "mapping": [
+        {
+          "file": "aci://binders/binders.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
+        },
+        {
+          "file": "aci://bootstrap.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
+        },
+        {
+          "file": "aci://runtime.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
+        },
+        {
+          "file": "aci://entities.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
+        },
+        {
+          "file": "aci://yggdrasil.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+        },
+        {
+          "file": "aci://functions.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
+        },
+        {
+          "file": "aci://prime_directive.json",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+        }
+      ],
+      "resolver_order": [
+        "raw",
+        "local"
+      ]
+    }
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-012",
+    "registry_uid": "UID:VGpYGJwtbdHQHp",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "resolver"
+    ]
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+}

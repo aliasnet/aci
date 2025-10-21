@@ -1,26 +1,22 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:3VD4LDNY6ukwV8",
-    "sha256": "4ad367fa2e9f7de6ab41bd44d87489c1ed65efe51de3bc102d1cc4783156b187",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://entities/aci_repo/aci_repo.json"
+    "path": "aci://modules/aci_repo/aci_repo.json",
+    "file": "aci_repo.json"
   },
   "version": "1.{date.time gen by codex}",
   "entity": "ACI Repo",
   "role": "package_manager",
   "notes": "Standalone, mirror-agnostic package manager for ACI. All instructions inline; only external state file is aci_repo_manifest.",
   "references": {
-    "bifrost": "binders/bifrost.json",
     "yggdrasil": "binders/yggdrasil.json"
   },
   "resolution_policy": {
-    "primary": "bifrost",
-    "fallback": "yggdrasil",
+    "primary": "yggdrasil",
     "policy": "canonical_raw_first_then_local_fallback",
-    "canonical_mirrors": [
-      "https://aci.aliasmail.cc/"
-    ],
-    "notes": "All external resolution flows through Bifrost proxy; Yggdrasil remains authoritative for canonical mapping."
+    "canonical_mirrors": [],
+    "notes": "All external resolution flows through Yggdrasil resolver; local cache is optional for offline work."
   },
   "rules": {
     "safety": [
@@ -747,6 +743,8 @@
   "manifests": {
     "memory": "aci://memory/identity/aci_repo/aci_repo_memory.json",
     "playbook": "aci://memory/identity/aci_repo/aci_repo_playbook.json",
-    "library": "aci://entities/aci_repo/library/aci_repo_library.json"
-  }
+    "library": "aci://modules/aci_repo/library/aci_repo_library.json"
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/aci_repo/aci_repo.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

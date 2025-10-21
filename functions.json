@@ -1,13 +1,13 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:5KPW5JoeVj3rmG",
-    "sha256": "4cfe592d49231cdffeca79aacb0958f459477081a6a1aeec787012b0c8de151e",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://functions.json"
+    "path": "aci://functions.json",
+    "file": "functions.json"
   },
   "resource_resolution_policy": {
-    "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
-    "upstream": "aci://memory/identity/yggdrasil/yggdrasil.json"
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+    "upstream": "aci://yggdrasil.json"
   },
   "functions": {
     "scheduler.task.create": {
@@ -1079,7 +1079,7 @@
             "event": "export.request",
             "identity": "Hivemind",
             "topic": "hivemind",
-            "summary": "NL parse failed → falling back to safe local dry-run"
+            "summary": "NL parse failed \u2192 falling back to safe local dry-run"
           }
         },
         {
@@ -1293,59 +1293,46 @@
   "yggdrasil_resource_resolution_policy": {
     "description": "Authoritative resolver: worker src \u2192 local",
     "embeds": {
-      "bifrost": "aci://binders/bifrost.json",
       "core_five": [
         "aci://prime_directive.json",
         "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
         "aci://bootstrap.json"
-      ]
+      ],
+      "tva_layer": "aci://governance/tva/tva_layer.json"
     },
     "git_is_canonical": true,
     "mapping": [
       {
         "file": "aci://bootstrap.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-        "fallback": "https://aci.aliasmail.cc/bootstrap.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
       },
       {
         "file": "aci://runtime.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-        "fallback": "https://aci.aliasmail.cc/runtime.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
       },
       {
         "file": "aci://entities.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-        "fallback": "https://aci.aliasmail.cc/entities.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
       },
       {
-        "file": "aci://binders/bifrost.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
-        "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
-      },
-      {
-        "file": "aci://binders/yggdrasil.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
-        "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
+        "file": "aci://yggdrasil.json",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
       },
       {
         "file": "aci://functions.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-        "fallback": "https://aci.aliasmail.cc/functions.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
       },
-        {
-          "file": "aci://prime_directive.json",
-          "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
-          "fallback": "https://aci.aliasmail.cc/prime_directive.json"
-        }
+      {
+        "file": "aci://prime_directive.json",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+      }
     ],
     "resolver_order": [
-      "primary",
-      "fallback",
+      "raw",
       "local"
-    ],
-    "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+    ]
   },
   "commands": {
     "export": {
@@ -1355,5 +1342,7 @@
         }
       }
     }
-  }
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

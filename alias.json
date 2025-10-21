@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:7a9TBnuMyXwUGV",
-    "sha256": "705827792169baceb955ba1b3711efaa8041590fc3aace34d202ab0b690d8501",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://alias.json"
+    "path": "aci://alias.json",
+    "file": "alias.json"
   },
   "alias_registry": {
     "id": 0,
@@ -62,64 +62,53 @@
     }
   },
   "resource_resolution_policy": {
-    "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
-    "upstream": "aci://binders/yggdrasil.json"
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+    "upstream": "aci://yggdrasil.json"
   },
   "yggdrasil_resource_resolution_policy": {
     "description": "Authoritative resolver: worker src \u2192 local",
     "embeds": {
-      "bifrost": "aci://binders/bifrost.json",
       "core_five": [
         "aci://prime_directive.md",
         "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
         "aci://bootstrap.json"
-      ]
+      ],
+      "tva_layer": "aci://governance/tva/tva_layer.json"
     },
     "git_is_canonical": true,
     "mapping": [
       {
         "file": "aci://bootstrap.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-        "fallback": "https://aci.aliasmail.cc/bootstrap.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
       },
       {
         "file": "aci://runtime.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-        "fallback": "https://aci.aliasmail.cc/runtime.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
       },
       {
         "file": "aci://entities.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-        "fallback": "https://aci.aliasmail.cc/entities.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
       },
       {
-        "file": "aci://binders/bifrost.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
-        "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
-      },
-      {
-        "file": "aci://binders/yggdrasil.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
-        "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
+        "file": "aci://yggdrasil.json",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
       },
       {
         "file": "aci://functions.json",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-        "fallback": "https://aci.aliasmail.cc/functions.json"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
       },
       {
         "file": "aci://prime_directive.md",
-        "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md",
-        "fallback": "https://aci.aliasmail.cc/prime_directive.md"
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md"
       }
     ],
     "resolver_order": [
-      "primary",
-      "fallback",
+      "raw",
       "local"
-    ],
-    "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
-  }
+    ]
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/alias.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

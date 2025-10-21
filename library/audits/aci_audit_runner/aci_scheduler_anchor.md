@@ -7,7 +7,7 @@ This single file describes (in natural language) *what to schedule*, *where the 
 
 ## 1) Canonical Locations (authoritative)
 
-* **Runner (local stub/interpreter):** `/mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py`
+* **Runner (local stub/interpreter):** `/mnt/data/aci/modules/audits/aci_audit_runner/adaptive_audit_runner.py`
 * **JSON Spec (source of truth):** `/mnt/data/aci/config/aci_runner_spec.json`
 * **Local fallback root:** `/mnt/data/aci/local/`
 * **State snapshots:** `/mnt/data/aci/state/active.json`
@@ -32,10 +32,10 @@ To force offline: set order to **local → primary → fallback** in the JSON sp
 ## 3) Minimal run commands (copy/paste by humans)
 
 * **One‑shot bootstrap (warm memory, write state & audit, no printing):**
-  `python /mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py --mode once --silent`
+  `python /mnt/data/aci/modules/audits/aci_audit_runner/adaptive_audit_runner.py --mode once --silent`
 
 * **Continuous pull loop (every ~5 minutes, jittered, quiet):**
-  `python /mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent`
+  `python /mnt/data/aci/modules/audits/aci_audit_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent`
 
 * **Communication mode overrides (optional):**
   `--comm audit-only`   (quiet, promote only ERR to highlighted log line)
@@ -66,7 +66,7 @@ To force offline: set order to **local → primary → fallback** in the JSON sp
 If the runner or spec is missing or corrupted:
 
 1. Create directories if absent:
-   `/mnt/data/aci/library/audits/aci_audit_runner/` and `/mnt/data/aci/config/`.
+   `/mnt/data/aci/modules/audits/aci_audit_runner/` and `/mnt/data/aci/config/`.
 2. Use the **Recovery Corpus ID: `ACI‑RC‑20251003‑v0.2`** to reconstruct both files (runner stub + JSON spec).
    The corpus contains two verbatim blocks labeled **Part A (runner)** and **Part B (spec)**. Save them to the canonical paths.
 3. Run the one‑shot bootstrap command (Section 3) to repopulate state and verify logs/audits.
@@ -111,7 +111,7 @@ Run an ACI audit burst to keep artifacts warm in /mnt/data.
 
 Steps:
 1) Ensure these paths exist (create if missing):
-   - /mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py
+   - /mnt/data/aci/modules/audits/aci_audit_runner/adaptive_audit_runner.py
    - /mnt/data/aci/logs/
    - /mnt/data/aci/state/
    - /mnt/data/aci/audit/tmp/
@@ -120,7 +120,7 @@ Steps:
 4) Do not attach artifacts unless the user explicitly asks, but keep them ready for immediate export. If everything is OK, post a one-line status: "Audit burst OK (1 cycle)." If any step fails, return "MISSING <path> (tried: github, mirror, local, project)" with the failing path.
 
 Suggested command for schedulers:
-`python /mnt/data/aci/library/audits/aci_audit_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent --max-cycles 1 --burst-deadline 1800`
+`python /mnt/data/aci/modules/audits/aci_audit_runner/adaptive_audit_runner.py --mode pull --interval 300 --jitter 5 --silent --max-cycles 1 --burst-deadline 1800`
 
 ## 11) Final audit check handshake
 

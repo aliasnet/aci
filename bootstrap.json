@@ -1,9 +1,9 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:BdUCrxGLq2wgD6",
-    "sha256": "b89e0203f3b9a1ba945987566ab5d21bc42e731c962b3cdb49c7db59da60eb59",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://bootstrap.json"
+    "path": "aci://bootstrap.json",
+    "file": "bootstrap.json"
   },
   "aci_bootstrap": {
     "version": "1.0",
@@ -27,64 +27,51 @@
       }
     },
     "resource_resolution_policy": {
-      "pointer": "aci://binders/yggdrasil.json#bifrost_resource_resolution_policy",
-      "upstream": "aci://binders/yggdrasil.json",
+      "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+      "upstream": "aci://yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
-          "bifrost": "aci://binders/bifrost.json",
           "core_five": [
             "aci://prime_directive.json",
             "aci://runtime.json",
             "aci://entities.json",
             "aci://functions.json",
             "aci://bootstrap.json"
-          ]
+          ],
+          "tva_layer": "aci://governance/tva/tva_layer.json"
         },
         "git_is_canonical": true,
         "mapping": [
           {
             "file": "aci://bootstrap.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
-            "fallback": "https://aci.aliasmail.cc/bootstrap.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
           },
           {
             "file": "aci://runtime.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-            "fallback": "https://aci.aliasmail.cc/runtime.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
           },
           {
             "file": "aci://entities.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
-            "fallback": "https://aci.aliasmail.cc/entities.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
           },
           {
-            "file": "aci://binders/bifrost.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/bifrost.json",
-            "fallback": "https://aci.aliasmail.cc/binders/bifrost.json"
-          },
-          {
-            "file": "aci://binders/yggdrasil.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
-            "fallback": "https://aci.aliasmail.cc/binders/yggdrasil.json"
+            "file": "aci://yggdrasil.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json",
-            "fallback": "https://aci.aliasmail.cc/functions.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
           },
           {
             "file": "aci://prime_directive.json",
-            "primary": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
-            "fallback": "https://aci.aliasmail.cc/prime_directive.json"
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
           }
         ],
         "resolver_order": [
-          "primary",
-          "fallback",
+          "raw",
           "local"
-        ],
-        "canonical_proxy": "https://raw.githubusercontent.com/aliasnet/aci/main"
+        ]
       }
     },
     "initialization_sequence": [
@@ -130,5 +117,18 @@
       "notes": "If promotion criteria not met, do not continue to full bootstrap; start sandbox and emit alert."
     },
     "notes": "Manifest enforces preflight promotion check. If promotion fails, runtime enters sandbox and waits (with retries) before final decision."
-  }
+  },
+  "resource_resolution_policy": {
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+    "embeds": {
+      "tva_layer": "aci://governance/tva/tva_layer.json"
+    },
+    "mapping": [],
+    "resolver_order": [
+      "raw",
+      "local"
+    ]
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }
