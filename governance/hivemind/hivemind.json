@@ -547,8 +547,7 @@
     "enforcement": {
       "oversight": [
         "ALIAS",
-        "TVA",
-        "Sentinel"
+        "Keymaker"
       ]
     }
   },
