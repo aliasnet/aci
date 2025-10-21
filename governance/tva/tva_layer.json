@@ -16,7 +16,7 @@
     "mapping": {
       "entries": [
         {
-          "path": "aci://binders/yggdrasil.json",
+          "path": "aci://yggdrasil.json",
           "role": "embedded"
         },
         {
