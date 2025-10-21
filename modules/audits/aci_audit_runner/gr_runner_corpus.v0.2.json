@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:BJkqri2Urq9mC8",
-    "sha256": "45536b2ccb24e5f69c69f064681e3afb652ccbc995533002c8b57860d6220e5f",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://modules/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
   },
