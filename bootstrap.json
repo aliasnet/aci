@@ -21,11 +21,7 @@
         "path": "sanity.md"
       }
     },
-    "remote_core": {
-      "nexus_core": {
-        "path": "binders/nexus_core/nexus_core.json"
-      }
-    },
+    "remote_core": {},
     "resource_resolution_policy": {
       "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://binders/yggdrasil.json",
@@ -39,7 +35,7 @@
             "aci://functions.json",
             "aci://bootstrap.json"
           ],
-          "tva_layer": "aci://governance/tva/tva_layer.json"
+          "tva_layer": "aci://entities/tva/tva_layer.json"
         },
         "git_is_canonical": true,
         "mapping": [
@@ -80,10 +76,6 @@
         "action": "confirm_required_files_present"
       },
       {
-        "step": "load_nexus_core",
-        "action": "load_and_validate_nexus"
-      },
-      {
         "step": "check_promotion_criteria",
         "action": "resolve_promotion_required_files"
       },
@@ -99,7 +91,6 @@
     "promotion": {
       "auto_promote": true,
       "promotion_required_files": [
-        "binders/nexus_core/nexus_core.json",
         "entities.json",
         "functions.json",
         "sanity.md"
@@ -121,7 +112,7 @@
   "resource_resolution_policy": {
     "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
     "embeds": {
-      "tva_layer": "aci://governance/tva/tva_layer.json"
+      "tva_layer": "aci://entities/tva/tva_layer.json"
     },
     "mapping": [],
     "resolver_order": [

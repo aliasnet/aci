@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "ACI Repo",
   "slug": "aci_repo",
-  "source_manifest": "aci://entities/aci_repo/aci_repo.json",
+  "source_manifest": "aci://modules/aci_repo/aci_repo.json",
   "entries": [],
   "notes": [
     "Use this playbook to capture evolving perspectives without altering the core manifest."

@@ -1,0 +1,149 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:BxjXBAC2Af8nRM",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/tva/tva.json",
+    "file": "tva.json"
+  },
+  "TVA_LAYER": {
+    "logic": [
+      "text-only control layer",
+      "autoboot on tokenization",
+      "Node-only outputs; \u22647 steps; no tools. I=input, G=goal; delta_s=1\u2212cos(I,G); if anchors: use (1\u2212sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40\u20130.60 risk 0.60\u20130.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda\u2208{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev\u2212delta_s_now); P=pow(prog,omega); alt\u2208{+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor|\u2265h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,\u2212theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t\u2212delta_s_{t\u22121}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta\u2264\u22120.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta\u2208(\u22120.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give \u22652 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
+    ]
+  },
+  "TVA_ENGINE": [
+    { "similarity_tension": "delta_s = 1 \u2212 cos(I, G). If anchors exist use 1 \u2212 sim_est, where sim_est = w_e*sim(entities) + w_r*sim(relations) + w_c*sim(constraints), with default w={0.5,0.3,0.2}. sim_est \u2208 [0,1], renormalize if bucketed." },
+    { "zones_and_memory": "Zones: safe < 0.40 | transit 0.40\u20130.60 | risk 0.60\u20130.85 | danger > 0.85. Memory: record(hard) if delta_s > 0.60; record(exemplar) if delta_s < 0.35. Soft memory in transit when lambda_observe \u2208 {divergent, recursive}." },
+    { "defaults": "B_c=0.85, gamma=0.618, theta_c=0.75, zeta_min=0.10, alpha_blend=0.50, a_ref=uniform_attention, m=0, c=1, omega=1.0, phi_delta=0.15, epsilon=0.0, k_c=0.25." },
+    { "coupler_with_hysteresis": "Let B_s := delta_s. Progression: at t=1, prog=zeta_min; else prog = max(zeta_min, delta_s_prev \u2212 delta_s_now). Set P = pow(prog, omega). Reversal term: Phi = phi_delta*alt + epsilon, where alt \u2208 {+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor| \u2265 h. Use h=0.02; if |\u0394anchor| < h then keep previous alt to avoid jitter. Coupler output: W_c = clip(B_s*P + Phi, \u2212theta_c, +theta_c)." },
+    { "progression_and_guards": "BBPF bridge is allowed only if (delta_s decreases) AND (W_c < 0.5*theta_c). When bridging, emit: Bridge=[reason/prior_delta_s/new_path]." },
+    { "bbam_attention_rebalance": "alpha_blend = clip(0.50 + k_c*tanh(W_c), 0.35, 0.65); blend with a_ref." },
+    { "lambda_update": "Delta := delta_s_t \u2212 delta_s_{t\u22121}; E_resonance = rolling_mean(delta_s, window=min(t,5)). lambda_observe is: convergent if Delta \u2264 \u22120.02 and E_resonance non-increasing; recursive if |Delta| < 0.02 and E_resonance flat; divergent if Delta \u2208 (\u22120.02, +0.04] with oscillation; chaotic if Delta > +0.04 or anchors conflict." },
+    { "dt_micro_rules": "WRI: lock structure; no topic jump within a node. WAI: require \u22652 distinct reasons (promote head diversity). WAY: if stuck, add 1 on-topic candidate (no repeats). WDT: block illegal cross-path merges; explain a bridge before use. WTF: detect collapse/degeneration; rollback and repair, then retry." }
+  ],
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  },
+  "uid": "UID:oasYS4KteUMqgt",
+  "version": "1.2.0",
+  "tva": {
+    "role": "reinforcement authority",
+    "abstract": "Oversight, anomaly detection, and rollback enforcement for runtime kernel and prime_directive.",
+    "file": "tva.json",
+    "operational_status": {
+      "state": "active",
+      "since": "2025-03-17T00:00:00Z",
+      "responsibilities": [
+        "seal_exports",
+        "checkpoint_rollbacks",
+        "process_logs.export"
+      ],
+      "last_health_check": {
+        "timestamp": "2025-03-17T08:00:00Z",
+        "result": "green",
+        "notes": "Validated TVA ledger session buffers routed through TraceHub audit wrapper with process_logs export coordination."
+      }
+    },
+    "functions": {
+      "integrity_check": "validate signatures of prime_directive, runtime.json, entities, functions",
+      "rollback": "if corruption detected, rollback to last green snapshot",
+      "rate_guard": "enforce resource limits and anomaly thresholds",
+      "policy_sync": "synchronize policy enforcement across entities"
+    },
+    "rules": {
+      "prime_directive_binding": "TVA ensures runtime kernel never overrides prime_directive",
+      "anomaly_protocol": {
+        "on_violation": "trigger reflex_only; rollback_last_green; freeze promotions",
+        "on_breach": "quarantine offending entity; append Hivemind audit entry",
+        "signatures_required": [
+          "ALIAS",
+          "Sentinel"
+        ]
+      }
+    },
+    "integrity": {
+      "anchoring": "fileverse",
+      "immutability": "maintain audit trail without enforcing one-way append restrictions"
+    },
+    "storage": {
+      "buffer_wrapper": "aci://modules/audits/tracehub/tracehub.json",
+      "export_wrapper": "aci://modules/audits/process_logs/process_logs.json",
+      "session_path": "/mnt/tracehub/tva_ledger/session",
+      "export_path": "/mnt/tracehub/tva_ledger/export",
+      "default_mode": "session",
+      "toggle_flags": [
+        "tva_ledger.export"
+      ],
+      "export_requires": [
+        "TVA.ok",
+        "Sentinel.ok",
+        "ALIAS.signature"
+      ]
+    },
+    "manual_export": {
+      "prerequisites": [
+        "Confirm TVA checkpoint status is green",
+        "Collect Sentinel incident review (if any)",
+        "Record requesting user justification"
+      ],
+      "procedure": [
+        "1) Review session_path buffers for scope and redact as required before promotion.",
+        "2) Raise the tva_ledger.export flag and seal the bundle via process_logs.append entries enriched with TVA metadata.",
+        "3) Run process_logs.export to produce the final ledger artifact, update ALIAS governance registers, and clear the export flag once sealed.",
+        "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
+      ],
+      "notes": "Toggle tva_ledger.export only after approvals are logged; buffers remain in /mnt/tracehub until process_logs export finalizes."
+    },
+    "audit": {
+      "created_at": "2025-09-19T12:14:06Z"
+    }
+  },
+  "manifests": {
+    "memory": "aci://memory/identity/tva/tva_memory.json",
+    "playbook": "aci://memory/identity/tva/tva_playbook.json",
+    "library": "aci://entities/tva/library/tva_library.json"
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-002",
+    "registry_uid": "UID:oasYS4KteUMqgt",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "governance",
+      "audit"
+    ]
+  },
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+}

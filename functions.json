@@ -607,7 +607,7 @@
       "description": "Deprecated: AGI-specific export pipeline. Redirects to hivemind unified exporter.",
       "deprecated": true,
       "config": {
-        "policy_file": "/library/agi/agi_export_policy.json"
+        "policy_file": "/modules/agi/agi_export_policy.json"
       },
       "steps": [
         {
@@ -658,7 +658,7 @@
         {
           "call": "include",
           "map": {
-            "file": "entities/aci_repo/aci_repo.json"
+            "file": "modules/aci_repo/aci_repo.json"
           }
         },
         {
@@ -881,7 +881,7 @@
         {
           "call": "json.schema.validate",
           "map": {
-            "schema_file": "library/audits/process_logs/process_logs.json#schema_definition",
+            "schema_file": "modules/audits/process_logs/process_logs.json#schema_definition",
             "data": "$steps.4.object"
           }
         },
@@ -931,7 +931,7 @@
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "library/audits/process_logs/process_logs.json#schema_definition",
+            "schema": "modules/audits/process_logs/process_logs.json#schema_definition",
             "rows": "$steps.0"
           }
         },
@@ -1300,7 +1300,7 @@
         "aci://functions.json",
         "aci://bootstrap.json"
       ],
-      "tva_layer": "aci://governance/tva/tva_layer.json"
+      "tva_layer": "aci://entities/tva/tva_layer.json"
     },
     "git_is_canonical": true,
     "mapping": [

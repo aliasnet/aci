@@ -1,0 +1,53 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:4reGxzz77WtXxc",
+    "sha256": "47a96ab8a6f76d575120793bd5e9d47d669c6241abbb17711ec47ec0d0872089",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/sentinel/library/sentinel_library.json"
+  },
+  "schema": "aci.library.manifest",
+  "version": "1.0.0",
+  "identity": "Sentinel",
+  "slug": "sentinel",
+  "resources": [],
+  "modules": [
+    {
+      "name": "sentinel_core",
+      "role": "guardian",
+      "source": "aci://entities/sentinel/sentinel.json",
+      "status": "primary"
+    }
+  ],
+  "module_permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  }
+}
