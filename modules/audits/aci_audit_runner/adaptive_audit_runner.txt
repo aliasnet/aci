@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ACI Adaptive Audit Runner — v0.2 (JSON-native wiring)
+ACI Adaptive Audit Runner — v0.2 (JSON-native wiring stub)
 
 - JSON-native spec (ACI DSL) to define resources, locators, hooks, self-validation, and metacognition.
 - Regex-based locator map (tolerates name typos & variants).
