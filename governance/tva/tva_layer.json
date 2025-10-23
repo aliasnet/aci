@@ -2,7 +2,7 @@
   "$meta": {
     "artifact_id": "ArtifactID:7Gk9vQdM2X5rLc",
     "issued": "2025-10-05T12:00:00Z",
-    "path": "aci://governance/tva/tva_layer.json",
+    "path": "aci://entities/tva/tva_layer.json",
     "file": "tva_layer.json"
   },
   "TVA_LAYER": {
@@ -20,15 +20,11 @@
           "role": "embedded"
         },
         {
-          "path": "aci://binders/nexus_core/nexus_core.json",
+          "path": "aci://entities/tva/tva.json",
           "role": "embedded"
         },
         {
-          "path": "aci://governance/tva/tva.json",
-          "role": "embedded"
-        },
-        {
-          "path": "aci://governance/tva/tva_layer.json",
+          "path": "aci://entities/tva/tva_layer.json",
           "role": "source"
         },
         {
@@ -39,6 +35,6 @@
       "explanation": "Based on WFGY 2.0. Semantic Reasoning Engine for LLMs\n\nTHIS specific code has MIT license."
     }
   },
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/tva_layer.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva_layer.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
 }

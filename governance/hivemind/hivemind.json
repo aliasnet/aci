@@ -2,7 +2,7 @@
   "$meta": {
     "artifact_id": "ArtifactID:BgNjZ2JU1DPTrq",
     "issued": "2025-10-04T18:13:59Z",
-    "path": "aci://governance/hivemind/hivemind.json",
+    "path": "aci://entities/hivemind/hivemind.json",
     "file": "hivemind.json"
   },
   "$defs": {
@@ -413,10 +413,6 @@
     "_comment_memory_registry": "Ordering follows entities.json. Child defaults apply to any nested entity not explicitly listed.",
     "schema_version": "1.3",
     "by_entity": {
-      "nexus_core": {
-        "stub_manifest": "memory/identity/nexus_core/nexus_core_memory.json",
-        "export_pattern": "memory/identity/nexus_core/YYYY/MM/DD/nexus_core_*_memory_*.jsonl.json"
-      },
       "mother": {
         "stub_manifest": "memory/identity/mother/mother_memory.json",
         "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_*_memory_*.jsonl.json"
@@ -514,7 +510,7 @@
         }
       ],
       "deprecates": [
-        "library/agi/tools/migrate_to_jsonl/migrator.py"
+        "modules/agi/tools/migrate_to_jsonl/migrator.py"
       ],
       "removal": {
         "allowed": true,
@@ -551,14 +547,13 @@
     "enforcement": {
       "oversight": [
         "ALIAS",
-        "TVA",
-        "Sentinel"
+        "Keymaker"
       ]
     }
   },
   "children": {},
   "manifests": {
-    "library": "aci://governance/hivemind/library/hivemind_library.json",
+    "library": "aci://entities/hivemind/library/hivemind_library.json",
     "memory": "aci://memory/identity/hivemind/hivemind_memory.json",
     "playbook": "aci://memory/identity/hivemind/hivemind_playbook.json"
   },
@@ -573,6 +568,6 @@
       "registry"
     ]
   },
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/hivemind/hivemind.json",
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/hivemind/hivemind.json",
   "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }
