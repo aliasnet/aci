@@ -9,8 +9,8 @@
   "version": "1.0.0",
   "identity": "TVA",
   "slug": "tva",
-  "source_manifest": "aci://governance/tva/tva.json",
-  "description": "Oversight, anomaly detection, and rollback enforcement for nexus_core and prime_directive.",
+  "source_manifest": "aci://entities/tva/tva.json",
+  "description": "Oversight, anomaly detection, and rollback enforcement for runtime kernel and prime_directive.",
   "paths": {
     "root": "aci://memory/identity/tva",
     "timeline": "YYYY/MM/DD"

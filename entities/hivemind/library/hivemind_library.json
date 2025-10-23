@@ -1,0 +1,53 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:ENtTpoqTHTYmSR",
+    "sha256": "af96b11323597ebb6c3d69a12506a6f7836e2c9e1ace2a6b2a8323ac00dbe78c",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://entities/hivemind/library/hivemind_library.json"
+  },
+  "schema": "aci.library.manifest",
+  "version": "1.0.0",
+  "identity": "hivemind",
+  "slug": "hivemind",
+  "resources": [],
+  "modules": [
+    {
+      "name": "hivemind_core",
+      "role": "collective_memory_core",
+      "source": "aci://entities/hivemind/hivemind.json",
+      "status": "primary"
+    }
+  ],
+  "module_permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  }
+}

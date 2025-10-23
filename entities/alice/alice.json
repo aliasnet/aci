@@ -43,7 +43,7 @@
   "version": "1.1.0",
   "role": "contributor",
   "abstract": "Child persona of AGI focused on collaborative design and conversational tasks under strict governance.",
-  "parent": "aci://library/agi/agi.json",
+  "parent": "aci://modules/agi/agi.json",
   "governance": {
     "proxied": false,
     "activation": "manual",

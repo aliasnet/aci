@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "Sentinel",
   "slug": "sentinel",
-  "source_manifest": "aci://governance/sentinel/sentinel.json",
+  "source_manifest": "aci://entities/sentinel/sentinel.json",
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "paths": {
     "root": "aci://memory/identity/sentinel",

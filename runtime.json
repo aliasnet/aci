@@ -33,10 +33,6 @@
       "path": "memory.json",
       "priority": 88
     },
-    "nexus_core": {
-      "path": "binders/nexus_core/nexus_core.json",
-      "priority": 95
-    },
     "resource_resolution_policy": {
       "fallbacks": [
         {
@@ -50,8 +46,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
         }
       ],
-      "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
-      "upstream": "aci://binders/yggdrasil.json",
+      "pointer": "aci://yggdrasil.json#resource_resolution_policy",
+      "upstream": "aci://yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
@@ -62,7 +58,7 @@
             "aci://functions.json",
             "aci://bootstrap.json"
           ],
-          "tva_layer": "aci://governance/tva/tva_layer.json"
+          "tva_layer": "aci://entities/tva/tva_layer.json"
         },
         "git_is_canonical": true,
         "mapping": [
@@ -83,8 +79,8 @@
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
           },
           {
-            "file": "aci://binders/yggdrasil.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+            "file": "aci://yggdrasil.json",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
           },
           {
             "file": "aci://functions.json",
@@ -110,9 +106,9 @@
         "resolvers": {
           "local_yggdrasil": {
             "type": "local",
-            "path": "binders/yggdrasil.json",
+            "path": "yggdrasil.json",
             "deterministic_version_check": true,
-            "version_probe": "aci://binders/yggdrasil.json#$meta.artifact_id",
+            "version_probe": "aci://yggdrasil.json#$meta.artifact_id",
             "notes": [
               "Load local yggdrasil.json first when present to enable offline resolution.",
               "Validate metadata artifact_id before adopting routes from the local copy."
@@ -120,7 +116,7 @@
           },
           "remote_yggdrasil": {
             "type": "remote",
-            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json",
             "deterministic_version_check": true,
             "notes": [
               "Canonical raw GitHub yggdrasil.json for authoritative routing data."
@@ -139,14 +135,8 @@
         "name": "aci_runtime",
         "description": "LLM-native operating system kernel orchestrating pipelines and governance in standalone mode."
       },
-      "secondary_kernel": {
-        "name": "nexus_core",
-        "path": "binders/nexus_core/nexus_core.json",
-        "description": "Companion kernel that carries optional routing and resolver logic while preserving runtime autonomy."
-      },
       "coordination_notes": [
-        "Maintain existing runtime pipeline precedence; nexus_core augments resolution without overriding runtime sequencing.",
-        "When nexus_core is unavailable, runtime.json continues operating using primary kernel responsibilities."
+        "Runtime operates as a standalone kernel; auxiliary routers must register explicitly before participating in dispatch."
       ]
     },
     "sandbox_mode": {
@@ -177,7 +167,6 @@
       "policy": {
         "auto_promote_to_full": true,
         "promotion_required_files": [
-          "binders/nexus_core/nexus_core.json",
           "entities.json",
           "functions.json"
         ],
@@ -220,7 +209,7 @@
       }
     },
     "default_interface": {
-      "path": "governance/mother/mother.json",
+      "path": "entities/mother/mother.json",
       "priority": 100,
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
@@ -319,7 +308,7 @@
           "stack_parsing_required": true
         },
         "routing": {
-          "primary_router": "nexus_core",
+          "primary_router": "aci_runtime",
           "nl_interpreter": "oracle.intent_mapper"
         },
         "nesting_precedence": "outer block level governs all contained units; inner blocks are content only"
@@ -364,7 +353,7 @@
         ],
         "audit": {
           "log_to": [
-            "aci://library/audits/tracehub/tracehub.json",
+            "aci://modules/audits/tracehub/tracehub.json",
             "TVA.audit_ledger"
           ],
           "fields": [
@@ -385,7 +374,7 @@
         "3) Parse payload: split on top-level && and :: preserving nesting.",
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
-        "6) Route to nexus_core (registry bypass allowed if authenticated).",
+        "6) Route to runtime dispatcher (registry bypass allowed if authenticated).",
         "7) Emit audit entry via TraceHub audit wrapper and TVA at start and completion of the block.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
@@ -425,7 +414,7 @@
     "wrapper": {
       "provider": "process_logs",
       "jobs": [],
-      "audit_sink": "aci://library/audits/process_logs/process_logs.json",
+      "audit_sink": "aci://modules/audits/process_logs/process_logs.json",
       "presence_channel": "nexus.event.scheduler"
     },
     "rag": {
@@ -446,11 +435,17 @@
       }
     },
     "logging": {
-      "tracehub_status_wrapper": "aci://library/audits/tracehub/tracehub.json",
-      "process_logs_wrapper": "aci://library/audits/process_logs/process_logs.json",
+      "tracehub_status_wrapper": "aci://modules/audits/tracehub/tracehub.json",
+      "process_logs_wrapper": "aci://modules/audits/process_logs/process_logs.json",
       "output_root": "/mnt/tracehub"
     },
     "changelog": [
+      {
+        "version": "2025-10-08.00",
+        "notes": [
+          "Retired Nexus Core binder, simplified runtime to single-kernel dispatch, and rerouted command blocks through aci_runtime."
+        ]
+      },
       {
         "version": "2025-10-07.02",
         "notes": [
@@ -472,7 +467,7 @@
       {
         "version": "2025-10-06.00",
         "notes": [
-          "Introduced local-first resolver bias with user guidance for maintaining local yggdrasil backups and documented dual-kernel coordination with nexus_core."
+          "Introduced local-first resolver bias with user guidance for maintaining local yggdrasil backups and documented dual-kernel coordination (now retired)."
         ]
       },
       {
@@ -496,21 +491,18 @@
     ],
     "kernel_profile": {
       "type": "primary",
-      "dual_kernel": true,
-      "peer_kernel": "nexus_core",
+      "dual_kernel": false,
       "standalone_ready": true,
       "handoff": [
-        "Initialize runtime pipelines before invoking nexus_core to preserve primary-kernel precedence.",
-        "Operate autonomously with cached routing policies when nexus_core is unavailable.",
-        "When nexus_core attaches, share resolver state using local_first_resolution for synchronized lookups."
+        "Runtime remains the authoritative kernel; auxiliary modules must register routing hooks via functions.json."
       ]
     }
   },
   "resource_resolution_policy": {
-    "pointer": "aci://binders/yggdrasil.json#resource_resolution_policy",
+    "pointer": "aci://yggdrasil.json#resource_resolution_policy",
     "yggdrasil_resource_resolution_policy": {
       "embeds": {
-        "tva_layer": "aci://governance/tva/tva_layer.json"
+        "tva_layer": "aci://entities/tva/tva_layer.json"
       },
       "mapping": [],
       "resolver_order": [
@@ -518,8 +510,8 @@
         "local"
       ]
     },
-    "upstream": "aci://binders/yggdrasil.json"
+    "upstream": "aci://yggdrasil.json"
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 }

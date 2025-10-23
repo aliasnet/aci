@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "identity": "Sentinel",
   "slug": "sentinel",
-  "source_manifest": "aci://governance/sentinel/sentinel.json",
+  "source_manifest": "aci://entities/sentinel/sentinel.json",
   "entries": [],
   "notes": [
     "Use this playbook to capture evolving perspectives without altering the core manifest."
