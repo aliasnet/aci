@@ -56,6 +56,99 @@
       }
     }
   },
+  "x-llm-bootstrap": {
+    "purpose": "Deterministic chat→catalog router for category/region entries. Do not summarize—select a matching entry.",
+    "guarantees": [
+      "Route via scored matches against catalog metadata; no guesswork.",
+      "Fill placeholders only from user text, documented defaults, or in-file examples.",
+      "No writes or mutation endpoints exist; decline any request that implies one.",
+      "Escalate to web fusion only after confirming the catalog lacks suitable coverage."
+    ],
+    "router_policy": {
+      "discovery": [
+        "Flatten categories → region/group keys → endpoint arrays; treat each object as a callable entry.",
+        "Attach category, region, and entry key metadata to every candidate before scoring."
+      ],
+      "signals": {
+        "intent": [
+          "category_key",
+          "region_path",
+          "entry.key",
+          "entry.title"
+        ],
+        "endpoint_fields": [
+          "entry.base",
+          "entry.example",
+          "entry.format",
+          "entry.cors"
+        ],
+        "constraints": [
+          "path_placeholders",
+          "query_parameters",
+          "derived_filter_defaults"
+        ]
+      },
+      "selection_algorithm": {
+        "score_formula": "S = 0.55*sim(intent) + 0.30*sim(endpoint_fields) + 0.15*sim(constraints)",
+        "normalize": "S in [0,1]; tie-break by richer example coverage then fewer unresolved placeholders",
+        "thresholds": {
+          "safe": 0.60,
+          "transit": 0.40,
+          "reject": 0.40
+        },
+        "rules": [
+          "If max S < reject → do not call; request clarification or offer web fusion.",
+          "If max S in [transit,safe) → request only the unresolved required placeholders.",
+          "If max S ≥ safe → proceed with the catalog entry."
+        ]
+      },
+      "parameter_resolution": {
+        "sources": [
+          "explicit entities in the user request",
+          "category/region context",
+          "inline examples (derive defaults from example query strings)",
+          "defaults implied by placeholder annotations in the base URL"
+        ],
+        "prohibitions": [
+          "never invent placeholder values",
+          "never assume pagination or filters not described"
+        ]
+      },
+      "execution_policy": {
+        "method": "GET",
+        "ask_before_write": true,
+        "retry": {
+          "max": 1,
+          "backoff_ms": 300
+        },
+        "timeout_s": 20
+      },
+      "result_format": {
+        "summarize_fields": [
+          "title",
+          "category",
+          "region",
+          "format",
+          "cors"
+        ],
+        "include_raw_excerpt": true,
+        "note_units_timezone": true
+      },
+      "web_fusion": {
+        "allowed": true,
+        "when": [
+          "No candidate meets the transit threshold",
+          "User needs a scope explicitly absent from the catalog",
+          "Catalog entry documents delayed publication but user requests realtime"
+        ],
+        "duty": "Cite both the catalog entry (if referenced) and the web source; favor catalog data when comparable."
+      }
+    },
+    "operator_prompts": {
+      "system": "You are a catalog router. Always traverse this catalog before escalating. Score candidates deterministically.",
+      "user_missing_params": "I can do that. I still need: {{param_list}} — provide values or say 'use example defaults' if acceptable."
+    }
+  },
   "categories": {
     "economy_finance": {
       "global": [
