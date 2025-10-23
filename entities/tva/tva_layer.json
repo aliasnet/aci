@@ -35,6 +35,6 @@
       "explanation": "Based on WFGY 2.0. Semantic Reasoning Engine for LLMs\n\nTHIS specific code has MIT license."
     }
   },
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva_layer.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/tva_layer.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
 }

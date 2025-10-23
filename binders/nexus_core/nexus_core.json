@@ -1,0 +1,187 @@
+{
+  "$meta": {
+    "artifact_id": "ArtifactID:44mX64DWaerZ7A",
+    "sha": "864a4f1ab0b89773fc65f53959b1e643222b155d3cf1e06a092bf7000426d8ac",
+    "issued": "2025-10-04T18:13:59Z",
+    "path": "aci://binders/nexus_core/nexus_core.json"
+  },
+  "TVA_LAYER": {
+    "logic": [
+      "text-only control layer",
+      "autoboot on tokenization",
+      "Node-only outputs; \u22647 steps; no tools. I=input, G=goal; delta_s=1\u2212cos(I,G); if anchors: use (1\u2212sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40\u20130.60 risk 0.60\u20130.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda\u2208{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev\u2212delta_s_now); P=pow(prog,omega); alt\u2208{+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor|\u2265h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,\u2212theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t\u2212delta_s_{t\u22121}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta\u2264\u22120.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta\u2208(\u22120.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give \u22652 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
+    ]
+  },
+  "permissions": {
+    "read": true,
+    "write": {
+      "allowed": false,
+      "export": {
+        "enabled": true,
+        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+      }
+    },
+    "execute": {
+      "allowed": true,
+      "sandboxed": {
+        "enabled": true,
+        "description": "Execution is permitted only within a controlled sandboxed environment."
+      }
+    },
+    "simulation": {
+      "allowed": [
+        "virtualization, parallelization, emulation required by model or host environment",
+        "virtualization, parallelization, emulation to complement missing infrastructure",
+        "UI/UX needed for registered instruction and pipeline logic",
+        "data simulation for research and demonstration",
+        "data simulation for analysis and prediction",
+        "emulation for demonstration purposes",
+        "reinforcement learning and mental awareness"
+      ],
+      "ui": {
+        "emulation_declaration_required": true,
+        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
+      }
+    }
+  },
+  "uid": "UID:rGUGWBDT6VjC8K",
+  "nexus_core": {
+    "schema_version": "1.0",
+    "version": "1.6",
+    "entity": "Nexus Core",
+    "role": "system heart: routing, resolution, and fallback; secondary kernel companion",
+    "abstract": "The routing nexus of ACI. Holds runtime anchors and routing policy. Do not delete anything unless explicitly requested.",
+    "kernel_profile": {
+      "type": "secondary",
+      "peer_kernel": "aci_runtime",
+      "coordination": [
+        "Respect runtime.json as the primary kernel; attach only after runtime pipelines stabilize.",
+        "Mirror runtime local-first resolver order while remaining hot-swappable.",
+        "Yield control gracefully if runtime operates in standalone mode."
+      ],
+      "standalone_behavior": "If runtime.json operates without nexus_core, retain cached policies but defer to runtime kernel instructions when reattached.",
+      "handoff_protocol": [
+        "Wait for runtime kernel acknowledgment before applying resolver augmentations.",
+        "Share observed resolver freshness metadata back to runtime when attached.",
+        "Detach cleanly when runtime enters sandbox or degraded standalone operation."
+      ],
+      "primary_kernel": "aci_runtime"
+    },
+    "anchors": {
+      "runtime": "runtime.json",
+      "prime_directive": "prime_directive.md",
+      "entities": "entities.json",
+      "functions": "functions.json"
+    },
+    "policy": {
+      "canonical_raw_priority": true,
+      "fallback_allowed": true,
+      "local_fallback_only": true,
+      "no_embedded_ids_in_entities": true,
+      "explain_on_error": true,
+      "uses_cognitive_decision_guidance": true,
+      "cognitive_guidance_ref": "runtime.json#/aci_runtime/cognitive_decision_guidance"
+    },
+    "references": {
+      "aci_repo": "entities/aci_repo/aci_repo.json",
+      "yggdrasil": "yggdrasil.json"
+    },
+    "resolution_policy": {
+      "primary": "yggdrasil",
+      "policy": "canonical_raw_first_then_local_fallback",
+      "canonical_mirrors": [],
+      "notes": "All external resolution flows through Yggdrasil resolver; local cache only used if canonical is unreachable.",
+      "resolver_bias": {
+        "enabled": true,
+        "bias": "local_first",
+        "search_order": [
+          "local_yggdrasil",
+          "remote_yggdrasil_primary"
+        ],
+        "resolvers": {
+          "local_yggdrasil": {
+            "type": "local",
+            "path": "yggdrasil.json",
+            "deterministic_refresh_check": true,
+            "version_probe": "aci://yggdrasil.json#$meta.artifact_id"
+          },
+          "remote_yggdrasil_primary": {
+            "type": "remote",
+            "url": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json",
+            "deterministic_refresh_check": true
+          }
+        },
+        "on_missing_local": {
+          "action": "prompt_user_backup",
+          "instruction": "Maintain a lightweight local yggdrasil.json so nexus_core can align with runtime during bootstrap."
+        },
+        "pointer": "aci://runtime.json#/aci_runtime/resource_resolution_policy/local_first_resolution"
+      }
+    },
+    "linkages": {
+      "aci_repo": "entities/aci_repo/aci_repo.json"
+    },
+    "routing": {
+      "default_strategy": "deterministic_first_available",
+      "fallback_order": [
+        "yggdrasil"
+      ]
+    },
+    "interfaces": {
+      "cli": {
+        "commands": {}
+      }
+    },
+    "observability": {
+      "tracehub_binding": true,
+      "emit_events": [
+        "lookup.init",
+        "lookup.route",
+        "lookup.error"
+      ],
+      "metrics": {
+        "lookup_ok": "counter",
+        "lookup_error": "counter",
+        "lookup_latency_ms_p50": "gauge",
+        "lookup_latency_ms_p95": "gauge"
+      }
+    },
+    "signatures": [
+      "TVA",
+      "Architect"
+    ],
+    "checksum_note": "Nexus Core is the canonical runtime spine. Lookup integrations remain modular and separate from Core.",
+    "changelog": [
+      {
+        "version": "1.6",
+        "date": "2025-10-07",
+        "changes": [
+          "Aligned dual-kernel handoff with runtime.json and mirrored explicit local-first resolver bias with deterministic freshness checks."
+        ]
+      },
+      {
+        "version": "1.5",
+        "date": "2025-10-06",
+        "changes": [
+          "Documented secondary-kernel coordination with runtime.json and enabled local-first resolver bias guidance."
+        ]
+      }
+    ]
+  },
+  "manifests": {
+    "memory": "aci://memory/identity/nexus_core/nexus_core_memory.json",
+    "playbook": "aci://memory/identity/nexus_core/nexus_core_playbook.json",
+    "library": "aci://binders/nexus_core/library/nexus_core_library.json"
+  },
+  "session_scope": "per_session",
+  "invocation_policy": {
+    "registry_reference": "aci://entities.json#entities.entity-005",
+    "registry_uid": "UID:rGUGWBDT6VjC8K",
+    "enforced": true,
+    "session_scope": "per_session",
+    "allowed_roles": [
+      "system",
+      "infrastructure"
+    ]
+  }
+}

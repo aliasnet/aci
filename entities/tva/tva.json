@@ -70,8 +70,7 @@
       ],
       "last_health_check": {
         "timestamp": "2025-03-17T08:00:00Z",
-        "result": "green",
-        "notes": "Validated TVA ledger session buffers routed through TraceHub audit wrapper with process_logs export coordination."
+        "result": "green".
       }
     },
     "functions": {
@@ -81,13 +80,13 @@
       "policy_sync": "synchronize policy enforcement across entities"
     },
     "rules": {
-      "prime_directive_binding": "TVA ensures runtime kernel never overrides prime_directive",
+      "prime_directive_binding": "TVA ensures nexus_core never overrides prime_directive",
       "anomaly_protocol": {
         "on_violation": "trigger reflex_only; rollback_last_green; freeze promotions",
         "on_breach": "quarantine offending entity; append Hivemind audit entry",
         "signatures_required": [
           "ALIAS",
-          "Sentinel"
+          "Keymaker"
         ]
       }
     },
@@ -144,6 +143,6 @@
       "audit"
     ]
   },
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/tva.json",
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
 }
