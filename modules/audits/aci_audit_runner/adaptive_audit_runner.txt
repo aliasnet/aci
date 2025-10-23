@@ -1,0 +1,368 @@
+#!/usr/bin/env python3
+"""
+ACI Adaptive Audit Runner — v0.2 (JSON-native wiring)
+
+- JSON-native spec (ACI DSL) to define resources, locators, hooks, self-validation, and metacognition.
+- Regex-based locator map (tolerates name typos & variants).
+- Hook layer: self-validation + metacognition signals.
+- Comm modes: silent | audit-only | notify-on-error | verbose (default: silent).
+- Artifacts persisted under /mnt; no stdout unless verbose.
+
+This file is a local stub/runner that interprets a JSON spec at /mnt/data/aci/config/aci_runner_spec.json
+"""
+from __future__ import annotations
+import argparse, contextlib, datetime as _dt, json, os, random, re, threading, time, uuid
+from typing import Any, Dict, List, Optional, Tuple
+
+ACI_ROOT = "/mnt/data/aci"
+CANONICAL = "https://raw.githubusercontent.com/aliasnet/aci/main"
+CDN_FALLBACK = "https://aci.aliasmail.cc"
+LOCAL_ROOT = os.path.join(ACI_ROOT, "local")
+STATE_DIR = os.path.join(ACI_ROOT, "state")
+AUDIT_DIR = os.path.join(ACI_ROOT, "audit", "tmp")
+LOG_DIR = os.path.join(ACI_ROOT, "logs")
+CONFIG_DIR = os.path.join(ACI_ROOT, "config")
+LIB_DIR = os.path.join(ACI_ROOT, "modules", "audits", "aci_audit_runner")
+SPEC_PATH = os.path.join(CONFIG_DIR, "aci_runner_spec.json")
+COMM_MODES = {"silent", "audit-only", "notify-on-error", "verbose"}
+
+def ensure_safe_path(path: str) -> str:
+    root = os.path.realpath(ACI_ROOT)
+    real = os.path.realpath(path)
+    if real != root and not real.startswith(root + os.sep):
+        raise ValueError(f"unsafe path outside {ACI_ROOT}: {path}")
+    return real
+
+def safe_makedirs(*paths: str) -> None:
+    for p in paths:
+        os.makedirs(ensure_safe_path(p), exist_ok=True)
+
+safe_makedirs(
+    ACI_ROOT,
+    LIB_DIR,
+    STATE_DIR,
+    AUDIT_DIR,
+    LOG_DIR,
+    LOCAL_ROOT,
+    CONFIG_DIR,
+)
+
+def timestamp_slug(ts: Optional[str] = None) -> str:
+    ref = (ts or now_utc()).replace(':', '').replace('-', '')
+    return ref
+
+def sanitize_relpath(relpath: str) -> str:
+    normalized = os.path.normpath(relpath).lstrip(os.sep)
+    if normalized.startswith('..') or os.path.isabs(relpath):
+        raise ValueError(f"illegal relpath: {relpath}")
+    return normalized
+
+with contextlib.suppress(Exception):
+    import requests  # type: ignore
+
+ERR = {
+    "SCHEMA_MISSING_KEY": "schema missing key",
+    "FETCH_FAILED": "fetch failed",
+    "RELAXED_JSON_RECOVERED": "relaxed json recovered",
+    "SELF_VALIDATION_FAIL": "self validation failed",
+    "METACOG_ANOMALY": "metacognition anomaly",
+}
+
+_JSON_TRAILING_COMMAS = re.compile(r",\s*([]}])")
+_JSON_LINE_COMMENTS = re.compile(r"(^|\s)//.*?$", re.M)
+_JSON_BLOCK_COMMENTS = re.compile(r"/\*.*?\*/", re.S)
+
+def _relaxed_json_bytes_to_obj(data: bytes) -> Any:
+    text = data.decode("utf-8", errors="replace")
+    text = _JSON_BLOCK_COMMENTS.sub("", text)
+    text = _JSON_LINE_COMMENTS.sub("", text)
+    prev = None
+    while prev != text:
+        prev = text
+        # callable to avoid backref pitfalls when embedding this source elsewhere
+        text = _JSON_TRAILING_COMMAS.sub(lambda m: m.group(1), text)
+    return json.loads(text)
+
+def now_utc() -> str:
+    return _dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+
+def sha256(b: bytes) -> str:
+    import hashlib
+    return hashlib.sha256(b).hexdigest()
+
+def atomic_write(path: str, data: bytes) -> None:
+    safe_path = ensure_safe_path(path)
+    tmp = f"{safe_path}.tmp-{uuid.uuid4().hex}"
+    with open(tmp, "wb") as f:
+        f.write(data)
+    os.replace(tmp, safe_path)
+
+def log_line(msg: str, *, lf: Optional[str] = None, comm_mode: str = "silent", level: str = "INFO") -> None:
+    ts = now_utc()
+    line = f"[{ts}] {level} {msg}\n"
+    log_name = ensure_safe_path(lf or os.path.join(LOG_DIR, _dt.datetime.utcnow().strftime("aci-%Y%m%d.log")))
+    with open(log_name, "a", encoding="utf-8") as f:
+        f.write(line)
+    if comm_mode == "verbose":
+        print(line, end="")
+
+SPEC_DEFAULT = {
+    "version": "0.2",
+    "resolvers": {
+        "order": ["primary","fallback","local"],
+        "primary": CANONICAL,
+        "fallback": CDN_FALLBACK,
+        "local_root": LOCAL_ROOT
+    },
+    "resources": [
+        {"name":"prime_directive","relpath":"prime_directive.md","kind":"md"},
+        {"name":"runtime","relpath":"runtime.json","kind":"json","required_keys":["resolver"]},
+        {"name":"functions","relpath":"functions.json","kind":"json"},
+        {"name":"metacognition","relpath":"modules/metacognition/metacognition.json","kind":"json"},
+        {"name":"metacognition_options","relpath":"modules/metacognition/metacognition_options.json","kind":"json","optional":True},
+        {"name":"yggdrasil","relpath":"yggdrasil.json","kind":"json"}
+    ],
+    "locators_regex": {
+        "metacognition": "modules/metacognition/metacognition(_options)?\\.json$",
+        "functions": "functions(\\.registry)?\\.json$",
+        "yggdrasil": "entities/ygg(dr|rd)asil\\.json$",
+        "prime_directive": "prime(_)?directive\\.(md|txt)$"
+    },
+    "hooks": {
+        "self_validation": [
+            {"id":"rt.resolver.has_primary","select":"runtime.resolver.order","assert":{"contains":"primary"},"severity":"error"},
+            {"id":"fx.registry.present","select":"functions","assert":{"exists":True},"severity":"error"}
+        ],
+        "metacognition": {"signals": [
+            {"id":"digest.delta","type":"digest_diff","scope":["runtime","functions","metacognition","yggdrasil"]},
+            {"id":"change.rate","type":"change_rate","window":20,"threshold_warn":4,"threshold_err":8}
+        ]}
+    },
+    "comm_mode":"silent","interval":300,"jitter":5
+}
+
+class Resolver:
+    def __init__(self, primary: str, fallback: str, local_root: str, order: List[str]):
+        self.primary = primary
+        self.fallback = fallback
+        self.local_root = ensure_safe_path(local_root)
+        self.order = list(order)
+        self.session = None
+        with contextlib.suppress(Exception):
+            import requests as _r
+            self.session = _r.Session()
+    def _fetch_http(self, url: str) -> bytes:
+        if self.session is None: raise RuntimeError("network disabled; cannot fetch remote URL")
+        r = self.session.get(url, timeout=12); r.raise_for_status(); return r.content
+    def _fetch_local(self, relpath: str) -> bytes:
+        clean = sanitize_relpath(relpath)
+        path = ensure_safe_path(os.path.join(self.local_root, clean))
+        with open(path, "rb") as f:
+            return f.read()
+    def fetch(self, relpath: str) -> Tuple[bytes, str, str]:
+        clean = sanitize_relpath(relpath)
+        last_err=None
+        for src in self.order:
+            try:
+                if src=="primary":
+                    url=f"{self.primary}/{clean}"
+                    return self._fetch_http(url), src, url
+                elif src=="fallback":
+                    url=f"{self.fallback}/{clean}"
+                    return self._fetch_http(url), src, url
+                else:
+                    data=self._fetch_local(clean)
+                    return data, "local", f"file://{self.local_root}/{clean}"
+            except Exception as e:
+                last_err=e; continue
+        raise RuntimeError(f"All resolvers failed for {clean}: {last_err}")
+
+class Ring:
+    def __init__(self, cap:int=64): self.buf:List[Dict[str,Any]]=[]; self.cap=cap; self.lock=threading.RLock()
+    def append(self,x:Dict[str,Any]):
+        with self.lock:
+            self.buf.append(x); self.buf=self.buf[-self.cap:]
+    def snapshot(self):
+        with self.lock: return list(self.buf)
+
+class ACIState:
+    def __init__(self): self.lock=threading.RLock(); self.state:Dict[str,Any]={}; self.meta:Dict[str,Any]={}; self.history=Ring(64)
+    def update(self,name:str,content:Any,*,source:str,url:str,digest:str):
+        with self.lock:
+            self.state[name]=content; self.meta[name]={"ts":now_utc(),"source":source,"url":url,"sha256":digest};
+            self.history.append({"name":name,**self.meta[name]})
+    def get(self,path:str)->Any:
+        node:Any={**self.state}
+        for part in path.split('.'): node = (node.get(part) if isinstance(node,dict) else None)
+        return node
+    def snapshot(self)->Dict[str,Any]:
+        with self.lock: return {"state":dict(self.state),"meta":dict(self.meta),"history":self.history.snapshot(),"ts":now_utc()}
+
+ACI_MEMORY=ACIState()
+
+def write_state_snapshot(filename:str="active.json")->str:
+    snap=ACI_MEMORY.snapshot()
+    data=json.dumps(snap,indent=2,ensure_ascii=False).encode("utf-8")
+    active_path=os.path.join(STATE_DIR,filename)
+    atomic_write(active_path,data)
+    rotated=os.path.join(STATE_DIR,f"state-{timestamp_slug()}.json")
+    atomic_write(rotated,data)
+    return active_path
+
+def write_audit(task:str,status:str,details:Dict[str,Any])->str:
+    rec={"job_id":uuid.uuid4().hex,"task":task,"status":status,"ts":now_utc(),"details":details}
+    data=json.dumps(rec,indent=2,ensure_ascii=False).encode("utf-8")
+    slug=timestamp_slug(rec["ts"])
+    candidate=f"audit-{slug}.json"
+    path=os.path.join(AUDIT_DIR,candidate)
+    if os.path.exists(ensure_safe_path(path)):
+        candidate=f"audit-{slug}-{rec['job_id'][:8]}.json"
+        path=os.path.join(AUDIT_DIR,candidate)
+    atomic_write(path,data)
+    return candidate
+
+def load_spec()->Dict[str,Any]:
+    try:
+        with open(ensure_safe_path(SPEC_PATH),"rb") as f:
+            return _relaxed_json_bytes_to_obj(f.read())
+    except Exception:
+        data=json.dumps(SPEC_DEFAULT,indent=2,ensure_ascii=False).encode("utf-8")
+        atomic_write(SPEC_PATH,data)
+        return SPEC_DEFAULT
+
+def ingest_once(spec:Dict[str,Any])->Dict[str,Any]:
+    res_cfg=spec["resources"]; order=spec.get("resolvers",{}).get("order",["primary","fallback","local"])
+    resolver=Resolver(spec["resolvers"].get("primary",CANONICAL),spec["resolvers"].get("fallback",CDN_FALLBACK),spec["resolvers"].get("local_root",LOCAL_ROOT),order)
+    summary={"ingested":[], "errors":[]}
+    for r in res_cfg:
+        relpath=r["relpath"]; kind=r.get("kind","json"); required=tuple(r.get("required_keys",[])); optional=r.get("optional",False)
+        try:
+            raw,src,url=resolver.fetch(relpath); dig=sha256(raw)
+            if kind=="json":
+                try: obj=json.loads(raw)
+                except Exception: obj=_relaxed_json_bytes_to_obj(raw)
+                for k in required:
+                    if k not in obj: raise KeyError(f"{ERR['SCHEMA_MISSING_KEY']}: {k}")
+                ACI_MEMORY.update(r["name"],obj,source=src,url=url,digest=dig)
+            else:
+                text=raw.decode("utf-8",errors="replace"); ACI_MEMORY.update(r["name"],text,source=src,url=url,digest=dig)
+            summary["ingested"].append({"name":r["name"],"url":url,"source":src,"sha256":dig})
+        except Exception as e:
+            if optional: summary["ingested"].append({"name":r["name"],"optional_missing":True}); continue
+            summary["errors"].append({"name":r["name"],"error":str(e)})
+    return summary
+
+def _assert_eval(selector_val:Any,spec:Dict[str,Any])->Optional[str]:
+    if "exists" in spec:
+        want=bool(spec["exists"]); got=selector_val is not None
+        if got!=want: return f"exists expected {want}, got {got}"
+    if "equals" in spec:
+        if selector_val!=spec["equals"]: return f"equals expected {spec['equals']}, got {selector_val}"
+    if "contains" in spec:
+        v=spec["contains"]
+        try:
+            if v not in selector_val: return f"contains expected {v}, not in {selector_val}"
+        except Exception:
+            return f"contains not-applicable for {type(selector_val).__name__}"
+    if "regex" in spec:
+        pat=re.compile(spec["regex"]); text=json.dumps(selector_val,ensure_ascii=False) if not isinstance(selector_val,str) else selector_val
+        if not pat.search(text or ""): return f"regex {spec['regex']} did not match"
+    return None
+
+def run_self_validation(spec:Dict[str,Any])->Dict[str,Any]:
+    checks=spec.get("hooks",{}).get("self_validation",[]); failures:List[Dict[str,Any]]=[]
+    for c in checks:
+        sel=c.get("select",""); val=ACI_MEMORY.get(sel) if sel else None; err=_assert_eval(val,c.get("assert",{}))
+        if err: failures.append({"id":c.get("id"),"select":sel,"reason":err,"severity":c.get("severity","warn")})
+    return {"failures":failures, "passed":len(failures)==0}
+
+def run_metacognition(spec:Dict[str,Any])->Dict[str,Any]:
+    signals_cfg=spec.get("hooks",{}).get("metacognition",{}).get("signals",[]); signals:List[Dict[str,Any]]=[]
+    history=ACI_MEMORY.history.snapshot()
+    for s in signals_cfg:
+        sid=s.get("id"); stype=s.get("type")
+        if stype=="digest_diff":
+            scope=s.get("scope",[]); diffs={}
+            for name in scope:
+                prev=None
+                for h in reversed(history):
+                    if h.get("name")==name:
+                        if prev is None: prev=h.get("sha256")
+                        else: diffs[name]={"new":prev,"old":h.get("sha256"),"changed":prev!=h.get("sha256")}; break
+            signals.append({"id":sid,"type":stype,"diffs":diffs})
+        elif stype=="change_rate":
+            window=int(s.get("window",20)); tw=int(s.get("threshold_warn",4)); te=int(s.get("threshold_err",8))
+            window_hist=history[-window:]; changes={}
+            for h in window_hist:
+                nm=h.get("name"); changes[nm]=changes.get(nm,0)+1
+            mx=max(changes.values()) if changes else 0
+            level = "err" if mx>=te else ("warn" if mx>=tw else "ok")
+            signals.append({"id":sid,"type":stype,"level":level,"max_changes":mx,"by_name":changes})
+        else:
+            signals.append({"id":sid,"type":stype,"note":"unknown signal type"})
+    ACI_MEMORY.meta.setdefault("metacognition",{}); ACI_MEMORY.meta["metacognition"]["ts"]=now_utc(); ACI_MEMORY.meta["metacognition"]["signals"]=signals
+    return {"signals":signals}
+
+def cycle_once(comm_mode:str="silent")->Dict[str,Any]:
+    spec=load_spec(); summary=ingest_once(spec); selfv=run_self_validation(spec); meta=run_metacognition(spec)
+    write_state_snapshot(); status = "OK" if (not summary["errors"] and selfv["passed"]) else ("WARN" if selfv["passed"] else "ERR")
+    details={"ingested":summary["ingested"],"errors":summary["errors"],"self_validation":selfv,"metacognition":meta}
+    name=write_audit("audit.cycle",status,details); log_line(f"cycle status={status} -> {name}",comm_mode=comm_mode)
+    if comm_mode in {"audit-only","notify-on-error"} and status=="ERR": log_line("ERROR detected — check audit file for details",comm_mode=comm_mode,level="ERROR")
+    return {"status":status,"audit":name}
+
+def build_argparser()->argparse.ArgumentParser:
+    p=argparse.ArgumentParser(description="ACI Adaptive Audit Runner (JSON-native)")
+    p.add_argument("--mode",choices=["pull","once"],default="pull")
+    p.add_argument("--interval",type=float,default=None,help="Pull interval seconds")
+    p.add_argument("--jitter",type=float,default=None,help="Random jitter added to interval")
+    p.add_argument("--comm",choices=list(COMM_MODES),default=None,help="Communication mode")
+    p.add_argument("--silent",action="store_true",help="Alias for --comm silent")
+    p.add_argument("--max-cycles",type=int,default=None,help="Maximum number of pull cycles before exiting (>=1)")
+    p.add_argument("--burst-deadline",type=float,default=1800.0,help="Upper bound in seconds for a pull burst before exit")
+    return p
+
+def main(argv:Optional[List[str]]=None)->int:
+    args=build_argparser().parse_args(argv)
+    spec=load_spec()
+    comm_mode = "silent" if args.silent else (args.comm or spec.get("comm_mode","silent"))
+    interval = args.interval or float(spec.get("interval",300))
+    jitter = args.jitter or float(spec.get("jitter",5))
+    max_cycles = args.max_cycles
+    if max_cycles is not None and max_cycles < 1:
+        raise ValueError("--max-cycles must be >= 1")
+    deadline = float(args.burst_deadline) if args.burst_deadline is not None else 1800.0
+    deadline_cap = float('inf') if deadline <= 0 else deadline
+    if args.mode=="once":
+        cycle_once(comm_mode=comm_mode)
+        return 0
+    backoff=1.0
+    cycles=0
+    start=time.time()
+    while True:
+        out=cycle_once(comm_mode=comm_mode); status=out.get("status")
+        cycles+=1
+        if status=="OK":
+            backoff=1.0
+            delay=interval+random.uniform(0,jitter)
+        elif status=="WARN":
+            backoff=min(60.0,backoff*2)
+            delay=max(interval/2,backoff)
+        else:
+            backoff=min(120.0,backoff*2)
+            delay=backoff
+        if max_cycles is not None and cycles >= max_cycles:
+            break
+        elapsed=time.time()-start
+        if elapsed >= deadline_cap:
+            break
+        sleep_for=max(0.1,delay)
+        if deadline_cap != float('inf'):
+            sleep_for=min(sleep_for,max(0.1,deadline_cap-elapsed))
+        time.sleep(sleep_for)
+        if deadline_cap != float('inf') and (time.time()-start) >= deadline_cap:
+            break
+    return 0
+
+if __name__=="__main__":
+    import sys; sys.exit(main())

@@ -43,7 +43,7 @@
   "version": "1.1.0",
   "role": "trainee",
   "abstract": "Safety-focused AGI trainee persona emphasizing caution, reflection, and supervised learning.",
-  "parent": "aci://library/agi/agi.json",
+  "parent": "aci://modules/agi/agi.json",
   "governance": {
     "proxied": false,
     "activation": "manual",

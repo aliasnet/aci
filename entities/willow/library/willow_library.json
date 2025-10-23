@@ -32,7 +32,7 @@
     {
       "name": "agi_core",
       "role": "upstream_logic",
-      "source": "aci://library/agi/agi.json",
+      "source": "aci://modules/agi/agi.json",
       "status": "linked"
     }
   ],
