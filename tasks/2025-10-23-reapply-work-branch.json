@@ -1,0 +1,33 @@
+{
+  "$meta": {
+    "created": "2025-10-23T09:16:00Z",
+    "created_by": "codex",
+    "source_branch": "work",
+    "artifact": "aci://tasks/2025-10-23-reapply-work-branch.json"
+  },
+  "task_id": "task-2025-10-23-reapply-work-branch",
+  "title": "Replay work branch refactor onto clean head",
+  "status": "open",
+  "description": "Apply the saved patch that captures commit 018d69a7ac77fd1b486bebd91262b49ce8460922 onto the resynced branch so the governance relocation and module split land without merge conflicts.",
+  "dependencies": [
+    "task-2025-10-23-resync-baseline"
+  ],
+  "patch_bundle": {
+    "path": "aci://tasks/patches/2025-10-23-work-branch.patch",
+    "source_commit": "018d69a7ac77fd1b486bebd91262b49ce8460922",
+    "apply_instructions": [
+      "git am tasks/patches/2025-10-23-work-branch.patch",
+      "Resolve any path updates introduced since the original commit (notably modules/, entities/, and yggdrasil.json).",
+      "Run validation: python -m compileall src"
+    ]
+  },
+  "acceptance_criteria": [
+    "Patch applies cleanly or with documented manual resolutions.",
+    "All moved governance manifests reside under entities/ in the new branch.",
+    "modules/ replaces the previous library/ naming, including templates and audits."
+  ],
+  "notes": [
+    "If further commits existed after 018d69a7a, capture additional patches and reference them here so the full history can be replayed.",
+    "Close this task once the new branch is opened as a PR replacing the retired work branch."
+  ]
+}

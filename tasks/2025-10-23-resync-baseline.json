@@ -1,0 +1,29 @@
+{
+  "$meta": {
+    "created": "2025-10-23T09:15:00Z",
+    "created_by": "codex",
+    "source_branch": "work",
+    "artifact": "aci://tasks/2025-10-23-resync-baseline.json"
+  },
+  "task_id": "task-2025-10-23-resync-baseline",
+  "title": "Resync baseline before replaying work branch history",
+  "status": "open",
+  "description": "Create a fresh branch from the canonical baseline (main) so the large refactor from the work branch can be replayed without false conflict markers.",
+  "acceptance_criteria": [
+    "New branch cut from the latest canonical main commit.",
+    "Branch name recorded in the task resolution log and pushed upstream.",
+    "No local modifications staged when the branch is created."
+  ],
+  "branch_plan": {
+    "new_branch": "reapply/aci-entities-layout",
+    "checkout_steps": [
+      "git fetch origin",
+      "git checkout origin/main",
+      "git switch -c reapply/aci-entities-layout"
+    ],
+    "notes": "Run the checkout steps once the canonical repository is available."
+  },
+  "follow_up": [
+    "task-2025-10-23-reapply-work-branch"
+  ]
+}
