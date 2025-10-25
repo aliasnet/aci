@@ -34,18 +34,8 @@
       "priority": 88
     },
     "resource_resolution_policy": {
-      "fallbacks": [
-        {
-          "canonical_source": "local_mirror",
-          "file": "aci://memory/local_cache.json",
-          "key": "local_cache",
-          "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Local cache now resides under aci://memory/local_cache.json.",
-          "path_hint": "{resource_root}",
-          "alias_hint": "aci://cache",
-          "url": "file://{resource_root}/memory/local_cache.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
-        }
-      ],
+      "fallbacks": [],
+      "canonical_only_note": "Prime Directive 1.2.2 removed the local cache fallback; runtime now resolves exclusively through canonical sources or registered mirrors.",
       "pointer": "aci://yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
@@ -204,7 +194,9 @@
       },
       "security": {
         "audit": {
-          "log_to": []
+          "log_to": [
+            "aci://modules/audits/process_logs/process_logs.json"
+          ]
         }
       }
     },
@@ -214,7 +206,7 @@
       "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
     },
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw GitHub URLs take precedence over local copies; fall back to local only if the primary and fallback sources are unavailable. Enforcement Note: Consult sanity.md before runtime dispatch or override handling.",
+    "notes": "Canonical raw GitHub URLs take precedence over local copies; fall back to local only if canonical mirrors are unavailable and policy permits. Enforcement Note: Follow Prime Directive 1.2.2 override procedures before runtime dispatch or override handling.",
     "cognitive_decision_guidance": {
       "version": "1.0",
       "scope": "universal",
@@ -435,6 +427,12 @@
     },
     "changelog": [
       {
+        "version": "2025-10-09.00",
+        "notes": [
+          "Removed deprecated sanity protocol references, aligned audit sinks, and deprecated the local cache fallback in favor of canonical-only resolution."
+        ]
+      },
+      {
         "version": "2025-10-08.00",
         "notes": [
           "Retired Nexus Core binder, simplified runtime to single-kernel dispatch, and rerouted command blocks through aci_runtime."
@@ -444,42 +442,6 @@
         "version": "2025-10-07.02",
         "notes": [
           "Loaded memory manifest early in runtime binding to expose entity UID requirements to exporters."
-        ]
-      },
-      {
-        "version": "2025-10-07.01",
-        "notes": [
-          "Retargeted prime directive mappings to prime_directive.json and refreshed mirror guidance."
-        ]
-      },
-      {
-        "version": "2025-10-07.00",
-        "notes": [
-          "Formalized dual-kernel profile, explicit local-first resolver order, and deterministic version prompts for yggdrasil manifest alignment."
-        ]
-      },
-      {
-        "version": "2025-10-06.00",
-        "notes": [
-          "Introduced local-first resolver bias with user guidance for maintaining local yggdrasil backups and documented dual-kernel coordination (now retired)."
-        ]
-      },
-      {
-        "version": "2025-10-05.01",
-        "notes": [
-          "Registered binders manifest with high priority for GPT environment compatibility."
-        ]
-      },
-      {
-        "version": "2025-10-04.00",
-        "notes": [
-          "Updated local cache mapping to aci://memory/local_cache.json and integrated TraceHub wrappers for /mnt exports."
-        ]
-      },
-      {
-        "version": "2025-10-05.00",
-        "notes": [
-          "Updated runtime prime directive references to prime_directive.json canonical resource."
         ]
       }
     ],

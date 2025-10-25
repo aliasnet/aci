@@ -16,9 +16,6 @@
       },
       "bootstrap": {
         "path": "bootstrap.json"
-      },
-      "sanity_protocol": {
-        "path": "sanity.md"
       }
     },
     "remote_core": {},
@@ -92,8 +89,7 @@
       "auto_promote": true,
       "promotion_required_files": [
         "entities.json",
-        "functions.json",
-        "sanity.md"
+        "functions.json"
       ],
       "retry": {
         "max_attempts": 3,

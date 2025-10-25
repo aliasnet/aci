@@ -160,18 +160,8 @@
   "invocation_policy": {
     "version": "1.2.0",
     "resource_resolution_policy": {
-      "fallbacks": [
-        {
-          "canonical_source": "local_mirror",
-          "file": "aci://memory/local_cache.json",
-          "key": "local_cache",
-          "notes": "Used only when canonical GitHub resource endpoint is unreachable and local validation succeeds. Local cache now resides under aci://memory/local_cache.json.",
-          "path_hint": "{resource_root}",
-          "alias_hint": "aci://cache",
-          "url": "file://{resource_root}/memory/local_cache.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main"
-        }
-      ],
+      "fallbacks": [],
+      "canonical_only_note": "Prime Directive 1.2.2 deprecates the local cache manifest; entities must resolve resources through canonical mirrors.",
       "pointer": "aci://yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://yggdrasil.json"
     },
