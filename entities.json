@@ -31,8 +31,8 @@
       "notes": "Memory exports bind to identity_registry UIDs via header.entity_uid; artifacts are stored under aci://memory/identity/{identity_path}/. Legacy records remain allowed for migration."
     },
     "identities": {
-      "HostEnv": {
-        "id": "HostEnv",
+      "HostLLM": {
+        "id": "HostLLM",
         "key": "HostLLM",
         "name": "ALIAS Corporate Intelligence",
         "alias": "ACI",
@@ -70,18 +70,18 @@
           "revoked": null
         }
       },
-      "HostEnvSettings": {
-        "id": "HostEnvSettings",
+      "HostLLMSettings": {
+        "id": "HostLLMSettings",
         "host_compatibility": {
           "default": "auto",
           "supported": [
-            "openai:gpt-4o",
-            "openai:gpt-4.1",
-            "anthropic:claude-3.5-sonnet",
-            "google:gemini-1.5-pro",
-            "meta:llama-3-70b-instruct"
+            "llm:chat-completion",
+            "llm:function-calling",
+            "llm:json-mode",
+            "embedding:universal",
+            "tool-use:generic"
           ],
-          "notes": "Selects the highest compatible runtime profile available on the host environment."
+          "notes": "Selects the highest compatible runtime profile available on the host LLM without binding to vendor-specific identifiers."
         },
         "default_identity": [
           "assistant_disallowed",
