@@ -9,9 +9,10 @@
   "version": "1.0.0",
   "identity": "TraceHub",
   "slug": "tracehub",
-  "source_manifest": "aci://modules/audits/tracehub/tracehub.json",
+  "source_manifest": "aci://modules/audits/process_logs/process_logs.json",
   "entries": [],
   "notes": [
-    "Use this playbook to capture evolving perspectives without altering the core manifest."
+    "Use this playbook to capture evolving perspectives without altering the core manifest.",
+    "Summaries should reference reasoning steps rather than raw TraceHub buffer exports."
   ]
 }

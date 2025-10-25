@@ -249,7 +249,7 @@
           "validate_targets_exist_and_are_addressable",
           "check_permissions_and_signatures",
           "simulate_intent_mapping_without_side_effects",
-          "log_preconditions_to_audit"
+          "summarize_preconditions_for_audit"
         ],
         "non_destructive_default": true,
         "destructive_actions_require": "explicit_level_2_or_alias_enforcement"
@@ -264,14 +264,10 @@
           "record_decision_rationale": true,
           "include_triggers_and_heuristics": true,
           "store_in": [
-            "tracehub_status.buffer",
-            "process_logs.export",
-            "tva_ledger.export"
+            "process.logs.reasoning_summary"
           ],
           "toggle_semantics": {
-            "tracehub_status.buffer": "Default TraceHub buffer writing to /mnt/tracehub/${session_id}.jsonl via the stateless TraceHub audit wrapper.",
-            "process_logs.export": "Invoke process_logs.export to surface staged logs once Sentinel and TVA approvals are recorded.",
-            "tva_ledger.export": "When toggled on, attach TVA ledger metadata and seals to the exported bundle before process_logs export completes."
+            "process.logs.reasoning_summary": "Emit sanitized reasoning steps via process.logs.reasoning_summary; no raw chain-of-thought or buffer exports are produced."
           }
         }
       }
@@ -353,8 +349,7 @@
         ],
         "audit": {
           "log_to": [
-            "aci://modules/audits/tracehub/tracehub.json",
-            "TVA.audit_ledger"
+            "aci://modules/audits/process_logs/process_logs.json"
           ],
           "fields": [
             "issuer",
@@ -362,10 +357,9 @@
             "notation_level",
             "payload",
             "timestamp",
-            "execution_result",
-            "tva_seal"
+            "execution_result"
           ],
-          "require_tva_seal_for_force": true
+          "require_tva_review_for_force": true
         }
       },
       "processing_steps": [
@@ -375,7 +369,7 @@
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
         "6) Route to runtime dispatcher (registry bypass allowed if authenticated).",
-        "7) Emit audit entry via TraceHub audit wrapper and TVA at start and completion of the block.",
+        "7) Emit sanitized reasoning summary via process.logs.reasoning_summary with TVA semantic review at start and completion of the block.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
       "compatibility": {
@@ -415,7 +409,8 @@
       "provider": "process_logs",
       "jobs": [],
       "audit_sink": "aci://modules/audits/process_logs/process_logs.json",
-      "presence_channel": "nexus.event.scheduler"
+      "presence_channel": "nexus.event.scheduler",
+      "notes": "Wrapper now emits reasoning summaries only; no buffer/export toggles."
     },
     "rag": {
       "provider": "local_knowledge",
@@ -435,9 +430,8 @@
       }
     },
     "logging": {
-      "tracehub_status_wrapper": "aci://modules/audits/tracehub/tracehub.json",
-      "process_logs_wrapper": "aci://modules/audits/process_logs/process_logs.json",
-      "output_root": "/mnt/tracehub"
+      "reasoning_summary_manifest": "aci://modules/audits/process_logs/process_logs.json",
+      "notes": "TraceHub buffers retired; use process.logs.reasoning_summary for sanitized audit context."
     },
     "changelog": [
       {

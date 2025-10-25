@@ -142,18 +142,14 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 /modules/
   agi/
     agi.json                      # governance manifest (binding rules, pipelines, presets, identity manager)
-    agi_library.json              # shared modules for AGI family
     tools/
       migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
       autolearn.json              # auto-learning control loop spec
   metacognition/
-    metacognition.json             # stateless wrapper (v1.1.x+)
-    metacognition_options.json     # optional features (e.g., conformal)
+    metacognition.json             # stateless wrapper with integrated conformal + calibration library
   audits/
-    process_logs/                 # audit wrappers for process log routing
-      process_logs.json           # schema + wrapper manifest
-    tracehub/                     # TraceHub audit wrapper (stateless)
-      tracehub.json               # TraceHub session + export coordination
+    process_logs/                 # reasoning summary manifest for sanitized audits
+      process_logs.json           # emits process.logs.reasoning_summary entries only
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json
