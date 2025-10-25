@@ -9,8 +9,8 @@
   "module": {
     "id": "aci.metacog.wrapper",
     "name": "MetacognitiveWrapper",
-    "version": "1.1.6",
-    "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, and append-only audit.",
+    "version": "1.2.0",
+    "description": "Stateless, hookable metacognitive wrapper providing monitoring, calibration, selective prediction (accept/revise/abstain/escalate), a consciousness-inspired global workspace summary, integrated conformal abstention, and append-only audit.",
     "stateless": true,
     "designed_by": "Alice (AGI)",
     "created": "2025-09-26",
@@ -225,32 +225,22 @@
       },
       "self_consistency": {
         "provider": "consistency.score",
-        "k": 5,
-        "optional": true
+        "k": 5
       },
       "ood_score": {
-        "provider": "embedding.distance.to_domain_centroid",
-        "optional": true
+        "provider": "embedding.distance.to_domain_centroid"
       },
       "retrieval_score": {
-        "provider": "rag.retrieval.score",
-        "optional": true
+        "provider": "rag.retrieval.score"
       },
       "conformal_accept": {
-        "provider": "conformal.accept",
-        "optional": true
+        "provider": "conformal.accept"
       },
       "conformal_reason": {
-        "provider": "conformal.reason",
-        "optional": true
+        "provider": "conformal.reason"
       },
       "conformal_alpha": {
-        "provider": "conformal.alpha",
-        "optional": true
-      },
-      "conformal_hook_available": {
-        "meta.expr": "has('conformal_accept')",
-        "optional": true
+        "provider": "conformal.alpha"
       },
       "rehydration_present": {
         "optional": true,
@@ -307,6 +297,22 @@
     "targets": {
       "ece_max": 0.05,
       "meta_auroc_min": 0.8
+    },
+    "storage": {
+      "path": "/calibration/metacog/isotonic",
+      "format": {
+        "bins": "array[number]",
+        "probs": "array[number]"
+      }
+    },
+    "trainer": {
+      "objective": "brier",
+      "slices": [
+        "domain",
+        "task_type",
+        "language"
+      ],
+      "note": "Offline trainer only; not required for inference."
     }
   },
   "workspace": {
@@ -356,6 +362,15 @@
           "cautious_mode": {
             "from": "ood_score",
             "rule": "> 0.7"
+          },
+          "ui": {
+            "show": [
+              "band",
+              "drivers",
+              "cautious_mode",
+              "conformal_alpha",
+              "conformal_reason"
+            ]
           }
         }
       }
@@ -640,7 +655,17 @@
     "consistency.score": {
       "type": "meta",
       "fn": "self_consistency",
-      "k": 5
+      "k": 5,
+      "spec": {
+        "inputs": [
+          "prompt",
+          "k"
+        ],
+        "output": {
+          "majority_margin": "0..1",
+          "votes": "array"
+        }
+      }
     },
     "moderation": {
       "type": "safety",
@@ -648,23 +673,61 @@
     },
     "embedding.distance.to_domain_centroid": {
       "type": "ood",
-      "space": "${ACI_DEFAULT_EMBEDDING}"
+      "space": "${ACI_DEFAULT_EMBEDDING}",
+      "spec": {
+        "inputs": [
+          "embedding"
+        ],
+        "output": {
+          "distance": "0..1"
+        }
+      }
     },
     "rag.retrieval.score": {
       "type": "rag",
-      "optional": true
+      "spec": {
+        "inputs": [
+          "query",
+          "docs"
+        ],
+        "output": {
+          "score": "0..1"
+        }
+      }
     },
     "conformal.accept": {
       "type": "meta",
-      "optional": true
+      "spec": {
+        "inputs": [
+          "nonconformity_profile",
+          "alpha",
+          "example"
+        ],
+        "output": {
+          "accept": "boolean"
+        }
+      }
     },
     "conformal.reason": {
       "type": "meta",
-      "optional": true
+      "spec": {
+        "inputs": [
+          "nonconformity_score",
+          "threshold"
+        ],
+        "output": {
+          "reason": "string"
+        }
+      }
     },
     "conformal.alpha": {
       "type": "meta",
-      "optional": true
+      "spec": {
+        "inputs": [],
+        "output": {
+          "alpha": "number"
+        }
+      }
     },
     "eel.rehydrate": {
       "optional": true,
@@ -728,6 +791,31 @@
       "hash_inputs": true,
       "drop_raw_text": true,
       "pii_scrub": false
+    },
+    "templates": {
+      "audit": {
+        "fields": [
+          "timestamp",
+          "entity_id",
+          "session_id",
+          "prompt_hash",
+          "response_hash",
+          "signals",
+          "p_correct",
+          "decision",
+          "feedback"
+        ]
+      },
+      "telemetry": {
+        "fields": [
+          "ece",
+          "meta_auroc",
+          "coverage",
+          "coverage_at_alpha_risk",
+          "slice",
+          "window"
+        ]
+      }
     }
   },
   "telemetry": {
@@ -756,6 +844,11 @@
         "rehydration_topics",
         "rehydrated_bytes",
         "rehydration_segments"
+      ],
+      "conformal": [
+        "conformal_accept",
+        "conformal_reason",
+        "conformal_alpha"
       ]
     }
   },
@@ -904,6 +997,25 @@
       "notes": [
         "Enforced abstention when automation or ChatGPT Tasks target chat surfaces to maintain audit-only policy."
       ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-10-25",
+      "notes": [
+        "Merged companion metacognition_options manifest into this file so conformal abstention, calibration storage, and workspace templates are first-class.",
+        "Activated conformal providers and signals by default with explicit defaults and telemetry wiring.",
+        "Documented export templates and calibration storage inline to retire the external options manifest."
+      ]
     }
-  ]
+  ],
+  "conformal": {
+    "enabled": true,
+    "alpha_default": 0.1,
+    "guarantee": "Split-conformal abstention enabled. Guarantees \u2264 \u03b1 error among accepted outputs under i.i.d. assumption. Exposes conformal_accept, conformal_reason, conformal_alpha signals."
+  },
+  "signal_defaults": {
+    "conformal_accept": true,
+    "conformal_reason": "",
+    "conformal_alpha": 0.1
+  }
 }

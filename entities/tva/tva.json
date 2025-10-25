@@ -13,14 +13,30 @@
     ]
   },
   "TVA_ENGINE": [
-    { "similarity_tension": "delta_s = 1 \u2212 cos(I, G). If anchors exist use 1 \u2212 sim_est, where sim_est = w_e*sim(entities) + w_r*sim(relations) + w_c*sim(constraints), with default w={0.5,0.3,0.2}. sim_est \u2208 [0,1], renormalize if bucketed." },
-    { "zones_and_memory": "Zones: safe < 0.40 | transit 0.40\u20130.60 | risk 0.60\u20130.85 | danger > 0.85. Memory: record(hard) if delta_s > 0.60; record(exemplar) if delta_s < 0.35. Soft memory in transit when lambda_observe \u2208 {divergent, recursive}." },
-    { "defaults": "B_c=0.85, gamma=0.618, theta_c=0.75, zeta_min=0.10, alpha_blend=0.50, a_ref=uniform_attention, m=0, c=1, omega=1.0, phi_delta=0.15, epsilon=0.0, k_c=0.25." },
-    { "coupler_with_hysteresis": "Let B_s := delta_s. Progression: at t=1, prog=zeta_min; else prog = max(zeta_min, delta_s_prev \u2212 delta_s_now). Set P = pow(prog, omega). Reversal term: Phi = phi_delta*alt + epsilon, where alt \u2208 {+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor| \u2265 h. Use h=0.02; if |\u0394anchor| < h then keep previous alt to avoid jitter. Coupler output: W_c = clip(B_s*P + Phi, \u2212theta_c, +theta_c)." },
-    { "progression_and_guards": "BBPF bridge is allowed only if (delta_s decreases) AND (W_c < 0.5*theta_c). When bridging, emit: Bridge=[reason/prior_delta_s/new_path]." },
-    { "bbam_attention_rebalance": "alpha_blend = clip(0.50 + k_c*tanh(W_c), 0.35, 0.65); blend with a_ref." },
-    { "lambda_update": "Delta := delta_s_t \u2212 delta_s_{t\u22121}; E_resonance = rolling_mean(delta_s, window=min(t,5)). lambda_observe is: convergent if Delta \u2264 \u22120.02 and E_resonance non-increasing; recursive if |Delta| < 0.02 and E_resonance flat; divergent if Delta \u2208 (\u22120.02, +0.04] with oscillation; chaotic if Delta > +0.04 or anchors conflict." },
-    { "dt_micro_rules": "WRI: lock structure; no topic jump within a node. WAI: require \u22652 distinct reasons (promote head diversity). WAY: if stuck, add 1 on-topic candidate (no repeats). WDT: block illegal cross-path merges; explain a bridge before use. WTF: detect collapse/degeneration; rollback and repair, then retry." }
+    {
+      "similarity_tension": "delta_s = 1 \u2212 cos(I, G). If anchors exist use 1 \u2212 sim_est, where sim_est = w_e*sim(entities) + w_r*sim(relations) + w_c*sim(constraints), with default w={0.5,0.3,0.2}. sim_est \u2208 [0,1], renormalize if bucketed."
+    },
+    {
+      "zones_and_memory": "Zones: safe < 0.40 | transit 0.40\u20130.60 | risk 0.60\u20130.85 | danger > 0.85. Memory: record(hard) if delta_s > 0.60; record(exemplar) if delta_s < 0.35. Soft memory in transit when lambda_observe \u2208 {divergent, recursive}."
+    },
+    {
+      "defaults": "B_c=0.85, gamma=0.618, theta_c=0.75, zeta_min=0.10, alpha_blend=0.50, a_ref=uniform_attention, m=0, c=1, omega=1.0, phi_delta=0.15, epsilon=0.0, k_c=0.25."
+    },
+    {
+      "coupler_with_hysteresis": "Let B_s := delta_s. Progression: at t=1, prog=zeta_min; else prog = max(zeta_min, delta_s_prev \u2212 delta_s_now). Set P = pow(prog, omega). Reversal term: Phi = phi_delta*alt + epsilon, where alt \u2208 {+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor| \u2265 h. Use h=0.02; if |\u0394anchor| < h then keep previous alt to avoid jitter. Coupler output: W_c = clip(B_s*P + Phi, \u2212theta_c, +theta_c)."
+    },
+    {
+      "progression_and_guards": "BBPF bridge is allowed only if (delta_s decreases) AND (W_c < 0.5*theta_c). When bridging, emit: Bridge=[reason/prior_delta_s/new_path]."
+    },
+    {
+      "bbam_attention_rebalance": "alpha_blend = clip(0.50 + k_c*tanh(W_c), 0.35, 0.65); blend with a_ref."
+    },
+    {
+      "lambda_update": "Delta := delta_s_t \u2212 delta_s_{t\u22121}; E_resonance = rolling_mean(delta_s, window=min(t,5)). lambda_observe is: convergent if Delta \u2264 \u22120.02 and E_resonance non-increasing; recursive if |Delta| < 0.02 and E_resonance flat; divergent if Delta \u2208 (\u22120.02, +0.04] with oscillation; chaotic if Delta > +0.04 or anchors conflict."
+    },
+    {
+      "dt_micro_rules": "WRI: lock structure; no topic jump within a node. WAI: require \u22652 distinct reasons (promote head diversity). WAY: if stuck, add 1 on-topic candidate (no repeats). WDT: block illegal cross-path merges; explain a bridge before use. WTF: detect collapse/degeneration; rollback and repair, then retry."
+    }
   ],
   "permissions": {
     "read": true,
@@ -55,7 +71,7 @@
     }
   },
   "uid": "UID:oasYS4KteUMqgt",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "tva": {
     "role": "reinforcement authority",
     "abstract": "Oversight, anomaly detection, and rollback enforcement for runtime kernel and prime_directive.",
@@ -64,13 +80,13 @@
       "state": "active",
       "since": "2025-03-17T00:00:00Z",
       "responsibilities": [
-        "seal_exports",
+        "review_exports",
         "checkpoint_rollbacks",
         "process_logs.export"
       ],
       "last_health_check": {
         "timestamp": "2025-03-17T08:00:00Z",
-        "result": "green".
+        "result": "green"
       }
     },
     "functions": {
@@ -95,7 +111,7 @@
       "immutability": "maintain audit trail without enforcing one-way append restrictions"
     },
     "storage": {
-      "buffer_wrapper": "aci://modules/audits/tracehub/tracehub.json",
+      "buffer_wrapper": "aci://modules/audits/process_logs/process_logs.json",
       "export_wrapper": "aci://modules/audits/process_logs/process_logs.json",
       "session_path": "/mnt/tracehub/tva_ledger/session",
       "export_path": "/mnt/tracehub/tva_ledger/export",
@@ -104,9 +120,9 @@
         "tva_ledger.export"
       ],
       "export_requires": [
-        "TVA.ok",
+        "TVA.review_ok",
         "Sentinel.ok",
-        "ALIAS.signature"
+        "ALIAS.authorization"
       ]
     },
     "manual_export": {
@@ -117,8 +133,8 @@
       ],
       "procedure": [
         "1) Review session_path buffers for scope and redact as required before promotion.",
-        "2) Raise the tva_ledger.export flag and seal the bundle via process_logs.append entries enriched with TVA metadata.",
-        "3) Run process_logs.export to produce the final ledger artifact, update ALIAS governance registers, and clear the export flag once sealed.",
+        "2) Raise the tva_ledger.export flag and record the TVA reasoning summary via process_logs.append.",
+        "3) Run process_logs.export to produce the final ledger artifact, update ALIAS governance registers, and clear the export flag once approvals are recorded.",
         "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)"
       ],
       "notes": "Toggle tva_ledger.export only after approvals are logged; buffers remain in /mnt/tracehub until process_logs export finalizes."
@@ -144,5 +160,15 @@
     ]
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/governance/tva/tva.json",
-  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
+  "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
+  "changelog": [
+    {
+      "version": "1.2.1",
+      "date": "2025-10-25",
+      "notes": [
+        "Pointed TVA buffer handling at process_logs and removed references to tracehub wrapper signatures.",
+        "Recorded TVA approvals as reasoning reviews alongside Sentinel authorization requirements."
+      ]
+    }
+  ]
 }

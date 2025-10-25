@@ -1,8 +1,8 @@
-feat(metacognition): add portable, stateless metacognitive wrapper + optional library
+feat(metacognition): integrate portable metacognitive wrapper + library features
 
 This commit introduces a new module under /modules/metacognition:
 
-- metacognition.json (v1.1.1)
+- metacognition.json (v1.2.0)
   • Stateless, hookable wrapper for any ACI entity
   • Provides monitoring signals (entropy, logit margin, self-consistency, OOD, hedging, retrieval score)
   • Isotonic calibration → p_correct (exposed as confidence)
@@ -10,20 +10,12 @@ This commit introduces a new module under /modules/metacognition:
   • Consciousness-inspired Global Workspace stage (salience + broadcast introspective summary)
   • Cautious-mode tied to OOD triggers (adjust thresholds, lower temperature)
   • Hardened LLM critic (JSON verdict), privacy defaults (drop_raw_text), audit + telemetry
-  • Providers are feature-gated; calibration stateless via adapter
-  • NEW: Conformal hook via optional signals (conformal_accept/reason/alpha) and abstain_if condition
-
-- metacognition_options.json (v1.1.1, optional)
-  • RENAMED from metacognition_library.json (improved naming)
-  • Portable helpers and specs for providers (consistency, retrieval, OOD distance)
-  • Offline calibration trainer stub (isotonic)
-  • Workspace utilities (salience ranking, broadcast schema)
-  • Conformal abstention STUB ENABLED (alpha=0.1) with signals: conformal_accept, conformal_reason, conformal_alpha
-  • JSONL export templates for audit/telemetry (adds coverage_at_alpha_risk)
+  • Providers now bundle calibration storage, retrieval/OOD specs, and conformal abstention as first-class features
+  • Integrated conformal signals (conformal_accept/reason/alpha) with defaults, telemetry hooks, and audit templates
 
 Design intent:
 - Follow Alice’s applied knowledge of metacognition & consciousness (monitoring + control + global workspace)
-- Ensure self-reliant core, portable across entities, with optional stubs only for extension
+- Ensure self-reliant core, portable across entities, with built-in calibration + conformal helpers
 - Uphold ACI philosophy: stateless, auditable, modular, human-AI co-governance
 
 Next steps:

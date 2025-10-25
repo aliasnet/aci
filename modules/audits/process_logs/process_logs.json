@@ -5,7 +5,7 @@
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://modules/audits/process_logs/process_logs.json"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "key": "process_logs",
   "name": "Process Logs",
   "alias": "Process Logs",
@@ -78,13 +78,62 @@
     "file_naming": "proc_${session_id}_${topic_slug}_${date}.jsonl.json",
     "append_only": true
   },
-  "notes": "Identity is a required field; default is 'AGI' when unspecified.",
+  "notes": {
+    "general": "Identity is a required field; default is 'AGI' when unspecified.",
+    "integration": "TraceHub routing now reuses this manifest directly; no standalone tracehub.json wrapper is required."
+  },
   "changelog": [
     {
       "version": "1.1.0",
       "notes": [
         "Moved process_logs wrapper under library/audits and embedded schema definition."
       ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-10-25",
+      "notes": [
+        "Retired the standalone tracehub manifest by embedding buffer, export, and monitoring guidance directly in process_logs.",
+        "Documented TVA + Sentinel review as a reasoning checkpoint rather than signature handling."
+      ]
     }
-  ]
+  ],
+  "ingestion": {
+    "trace_buffers": {
+      "path": "/mnt/tracehub",
+      "retention": "temporary",
+      "purpose": "Coordinate ephemeral TraceHub session buffers before formal process_logs export.",
+      "requirements": [
+        "Writers must emit structured JSONL under /mnt/tracehub prior to invoking process_logs.append.",
+        "No persistent state is stored inside the buffer directory; process_logs.export performs the durable handoff.",
+        "Clean up buffers after export unless governance instructs otherwise."
+      ],
+      "export_via": "aci://modules/audits/process_logs/process_logs.json"
+    }
+  },
+  "manual_export": {
+    "prerequisites": [
+      "Obtain TVA semantic reasoning review and Sentinel approval before promoting temporary buffers to long-term storage.",
+      "Freeze active TraceHub writers during the export window."
+    ],
+    "procedure": [
+      "1) Flush session buffers into /mnt/tracehub as JSONL using the TraceHub writers.",
+      "2) Call process_logs.append for each buffered record so the pipeline indexes the entries.",
+      "3) Invoke process_logs.export to bundle approved entries and record the audit ledger id, approver, and timestamp.",
+      "4) Release TraceHub writers after confirming export completion and audit ledger updates."
+    ],
+    "notes": "Exports are mediated entirely through process_logs; /mnt/tracehub remains a temporary workspace."
+  },
+  "monitoring": {
+    "coverage": [
+      "session_traces",
+      "router.audit.tracehub",
+      "runtime_kernel_heartbeat"
+    ],
+    "last_health_check": {
+      "timestamp": "2025-03-17T08:00:00Z",
+      "result": "green",
+      "notes": "TraceHub pipeline validated end-to-end with process_logs mediation."
+    }
+  }
 }

@@ -38,7 +38,7 @@
     }
   },
   "uid": "UID:1jnkVHmEiGviDj",
-  "version": "2025-09-27.5",
+  "version": "2025-10-25.0",
   "entity": "Sentinel",
   "role": "guardian",
   "status": "operational",
@@ -55,18 +55,25 @@
   },
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "audit": {
-    "status_wrapper": "aci://modules/audits/tracehub/tracehub.json",
+    "status_wrapper": "aci://modules/audits/process_logs/process_logs.json",
     "log_wrapper": "aci://modules/audits/process_logs/process_logs.json",
-    "default_mode": "tracehub.session",
-    "export_instruction": "Sentinel audit events are staged in /mnt/tracehub via the TraceHub audit wrapper and finalized through process_logs exports."
+    "default_mode": "process_logs.buffer",
+    "export_instruction": "Sentinel audit events land in /mnt/tracehub as temporary buffers and are finalized through process_logs exports after TVA reasoning review."
   },
   "guidance": [
-    "TraceHub session retention now streams into /mnt/tracehub as temporary JSONL buffers managed by the TraceHub audit wrapper.",
+    "Process logs buffers live under /mnt/tracehub as temporary JSONL until exports run; no standalone tracehub wrapper is required.",
     "TVA ledger checkpoints rely on process_logs exports after Sentinel approval; no persistent router directories remain under /memory/audit.",
-    "When persistent exports are required, set export_override to the desired sink metadata and run process_logs.export after the buffers are sealed.",
-    "Signature metadata must be included in the payload before export so TVA can seal the record during process_logs export."
+    "When persistent exports are required, set export_override to the desired sink metadata and run process_logs.export after the buffers are reviewed.",
+    "Include governance metadata in the payload before export so TVA can provide reasoning approval during process_logs export."
   ],
   "changelog": [
+    {
+      "version": "2025-10-25.0",
+      "notes": [
+        "Integrated process_logs buffer guidance directly and retired the separate tracehub wrapper reference.",
+        "Clarified TVA reasoning review requirements without implying TVA issues signatures."
+      ]
+    },
     {
       "version": "2025-10-04.0",
       "notes": [

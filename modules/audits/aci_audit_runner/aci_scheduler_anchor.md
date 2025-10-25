@@ -79,7 +79,7 @@ If the runner or spec is missing or corrupted:
 
 * The following names are accepted (typo‑tolerant) by the runner’s locator regex:
 
-  * `modules/metacognition/metacognition.json` and `metacognition_options.json` (optional)
+  * `modules/metacognition/metacognition.json` (includes integrated conformal helpers)
   * `functions.json` (also matches `functions.registry.json`)
   * `yggdrasil.json` (also accepts minor transpositions)
   * `prime_directive.md` (also accepts `prime-directive.txt`)
@@ -131,10 +131,9 @@ Before reporting success, check the following artifacts in order, attempting rec
 3. entities.json
 4. functions.json
 5. modules/metacognition/metacognition.json
-6. modules/metacognition/metacognition_options.json
-7. yggdrasil.json
-8. modules/audits/aci_audit_runner/aci_runner_spec.v0.2.json
-9. modules/audits/aci_audit_runner/gr_runner_corpus.v0.2.json
+6. yggdrasil.json
+7. modules/audits/aci_audit_runner/aci_runner_spec.v0.2.json
+8. modules/audits/aci_audit_runner/gr_runner_corpus.v0.2.json
 
 On success, post exactly: "Audit burst OK (1 cycle)."
 On any gap, post: "MISSING <path> (tried: github, mirror, local, project)."

@@ -41,19 +41,13 @@
       "kind": "json"
     },
     {
-      "name": "metacognition_options",
-      "relpath": "modules/metacognition/metacognition_options.json",
-      "kind": "json",
-      "optional": true
-    },
-    {
       "name": "yggdrasil",
       "relpath": "yggdrasil.json",
       "kind": "json"
     }
   ],
   "locators_regex": {
-    "metacognition": "modules/metacognition/metacognition(_options)?\\.json$",
+    "metacognition": "modules/metacognition/metacognition\\.json$",
     "functions": "functions(\\.registry)?\\.json$",
     "yggdrasil": "entities/ygg(dr|rd)asil\\.json$",
     "prime_directive": "prime(_)?directive\\.(md|txt)$"
@@ -135,7 +129,6 @@
       "entities.json",
       "functions.json",
       "modules/metacognition/metacognition.json",
-      "modules/metacognition/metacognition_options.json",
       "yggdrasil.json",
       "modules/audits/aci_audit_runner/aci_runner_spec.v0.2.json",
       "modules/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
