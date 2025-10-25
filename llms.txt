@@ -62,25 +62,9 @@
                   "path": "aci://modules/aci_repo/aci_repo.json",
                   "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/aci_repo/aci_repo.json",
                   "name": "aci_repo.json"
-                },
-                {
-                  "path": "aci://modules/aci_repo/api_repo.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/aci_repo/api_repo.json",
-                  "name": "api_repo.json"
                 }
               ],
               "children": [
-                {
-                  "name": "library",
-                  "files": [
-                    {
-                      "path": "aci://modules/aci_repo/library/aci_repo_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/aci_repo/library/aci_repo_library.json",
-                      "name": "aci_repo_library.json"
-                    }
-                  ],
-                  "children": []
-                },
                 {
                   "name": "memory",
                   "files": [
@@ -93,17 +77,6 @@
                       "path": "aci://memory/identity/aci_repo/aci_repo_playbook.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_playbook.json",
                       "name": "aci_repo_playbook.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "modules",
-                  "files": [
-                    {
-                      "path": "aci://modules/aci_repo/library/aci_repo_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/aci_repo/library/aci_repo_library.json",
-                      "name": "aci_repo_library.json"
                     }
                   ],
                   "children": []
@@ -686,23 +659,12 @@
               "name": "tracehub",
               "files": [
                 {
-                  "path": "aci://modules/audits/tracehub/tracehub.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/tracehub/tracehub.json",
-                  "name": "tracehub.json"
+                  "path": "aci://modules/audits/process_logs/process_logs.json",
+                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json",
+                  "name": "process_logs.json"
                 }
               ],
               "children": [
-                {
-                  "name": "library",
-                  "files": [
-                    {
-                      "path": "aci://modules/audits/tracehub/tracehub.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/tracehub/tracehub.json",
-                      "name": "tracehub.json"
-                    }
-                  ],
-                  "children": []
-                },
                 {
                   "name": "memory",
                   "files": [
@@ -715,17 +677,6 @@
                       "path": "aci://memory/identity/tracehub/tracehub_playbook.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_playbook.json",
                       "name": "tracehub_playbook.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "modules",
-                  "files": [
-                    {
-                      "path": "aci://modules/audits/tracehub/tracehub.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/tracehub/tracehub.json",
-                      "name": "tracehub.json"
                     }
                   ],
                   "children": []
@@ -884,11 +835,6 @@
                   "path": "aci://modules/metacognition/metacognition.json",
                   "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/metacognition/metacognition.json",
                   "name": "metacognition.json"
-                },
-                {
-                  "path": "aci://modules/metacognition/metacognition_options.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/metacognition/metacognition_options.json",
-                  "name": "metacognition_options.json"
                 }
               ],
               "children": []
@@ -925,12 +871,12 @@
                   "children": []
                 },
                 {
-                  "name": "tracehub_status",
+                  "name": "process_logs_status",
                   "files": [
                     {
-                      "path": "aci://modules/audits/tracehub/tracehub.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/tracehub/tracehub.json",
-                      "name": "tracehub.json"
+                      "path": "aci://modules/audits/process_logs/process_logs.json",
+                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json",
+                      "name": "process_logs.json"
                     }
                   ],
                   "children": []

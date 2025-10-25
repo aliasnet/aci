@@ -169,12 +169,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 /modules/
   aci_repo/
     aci_repo.json                 # package manager module manifest
-    api_repo.json                 # API-specific extension manifest
-    library/
-      aci_repo_library.json       # module-local capabilities
   agi/
     agi.json                      # shared governance manifest for specialist personas
-    agi_library.json              # shared modules referenced by alice/willow
     agi_proxy/                    # proxy manifests and adapters
     tools/
       migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
@@ -182,16 +178,13 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   audits/
     process_logs/
       process_logs.json           # schema + wrapper manifest
-    tracehub/
-      tracehub.json               # TraceHub session + export coordination
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json
       aci_scheduler_anchor.md
       adaptive_audit_runner.txt
   metacognition/
-    metacognition.json            # stateless wrapper (v1.1.x+)
-    metacognition_options.json    # optional features (e.g., conformal)
+    metacognition.json            # stateless wrapper with integrated conformal + calibration library
   templates/
     organism_model.json.txt       # legacy organism model template (now module scoped)
   corpus/                         # knowledge and prompt corpora stubs
@@ -290,7 +283,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **Specialist governance layer** (`/modules/agi/`):
   - `agi.json` — governance manifest (binding rules, oversight, presets, identity manager) shared by specialist personas.
   - `agi_export_policy.json` — export policy for specialist-managed JSONL artifacts.
-  - `agi_library.json` — shared module manifest referenced by Alice and Willow.
+  - `aci_repo.json` — package manager module manifest.
 
 - **Wrappers** (e.g., `/modules/metacognition/metacognition.json`):
   - Stateless by default; accept optional providers (e.g., conformal, EEL).
