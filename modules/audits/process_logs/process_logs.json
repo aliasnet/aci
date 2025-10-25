@@ -121,5 +121,5 @@
         "Removed buffer/export directives so the module only emits sanitized reasoning steps per response."
       ]
     }
-  ]
+  }
 }
