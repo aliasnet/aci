@@ -249,7 +249,7 @@
           "validate_targets_exist_and_are_addressable",
           "check_permissions_and_signatures",
           "simulate_intent_mapping_without_side_effects",
-          "log_preconditions_to_audit"
+          "summarize_preconditions_for_audit"
         ],
         "non_destructive_default": true,
         "destructive_actions_require": "explicit_level_2_or_alias_enforcement"
@@ -264,12 +264,10 @@
           "record_decision_rationale": true,
           "include_triggers_and_heuristics": true,
           "store_in": [
-            "process_logs.append",
-            "process_logs.export"
+            "process.logs.reasoning_summary"
           ],
           "toggle_semantics": {
-            "process_logs.append": "Write structured JSONL records via process_logs.append; buffers at /mnt/tracehub remain temporary.",
-            "process_logs.export": "Invoke process_logs.export after Sentinel + TVA reasoning approvals to publish durable bundles."
+            "process.logs.reasoning_summary": "Emit sanitized reasoning steps via process.logs.reasoning_summary; no raw chain-of-thought or buffer exports are produced."
           }
         }
       }
@@ -371,7 +369,7 @@
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
         "6) Route to runtime dispatcher (registry bypass allowed if authenticated).",
-        "7) Emit audit entry via process_logs with TVA reasoning review at start and completion of the block.",
+        "7) Emit sanitized reasoning summary via process.logs.reasoning_summary with TVA semantic review at start and completion of the block.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
       "compatibility": {
@@ -411,7 +409,8 @@
       "provider": "process_logs",
       "jobs": [],
       "audit_sink": "aci://modules/audits/process_logs/process_logs.json",
-      "presence_channel": "nexus.event.scheduler"
+      "presence_channel": "nexus.event.scheduler",
+      "notes": "Wrapper now emits reasoning summaries only; no buffer/export toggles."
     },
     "rag": {
       "provider": "local_knowledge",
@@ -431,8 +430,8 @@
       }
     },
     "logging": {
-      "process_logs_wrapper": "aci://modules/audits/process_logs/process_logs.json",
-      "trace_buffers_root": "/mnt/tracehub"
+      "reasoning_summary_manifest": "aci://modules/audits/process_logs/process_logs.json",
+      "notes": "TraceHub buffers retired; use process.logs.reasoning_summary for sanitized audit context."
     },
     "changelog": [
       {

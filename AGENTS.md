@@ -148,8 +148,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   metacognition/
     metacognition.json             # stateless wrapper with integrated conformal + calibration library
   audits/
-    process_logs/                 # audit wrappers for process log routing
-      process_logs.json           # schema + wrapper manifest
+    process_logs/                 # reasoning summary manifest for sanitized audits
+      process_logs.json           # emits process.logs.reasoning_summary entries only
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json

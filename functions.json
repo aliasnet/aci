@@ -107,7 +107,7 @@
   },
   "pipelines": {
     "sentinel.audit": {
-      "description": "Emit Sentinel audit events through TraceHub's stateless logging pipeline.",
+      "description": "Emit Sentinel audit events as sanitized reasoning summaries (no TraceHub staging).",
       "steps": [
         {
           "call": "date.iso8601",
@@ -129,13 +129,9 @@
           }
         },
         {
-          "call": "process.logs.append",
+          "call": "_format.json",
           "map": {
-            "topic": "sentinel.audit",
-            "event": "$params.action",
-            "summary": "Sentinel audit event recorded",
-            "identity": "$params.actor",
-            "details": "$steps.1.object"
+            "data": "$steps.1.object"
           }
         }
       ]
@@ -750,108 +746,9 @@
         }
       ]
     },
-    "process.logs.init": {
-      "description": "Initialize a process-log file for this session and topic. Append-only.",
+    "process.logs.reasoning_summary": {
+      "description": "Create a sanitized reasoning summary entry for audits without raw chain-of-thought.",
       "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "if": "$steps.0.value == null",
-          "then": [
-            {
-              "call": "aci-uuid.new",
-              "map": {
-                "format": "uuidv4"
-              }
-            },
-            {
-              "call": "_store.set",
-              "map": {
-                "key": "current_session_id",
-                "value": "$steps.1.uuid"
-              }
-            }
-          ]
-        },
-        {
-          "call": "slugify",
-          "map": {
-            "text": "$params.topic",
-            "default": "general"
-          }
-        },
-        {
-          "call": "_store.set",
-          "map": {
-            "key": "process_logs.topic_slug",
-            "value": "$steps.2.slug"
-          }
-        },
-        {
-          "call": "date.format",
-          "map": {
-            "format": "YYYYMMDD",
-            "value": "$now"
-          }
-        },
-        {
-          "call": "_store.set",
-          "map": {
-            "key": "process_logs.file",
-            "value": "memory/process_logs/proc_${current_session_id}_${steps.2.slug}_${steps.4.date}.jsonl.json"
-          }
-        },
-        {
-          "call": "hivemind.ensure_file",
-          "map": {
-            "filename": "${process_logs.file}",
-            "append_only": true
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "process.log.init",
-            "session_id": "${current_session_id}",
-            "topic": "${process_logs.topic_slug}",
-            "file": "${process_logs.file}"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "process.logs.append": {
-      "description": "Append a single JSON object as one line (JSONL) to the current process log file.",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "process_logs.file"
-          }
-        },
-        {
-          "if": "$steps.0.value == null",
-          "then": [
-            {
-              "call": "process.logs.init",
-              "map": {
-                "topic": "$params.topic"
-              }
-            },
-            {
-              "call": "_store.get",
-              "map": {
-                "key": "process_logs.file"
-              }
-            }
-          ]
-        },
         {
           "call": "date.iso8601",
           "map": {}
@@ -867,14 +764,17 @@
           "call": "object.compose",
           "map": {
             "object": {
-              "schema": "agi.process.log.v1",
-              "ts": "$steps.2.iso",
-              "identity": "$steps.3.identity",
-              "topic": "${process_logs.topic_slug}",
-              "event": "$params.event",
-              "summary": "$params.summary",
-              "details": "$params.details",
-              "citations": "$params.citations"
+              "schema": "aci.process.reasoning_summary.v1",
+              "ts": "$steps.0.iso",
+              "identity": "$steps.1.identity",
+              "response": {
+                "id": "$params.response_id",
+                "summary": "$params.response_summary"
+              },
+              "reasoning": {
+                "steps": "$params.reasoning_steps",
+                "notes": "$params.notes"
+              }
             }
           }
         },
@@ -882,80 +782,11 @@
           "call": "json.schema.validate",
           "map": {
             "schema_file": "modules/audits/process_logs/process_logs.json#schema_definition",
-            "data": "$steps.4.object"
-          }
-        },
-        {
-          "call": "hivemind.jsonl.append",
-          "map": {
-            "filename": "${process_logs.file}",
-            "line": "$steps.4.object"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "process.log.append",
-            "file": "${process_logs.file}",
-            "event": "$params.event"
+            "data": "$steps.2.object"
           }
         },
         {
           "call": "_format.json"
-        }
-      ]
-    },
-    "process.logs.export": {
-      "description": "Return the current process log file path for external consumption.",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "process_logs.file"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "tva.consume.process_logs": {
-      "steps": [
-        {
-          "call": "_fs.read.jsonl",
-          "map": {
-            "root": "/mnt/aci_vault/proc",
-            "pattern": "*.jsonl"
-          }
-        },
-        {
-          "call": "_schema.validate",
-          "map": {
-            "schema": "modules/audits/process_logs/process_logs.json#schema_definition",
-            "rows": "$steps.0"
-          }
-        },
-        {
-          "call": "tva.detect.risks",
-          "map": {
-            "rows": "$steps.1",
-            "risk_verbs": [
-              "DELETE",
-              "OVERRIDE",
-              "MODIFY_CORE",
-              "IMPORT",
-              "PUBLISH_EXTERNAL"
-            ]
-          }
-        },
-        {
-          "call": "process.logs.append",
-          "map": {
-            "event": "tva.decision",
-            "summary": "$steps.2.summary",
-            "identity": "TVA",
-            "topic": "tva"
-          }
         }
       ]
     },
@@ -968,11 +799,12 @@
           }
         },
         {
-          "call": "process.logs.append",
+          "call": "_format.json",
           "map": {
-            "event": "tva.decision",
-            "summary": "Co-sign granted for ${args.verb}",
-            "identity": "TVA"
+            "data": {
+              "status": "granted",
+              "verb": "$args.verb"
+            }
           }
         }
       ]
@@ -988,11 +820,13 @@
           }
         },
         {
-          "call": "process.logs.append",
+          "call": "_format.json",
           "map": {
-            "event": "tva.quarantine",
-            "summary": "Quarantine $args.entity: $args.reason",
-            "identity": "TVA"
+            "data": {
+              "status": "quarantined",
+              "entity": "$args.entity",
+              "reason": "$args.reason"
+            }
           }
         }
       ]
@@ -1074,15 +908,6 @@
       ],
       "on_error": [
         {
-          "call": "process.logs.append",
-          "map": {
-            "event": "export.request",
-            "identity": "Hivemind",
-            "topic": "hivemind",
-            "summary": "NL parse failed \u2192 falling back to safe local dry-run"
-          }
-        },
-        {
           "call": "_format.json",
           "map": {
             "data": {
@@ -1121,21 +946,8 @@
           }
         },
         {
-          "call": "process.logs.append",
-          "map": {
-            "event": "export.request",
-            "identity": "Hivemind",
-            "topic": "hivemind",
-            "summary": "Export requested",
-            "details": "$args"
-          }
-        },
-        {
           "if": "$args.profile == 'demo_public'",
           "then": [
-            {
-              "call": "tva.consume.process_logs"
-            },
             {
               "call": "tva.require_cosign",
               "map": {
@@ -1159,15 +971,6 @@
               }
             },
             {
-              "call": "process.logs.append",
-              "map": {
-                "event": "export.completed",
-                "summary": "Dry-run only (no files written). See plan.",
-                "identity": "Hivemind",
-                "topic": "hivemind"
-              }
-            },
-            {
               "call": "_format.json",
               "map": {
                 "data": {
@@ -1182,15 +985,6 @@
               "call": "_export.run",
               "map": {
                 "args": "$args"
-              }
-            },
-            {
-              "call": "process.logs.append",
-              "map": {
-                "event": "export.completed",
-                "summary": "Export written",
-                "identity": "Hivemind",
-                "topic": "hivemind"
               }
             },
             {
@@ -1255,34 +1049,6 @@
       {
         "pattern": "^aci\\s+update$",
         "pipeline": "aci.repo.update"
-      },
-      {
-        "pattern": "^process\\s+log\\s+init(?:\\s+--topic\\s+(?P<topic>.+))?$",
-        "pipeline": "process.logs.init"
-      },
-      {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s*$",
-        "pipeline": "process.logs.append"
-      },
-      {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s*$",
-        "pipeline": "process.logs.append"
-      },
-      {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--topic\\s+(?P<topic>[^\"\\s]+)\\s*$",
-        "pipeline": "process.logs.append"
-      },
-      {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+?)\\s+--identity\\s+(?P<identity>[^\"\\s]+)\\s*$",
-        "pipeline": "process.logs.append"
-      },
-      {
-        "pattern": "^process\\s+log\\s+add\\s+--event\\s+(?P<event>\\S+)\\s+--summary\\s+(?P<summary>.+)$",
-        "pipeline": "process.logs.append"
-      },
-      {
-        "pattern": "^process\\s+log\\s+export$",
-        "pipeline": "process.logs.export"
       },
       {
         "pattern": "^aci\\s+repo\\s+help$",

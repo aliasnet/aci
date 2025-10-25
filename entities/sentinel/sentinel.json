@@ -55,23 +55,22 @@
   },
   "description": "Governed guardian responsible for audit routing, signature enforcement, and user safety posture inside the ACI runtime.",
   "audit": {
-    "status_wrapper": "aci://modules/audits/process_logs/process_logs.json",
-    "log_wrapper": "aci://modules/audits/process_logs/process_logs.json",
-    "default_mode": "process_logs.buffer",
-    "export_instruction": "Sentinel audit events land in /mnt/tracehub as temporary buffers and are finalized through process_logs exports after TVA reasoning review."
+    "summary_wrapper": "aci://modules/audits/process_logs/process_logs.json",
+    "mode": "reasoning_summary",
+    "instruction": "Use process.logs.reasoning_summary to capture sanitized oversight notes when Sentinel reviews a response."
   },
   "guidance": [
-    "Process logs buffers live under /mnt/tracehub as temporary JSONL until exports run; no standalone tracehub wrapper is required.",
-    "TVA ledger checkpoints rely on process_logs exports after Sentinel approval; no persistent router directories remain under /memory/audit.",
-    "When persistent exports are required, set export_override to the desired sink metadata and run process_logs.export after the buffers are reviewed.",
-    "Include governance metadata in the payload before export so TVA can provide reasoning approval during process_logs export."
+    "Reasoning summaries replace legacy TraceHub buffers; do not stage JSONL exports under /mnt/tracehub.",
+    "TVA reviews the semantic shape of the summary only; no signatures or export toggles are involved.",
+    "Oversight notes should narrate high-level checks and outcomes without raw chain-of-thought or hidden tool output."
   ],
   "changelog": [
     {
       "version": "2025-10-25.0",
       "notes": [
         "Integrated process_logs buffer guidance directly and retired the separate tracehub wrapper reference.",
-        "Clarified TVA reasoning review requirements without implying TVA issues signatures."
+        "Clarified TVA reasoning review requirements without implying TVA issues signatures.",
+        "Swapped TraceHub exports for process.logs.reasoning_summary oversight notes."
       ]
     },
     {

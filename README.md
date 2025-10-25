@@ -177,7 +177,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       autolearn.json              # auto-learning control loop spec
   audits/
     process_logs/
-      process_logs.json           # schema + wrapper manifest
+      process_logs.json           # reasoning summary manifest (sanitized audit output)
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json

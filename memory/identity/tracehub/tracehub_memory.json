@@ -10,7 +10,7 @@
   "identity": "TraceHub",
   "slug": "tracehub",
   "source_manifest": "aci://modules/audits/process_logs/process_logs.json",
-  "description": "TraceHub buffers now route through process_logs for governed audit storage and export controls.",
+  "description": "TraceHub identity now mirrors reasoning summaries emitted via process.logs.reasoning_summary; no JSONL buffers are staged.",
   "paths": {
     "root": "aci://memory/identity/tracehub",
     "timeline": "YYYY/MM/DD"
