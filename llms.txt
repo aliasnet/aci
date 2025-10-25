@@ -887,13 +887,7 @@
         },
         {
           "name": "memory",
-          "files": [
-            {
-              "path": "aci://memory/local_cache.json",
-              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/local_cache.json",
-              "name": "local_cache.json"
-            }
-          ],
+          "files": [],
           "children": [
             {
               "name": "audit",

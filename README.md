@@ -279,7 +279,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ## 4) Governance & Safety
 
 - **Prime directive** governs all agents (separate doc).
-- **Sanity protocol** (`./sanity.md`) — checklist for high-risk actions and mitigation of Codex-reported bugs before any override or sandbox exit.
+- **Integrity protocol** (runtime-integrated) — sanity.md retired; follow runtime diagnostics before any override or sandbox exit.
 - **Specialist governance layer** (`/modules/agi/`):
   - `agi.json` — governance manifest (binding rules, oversight, presets, identity manager) shared by specialist personas.
   - `agi_export_policy.json` — export policy for specialist-managed JSONL artifacts.
