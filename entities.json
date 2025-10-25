@@ -136,14 +136,11 @@
     "yggdrasil_resource_resolution_policy": {
       "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
-        "core_five": [
-          "prime_directive.txt",
-          "runtime.json",
-          "entities.json",
-          "functions.json",
-          "bootstrap.json"
-        ],
-        "tva_layer": "aci://entities/tva/tva_layer.json"
+        "@prime_directive.txt": "aci://prime_directive.txt",
+        "@runtime.json": "aci://runtime.json",
+        "@yggdrasil.json": "aci://yggdrasil.json",
+        "@tva.json": "aci://entities/tva/tva.json",
+        "@metacognition.json": "aci://modules/metacognition/metacognition.json"
       },
       "git_is_canonical": true,
       "mapping": [
