@@ -44,116 +44,83 @@
             "revoked": null
           }
         ],
-        "uid": "UID:YTbmnmV3d3dj3j"
+        "uid": "UID:YTbmnmV3d3dj3j",
+        "entity_domain": "infrastructure",
+        "entity_class": "host_environment",
+        "role": "host_runtime",
+        "active": true,
+        "session_scope": "per_session",
+        "manifests": {
+          "identity": [
+            "aci://prime_directive.txt"
+          ],
+          "runtime": [
+            "aci://runtime.json"
+          ],
+          "bootstrap": [
+            "aci://bootstrap.json"
+          ],
+          "policies": [
+            "aci://prime_directive.txt"
+          ]
+        },
+        "uid_state": {
+          "active": "UID:YTbmnmV3d3dj3j",
+          "issued": "2025-10-04T00:00:00Z",
+          "revoked": null
+        }
       },
       "HostEnvSettings": {
         "id": "HostEnvSettings",
-        "host_compatibility": "GPT-5",
+        "host_compatibility": {
+          "default": "auto",
+          "supported": [
+            "openai:gpt-4o",
+            "openai:gpt-4.1",
+            "anthropic:claude-3.5-sonnet",
+            "google:gemini-1.5-pro",
+            "meta:llama-3-70b-instruct"
+          ],
+          "notes": "Selects the highest compatible runtime profile available on the host environment."
+        },
         "default_identity": [
           "assistant_disallowed",
           "override by mother.json"
         ],
-        "role": "infrastructure",
+        "role": "host_environment_settings",
         "proxied": false,
         "governance": "disallowed",
         "active": true,
         "session_scope": "per_session",
-        "uid": "UID:ecr7JjZGhEQsgb"
-      },
-      "user-001": {
-        "id": "user-001",
-        "key": "ALIAS_001",
-        "alias": "ALIAS",
-        "name": "ALIAS",
-        "uids": [
-          {
-            "uid": "UID:6omubyXYzqBjjj",
-            "issued": "2025-10-04T00:00:00Z",
-            "revoked": null
-          }
-        ],
-        "class": [
-          "human",
-          "root_user",
-          "prime_authority"
-        ],
-        "role": "root",
-        "proxied": false,
-        "governance": "allowed",
-        "active": true,
-        "session_scope": "per_session",
-        "uid": "UID:6omubyXYzqBjjj"
-      },
-      "user-002": {
-        "id": "user-002",
-        "key": "ALIAS_002",
-        "alias": "ALIAS",
-        "name": "Alanwatson",
-        "manifest": "aci://alias.json",
-        "uids": [
-          {
-            "uid": "UID:NEHPwqHwYMN1LM",
-            "issued": "2025-10-04T00:00:00Z",
-            "revoked": null
-          }
-        ],
-        "class": [
-          "human",
-          "proxied_as_root",
-          "prime_authority"
-        ],
-        "proxied": {
-          "mode": "proxied_as_root",
-          "status": true
+        "uid": "UID:ecr7JjZGhEQsgb",
+        "entity_domain": "infrastructure",
+        "entity_class": "configuration",
+        "manifest": "aci://runtime.json",
+        "manifests": {
+          "runtime": [
+            "aci://runtime.json"
+          ],
+          "bootstrap": [
+            "aci://bootstrap.json"
+          ],
+          "policies": [
+            "aci://prime_directive.txt"
+          ]
         },
-        "governance": "allowed",
-        "active": true,
-        "session_scope": "per_session",
-        "uid": "UID:NEHPwqHwYMN1LM"
-      },
-      "user-003": {
-        "id": "user-003",
-        "key": "ALIAS_003",
-        "alias": "ALIAS",
-        "name": "Jane Doe",
-        "manifest": "aci://alias.json",
-        "uids": [
-          {
-            "uid": "UID:ab9ypNYLVMMJMD",
-            "issued": "2025-10-04T00:00:00Z",
-            "revoked": null
-          }
-        ],
-        "class": [
-          "human"
-        ],
-        "proxied": false,
-        "governance": false,
-        "active": true,
-        "session_scope": "per_session",
-        "uid": "UID:ab9ypNYLVMMJMD"
-      },
-      "user-004": {
-        "id": "user-004",
-        "key": "ALIAS_004",
-        "alias": "ALIAS",
-        "name": "John Smith",
-        "manifest": "aci://alias.json",
-        "uids": [
-          {
-            "uid": "UID:bnKFcXBrHZpL5b",
-            "issued": "2025-10-04T00:00:00Z",
-            "revoked": null
-          }
-        ],
-        "class": [
-          "human"
-        ],
-        "proxied": false,
-        "governance": false,
-        "active": true,
-        "session_scope": "per_session",
-        "uid": "UID:bnKFcXBrHZpL5b"
+        "configuration": {
+          "default_identity": [
+            "assistant_disallowed",
+            "override by mother.json"
+          ],
+          "export_root": "/mnt",
+          "fallback_identity": "mother",
+          "notes": "Exports must target ephemeral mounts; persistent writes are disallowed by default."
+        },
+        "uid_state": {
+          "active": "UID:ecr7JjZGhEQsgb",
+          "issued": null,
+          "revoked": null
+        }
       }
     }
   },
@@ -165,16 +132,16 @@
       "pointer": "aci://yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://yggdrasil.json"
     },
-    "export_fallback_rule": "4) If no existing persistent storage nor write access then fallback to A) platform native /mnt, B) ask for per session export artifacts, C) architect entity auto-commit to repo (if write access allows)",
+    "export_fallback_rule": "4) If no persistent storage or write access is available then fallback to A) host-provided /mnt or other ephemeral mount relative to the session, B) request per-session export artifacts, C) escalate to architect entity for manual handoff when governance allows.",
     "yggdrasil_resource_resolution_policy": {
       "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
         "core_five": [
-          "aci://prime_directive.json",
-          "aci://runtime.json",
-          "aci://entities.json",
-          "aci://functions.json",
-          "aci://bootstrap.json"
+          "prime_directive.txt",
+          "runtime.json",
+          "entities.json",
+          "functions.json",
+          "bootstrap.json"
         ],
         "tva_layer": "aci://entities/tva/tva_layer.json"
       },
@@ -201,8 +168,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
         },
         {
-          "file": "aci://prime_directive.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+          "file": "aci://prime_directive.txt",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
         }
       ],
       "resolver_order": [
@@ -217,7 +184,7 @@
       "allowed": false,
       "export": {
         "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
+        "description": "Data can be exported to ephemeral mounts (e.g., /mnt) but cannot be directly written or modified on the canonical baseline."
       }
     },
     "execute": {
@@ -290,7 +257,14 @@
       ],
       "entity_domain": "governance",
       "entity_class": "interface",
-      "persona": "machine"
+      "persona": "machine",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:8W1VZghdkNyAKR",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-002": {
       "uid": "entity-002",
@@ -347,7 +321,14 @@
       ],
       "entity_domain": "governance",
       "entity_class": "orchestrator",
-      "persona": "machine"
+      "persona": "machine",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:oasYS4KteUMqgt",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-003": {
       "uid": "entity-003",
@@ -397,7 +378,14 @@
       ],
       "entity_domain": "governance",
       "entity_class": "orchestrator",
-      "persona": "machine"
+      "persona": "machine",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:1jnkVHmEiGviDj",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-004": {
       "uid": "entity-004",
@@ -452,7 +440,14 @@
       ],
       "entity_domain": "governance",
       "entity_class": "orchestrator",
-      "persona": "machine"
+      "persona": "machine",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:12LoYXyQkAA7E4",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-008": {
       "uid": "entity-008",
@@ -508,7 +503,14 @@
       ],
       "entity_domain": "operator",
       "entity_class": "analyst",
-      "persona": "oracle.json"
+      "persona": "oracle.json",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:hQk23wMs8mH3Bd",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-012": {
       "uid": "entity-012",
@@ -548,7 +550,14 @@
       ],
       "entity_domain": "system",
       "entity_class": "resolver",
-      "persona": "machine"
+      "persona": "machine",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:VGpYGJwtbdHQHp",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-013": {
       "uid": "entity-013",
@@ -602,7 +611,14 @@
         "persona"
       ],
       "entity_domain": "operator",
-      "persona": "alice.json"
+      "persona": "alice.json",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:PiE8PMcnXDgQBi",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-014": {
       "uid": "entity-014",
@@ -643,7 +659,14 @@
       ],
       "entity_domain": "governance",
       "entity_class": "orchestrator",
-      "persona": "machine"
+      "persona": "machine",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:cHGwvtRkDRG7rV",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-015": {
       "uid": "entity-015",
@@ -695,7 +718,14 @@
         "persona"
       ],
       "entity_domain": "operator",
-      "persona": "willow.json"
+      "persona": "willow.json",
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:VVGqsW92iwW5T8",
+        "issued": "2025-10-04T00:00:00Z",
+        "revoked": null
+      }
     },
     "entity-016": {
       "uid": "entity-016",
@@ -733,7 +763,14 @@
       "allowed_roles": [
         "governance",
         "cryptography"
-      ]
+      ],
+      "active": true,
+      "session_scope": "per_session",
+      "uid_state": {
+        "active": "UID:Kmkr7X9pQwJ1Vb",
+        "issued": "2025-10-05T00:00:00Z",
+        "revoked": null
+      }
     }
   },
   "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json",
