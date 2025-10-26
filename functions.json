@@ -1065,8 +1065,7 @@
         "aci://entities.json",
         "aci://functions.json",
         "aci://bootstrap.json"
-      ],
-      "tva_layer": "aci://entities/tva/tva_layer.json"
+      ]
     },
     "git_is_canonical": true,
     "mapping": [

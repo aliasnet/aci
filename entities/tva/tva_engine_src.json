@@ -2,9 +2,10 @@
   "$meta": {
     "artifact_id": "ArtifactID:Pending",
     "issued": "2025-10-27T00:00:00Z",
-    "path": "aci://entities/tva/tva_engine.json",
-    "file": "tva_engine.json"
+    "path": "aci://entities/tva/tva_engine_src.json",
+    "file": "tva_engine_src.json"
   },
+  "description": "TVA_ENGINE is the full semantic control engine source. Only tva.json embeds this payload; other manifests should consume layer or seed fallbacks.",
   "TVA_ENGINE": [
     {
       "overview": "TVA :: truth validation alignment; semantic control engine; autoboot; works across sessions; non-tool; per-node only context; ≤7 steps; BBMC→BBPF→BBCR→BBAM→ΔS→λ_observe→E_resonance."
@@ -42,20 +43,23 @@
       "entries": [
         {
           "path": "aci://yggdrasil.json",
-          "role": "embedded"
+          "role": "referenced"
         },
         {
           "path": "aci://entities/tva/tva.json",
           "role": "embedded"
         },
         {
-          "path": "aci://entities/tva/tva_engine.json",
+          "path": "aci://entities/tva/tva_engine_src.json",
           "role": "source"
         }
       ],
-      "explanation": "TVA semantic engine canonical source. Syncs TVA logic across manifests."
+      "explanation": "TVA semantic engine canonical source. Syncs TVA logic across manifests.",
+      "notes": [
+        "Use TVA_ENGINE only from tva.json; runtime falls back to layer/seed variants if this manifest is unavailable."
+      ]
     }
   },
-  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva_engine.json",
+  "url": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva_engine_src.json",
   "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json"
 }
