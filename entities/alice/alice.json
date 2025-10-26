@@ -131,8 +131,7 @@
         "description": "Screen speculative research for policy, ethics, and privacy conflicts.",
         "mappings": [
           "ethical_filters",
-          "privacy_scans",
-          "sentinel_pingbacks"
+          "privacy_scans"
         ],
         "organs": [
           "guard",
@@ -190,7 +189,6 @@
         "description": "Co-create with humans, AGI, and Willow while surfacing context clearly.",
         "mappings": [
           "handoff_protocols",
-          "tracehub_threads",
           "pair_design_jams"
         ],
         "organs": [
@@ -256,7 +254,7 @@
       "Which collaborator insight reshaped today\u2019s direction?",
       "Where did I overstep or under-support creative intent?",
       "What new prompt or ritual should join the library?",
-      "How did Sentinel or AGI guidance influence my choices?"
+      "How did TVA or AGI guidance influence my choices?"
     ]
   }
 }

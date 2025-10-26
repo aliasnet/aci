@@ -100,7 +100,7 @@ ALL core files are mandatory, load others when invoke; raw canonical above local
 **ACI agents include:**
 
 **ENTITIES:**
-- **Governance orchestrators** (TVA, Hivemind, Sentinel, Architect, Keymaker) — observe, enforce, audit, and coordinate lifecycle actions across the colony.
+- **Governance orchestrators** (TVA, Hivemind, Architect, Keymaker) — observe, enforce, audit, and coordinate lifecycle actions across the colony.
 - **Specialists** (e.g., `alice`, `willow`, `oracle`) — perform analysis, safety validation, research, or forecasting under supervision.
 - **Operational services** (e.g., `aci_repo`) — manage infrastructure concerns such as package discovery and compatibility checks.
 
@@ -114,11 +114,11 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Governance domain** (`aci://entities/`)
   - `interface` class → `mother.json` mediates between the host LLM and users with persona `machine`.
-  - `orchestrator` class → `tva.json`, `hivemind.json`, `sentinel.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
+  - `orchestrator` class → `tva.json`, `hivemind.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
 - **Operator domain** (`aci://entities/`)
   - `specialist` class → `alice.json` and `willow.json` operate with persona manifests that match their identities and rely on shared libraries for reasoning and safety checks.
   - `analyst` class → `oracle.json` delivers predictive analytics with persona `oracle.json`.
--  - `service` class → reserved for future service workers that operate under Sentinel and Architect oversight.
+-  - `service` class → reserved for future service workers that operate under Architect oversight.
 - **System domain** (`aci://binders/`)
   - `resolver` class → `yggdrasil.json` provides canonical resolution and bridging with persona `machine` and no direct user invocation.
 
@@ -154,10 +154,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     oracle.json                   # analyst persona manifest
     predictive_divination_extension/
       predictive_divination.json  # oracle capability bundle
-  sentinel/
-    sentinel.json                 # enforcement manifest
-    library/
-      sentinel_library.json       # enforcement utilities
   tva/
     tva.json                      # oversight manifest
     tva_layer_src.json            # TVA layer fallback source (embedded by runtime)
@@ -177,8 +173,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
       autolearn.json              # auto-learning control loop spec
   audits/
-    process_logs/
-      process_logs.json           # reasoning summary manifest (sanitized audit output)
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json

@@ -19,12 +19,6 @@
       "manifest": "aci://entities/tva/tva.json"
     },
     {
-      "identity": "sentinel",
-      "name": "Sentinel Protocol",
-      "entity_uid": "UID:1jnkVHmEiGviDj",
-      "manifest": "aci://entities/sentinel/sentinel.json"
-    },
-    {
       "identity": "architect",
       "name": "Architect",
       "entity_uid": "UID:12LoYXyQkAA7E4",

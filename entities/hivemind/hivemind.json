@@ -172,7 +172,7 @@
       {
         "command": "hivemind export",
         "usage": "hivemind export --identity[=<identity|parent/child>] [--memory|--knowledge] [--download|--jsonl|--code] [--privacy on|off|anonymous]",
-        "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA+Sentinel oversight may apply.",
+        "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA oversight may apply.",
         "default_parameter": "--memory --download --jsonl",
         "description": "Unified exporter for any entity using memory_registry and child defaults.",
         "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
@@ -286,8 +286,7 @@
     "safeguards": {
       "require_pause": true,
       "oversight": [
-        "TVA",
-        "Sentinel"
+        "TVA"
       ],
       "violation": "trigger_nexus_event"
     },
@@ -405,10 +404,6 @@
       "tva": {
         "stub_manifest": "memory/identity/tva/tva_memory.json",
         "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_*_memory_*.jsonl.json"
-      },
-      "sentinel": {
-        "stub_manifest": "memory/identity/sentinel/sentinel_memory.json",
-        "export_pattern": "memory/identity/sentinel/YYYY/MM/DD/sentinel_*_memory_*.jsonl.json"
       },
       "architect": {
         "stub_manifest": "memory/identity/architect/architect_memory.json",
