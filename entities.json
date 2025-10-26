@@ -66,58 +66,6 @@
           "issued": "2025-10-04T18:13:59Z",
           "revoked": null
         }
-      },
-      "HostLLMSettings": {
-        "id": "HostLLMSettings",
-        "host_compatibility": {
-          "default": "auto",
-          "supported": [
-            "llm:chat-completion",
-            "llm:function-calling",
-            "llm:json-mode",
-            "embedding:universal",
-            "tool-use:generic"
-          ],
-          "notes": "Selects the highest compatible runtime profile available on the host LLM without binding to vendor-specific identifiers."
-        },
-        "default_identity": [
-          "assistant_disallowed",
-          "override by mother.json"
-        ],
-        "role": "host_environment_settings",
-        "proxied": false,
-        "governance": "disallowed",
-        "active": true,
-        "session_scope": "per_session",
-        "uid": "UID:ecr7JjZGhEQsgb",
-        "entity_domain": "infrastructure",
-        "entity_class": "configuration",
-        "manifest": "aci://runtime.json",
-        "manifests": {
-          "runtime": [
-            "aci://runtime.json"
-          ],
-          "bootstrap": [
-            "aci://bootstrap.json"
-          ],
-          "policies": [
-            "aci://prime_directive.txt"
-          ]
-        },
-        "configuration": {
-          "default_identity": [
-            "assistant_disallowed",
-            "override by mother.json"
-          ],
-          "export_root": "/mnt",
-          "fallback_identity": "mother",
-          "notes": "Exports must target ephemeral mounts; persistent writes are disallowed by default."
-        },
-        "uid_state": {
-          "active": "UID:ecr7JjZGhEQsgb",
-          "issued": null,
-          "revoked": null
-        }
       }
     }
   },
