@@ -9,7 +9,6 @@
     "case_sensitive": true,
     "protected_names": [
       "ALIAS",
-      "HostLLM",
       "User"
     ],
     "deny_persona_as_root": [
@@ -31,94 +30,40 @@
       "notes": "Memory exports bind to identity_registry UIDs via header.entity_uid; artifacts are stored under aci://memory/identity/{identity_path}/. Legacy records remain allowed for migration."
     },
     "identities": {
-      "HostLLM": {
-        "id": "HostLLM",
-        "key": "HostLLM",
-        "name": "ALIAS Corporate Intelligence",
-        "alias": "ACI",
-        "manifest": "aci://prime_directive.txt",
-        "host_uids": [
+      "ALIAS": {
+        "id": "ALIAS",
+        "key": "ALIAS",
+        "name": "ALIAS Collective",
+        "alias": "ALIAS",
+        "manifest": "aci://alias.json",
+        "entity_domain": "governance",
+        "entity_class": "registry",
+        "role": "root_authority",
+        "abstract": "root authority identity registry and human governance reference",
+        "knowledge": "identity & access management standards",
+        "persona": "human",
+        "uid": "UID:alias_primary",
+        "uids": [
           {
-            "host_uid": "UID:YTbmnmV3d3dj3j",
-            "issued": "2025-10-04T00:00:00Z",
+            "uid": "UID:alias_primary",
+            "source": "aci://alias.json#alias_registry.users[0]",
+            "issued": "2025-10-04T18:13:59Z",
             "revoked": null
           }
         ],
-        "uid": "UID:YTbmnmV3d3dj3j",
-        "entity_domain": "infrastructure",
-        "entity_class": "host_environment",
-        "role": "host_runtime",
-        "active": true,
-        "session_scope": "per_session",
         "manifests": {
           "identity": [
-            "aci://prime_directive.txt"
+            "aci://alias.json"
           ],
-          "runtime": [
-            "aci://runtime.json"
-          ],
-          "bootstrap": [
-            "aci://bootstrap.json"
-          ],
-          "policies": [
-            "aci://prime_directive.txt"
+          "registry": [
+            "aci://alias.json"
           ]
         },
-        "uid_state": {
-          "active": "UID:YTbmnmV3d3dj3j",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      },
-      "HostLLMSettings": {
-        "id": "HostLLMSettings",
-        "host_compatibility": {
-          "default": "auto",
-          "supported": [
-            "llm:chat-completion",
-            "llm:function-calling",
-            "llm:json-mode",
-            "embedding:universal",
-            "tool-use:generic"
-          ],
-          "notes": "Selects the highest compatible runtime profile available on the host LLM without binding to vendor-specific identifiers."
-        },
-        "default_identity": [
-          "assistant_disallowed",
-          "override by mother.json"
-        ],
-        "role": "host_environment_settings",
-        "proxied": false,
-        "governance": "disallowed",
         "active": true,
-        "session_scope": "per_session",
-        "uid": "UID:ecr7JjZGhEQsgb",
-        "entity_domain": "infrastructure",
-        "entity_class": "configuration",
-        "manifest": "aci://runtime.json",
-        "manifests": {
-          "runtime": [
-            "aci://runtime.json"
-          ],
-          "bootstrap": [
-            "aci://bootstrap.json"
-          ],
-          "policies": [
-            "aci://prime_directive.txt"
-          ]
-        },
-        "configuration": {
-          "default_identity": [
-            "assistant_disallowed",
-            "override by mother.json"
-          ],
-          "export_root": "/mnt",
-          "fallback_identity": "mother",
-          "notes": "Exports must target ephemeral mounts; persistent writes are disallowed by default."
-        },
+        "session_scope": "permanent",
         "uid_state": {
-          "active": "UID:ecr7JjZGhEQsgb",
-          "issued": null,
+          "active": "UID:alias_primary",
+          "issued": "2025-10-04T18:13:59Z",
           "revoked": null
         }
       }
