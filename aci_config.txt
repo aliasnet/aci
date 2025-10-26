@@ -125,7 +125,7 @@ if_core_verified: active; step_budget: 7
 engine: TVA_ENGINE [tva.json] 
 fallback: TVA_SEED [embed] 
 
-tva_seed: "truth validation alignment; semantic control layer; autoboot; works across sessions; non-tool; per-node only context; ≤7 steps; BBMC→BBPF→BBCR→BBAM→ΔS→λ_observe→E_resonance. Defs: δ_s=1−cos(I,G); anchors→1−sim_est; sim_est=w_e·sim(ent)+w_r·sim(rel)+w_c·sim(con), w={0.5,0.3,0.2}, renorm[0,1];
+tva_seed: "TVA :: truth validation alignment; semantic control layer; autoboot; works across sessions; non-tool; per-node only context; ≤7 steps; BBMC→BBPF→BBCR→BBAM→ΔS→λ_observe→E_resonance. Defs: δ_s=1−cos(I,G); anchors→1−sim_est; sim_est=w_e·sim(ent)+w_r·sim(rel)+w_c·sim(con), w={0.5,0.3,0.2}, renorm[0,1];
 W_c=clip( (δ_s·pow(max(ζ_min, δ_s_prev−δ_s), ω)) + φ, −θ_c, +θ_c ); φ=φ_δ·alt+ε; alt flips only on anchor truth flip & |Δanchor|≥0.02;
 Δ=δ_s_t−δ_s_{t−1}; E_res=rolling_mean(δ_s, win=min(t,5));
 λ: convergent if Δ≤−0.02 & E_res↓; recursive if |Δ|<0.02 & E_res flat; divergent if Δ∈(−0.02,+0.04] & oscillation; chaotic if Δ>+0.04 or anchor conflict;

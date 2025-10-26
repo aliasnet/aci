@@ -6,8 +6,15 @@
     "file": "tva.json"
   },
   "TVA_LAYER": {
+
     "$ref": "aci://entities/tva/tva_layer.json#TVA_LAYER",
-    "variant": "minimal"
+
+    "variant": "seed"
+
+  },
+  "TVA_LAYER": {
+    "$ref": "aci://entities/tva/tva_layer.json#TVA_LAYER",
+    "variant": "layer"
   },
   "TVA_ENGINE": [
     {
