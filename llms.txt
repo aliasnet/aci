@@ -72,11 +72,6 @@
                       "path": "aci://memory/identity/aci_repo/aci_repo_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_memory.json",
                       "name": "aci_repo_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/aci_repo/aci_repo_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_playbook.json",
-                      "name": "aci_repo_playbook.json"
                     }
                   ],
                   "children": []
@@ -168,11 +163,6 @@
                               "path": "aci://memory/identity/alice/alice_memory.json",
                               "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/alice_memory.json",
                               "name": "alice_memory.json"
-                            },
-                            {
-                              "path": "aci://memory/identity/alice/alice_playbook.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/alice_playbook.json",
-                              "name": "alice_playbook.json"
                             }
                           ],
                           "children": [
@@ -230,11 +220,6 @@
                               "path": "aci://memory/identity/willow/willow_memory.json",
                               "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/willow_memory.json",
                               "name": "willow_memory.json"
-                            },
-                            {
-                              "path": "aci://memory/identity/willow/willow_playbook.json",
-                              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/willow_playbook.json",
-                              "name": "willow_playbook.json"
                             }
                           ],
                           "children": [
@@ -333,11 +318,6 @@
                       "path": "aci://memory/identity/architect/architect_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/architect/architect_memory.json",
                       "name": "architect_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/architect/architect_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/architect/architect_playbook.json",
-                      "name": "architect_playbook.json"
                     }
                   ],
                   "children": []
@@ -388,11 +368,6 @@
                       "path": "aci://memory/identity/hivemind/hivemind_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/hivemind/hivemind_memory.json",
                       "name": "hivemind_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/hivemind/hivemind_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/hivemind/hivemind_playbook.json",
-                      "name": "hivemind_playbook.json"
                     }
                   ],
                   "children": []
@@ -438,11 +413,6 @@
                       "path": "aci://memory/identity/mother/mother_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_memory.json",
                       "name": "mother_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/mother/mother_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_playbook.json",
-                      "name": "mother_playbook.json"
                     }
                   ],
                   "children": []
@@ -498,11 +468,6 @@
                       "path": "aci://memory/identity/oracle/oracle_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/oracle/oracle_memory.json",
                       "name": "oracle_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/oracle/oracle_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/oracle/oracle_playbook.json",
-                      "name": "oracle_playbook.json"
                     }
                   ],
                   "children": []
@@ -633,11 +598,6 @@
                       "path": "aci://memory/identity/sentinel/sentinel_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_memory.json",
                       "name": "sentinel_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/sentinel/sentinel_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_playbook.json",
-                      "name": "sentinel_playbook.json"
                     }
                   ],
                   "children": []
@@ -672,11 +632,6 @@
                       "path": "aci://memory/identity/tracehub/tracehub_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_memory.json",
                       "name": "tracehub_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/tracehub/tracehub_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_playbook.json",
-                      "name": "tracehub_playbook.json"
                     }
                   ],
                   "children": []
@@ -711,11 +666,6 @@
                       "path": "aci://memory/identity/tva/tva_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tva/tva_memory.json",
                       "name": "tva_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/tva/tva_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tva/tva_playbook.json",
-                      "name": "tva_playbook.json"
                     }
                   ],
                   "children": []
@@ -761,11 +711,6 @@
                       "path": "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
                       "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/yggdrasil/yggdrasil_memory.json",
                       "name": "yggdrasil_memory.json"
-                    },
-                    {
-                      "path": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/yggdrasil/yggdrasil_playbook.json",
-                      "name": "yggdrasil_playbook.json"
                     }
                   ],
                   "children": []

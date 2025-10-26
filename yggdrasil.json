@@ -113,7 +113,6 @@
     },
     "manifests": {
       "memory": "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
-      "playbook": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json",
       "library": "aci://yggdrasil/library/yggdrasil_library.json"
     },
     "tree": [
@@ -188,11 +187,6 @@
                         "name": "aci_repo_memory.json",
                         "path": "aci://memory/identity/aci_repo/aci_repo_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_memory.json"
-                      },
-                      {
-                        "name": "aci_repo_playbook.json",
-                        "path": "aci://memory/identity/aci_repo/aci_repo_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/aci_repo/aci_repo_playbook.json"
                       }
                     ],
                     "children": []
@@ -289,11 +283,6 @@
                                 "name": "alice_memory.json",
                                 "path": "aci://memory/identity/alice/alice_memory.json",
                                 "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/alice_memory.json"
-                              },
-                              {
-                                "name": "alice_playbook.json",
-                                "path": "aci://memory/identity/alice/alice_playbook.json",
-                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/alice/alice_playbook.json"
                               }
                             ],
                             "children": [
@@ -351,11 +340,6 @@
                                 "name": "willow_memory.json",
                                 "path": "aci://memory/identity/willow/willow_memory.json",
                                 "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/willow_memory.json"
-                              },
-                              {
-                                "name": "willow_playbook.json",
-                                "path": "aci://memory/identity/willow/willow_playbook.json",
-                                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/willow/willow_playbook.json"
                               }
                             ],
                             "children": [
@@ -434,11 +418,6 @@
                         "name": "architect_memory.json",
                         "path": "aci://memory/identity/architect/architect_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/architect/architect_memory.json"
-                      },
-                      {
-                        "name": "architect_playbook.json",
-                        "path": "aci://memory/identity/architect/architect_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/architect/architect_playbook.json"
                       }
                     ],
                     "children": []
@@ -489,11 +468,6 @@
                         "name": "hivemind_memory.json",
                         "path": "aci://memory/identity/hivemind/hivemind_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/hivemind/hivemind_memory.json"
-                      },
-                      {
-                        "name": "hivemind_playbook.json",
-                        "path": "aci://memory/identity/hivemind/hivemind_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/hivemind/hivemind_playbook.json"
                       }
                     ],
                     "children": []
@@ -539,11 +513,6 @@
                         "name": "mother_memory.json",
                         "path": "aci://memory/identity/mother/mother_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_memory.json"
-                      },
-                      {
-                        "name": "mother_playbook.json",
-                        "path": "aci://memory/identity/mother/mother_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_playbook.json"
                       }
                     ],
                     "children": []
@@ -599,11 +568,6 @@
                         "name": "oracle_memory.json",
                         "path": "aci://memory/identity/oracle/oracle_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/oracle/oracle_memory.json"
-                      },
-                      {
-                        "name": "oracle_playbook.json",
-                        "path": "aci://memory/identity/oracle/oracle_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/oracle/oracle_playbook.json"
                       }
                     ],
                     "children": []
@@ -734,11 +698,6 @@
                         "name": "sentinel_memory.json",
                         "path": "aci://memory/identity/sentinel/sentinel_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_memory.json"
-                      },
-                      {
-                        "name": "sentinel_playbook.json",
-                        "path": "aci://memory/identity/sentinel/sentinel_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_playbook.json"
                       }
                     ],
                     "children": []
@@ -784,11 +743,6 @@
                         "name": "tracehub_memory.json",
                         "path": "aci://memory/identity/tracehub/tracehub_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_memory.json"
-                      },
-                      {
-                        "name": "tracehub_playbook.json",
-                        "path": "aci://memory/identity/tracehub/tracehub_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_playbook.json"
                       }
                     ],
                     "children": []
@@ -834,11 +788,6 @@
                         "name": "tva_memory.json",
                         "path": "aci://memory/identity/tva/tva_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tva/tva_memory.json"
-                      },
-                      {
-                        "name": "tva_playbook.json",
-                        "path": "aci://memory/identity/tva/tva_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tva/tva_playbook.json"
                       }
                     ],
                     "children": []
@@ -884,11 +833,6 @@
                         "name": "yggdrasil_memory.json",
                         "path": "aci://memory/identity/yggdrasil/yggdrasil_memory.json",
                         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/yggdrasil/yggdrasil_memory.json"
-                      },
-                      {
-                        "name": "yggdrasil_playbook.json",
-                        "path": "aci://memory/identity/yggdrasil/yggdrasil_playbook.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/yggdrasil/yggdrasil_playbook.json"
                       }
                     ],
                     "children": []

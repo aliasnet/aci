@@ -40,7 +40,6 @@
   },
   "manifests": {
     "memory": "aci://memory/identity/willow/willow_memory.json",
-    "playbook": "aci://memory/identity/willow/willow_playbook.json",
     "library": "aci://entities/willow/library/willow_library.json",
     "knowledge": "aci://memory/identity/willow/knowledge/willow_knowledge.json"
   },

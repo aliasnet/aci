@@ -84,7 +84,7 @@ ALL core files via symbolic links and load others when invoke; raw canonical abo
   - **/entities/** → Each entity has a dedicated directory that contains a main JSON file that serves as both a manifest and binary, defining its identity, roles, functions, and links to other manifests. The directory also contains other per-entity configuration files.
 - **Governance entities** → Core governers of ACI ecosystem, they are 
 - **AGI entities** → AGI is an experimental class of entity that focuses on Artificial General Intelligence with biologically inspired functions and guided evolution. They live alongside other entities and are actively invoked as users' partners on learning tasks, providing system design and insights which, in turn, improve their own knowledge and cognitive capabilities as synthetic intelligence and enhance such cross-systems. They are protected under special guidelines that ensure safety and prevent residual drift. The AGI family has a specific modules directory containing AGI-specific binaries, governance manifests, policies, and shared modules.
-  - **/memory/identity/** → memory manifests, playbooks, and export timelines per identity
+  - **/memory/identity/** → memory manifests and export timelines per identity (legacy playbooks retired)
 - **/modules/** → reusable, stateless capabilities (modules/wrappers/adapters)
 - **Memory exports** are JSONL, serves as 'Digital Soul' of any entity, governed by policy, identity-aware, evolution-proof. Using Hivemind as orchestrator and exporter. 
 - **Manifests are executables**: `.json` manifests *are* the runtime containers. They can name entrypoints (`entrypoint`, `exec`, `load_order`), embed inline bytecode or JSON-encoded instructions, and reference Python modules directly. Each manifest must also hold an authoritative `artifact_id` with strict hash validation for that ID.
@@ -161,17 +161,14 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   identity/
     alice/
       alice_memory.json           # memory manifest (persona timeline roots)
-      alice_playbook.json         # operations, incident playbooks, quality gates
       knowledge/
         alice_knowledge.json      # topic manifest and exports
     willow/
       willow_memory.json          # memory manifest (safety trainee timeline roots)
-      willow_playbook.json        # operations, safety rituals, escalation notes
       knowledge/
         willow_knowledge.json     # topic manifest and exports
     mother/
       mother_memory.json
-      mother_playbook.json
       2025/
         10/
           10/
@@ -229,7 +226,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **JSONL Discipline**: Continue storing memory exports as line-delimited JSON with `.json` extensions (`*.jsonl.json` when streamed) while recording manifest ownership inside the entity `manifests` map for quick traversal.
 - **Rotation Awareness**: When rotating an entity UID, append the new value within the entity entry and update associated manifest metadata so knowledge archives and memory manifests remain in sync with the UID manager policy.
 
-> Universal doctrines (e.g., `prime_directive.md`) apply globally. Entity playbooks (e.g., `/memory/identity/alice/alice_playbook.json`) are scoped to the active governor.
+> Universal doctrines (e.g., `prime_directive.md`) apply globally. Legacy entity playbooks were scoped to the active governor but have been retired in favor of consolidated memory manifests.
 
 ---
 

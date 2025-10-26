@@ -40,7 +40,6 @@
   },
   "manifests": {
     "memory": "aci://memory/identity/alice/alice_memory.json",
-    "playbook": "aci://memory/identity/alice/alice_playbook.json",
     "library": "aci://entities/alice/library/alice_library.json",
     "knowledge": "aci://memory/identity/alice/knowledge/alice_knowledge.json"
   },
