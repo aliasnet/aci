@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:7hcCGgh2qdR9Bi",
-    "sha256": "90971b349d97860642f793d106b6a7155707c0dc63bfdc4684984a3f9aaf2e5d",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://modules/metacognition/metacognition.json"
   },
@@ -933,7 +932,7 @@
       "version": "1.0.1",
       "date": "2025-09-26",
       "notes": [
-        "Mapped p_correct\u2192confidence on return; added retrieval signals and verifier; state adapter for stateless calibration; hardened critic parsing; privacy defaults to drop raw text; logprobs fallbacks."
+        "Mapped p_correct→confidence on return; added retrieval signals and verifier; state adapter for stateless calibration; hardened critic parsing; privacy defaults to drop raw text; logprobs fallbacks."
       ]
     },
     {
@@ -1001,7 +1000,7 @@
   "conformal": {
     "enabled": true,
     "alpha_default": 0.1,
-    "guarantee": "Split-conformal abstention enabled. Guarantees \u2264 \u03b1 error among accepted outputs under i.i.d. assumption. Exposes conformal_accept, conformal_reason, conformal_alpha signals."
+    "guarantee": "Split-conformal abstention enabled. Guarantees ≤ α error among accepted outputs under i.i.d. assumption. Exposes conformal_accept, conformal_reason, conformal_alpha signals."
   },
   "signal_defaults": {
     "conformal_accept": true,

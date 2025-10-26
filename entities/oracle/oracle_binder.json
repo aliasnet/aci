@@ -1,13 +1,12 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:BQsJftW8Bprupw",
-    "sha256": "80d7e392b8562b27cd718200900fbbe193937f5b88c8942721acad5e8d403f62",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/oracle_binder.json"
   },
   "version": "1.0",
   "binder": {
-    "description": "Binder for Oracle module \u2014 links runtime with library assets.",
+    "description": "Binder for Oracle module — links runtime with library assets.",
     "library": {
       "sefirot": "sefiton.json",
       "tarot_rws": "tarot_rws.json",
@@ -20,11 +19,10 @@
       "memory_entries_governed_mutability": true,
       "updates_require_root_signature": [
         "ALIAS",
-        "Sentinel",
         "TVA"
       ],
       "integrity_check": "Hibemind anchors each commit",
-      "resolution_order": "memory (latest, verified) \u2192 library \u2192 runtime (local/partial)"
+      "resolution_order": "memory (latest, verified) → library → runtime (local/partial)"
     },
     "runtime": {
       "oracle.json": "git",

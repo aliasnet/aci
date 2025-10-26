@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:416uAZprdGyMue",
-    "sha256": "07be5fdf9d25feef90791e531f73508f184936e5e0e77c7f55eebb5d72545231",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/plugins/runes.plugin.json"
   },

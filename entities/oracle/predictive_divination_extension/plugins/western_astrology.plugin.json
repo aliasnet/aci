@@ -1,14 +1,13 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:59BQ8EuaGzaDQk",
-    "sha256": "5853f53bdc3a7e725a5da9b43e03f531b0eb7f4c13fa9c0f14a41be3d92c115e",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/plugins/western_astrology.plugin.json"
   },
   "western_astrology": {
     "schema_version": "1.0",
     "version": "1.0",
-    "name": "Astrology \u2014 Western Tropical",
+    "name": "Astrology — Western Tropical",
     "assets": [
       {
         "ref": "astro_tables",
