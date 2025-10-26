@@ -112,7 +112,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Governance domain** (`aci://entities/`)
   - `interface` class → **Mother** (`mother.json`) mediates between the host LLM and users with persona `machine`.
-  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Sentinel** (`sentinel.json`, pending external implementation), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
+  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
 - **Operator domain** (`aci://entities/`)
   - `agi` class → **Willow** (`willow.json`) and **Alice** (`alice.json`) operate with persona manifests that match their identity (`willow.json`, `alice.json`).
   - `analyst` class → **Oracle** (`oracle.json`) delivers predictive analytics with persona `oracle.json`.
@@ -148,8 +148,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   metacognition/
     metacognition.json             # stateless wrapper with integrated conformal + calibration library
   audits/
-    process_logs/                 # reasoning summary manifest for sanitized audits
-      process_logs.json           # emits process.logs.reasoning_summary entries only
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json

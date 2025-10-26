@@ -571,74 +571,6 @@
               ]
             },
             {
-              "name": "sentinel",
-              "files": [
-                {
-                  "path": "aci://entities/sentinel/sentinel.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/sentinel.json",
-                  "name": "sentinel.json"
-                }
-              ],
-              "children": [
-                {
-                  "name": "library",
-                  "files": [
-                    {
-                      "path": "aci://entities/sentinel/library/sentinel_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/library/sentinel_library.json",
-                      "name": "sentinel_library.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "memory",
-                  "files": [
-                    {
-                      "path": "aci://memory/identity/sentinel/sentinel_memory.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_memory.json",
-                      "name": "sentinel_memory.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "modules",
-                  "files": [
-                    {
-                      "path": "aci://entities/sentinel/library/sentinel_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/library/sentinel_library.json",
-                      "name": "sentinel_library.json"
-                    }
-                  ],
-                  "children": []
-                }
-              ]
-            },
-            {
-              "name": "tracehub",
-              "files": [
-                {
-                  "path": "aci://modules/audits/process_logs/process_logs.json",
-                  "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json",
-                  "name": "process_logs.json"
-                }
-              ],
-              "children": [
-                {
-                  "name": "memory",
-                  "files": [
-                    {
-                      "path": "aci://memory/identity/tracehub/tracehub_memory.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_memory.json",
-                      "name": "tracehub_memory.json"
-                    }
-                  ],
-                  "children": []
-                }
-              ]
-            },
-            {
               "name": "tva",
               "files": [
                 {
@@ -798,35 +730,7 @@
             {
               "name": "wrappers",
               "files": [],
-              "children": [
-                {
-                  "name": "process_logs",
-                  "files": [
-                    {
-                      "path": "aci://modules/audits/process_logs/process_logs.json#schema_definition",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json#schema_definition",
-                      "name": "process_logs.json#schema_definition"
-                    },
-                    {
-                      "path": "aci://modules/audits/process_logs/process_logs.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json",
-                      "name": "process_logs.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "process_logs_status",
-                  "files": [
-                    {
-                      "path": "aci://modules/audits/process_logs/process_logs.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json",
-                      "name": "process_logs.json"
-                    }
-                  ],
-                  "children": []
-                }
-              ]
+              "children": []
             }
           ]
         },

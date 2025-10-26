@@ -671,96 +671,6 @@
                 ]
               },
               {
-                "name": "sentinel",
-                "files": [
-                  {
-                    "name": "sentinel.json",
-                    "path": "aci://entities/sentinel/sentinel.json",
-                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/sentinel.json"
-                  }
-                ],
-                "children": [
-                  {
-                    "name": "library",
-                    "files": [
-                      {
-                        "name": "sentinel_library.json",
-                        "path": "aci://entities/sentinel/library/sentinel_library.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/library/sentinel_library.json"
-                      }
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "memory",
-                    "files": [
-                      {
-                        "name": "sentinel_memory.json",
-                        "path": "aci://memory/identity/sentinel/sentinel_memory.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/sentinel/sentinel_memory.json"
-                      }
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "modules",
-                    "files": [
-                      {
-                        "name": "sentinel_library.json",
-                        "path": "aci://entities/sentinel/library/sentinel_library.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/sentinel/library/sentinel_library.json"
-                      }
-                    ],
-                    "children": []
-                  }
-                ]
-              },
-              {
-                "name": "tracehub",
-                "files": [
-                  {
-                    "name": "process_logs.json",
-                    "path": "aci://modules/audits/process_logs/process_logs.json",
-                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json"
-                  }
-                ],
-                "children": [
-                  {
-                    "name": "library",
-                    "files": [
-                      {
-                        "name": "process_logs.json",
-                        "path": "aci://modules/audits/process_logs/process_logs.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json"
-                      }
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "memory",
-                    "files": [
-                      {
-                        "name": "tracehub_memory.json",
-                        "path": "aci://memory/identity/tracehub/tracehub_memory.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/tracehub/tracehub_memory.json"
-                      }
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "modules",
-                    "files": [
-                      {
-                        "name": "process_logs.json",
-                        "path": "aci://modules/audits/process_logs/process_logs.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json"
-                      }
-                    ],
-                    "children": []
-                  }
-                ]
-              },
-              {
                 "name": "tva",
                 "files": [
                   {
@@ -920,35 +830,7 @@
               {
                 "name": "wrappers",
                 "files": [],
-                "children": [
-                  {
-                    "name": "process_logs",
-                    "files": [
-                      {
-                        "name": "process_logs.json#schema_definition",
-                        "path": "aci://modules/audits/process_logs/process_logs.json#schema_definition",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json#schema_definition"
-                      },
-                      {
-                        "name": "process_logs.json",
-                        "path": "aci://modules/audits/process_logs/process_logs.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json"
-                      }
-                    ],
-                    "children": []
-                  },
-                  {
-                    "name": "tracehub_status",
-                    "files": [
-                      {
-                        "name": "process_logs.json",
-                        "path": "aci://modules/audits/process_logs/process_logs.json",
-                        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/modules/audits/process_logs/process_logs.json"
-                      }
-                    ],
-                    "children": []
-                  }
-                ]
+                "children": []
               }
             ]
           },

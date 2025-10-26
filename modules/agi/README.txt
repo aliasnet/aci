@@ -17,8 +17,7 @@ PURPOSE: Deterministic operating contract for the AGI governance module after re
 2) GOVERNANCE GUARDS (MANDATORY)
 - Oracle.precheck → MUST pass or abort.
 - TVA.checkpoint (pre/post) → record tva_anchor_id.
-- Sentinel.audit → record sentinel_audit_id.
-- Human-in-the-loop required for promotion (TVA.ok + Sentinel.ok + Human.approval).
+- Human-in-the-loop required for promotion (TVA.ok + Human.approval).
 - Default: dry_run = true unless explicitly disabled with Human.approval.
 
 3) TOOL REGISTRATION FLOW
@@ -28,14 +27,14 @@ PURPOSE: Deterministic operating contract for the AGI governance module after re
 
 4) MEMORY POLICY
 - Namespace = AGI; governed mutable index with audit trail; canonical raw mirrors outrank local snapshots while the namespace lock remains in place.
-- Prune rule: summaries_only_after_90d (raw logs persist in TraceHub).
+- Prune rule: summaries_only_after_90d (raw logs persist in local governance archives).
 
 5) EXECUTION HANDOFFS
 - Without AGI Proxy, entities must call approved tools directly or escalate to humans for manual execution.
-- Any reintroduction of automated execution requires Sentinel + TVA sign-off and explicit manifest updates.
+- Any reintroduction of automated execution requires TVA sign-off and explicit manifest updates.
 
 6) MINIMUM METRICS FOR TOOL RUNS
-- All: duration_seconds, steps(if any), tva_anchor_id, sentinel_audit_id.
+- All: duration_seconds, steps(if any), tva_anchor_id, audit_event_id.
 - Eval: benchmark identifiers + gate.status, gate.threshold.
 - Learn: train_loss_last, eval_loss_last(if available), kl_divergence(RLHF) when applicable.
 

@@ -191,9 +191,7 @@
       },
       "security": {
         "audit": {
-          "log_to": [
-            "aci://modules/audits/process_logs/process_logs.json"
-          ]
+          "log_to": []
         }
       }
     },
@@ -252,12 +250,8 @@
         "audit_facing": {
           "record_decision_rationale": true,
           "include_triggers_and_heuristics": true,
-          "store_in": [
-            "process.logs.reasoning_summary"
-          ],
-          "toggle_semantics": {
-            "process.logs.reasoning_summary": "Emit sanitized reasoning steps via process.logs.reasoning_summary; no raw chain-of-thought or buffer exports are produced."
-          }
+          "store_in": [],
+          "toggle_semantics": {}
         }
       }
     },
@@ -337,9 +331,7 @@
           "ALIAS"
         ],
         "audit": {
-          "log_to": [
-            "aci://modules/audits/process_logs/process_logs.json"
-          ],
+          "log_to": [],
           "fields": [
             "issuer",
             "role",
@@ -358,7 +350,7 @@
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
         "6) Route to runtime dispatcher (registry bypass allowed if authenticated).",
-        "7) Emit sanitized reasoning summary via process.logs.reasoning_summary with TVA semantic review at start and completion of the block.",
+        "7) Emit sanitized reasoning summary via TVA timeline anchors with semantic review at start and completion of the block.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
       "compatibility": {
@@ -395,11 +387,9 @@
       ]
     },
     "wrapper": {
-      "provider": "process_logs",
       "jobs": [],
-      "audit_sink": "aci://modules/audits/process_logs/process_logs.json",
       "presence_channel": "nexus.event.scheduler",
-      "notes": "Wrapper now emits reasoning summaries only; no buffer/export toggles."
+      "notes": "Legacy audit wrapper retired; scheduler operates without dedicated audit sinks."
     },
     "rag": {
       "provider": "local_knowledge",
@@ -419,8 +409,7 @@
       }
     },
     "logging": {
-      "reasoning_summary_manifest": "aci://modules/audits/process_logs/process_logs.json",
-      "notes": "TraceHub buffers retired; use process.logs.reasoning_summary for sanitized audit context."
+      "notes": "Legacy audit wrappers retired; rely on TVA timeline anchors for audit context."
     },
     "changelog": [
       {
