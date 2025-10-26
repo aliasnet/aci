@@ -20,7 +20,6 @@
       "memory_entries_governed_mutability": true,
       "updates_require_root_signature": [
         "ALIAS",
-        "Sentinel",
         "TVA"
       ],
       "integrity_check": "Hibemind anchors each commit",

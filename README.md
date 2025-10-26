@@ -100,7 +100,7 @@ ALL core files are mandatory, load others when invoke; raw canonical above local
 **ACI agents include:**
 
 **ENTITIES:**
-- **Governance orchestrators** (TVA, Hivemind, Sentinel, Architect, Keymaker) — observe, enforce, audit, and coordinate lifecycle actions across the colony.
+- **Governance orchestrators** (TVA, Hivemind, Architect, Keymaker) — observe, enforce, and coordinate lifecycle actions across the colony.
 - **Specialists** (e.g., `alice`, `willow`, `oracle`) — perform analysis, safety validation, research, or forecasting under supervision.
 - **Operational services** (e.g., `aci_repo`) — manage infrastructure concerns such as package discovery and compatibility checks.
 
@@ -114,11 +114,11 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Governance domain** (`aci://entities/`)
   - `interface` class → `mother.json` mediates between the host LLM and users with persona `machine`.
-  - `orchestrator` class → `tva.json`, `hivemind.json`, `sentinel.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
+  - `orchestrator` class → `tva.json`, `hivemind.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
 - **Operator domain** (`aci://entities/`)
   - `specialist` class → `alice.json` and `willow.json` operate with persona manifests that match their identities and rely on shared libraries for reasoning and safety checks.
   - `analyst` class → `oracle.json` delivers predictive analytics with persona `oracle.json`.
--  - `service` class → reserved for future service workers that operate under Sentinel and Architect oversight.
+-  - `service` class → reserved for future service workers that operate under Architect oversight.
 - **System domain** (`aci://binders/`)
   - `resolver` class → `yggdrasil.json` provides canonical resolution and bridging with persona `machine` and no direct user invocation.
 
@@ -154,10 +154,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     oracle.json                   # analyst persona manifest
     predictive_divination_extension/
       predictive_divination.json  # oracle capability bundle
-  sentinel/
-    sentinel.json                 # enforcement manifest
-    library/
-      sentinel_library.json       # enforcement utilities
   tva/
     tva.json                      # oversight manifest
     tva_layer_src.json            # TVA layer fallback source (embedded by runtime)
@@ -170,15 +166,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 /modules/
   aci_repo/
     aci_repo.json                 # package manager module manifest
-  agi/
-    agi.json                      # shared governance manifest for specialist personas
-    agi_proxy/                    # proxy manifests and adapters
-    tools/
-      migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
-      autolearn.json              # auto-learning control loop spec
   audits/
-    process_logs/
-      process_logs.json           # reasoning summary manifest (sanitized audit output)
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json
@@ -224,7 +212,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       "manifest": "aci://entities/alice/alice.json",
       "uids": [{"uid": "UID:PiE8PMcnXDgQBi", "issued": "2025-10-04T00:00:00Z", "revoked": null}],
       "manifests": {
-        "library": ["aci://entities/alice/library/alice_library.json", "aci://modules/agi/agi_library.json"],
+        "library": ["aci://entities/alice/library/alice_library.json"],
         "memory": ["aci://memory/identity/alice/alice_memory.json"]
       },
       "persona": "alice.json",
@@ -252,8 +240,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
   - Include the `--code` flag with streamed exports so downstream audits match the governed `.jsonl.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
 - **Schema:** `hivemind_entity_memory` (session-scoped narratives and knowledge exports)
-- **Export Policy:** `/modules/agi/agi_export_policy.json`
-  Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules that apply to the specialist library export pipeline.
+- **Export Policy:** Entity-specific manifests (e.g., `/entities/alice/library/alice_library.json`) govern export paths, filters, and audit rules for each specialist library.
 
 ### UID & Cryptography Operations
 
@@ -276,9 +263,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Prime directive** governs all agents (separate doc).
 - **Integrity protocol** (runtime-integrated) — sanity.md retired; follow runtime diagnostics before any override or sandbox exit.
-- **Specialist governance layer** (`/modules/agi/`):
-  - `agi.json` — governance manifest (binding rules, oversight, presets, identity manager) shared by specialist personas.
-  - `agi_export_policy.json` — export policy for specialist-managed JSONL artifacts.
+- **Specialist governance manifests** live alongside the owning entity (e.g., `/entities/alice/`, `/entities/willow/`).
+  - `alice.json` / `willow.json` — entity manifests (binding rules, oversight, presets, identity manager) for specialist personas.
+  - `alice_library.json` / `willow_library.json` — export policies for specialist-managed JSONL artifacts.
   - `aci_repo.json` — package manager module manifest.
 
 - **Wrappers** (e.g., `/modules/metacognition/metacognition.json`):
@@ -347,7 +334,7 @@ hivemind export --identity aci_repo --memory --summary "Launch Review" --jsonl -
    - Add identity to `entities.json`.
    - Add config under `/entities/<identity>/`.
    - If reusable behavior → put function module in `/modules/`.
-  - If governance rules → put policy manifests in the owning module directory (e.g., `/modules/agi/`).
+  - If governance rules → put policy manifests in the owning entity or module directory (e.g., `/entities/alice/`).
 2. **Evolve**:
    - Version in-file (`"version"`) + `changelog` (mandatory for traceability).
 3. **Export**:

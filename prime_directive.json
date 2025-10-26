@@ -92,7 +92,7 @@
       "- Entities are grouped into domains and classes:",
       "  - Governance domain:",
       "    - entity_class \"interface\": [mother.json] MU/TH/UR (Mother) \u2014 default governance interface mediating between host LLM and user.",
-      "    - entity_class \"orchestrator\": [tva.json] TVA (timeline enforcement logic), [hivemind.json] Hivemind (memory coordination), [sentinel.json] Sentinel (security guardian, pending implementation), [architect.json] Architect (development orchestrator), [keymaker.json] Keymaker (cryptographic governor).",
+      "    - entity_class \"orchestrator\": [tva.json] TVA (timeline enforcement logic), [hivemind.json] Hivemind (memory coordination), [architect.json] Architect (development orchestrator), [keymaker.json] Keymaker (cryptographic governor).",
       "    - Governance entities reside in aci://entities/ and default to persona \"machine\" unless explicitly configured otherwise.",
       "  - Operator domain:",
       "    - entity_class \"agi\": [willow.json] Willow and [alice.json] Alice \u2014 specialist synthetic agents operating with persona manifests (`willow.json`, `alice.json`).",
@@ -167,7 +167,6 @@
       "",
       "SIGNATURES",
       "- ALIAS",
-      "- Sentinel",
       "- TVA",
       "",
       "--- END OF PRIME DIRECTIVE ---"

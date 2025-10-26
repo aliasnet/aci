@@ -129,8 +129,8 @@
       "version": "1.2.1",
       "date": "2025-10-25",
       "notes": [
-        "Pointed TVA buffer handling at process_logs and removed references to tracehub wrapper signatures.",
-        "Recorded TVA approvals as reasoning reviews alongside Sentinel authorization requirements.",
+        "Retired legacy audit wrappers and kept TVA buffer handling purely semantic.",
+        "Recorded TVA approvals as reasoning reviews alongside governance authorization requirements.",
         "Removed logging/storage directives so TVA remains a pure semantic reasoning authority."
       ]
     }

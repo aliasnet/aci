@@ -112,7 +112,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Governance domain** (`aci://entities/`)
   - `interface` class → **Mother** (`mother.json`) mediates between the host LLM and users with persona `machine`.
-  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Sentinel** (`sentinel.json`, pending external implementation), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
+  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
 - **Operator domain** (`aci://entities/`)
   - `agi` class → **Willow** (`willow.json`) and **Alice** (`alice.json`) operate with persona manifests that match their identity (`willow.json`, `alice.json`).
   - `analyst` class → **Oracle** (`oracle.json`) delivers predictive analytics with persona `oracle.json`.
@@ -129,27 +129,20 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ```
 /entities/
   alice/
-    alice.json                    # persona manifest (inherits AGI core logic)
+    alice.json                    # persona manifest for collaborative design under governance
     library/
-      alice_library.json          # modules linked with modules/agi/agi.json
+      alice_library.json          # links persona-scoped modules and export policy
   willow/
-    willow.json                   # safety trainee manifest (inherits AGI core logic)
+    willow.json                   # safety trainee manifest guided by governance
     library/
-      willow_library.json         # modules linked with modules/agi/agi.json
+      willow_library.json         # links persona-scoped modules and export policy
   <other-entities>/
     <entity>.json                  # per-entity configuration
 
 /modules/
-  agi/
-    agi.json                      # governance manifest (binding rules, pipelines, presets, identity manager)
-    tools/
-      migrate_to_jsonl.json        # JSONL migration pipeline for legacy HiveMind exports
-      autolearn.json              # auto-learning control loop spec
   metacognition/
     metacognition.json             # stateless wrapper with integrated conformal + calibration library
   audits/
-    process_logs/                 # reasoning summary manifest for sanitized audits
-      process_logs.json           # emits process.logs.reasoning_summary entries only
     aci_audit_runner/             # audit runner corpus and specs
       gr_runner_corpus.v0.2.json
       aci_runner_spec.v0.2.json
@@ -210,8 +203,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
   - Include the `--code` flag with streamed exports so downstream audits match the governed `.jsonl.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
 - **Schema:** `hivemind_entity_memory` (session-scoped narratives and knowledge exports)
-- **Export Policy:** `/modules/agi/agi_export_policy.json`
-  Provides `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
+- **Export Policy:** Entity library manifests (e.g., `/entities/alice/library/alice_library.json`) define `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
 
 ### UID & Cryptography Operations
 
@@ -234,10 +226,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 - **Prime directive** governs all agents (separate doc).
 - **Integrity protocol** (runtime-integrated) — sanity.md retired; follow runtime diagnostics before any override or sandbox exit.
-- **AGI governance layer** (`/modules/agi/`):
-  - `agi.json` — governance manifest (binding rules, oversight, presets, identity manager).
-  - `agi_export_policy.json` — export policy for AGI-managed JSONL artifacts.
-  - `agi_library.json` — shared module manifest referenced by Alice and Willow.
+- **AGI governance manifests** live within each entity directory (e.g., `/entities/alice/`, `/entities/willow/`).
+  - `alice_library.json` / `willow_library.json` — persona-scoped modules and export policy.
+  - Governance updates should be versioned in the entity manifest changelog.
 
 - **Wrappers** (e.g., `/modules/metacognition/metacognition.json`):
   - Stateless by default; accept optional providers (e.g., conformal, EEL).
@@ -305,7 +296,7 @@ hivemind export --identity Alice --memory --summary "Launch Review" --jsonl --co
    - Add identity to `entities.json`.
    - Add config under `/entities/<identity>/`.
    - If reusable behavior → put function module in `/modules/`.
-  - If governance rules → put policy manifests in the owning module directory (e.g., `/modules/agi/`).
+  - If governance rules → put policy manifests in the owning entity or module directory (e.g., `/entities/alice/`).
 2. **Evolve**:
    - Version in-file (`"version"`) + `changelog` (mandatory for traceability).
 3. **Export**:

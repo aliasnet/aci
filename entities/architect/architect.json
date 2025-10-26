@@ -39,8 +39,7 @@
   },
   "signatures": {
     "required": [
-      "ALIAS",
-      "Sentinel"
+      "ALIAS"
     ],
     "verification": "GPG-or-HSM"
   },
