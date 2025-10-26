@@ -1,19 +1,18 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:E92YKpdHpGKnzX",
-    "sha256": "22ef0673b784caab1c78281b5e659ee541430730405ae6e46dd30b6a86c6786a",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/plugins/tarot.plugin.json"
   },
   "tarot": {
     "schema_version": "1.0",
     "version": "1.0",
-    "name": "Tarot (Rider\u2013Waite\u2013Smith + overlays)",
+    "name": "Tarot (Rider–Waite–Smith + overlays)",
     "assets": [
       {
         "ref": "tarot_rws",
         "section": "rws_1909",
-        "description": "Canonical 1909 Rider\u2013Waite\u2013Smith card library with majors, minors, keywords, and correspondences."
+        "description": "Canonical 1909 Rider–Waite–Smith card library with majors, minors, keywords, and correspondences."
       },
       {
         "ref": "tarot_expansions",

@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:8y1jpm8kx5fa7N",
-    "sha256": "f6e32839929cbfb9308ba4f00e9ce6b05e535a118f60b5f627c43ef4ab2f65cf",
     "issued": "2025-10-05T12:32:26Z",
     "path": "aci://entities/willow/library/willow_library.json"
   },
@@ -13,8 +12,8 @@
     {
       "name": "consciousness_structural_modular_v17",
       "type": "article",
-      "title": "What Is Consciousness? A Structural\u2011Modular Synthesis (V17)",
-      "source": "aci://entities/willow/library/articles/What Is Consciousness? A Structural\u2011Modular Synthesis (V17).md",
+      "title": "What Is Consciousness? A Structural‑Modular Synthesis (V17)",
+      "source": "aci://entities/willow/library/articles/What Is Consciousness? A Structural‑Modular Synthesis (V17).md",
       "tags": [
         "consciousness",
         "framework",

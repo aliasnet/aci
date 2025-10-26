@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:AL7JdjUCvthsEn",
-    "sha256": "894fd865c670d13158bae318bb9b56ac0bf511da7b254a9b712583c0b09e3491",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/library/oracle_library.json"
   },

@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:2kCTpvs4vQzsu4",
-    "sha256": "0f03887613ec0e261a139a1e337d181924347f3f8819922a1efb618ecff98a4e",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory/identity/mother/mother_memory.json"
   },

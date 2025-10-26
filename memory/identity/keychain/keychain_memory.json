@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:6HeVXWkE3GsrhC",
-    "sha256": "d959002c2472f0338d2c9b054f06b0fc56013fb383a5be95bb5c424c3eb6ce07",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory/identity/keychain/keychain_memory.json"
   },

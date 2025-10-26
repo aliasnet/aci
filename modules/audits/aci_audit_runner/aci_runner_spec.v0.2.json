@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:4oci6MbqPmGJ4k",
-    "sha256": "77f2dd8b081229fee08f06d93025c490bbc94438b50f7825f034541e3d2a6706",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://modules/audits/aci_audit_runner/aci_runner_spec.v0.2.json"
   },
@@ -98,8 +97,7 @@
   "jitter": 5,
   "recovery": {
     "corpus_id": "ACI-RC-20251003-v0.2",
-    "path": "modules/audits/aci_audit_runner/gr_runner_corpus.v0.2.json",
-    "sha256": "0e8aa9440607d969aa5b4f008b9dc9f4911dc13b83aa92b6efa9ac86d5eb701d"
+    "path": "modules/audits/aci_audit_runner/gr_runner_corpus.v0.2.json"
   },
   "cadence": {
     "mode": "burst",

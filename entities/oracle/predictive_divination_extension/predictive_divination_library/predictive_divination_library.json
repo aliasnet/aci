@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:9yqnRWCiiADfXy",
-    "sha256": "48c3509f7088a8860933a642c287fb763eea7ae81930e7e28ceb655584077bb8",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/predictive_divination_library.json"
   },

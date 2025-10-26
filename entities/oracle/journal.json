@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:7RFNxu8PVDvdC8",
-    "sha256": "deab93864e4412a724e4f1f0e11c7d98de0db698ca6724420b97481933d5a25f",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/journal.json"
   },

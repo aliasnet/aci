@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:ETxGxitbifdPf6",
-    "sha256": "9c190d05fd01f365f44e8c8cd9133dea215b31544e9f7517f79b5ff62cbc35c3",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_library/astro_tables.json"
   },
@@ -17,7 +16,7 @@
     "signs": [
       {
         "name": "Aries",
-        "symbol": "\u2648",
+        "symbol": "♈",
         "element": "Fire",
         "modality": "Cardinal",
         "ruler": "Mars",
@@ -49,7 +48,7 @@
       },
       {
         "name": "Taurus",
-        "symbol": "\u2649",
+        "symbol": "♉",
         "element": "Earth",
         "modality": "Fixed",
         "ruler": "Venus",
@@ -81,7 +80,7 @@
       },
       {
         "name": "Gemini",
-        "symbol": "\u264a",
+        "symbol": "♊",
         "element": "Air",
         "modality": "Mutable",
         "ruler": "Mercury",
@@ -113,7 +112,7 @@
       },
       {
         "name": "Cancer",
-        "symbol": "\u264b",
+        "symbol": "♋",
         "element": "Water",
         "modality": "Cardinal",
         "ruler": "Moon",
@@ -145,7 +144,7 @@
       },
       {
         "name": "Leo",
-        "symbol": "\u264c",
+        "symbol": "♌",
         "element": "Fire",
         "modality": "Fixed",
         "ruler": "Sun",
@@ -177,7 +176,7 @@
       },
       {
         "name": "Virgo",
-        "symbol": "\u264d",
+        "symbol": "♍",
         "element": "Earth",
         "modality": "Mutable",
         "ruler": "Mercury",
@@ -209,7 +208,7 @@
       },
       {
         "name": "Libra",
-        "symbol": "\u264e",
+        "symbol": "♎",
         "element": "Air",
         "modality": "Cardinal",
         "ruler": "Venus",
@@ -241,7 +240,7 @@
       },
       {
         "name": "Scorpio",
-        "symbol": "\u264f",
+        "symbol": "♏",
         "element": "Water",
         "modality": "Fixed",
         "ruler": "Mars",
@@ -273,7 +272,7 @@
       },
       {
         "name": "Sagittarius",
-        "symbol": "\u2650",
+        "symbol": "♐",
         "element": "Fire",
         "modality": "Mutable",
         "ruler": "Jupiter",
@@ -305,7 +304,7 @@
       },
       {
         "name": "Capricorn",
-        "symbol": "\u2651",
+        "symbol": "♑",
         "element": "Earth",
         "modality": "Cardinal",
         "ruler": "Saturn",
@@ -337,7 +336,7 @@
       },
       {
         "name": "Aquarius",
-        "symbol": "\u2652",
+        "symbol": "♒",
         "element": "Air",
         "modality": "Fixed",
         "ruler": "Saturn",
@@ -369,7 +368,7 @@
       },
       {
         "name": "Pisces",
-        "symbol": "\u2653",
+        "symbol": "♓",
         "element": "Water",
         "modality": "Mutable",
         "ruler": "Jupiter",
@@ -403,7 +402,7 @@
     "planets": [
       {
         "name": "Sun",
-        "symbol": "\u2609",
+        "symbol": "☉",
         "domain": "Vitality",
         "keywords": "Identity",
         "rulership": [
@@ -427,7 +426,7 @@
       },
       {
         "name": "Moon",
-        "symbol": "\u263e",
+        "symbol": "☾",
         "domain": "Emotions",
         "keywords": "Instinct",
         "rulership": [
@@ -451,7 +450,7 @@
       },
       {
         "name": "Mercury",
-        "symbol": "\u263f",
+        "symbol": "☿",
         "domain": "Communication",
         "keywords": "Intellect",
         "rulership": [
@@ -478,7 +477,7 @@
       },
       {
         "name": "Venus",
-        "symbol": "\u2640",
+        "symbol": "♀",
         "domain": "Attraction",
         "keywords": "Harmony",
         "rulership": [
@@ -505,7 +504,7 @@
       },
       {
         "name": "Mars",
-        "symbol": "\u2642",
+        "symbol": "♂",
         "domain": "Drive",
         "keywords": "Action",
         "rulership": [
@@ -532,7 +531,7 @@
       },
       {
         "name": "Jupiter",
-        "symbol": "\u2643",
+        "symbol": "♃",
         "domain": "Expansion",
         "keywords": "Wisdom",
         "rulership": [
@@ -559,7 +558,7 @@
       },
       {
         "name": "Saturn",
-        "symbol": "\u2644",
+        "symbol": "♄",
         "domain": "Structure",
         "keywords": "Discipline",
         "rulership": [
@@ -586,7 +585,7 @@
       },
       {
         "name": "Uranus",
-        "symbol": "\u2645",
+        "symbol": "♅",
         "domain": "Innovation",
         "keywords": "Liberation",
         "rulership": [
@@ -610,7 +609,7 @@
       },
       {
         "name": "Neptune",
-        "symbol": "\u2646",
+        "symbol": "♆",
         "domain": "Vision",
         "keywords": "Mysticism",
         "rulership": [
@@ -634,7 +633,7 @@
       },
       {
         "name": "Pluto",
-        "symbol": "\u2647",
+        "symbol": "♇",
         "domain": "Transformation",
         "keywords": "Power",
         "rulership": [

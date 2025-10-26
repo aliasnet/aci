@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:Da6A645TXfrgV",
-    "sha256": "ababa1a546f40cbcb63c882551916791b6f0cbc01e1597a14bf8b2a7f2c1168d",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/predictive_divination_extension.json"
   },
@@ -66,7 +65,7 @@
         "id": "1.2.1",
         "version": "1.0",
         "key": "tarot",
-        "name": "Tarot (Rider\u2013Waite\u2013Smith + expansions)",
+        "name": "Tarot (Rider–Waite–Smith + expansions)",
         "file": "plugins/tarot.plugin.json",
         "tools": {
           "draw": "tarot.draw",
@@ -124,7 +123,7 @@
         "id": "1.2.3",
         "version": "1.0",
         "key": "western_astrology",
-        "name": "Astrology \u2014 Western",
+        "name": "Astrology — Western",
         "file": "plugins/western_astrology.plugin.json",
         "tools": {
           "draw": "astro.western.positions",

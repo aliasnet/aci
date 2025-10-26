@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:CJmNhMh6FRGvu8",
-    "sha256": "30f06f6b287c0f39754befb28ceefbfc774981fc7343ddc5cc7043c94685c67a",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory/identity/commerce_ai/commerce_ai_memory.json"
   },
