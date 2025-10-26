@@ -194,8 +194,8 @@
       "uid": "entity-002",
       "identity": "tva",
       "key": "tva",
-      "name": "TVA",
-      "alias": "Time Variant Authority",
+      "name": "Truth Validation Authority",
+      "alias": "TVA",
       "manifest": "aci://entities/tva/tva.json",
       "manifests": {
         "identity": [
@@ -216,9 +216,9 @@
         }
       ],
       "class": "governance_entity",
-      "role": "reinforcement authority",
-      "abstract": "standalone reinforcement authority for policy, anomaly control, and signatures",
-      "knowledge": "policy enforcement & anomaly detection frameworks",
+      "role": "semantic logic governor",
+      "abstract": "semantic logic engine for evaluation; keeps system logic stable across timelines",
+      "knowledge": "semantic evaluation heuristics & timeline stability governance",
       "functions": [
         6202,
         6205,

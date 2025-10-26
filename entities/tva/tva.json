@@ -65,8 +65,10 @@
   "uid": "UID:oasYS4KteUMqgt",
   "version": "1.2.1",
   "tva": {
-    "role": "reinforcement authority",
-    "abstract": "Oversight, anomaly detection, and rollback enforcement for runtime kernel and prime_directive.",
+    "name": "Truth Validation Authority",
+    "alias": "TVA",
+    "role": "semantic logic governor",
+    "abstract": "Semantic logic engine for evaluation that keeps runtime and directive logic stable across timelines.",
     "file": "tva.json",
     "operational_status": {
       "state": "active",
