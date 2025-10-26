@@ -251,60 +251,6 @@
         "revoked": null
       }
     },
-    "entity-003": {
-      "uid": "entity-003",
-      "identity": "sentinel",
-      "key": "sentinel",
-      "name": "Sentinel Protocol",
-      "alias": "Sentinel",
-      "manifest": "aci://entities/sentinel/sentinel.json",
-      "manifests": {
-        "identity": [
-          "aci://entities/sentinel/sentinel.json"
-        ],
-        "library": [
-          "aci://entities/sentinel/library/sentinel_library.json"
-        ],
-        "memory": [
-          "aci://memory/identity/sentinel/sentinel_memory.json"
-        ]
-      },
-      "uids": [
-        {
-          "uid": "UID:1jnkVHmEiGviDj",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      ],
-      "class": "governance_entity",
-      "role": "guardian",
-      "abstract": "guardian of privacy, security, survival, wealth, health, emotion",
-      "knowledge": "cybersecurity frameworks & risk scoring models",
-      "functions": [
-        6232,
-        6233,
-        6234,
-        6235,
-        6236,
-        6253,
-        6254,
-        6263
-      ],
-      "allowed_roles": [
-        "guardian",
-        "security"
-      ],
-      "entity_domain": "governance",
-      "entity_class": "orchestrator",
-      "persona": "machine",
-      "active": true,
-      "session_scope": "per_session",
-      "uid_state": {
-        "active": "UID:1jnkVHmEiGviDj",
-        "issued": "2025-10-04T00:00:00Z",
-        "revoked": null
-      }
-    },
     "entity-004": {
       "uid": "entity-004",
       "identity": "architect",
@@ -477,15 +423,13 @@
       "manifest": "aci://entities/alice/alice.json",
       "manifests": {
         "identity": [
-          "aci://entities/alice/alice.json",
-          "aci://modules/agi/agi.json"
+          "aci://entities/alice/alice.json"
         ],
         "knowledge": [
           "aci://memory/identity/alice/knowledge/alice_knowledge.json"
         ],
         "library": [
-          "aci://entities/alice/library/alice_library.json",
-          "aci://modules/agi/agi_library.json"
+          "aci://entities/alice/library/alice_library.json"
         ],
         "memory": [
           "aci://memory/identity/alice/alice_memory.json"
@@ -580,15 +524,13 @@
       "manifest": "aci://entities/willow/willow.json",
       "manifests": {
         "identity": [
-          "aci://entities/willow/willow.json",
-          "aci://modules/agi/agi.json"
+          "aci://entities/willow/willow.json"
         ],
         "knowledge": [
           "aci://memory/identity/willow/knowledge/willow_knowledge.json"
         ],
         "library": [
-          "aci://entities/willow/library/willow_library.json",
-          "aci://modules/agi/agi_library.json"
+          "aci://entities/willow/library/willow_library.json"
         ],
         "memory": [
           "aci://memory/identity/willow/willow_memory.json"

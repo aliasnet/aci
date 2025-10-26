@@ -28,12 +28,6 @@
       "role": "trainee",
       "source": "aci://entities/willow/willow.json",
       "status": "primary"
-    },
-    {
-      "name": "agi_core",
-      "role": "upstream_logic",
-      "source": "aci://modules/agi/agi.json",
-      "status": "linked"
     }
   ],
   "module_permissions": {

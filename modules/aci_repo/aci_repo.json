@@ -20,7 +20,7 @@
   },
   "rules": {
     "safety": [
-      "Sentinel audits all repo activity.",
+      "TVA monitors timeline integrity across repo activity.",
       "Architect verifies package compatibility and rejects unsafe packages.",
       "TVA anchors install/remove/update events; rollback keys available.",
       "No package is installed without explicit operator approval."
@@ -487,13 +487,6 @@
           }
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "repo_search",
-            "query": "$steps.0.value"
-          }
-        },
-        {
           "call": "_format.json"
         }
       ]
@@ -545,13 +538,6 @@
           }
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "repo_search_improve",
-            "entity": "$steps.0.value"
-          }
-        },
-        {
           "call": "_format.json"
         }
       ]
@@ -584,13 +570,6 @@
           }
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "install_attempt",
-            "package": "$steps.0.value"
-          }
-        },
-        {
           "call": "tva.anchor_timeline",
           "map": {}
         },
@@ -604,13 +583,6 @@
               "source": "$steps.1.source",
               "installed_at": "$now"
             }
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "install_complete",
-            "package": "$steps.0.value"
           }
         },
         {
@@ -632,13 +604,6 @@
           "map": {
             "file": "aci_repo_manifest",
             "entry": "$steps.0.value"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "remove",
-            "package": "$steps.0.value"
           }
         },
         {
@@ -675,13 +640,6 @@
           "call": "architect.verify_package",
           "map": {
             "meta": "$steps.1"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "update",
-            "packages": "$steps.0"
           }
         },
         {

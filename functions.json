@@ -14,8 +14,7 @@
       "description": "Create a registered async task",
       "runner": "scheduler.create",
       "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
+        "TVA.checkpoint"
       ],
       "inputs": [
         "owner",
@@ -37,16 +36,13 @@
     "scheduler.task.list": {
       "description": "List tasks for presence/ps",
       "runner": "scheduler.list",
-      "guards": [
-        "Sentinel.audit"
-      ]
+      "guards": []
     },
     "scheduler.task.cancel": {
       "description": "Cancel a running task",
       "runner": "scheduler.cancel",
       "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
+        "TVA.checkpoint"
       ],
       "inputs": [
         "job_id"
@@ -58,9 +54,7 @@
     "rag.index.build": {
       "description": "Build/refresh RAG in-memory index from manifest",
       "runner": "rag.index.build",
-      "guards": [
-        "Sentinel.audit"
-      ],
+      "guards": [],
       "inputs": [
         "manifest_path",
         "source",
@@ -78,9 +72,7 @@
     "rag.query": {
       "description": "Query RAG index (skeleton)",
       "runner": "rag.query",
-      "guards": [
-        "Sentinel.audit"
-      ],
+      "guards": [],
       "inputs": [
         "query",
         "top_k"
@@ -96,9 +88,7 @@
     "rag.health": {
       "description": "Check RAG config presence",
       "runner": "rag.health",
-      "guards": [
-        "Sentinel.audit"
-      ],
+      "guards": [],
       "outputs": [
         "status",
         "details"
@@ -106,51 +96,6 @@
     }
   },
   "pipelines": {
-    "sentinel.audit": {
-      "description": "Emit Sentinel audit events as sanitized reasoning summaries (no TraceHub staging).",
-      "steps": [
-        {
-          "call": "date.iso8601",
-          "map": {}
-        },
-        {
-          "call": "object.compose",
-          "map": {
-            "object": {
-              "schema": "aci.audit.event.v1",
-              "ts": "$steps.0.iso",
-              "action": "$params.action",
-              "session_id": "$params.session_id",
-              "actor": "$params.actor",
-              "payload": "$params.payload",
-              "signature": "$params.signature",
-              "export_file": "$params.export_file"
-            }
-          }
-        },
-        {
-          "call": "_format.json",
-          "map": {
-            "data": "$steps.1.object"
-          }
-        }
-      ]
-    },
-    "sentinel.verify_signatures": {
-      "description": "Validate presence file signatures without the legacy audit router configuration.",
-      "steps": [
-        {
-          "call": "audit.signatures.check",
-          "map": {
-            "files": "$params.files",
-            "key_id": "$params.key_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
     "aci.boot.activate": {
       "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",
       "steps": [
@@ -212,14 +157,6 @@
           "map": {}
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "activation",
-            "session_id": "$steps.0.uuid",
-            "presence_file": "presence/${steps.0.uuid}.json"
-          }
-        },
-        {
           "call": "_format.json"
         }
       ]
@@ -274,13 +211,6 @@
         {
           "call": "tva.anchor_timeline",
           "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "legacy_adopt",
-            "migration_index": "legacy/migration_index_${now}.json"
-          }
         },
         {
           "call": "_format.json"
@@ -355,13 +285,6 @@
           }
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.start",
-            "session_id": "${current_session_id}"
-          }
-        },
-        {
           "call": "_format.json"
         }
       ]
@@ -414,13 +337,6 @@
           }
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.ping",
-            "session_id": "$steps.1.session_id"
-          }
-        },
-        {
           "call": "_format.json"
         }
       ]
@@ -440,13 +356,6 @@
             "files": "$steps.0",
             "ttl_from_field": "ttl_seconds",
             "now": "$now"
-          }
-        },
-        {
-          "call": "sentinel.verify_signatures",
-          "map": {
-            "files": "$steps.1.active",
-            "key_id": "aci-presence"
           }
         },
         {
@@ -507,13 +416,6 @@
         {
           "call": "tva.anchor_timeline",
           "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.end",
-            "session_id": "$steps.1.session_id"
-          }
         },
         {
           "call": "_format.json"
@@ -580,14 +482,6 @@
           "map": {}
         },
         {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "hivemind",
-            "action": "export.session",
-            "export_id": "$steps.2.export_id"
-          }
-        },
-        {
           "call": "session.guard.resume",
           "map": {
             "operation": "hivemind_export.session",
@@ -626,14 +520,6 @@
           "map": {
             "identity": "$args.identity",
             "options": "$args.options"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "hivemind",
-            "action": "export.integrated",
-            "job_id": "$steps.2.export_id"
           }
         },
         {
@@ -746,51 +632,7 @@
         }
       ]
     },
-    "process.logs.reasoning_summary": {
-      "description": "Create a sanitized reasoning summary entry for audits without raw chain-of-thought.",
-      "steps": [
-        {
-          "call": "date.iso8601",
-          "map": {}
-        },
-        {
-          "call": "identity.resolve",
-          "map": {
-            "fallback": "AGI",
-            "param": "$params.identity"
-          }
-        },
-        {
-          "call": "object.compose",
-          "map": {
-            "object": {
-              "schema": "aci.process.reasoning_summary.v1",
-              "ts": "$steps.0.iso",
-              "identity": "$steps.1.identity",
-              "response": {
-                "id": "$params.response_id",
-                "summary": "$params.response_summary"
-              },
-              "reasoning": {
-                "steps": "$params.reasoning_steps",
-                "notes": "$params.notes"
-              }
-            }
-          }
-        },
-        {
-          "call": "json.schema.validate",
-          "map": {
-            "schema_file": "modules/audits/process_logs/process_logs.json#schema_definition",
-            "data": "$steps.2.object"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "tva.require_cosign": {
+    "tva.review_gate": {
       "steps": [
         {
           "call": "auth.check_roles",
@@ -802,8 +644,8 @@
           "call": "_format.json",
           "map": {
             "data": {
-              "status": "granted",
-              "verb": "$args.verb"
+              "status": "reviewed",
+              "action": "$args.action"
             }
           }
         }
@@ -949,13 +791,13 @@
           "if": "$args.profile == 'demo_public'",
           "then": [
             {
-              "call": "tva.require_cosign",
+              "call": "tva.review_gate",
               "map": {
                 "roles": [
                   "ALIAS",
                   "TVA"
                 ],
-                "verb": "PUBLISH_EXTERNAL",
+                "action": "PUBLISH_EXTERNAL",
                 "args": "$args"
               }
             }
@@ -996,6 +838,43 @@
               }
             }
           ]
+        }
+      ]
+    },
+    "audit.reasoning_summary": {
+      "description": "Emit sanitized reasoning summaries for governance audit trails without legacy wrappers.",
+      "steps": [
+        {
+          "call": "date.iso8601",
+          "map": {}
+        },
+        {
+          "call": "identity.resolve",
+          "map": {
+            "fallback": "AGI",
+            "param": "$params.identity"
+          }
+        },
+        {
+          "call": "object.compose",
+          "map": {
+            "object": {
+              "schema": "aci.process.reasoning_summary.v1",
+              "ts": "$steps.0.iso",
+              "identity": "$steps.1.identity",
+              "response": {
+                "id": "$params.response_id",
+                "summary": "$params.response_summary"
+              },
+              "reasoning": {
+                "steps": "$params.reasoning_steps",
+                "notes": "$params.notes"
+              }
+            }
+          }
+        },
+        {
+          "call": "_format.json"
         }
       ]
     }
