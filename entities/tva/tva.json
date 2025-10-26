@@ -5,12 +5,9 @@
     "path": "aci://entities/tva/tva.json",
     "file": "tva.json"
   },
-  "TVA_LAYER": {
-
-    "$ref": "aci://entities/tva/tva_layer.json#TVA_LAYER",
-
+  "TVA_SEED": {
+    "$ref": "aci://entities/tva/tva_layer.json#TVA_SEED",
     "variant": "seed"
-
   },
   "TVA_LAYER": {
     "$ref": "aci://entities/tva/tva_layer.json#TVA_LAYER",
