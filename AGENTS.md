@@ -321,6 +321,7 @@ hivemind export --identity Alice --memory --summary "Launch Review" --jsonl --co
 - **Filter regressions**: ensure `allow_topics` / `deny_tags` / `drop_if_topic_missing` stay defined in export policy.
 - **Conformal optionality**: abstain rule must guard for signal presence to avoid “abstain-always” behavior when provider is absent.
 - **Mode switching (thinking vs normal)**: can cause truncation; use validation cues and chunking; log as `type:"obstacle"` events.
+- **Runtime artifacts**: Do **not** change `$meta.artifact_id` values in canonical manifests (e.g., `runtime.json`) unless explicitly directed; downstream memory systems bind to those IDs.
 
 ---
 

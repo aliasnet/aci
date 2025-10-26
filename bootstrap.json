@@ -31,8 +31,7 @@
             "aci://entities.json",
             "aci://functions.json",
             "aci://bootstrap.json"
-          ],
-          "tva_layer": "aci://entities/tva/tva_layer.json"
+          ]
         },
         "git_is_canonical": true,
         "mapping": [
@@ -107,9 +106,6 @@
   },
   "resource_resolution_policy": {
     "pointer": "aci://yggdrasil.json#resource_resolution_policy",
-    "embeds": {
-      "tva_layer": "aci://entities/tva/tva_layer.json"
-    },
     "mapping": [],
     "resolver_order": [
       "raw",

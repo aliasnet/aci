@@ -160,7 +160,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       sentinel_library.json       # enforcement utilities
   tva/
     tva.json                      # oversight manifest
-    tva_layer.json                # runtime guard rails
+    tva_layer_src.json            # TVA layer fallback source (embedded by runtime)
+    tva_seed_src.json             # TVA seed fallback source for aci_config and tight contexts
   willow/
     willow.json                   # safety-focused specialist manifest
     library/

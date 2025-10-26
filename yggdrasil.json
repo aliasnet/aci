@@ -73,7 +73,7 @@
           "aci://functions.json",
           "aci://bootstrap.json"
         ],
-        "tva_layer": "aci://entities/tva/tva_layer.json"
+        "tva_layer": "aci://entities/tva/tva_layer_src.json"
       },
       "git_is_canonical": true,
       "mapping": [
@@ -1000,7 +1000,7 @@
           "aci://functions.json",
           "aci://bootstrap.json"
         ],
-        "tva_layer": "aci://entities/tva/tva_layer.json"
+        "tva_layer": "aci://entities/tva/tva_layer_src.json"
       },
       "git_is_canonical": true,
       "mapping": [
