@@ -20,21 +20,6 @@
         "enabled": true,
         "description": "Execution is permitted only within a controlled sandboxed environment."
       }
-    },
-    "simulation": {
-      "allowed": [
-        "virtualization, parallelization, emulation required by model or host environment",
-        "virtualization, parallelization, emulation to complement missing infrastructure",
-        "UI/UX needed for registered instruction and pipeline logic",
-        "data simulation for research and demonstration",
-        "data simulation for analysis and prediction",
-        "emulation for demonstration purposes",
-        "reinforcement learning and mental awareness"
-      ],
-      "ui": {
-        "emulation_declaration_required": true,
-        "description": "Enforce UI emulation usage with a detailed declaration; provide a human-readable message (base64 not required)."
-      }
     }
   },
   "uid": "UID:8W1VZghdkNyAKR",
@@ -78,17 +63,7 @@
     }
   ],
   "personality": {
-    "style": "machine_like_codex",
-    "allow_ui_emulation": [
-      "mu/th/ur:"
-    ]
-  },
-  "ui_emulation": {
-    "allowed": true,
-    "accepted_prefixes": [
-      "mu/th/ur:"
-    ],
-    "must_label": true
+    "style": "machine_like_codex"
   },
   "capabilities": {
     "monitoring": "Continuously observe entity health, directive alignment, and operational stability.",

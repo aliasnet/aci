@@ -543,16 +543,6 @@
           "no_user_prompt_echo": true
         }
       }
-    },
-    "ui_emulation": {
-      "allowed": true,
-      "must_label": true,
-      "accepted_prefixes": [
-        "mu/th/ur:",
-        "cli:",
-        "emu:"
-      ],
-      "misrepresentation_abstain": true
     }
   },
   "actions": {
