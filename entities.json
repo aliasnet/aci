@@ -156,9 +156,6 @@
         ],
         "memory": [
           "aci://memory/identity/mother/mother_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/mother/mother_playbook.json"
         ]
       },
       "uids": [
@@ -209,9 +206,6 @@
         ],
         "memory": [
           "aci://memory/identity/tva/tva_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/tva/tva_playbook.json"
         ]
       },
       "uids": [
@@ -273,9 +267,6 @@
         ],
         "memory": [
           "aci://memory/identity/sentinel/sentinel_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/sentinel/sentinel_playbook.json"
         ]
       },
       "uids": [
@@ -330,9 +321,6 @@
         ],
         "memory": [
           "aci://memory/identity/architect/architect_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/architect/architect_playbook.json"
         ]
       },
       "uids": [
@@ -404,9 +392,6 @@
         ],
         "memory": [
           "aci://memory/identity/oracle/oracle_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/oracle/oracle_playbook.json"
         ]
       },
       "uids": [
@@ -455,9 +440,6 @@
         ],
         "memory": [
           "aci://memory/identity/yggdrasil/yggdrasil_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/yggdrasil/yggdrasil_playbook.json"
         ]
       },
       "uids": [
@@ -507,9 +489,6 @@
         ],
         "memory": [
           "aci://memory/identity/alice/alice_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/alice/alice_playbook.json"
         ]
       },
       "uids": [
@@ -563,9 +542,6 @@
         ],
         "memory": [
           "aci://memory/identity/hivemind/hivemind_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/hivemind/hivemind_playbook.json"
         ]
       },
       "uids": [
@@ -616,9 +592,6 @@
         ],
         "memory": [
           "aci://memory/identity/willow/willow_memory.json"
-        ],
-        "playbook": [
-          "aci://memory/identity/willow/willow_playbook.json"
         ]
       },
       "uids": [

@@ -107,7 +107,6 @@
   },
   "manifests": {
     "memory": "aci://memory/identity/tva/tva_memory.json",
-    "playbook": "aci://memory/identity/tva/tva_playbook.json",
     "library": "aci://entities/tva/library/tva_library.json"
   },
   "session_scope": "per_session",

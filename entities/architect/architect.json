@@ -47,7 +47,6 @@
   "notes": "Populate with your full Architect manifest. This is a safe minimal starting point.",
   "manifests": {
     "memory": "aci://memory/identity/architect/architect_memory.json",
-    "playbook": "aci://memory/identity/architect/architect_playbook.json",
     "library": "aci://entities/architect/library/architect_library.json"
   },
   "session_scope": "per_session",
