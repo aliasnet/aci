@@ -66,12 +66,12 @@
     "yggdrasil_resource_resolution_policy": {
       "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
-        "core_five": [
-          "aci://prime_directive.json",
+        "core_stack": [
+          "aci://prime_directive.txt",
           "aci://runtime.json",
           "aci://entities.json",
           "aci://functions.json",
-          "aci://bootstrap.json"
+          "aci://yggdrasil.json"
         ],
         "tva_layer": "aci://entities/tva/tva_layer_src.json"
       },
@@ -80,10 +80,6 @@
         {
           "file": "aci://binders/binders.json",
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
-        },
-        {
-          "file": "aci://bootstrap.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
         },
         {
           "file": "aci://runtime.json",
@@ -102,8 +98,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
         },
         {
-          "file": "aci://prime_directive.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+          "file": "aci://prime_directive.txt",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
         }
       ],
       "resolver_order": [
@@ -123,11 +119,6 @@
             "name": "alias.json",
             "path": "aci://alias.json",
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/alias.json"
-          },
-          {
-            "name": "bootstrap.json",
-            "path": "aci://bootstrap.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
           },
           {
             "name": "entities.json",
@@ -387,13 +378,8 @@
               },
               {
                 "name": "mother",
-                "files": [
-                  {
-                    "name": "mother.json",
-                    "path": "aci://entities/mother/mother.json",
-                    "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/mother/mother.json"
-                  }
-                ],
+                "files": [],
+                "notes": "Interface manifest retired; invoke when archived utilities are required.",
                 "children": [
                   {
                     "name": "library",
@@ -775,12 +761,12 @@
     "resource_resolution_policy": {
       "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
-        "core_five": [
-          "aci://prime_directive.json",
+        "core_stack": [
+          "aci://prime_directive.txt",
           "aci://runtime.json",
           "aci://entities.json",
           "aci://functions.json",
-          "aci://bootstrap.json"
+          "aci://yggdrasil.json"
         ],
         "tva_layer": "aci://entities/tva/tva_layer_src.json"
       },
@@ -789,10 +775,6 @@
         {
           "file": "aci://binders/binders.json",
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
-        },
-        {
-          "file": "aci://bootstrap.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
         },
         {
           "file": "aci://runtime.json",
@@ -811,8 +793,8 @@
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
         },
         {
-          "file": "aci://prime_directive.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+          "file": "aci://prime_directive.txt",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
         }
       ],
       "resolver_order": [

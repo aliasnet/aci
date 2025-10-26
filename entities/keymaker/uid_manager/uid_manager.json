@@ -7,12 +7,6 @@
   },
   "registry": [
     {
-      "identity": "mother",
-      "name": "MU/TH/UR",
-      "entity_uid": "UID:8W1VZghdkNyAKR",
-      "manifest": "aci://entities/mother/mother.json"
-    },
-    {
       "identity": "tva",
       "name": "TVA",
       "entity_uid": "UID:oasYS4KteUMqgt",

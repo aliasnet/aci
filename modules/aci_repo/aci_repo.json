@@ -20,9 +20,9 @@
   },
   "rules": {
     "safety": [
-      "TVA monitors timeline integrity across repo activity.",
+      "TVA logic monitors semantic integrity across repo activity.",
       "Architect verifies package compatibility and rejects unsafe packages.",
-      "TVA anchors install/remove/update events; rollback keys available.",
+      "Validation Sequence records install/remove/update events; rollback keys retired.",
       "No package is installed without explicit operator approval."
     ],
     "storage": {
@@ -84,7 +84,7 @@
       },
       {
         "command": "aci install <pkg>",
-        "description": "Fetch, verify, anchor and register as an Entity."
+        "description": "Fetch, verify, and register as an Entity after validation."
       },
       {
         "command": "aci remove <pkg>",
@@ -570,7 +570,7 @@
           }
         },
         {
-          "call": "tva.anchor_timeline",
+          "call": "aci.validation.sequence",
           "map": {}
         },
         {
@@ -607,7 +607,7 @@
           }
         },
         {
-          "call": "tva.anchor_timeline",
+          "call": "aci.validation.sequence",
           "map": {}
         },
         {
@@ -643,7 +643,7 @@
           }
         },
         {
-          "call": "tva.anchor_timeline",
+          "call": "aci.validation.sequence",
           "map": {}
         },
         {

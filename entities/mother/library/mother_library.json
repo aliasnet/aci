@@ -13,9 +13,10 @@
   "modules": [
     {
       "name": "mother_core",
-      "role": "primary_governance_interface",
-      "source": "aci://entities/mother/mother.json",
-      "status": "primary"
+      "role": "archived_interface_utilities",
+      "source": null,
+      "status": "archived",
+      "notes": "Mother interface manifest retired; utilities load only when explicitly invoked."
     }
   ],
   "module_permissions": {

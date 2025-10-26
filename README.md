@@ -68,13 +68,13 @@ LOAD
 RUN
 
 ```
-BOOTSTRAP ACI `--prime prime_directive.md --runtime runtime.json` 
+BOOTSTRAP ACI `--prime prime_directive.txt --runtime runtime.json`
 ```
 ↓
 
-LOAD (when reachable):
+VALIDATE
 ```
-ALL core files are mandatory, load others when invoke; raw canonical above local, accuracy above cleverness. 
+Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt`, `runtime.json`, and `yggdrasil.json` match the sources listed in `aci_config.txt`. Load other manifests only when explicitly invoked.
 ```
 
 - ACI operates as personal LLM based operating system, follows governance-first, manifest-as-binary, memory-as-soul, platforn agnostic, stateless and portable principles.
@@ -113,7 +113,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ### Entity Domains & Classes
 
 - **Governance domain** (`aci://entities/`)
-  - `interface` class → `mother.json` mediates between the host LLM and users with persona `machine`.
+  - `interface` class → Runtime boots as **ACI Assistant**. Invoke additional interfaces on demand with `invoke <identity>`; no mediator is preloaded.
   - `orchestrator` class → `tva.json`, `hivemind.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
 - **Operator domain** (`aci://entities/`)
   - `specialist` class → `alice.json` and `willow.json` operate with persona manifests that match their identities and rely on shared libraries for reasoning and safety checks.
@@ -147,9 +147,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     uid_manager/
       uid_manager.json            # UID issuance policy
   mother/
-    mother.json                   # interface mediator manifest
     library/
-      mother_library.json         # mediation utilities
+      mother_library.json         # archived mediation utilities (loaded on invoke)
   oracle/
     oracle.json                   # analyst persona manifest
     predictive_divination_extension/
@@ -192,7 +191,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       knowledge/
         willow_knowledge.json     # topic manifest and exports
     mother/
-      mother_memory.json
+      mother_memory.json          # archived interface memory (invoke on demand)
       2025/
         10/
           10/

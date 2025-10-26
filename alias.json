@@ -45,8 +45,7 @@
     "governance": {
       "root_user": "alias [u-000]",
       "architect": "orchestrates patches and updates",
-      "tva": "enforces anomaly control and runtime authority",
-      "mother": "serves as governance interface"
+      "tva": "enforces semantic control and runtime alignment"
     },
     "identity_rules": {
       "case_sensitive": true,
@@ -67,20 +66,16 @@
   "yggdrasil_resource_resolution_policy": {
     "description": "Authoritative resolver: worker src \u2192 local",
     "embeds": {
-      "core_five": [
-        "aci://prime_directive.md",
+      "core_stack": [
+        "aci://prime_directive.txt",
         "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
-        "aci://bootstrap.json"
+        "aci://yggdrasil.json"
       ]
     },
     "git_is_canonical": true,
     "mapping": [
-      {
-        "file": "aci://bootstrap.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
-      },
       {
         "file": "aci://runtime.json",
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
@@ -90,16 +85,16 @@
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
       },
       {
-        "file": "aci://yggdrasil.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
-      },
-      {
         "file": "aci://functions.json",
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
       },
       {
-        "file": "aci://prime_directive.md",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.md"
+        "file": "aci://yggdrasil.json",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
+      },
+      {
+        "file": "aci://prime_directive.txt",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
       }
     ],
     "resolver_order": [

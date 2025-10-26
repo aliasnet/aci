@@ -90,10 +90,6 @@
       "git_is_canonical": true,
       "mapping": [
         {
-          "file": "aci://bootstrap.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
-        },
-        {
           "file": "aci://runtime.json",
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
         },
@@ -142,56 +138,6 @@
   "entities": {
     "entity-001": {
       "uid": "entity-001",
-      "identity": "mother",
-      "key": "mother",
-      "name": "MU/TH/UR",
-      "alias": "Mother",
-      "manifest": "aci://entities/mother/mother.json",
-      "manifests": {
-        "identity": [
-          "aci://entities/mother/mother.json"
-        ],
-        "library": [
-          "aci://entities/mother/library/mother_library.json"
-        ],
-        "memory": [
-          "aci://memory/identity/mother/mother_memory.json"
-        ]
-      },
-      "uids": [
-        {
-          "uid": "UID:8W1VZghdkNyAKR",
-          "issued": "2025-10-04T00:00:00Z",
-          "revoked": null
-        }
-      ],
-      "class": "governance_entity",
-      "role": "primary governance interface",
-      "abstract": "directive-compliant primary interface",
-      "knowledge": "human-computer interaction & directive compliance frameworks",
-      "functions": [
-        6101,
-        6102,
-        6103
-      ],
-      "allowed_roles": [
-        "governance",
-        "ui",
-        "assistant"
-      ],
-      "entity_domain": "governance",
-      "entity_class": "interface",
-      "persona": "machine",
-      "active": true,
-      "session_scope": "per_session",
-      "uid_state": {
-        "active": "UID:8W1VZghdkNyAKR",
-        "issued": "2025-10-04T00:00:00Z",
-        "revoked": null
-      }
-    },
-    "entity-002": {
-      "uid": "entity-002",
       "identity": "tva",
       "key": "tva",
       "name": "Truth Validation Authority",

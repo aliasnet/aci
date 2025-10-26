@@ -39,12 +39,12 @@
       "yggdrasil_resource_resolution_policy": {
         "description": "Authoritative resolver: worker src \u2192 local",
         "embeds": {
-          "core_five": [
-            "aci://prime_directive.json",
+          "core_stack": [
+            "aci://prime_directive.txt",
             "aci://runtime.json",
             "aci://entities.json",
             "aci://functions.json",
-            "aci://bootstrap.json"
+            "aci://yggdrasil.json"
           ]
         },
         "git_is_canonical": true,
@@ -52,10 +52,6 @@
           {
             "file": "aci://binders/binders.json",
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/binders.json"
-          },
-          {
-            "file": "aci://bootstrap.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
           },
           {
             "file": "aci://runtime.json",
@@ -74,8 +70,8 @@
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
           },
           {
-            "file": "aci://prime_directive.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+            "file": "aci://prime_directive.txt",
+            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
           }
         ],
         "resolver_order": [
@@ -130,8 +126,8 @@
       "enabled": true,
       "core_files": [
         "runtime.json",
-        "bootstrap.json",
-        "prime_directive.json"
+        "prime_directive.txt",
+        "yggdrasil.json"
       ],
       "initialization_sequence": [
         {
@@ -140,15 +136,11 @@
         },
         {
           "step": "verify_core_files",
-          "action": "confirm_required_files_present"
+          "action": "run_validation_sequence"
         },
         {
           "step": "bootstrap_runtime",
           "action": "initialize_core_systems"
-        },
-        {
-          "step": "launch_default_interface",
-          "action": "render_mother_interface"
         }
       ],
       "policy": {
@@ -169,7 +161,6 @@
               "attempts"
             ]
           },
-          "start_interface": "mother_sandbox",
           "restricted_mode": true
         },
         "retry": {
@@ -195,10 +186,10 @@
         }
       }
     },
-    "default_interface": {
-      "path": "entities/mother/mother.json",
-      "priority": 100,
-      "initialization_prompt": "MU/TH/UR online. Prime governance interface engaged. Awaiting directive-aligned initialization handoff."
+    "default_identity": {
+      "name": "ACI Assistant",
+      "activation": "standalone",
+      "notes": "Runtime boots as the base assistant; invoke specialized entities explicitly when needed."
     },
     "priority": "canonical_raw_over_local",
     "notes": "Canonical raw GitHub URLs take precedence over local copies; fall back to local only if canonical mirrors are unavailable and policy permits. Enforcement Note: Follow Prime Directive 1.2.2 override procedures before runtime dispatch or override handling.",
@@ -312,7 +303,7 @@
         "constraints": [
           "only when issuer authenticated as root authority (ALIAS)",
           "all bypassed executions must produce immutable audit entries",
-          "sensitive resources may require multi-party approval as configured by TVA"
+          "sensitive resources may require multi-party approval as configured by semantic governance logic"
         ]
       },
       "security": {
@@ -340,7 +331,7 @@
             "timestamp",
             "execution_result"
           ],
-          "require_tva_review_for_force": true
+          "require_semantic_review_for_force": true
         }
       },
       "processing_steps": [
@@ -350,7 +341,7 @@
         "4) For each unit: classify (command vs NL). If NL: call oracle.intent_mapper.",
         "5) If Level-2 and contains STOP/HALT/OVERRIDE verbs: run preempt flow and mandatory sanity check.",
         "6) Route to runtime dispatcher (registry bypass allowed if authenticated).",
-        "7) Emit sanitized reasoning summary via TVA timeline anchors with semantic review at start and completion of the block.",
+        "7) Run the Validation Sequence against aci_config core entries before returning results.",
         "8) Return structured execution result and emit 'invocation.block.result' event."
       ],
       "compatibility": {
@@ -409,7 +400,7 @@
       }
     },
     "logging": {
-      "notes": "Legacy audit wrappers retired; rely on TVA timeline anchors for audit context."
+      "notes": "Legacy audit wrappers retired; rely on the Validation Sequence to confirm core manifests before logging outcomes."
     },
     "changelog": [
       {
