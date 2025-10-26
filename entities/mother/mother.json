@@ -140,7 +140,6 @@
   },
   "manifests": {
     "memory": "aci://memory/identity/mother/mother_memory.json",
-    "playbook": "aci://memory/identity/mother/mother_playbook.json",
     "library": "aci://entities/mother/library/mother_library.json"
   }
 }
