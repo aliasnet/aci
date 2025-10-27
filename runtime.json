@@ -302,7 +302,7 @@
         "allow_registry_bypass": true,
         "constraints": [
           "only when issuer authenticated as root authority (ALIAS)",
-          "all bypassed executions must produce immutable audit entries",
+          "all bypassed executions must produce tamper-evident audit entries",
           "sensitive resources may require multi-party approval as configured by semantic governance logic"
         ]
       },

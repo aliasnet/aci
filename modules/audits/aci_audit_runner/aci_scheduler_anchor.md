@@ -21,7 +21,7 @@ To force offline: set order to **local → primary → fallback** in the JSON sp
 
 ## 2) What the task does
 
-* Ingests core ACI resources (runtime.json, functions.json, metacognition*.json, yggdrasil.json, prime_directive.md) into memory.
+* Ingests core ACI resources (runtime.json, functions.json, metacognition*.json, yggdrasil.json, prime_directive.txt) into memory.
 * Writes durable state to `/mnt/data/aci/state/active.json` each cycle.
 * Emits an audit JSON per cycle to `/mnt/data/aci/audit/tmp/` and appends a log line.
 * Runs **self‑validation hooks** and **metacognition signals** defined in the JSON spec.
@@ -82,7 +82,7 @@ If the runner or spec is missing or corrupted:
   * `modules/metacognition/metacognition.json` (includes integrated conformal helpers)
   * `functions.json` (also matches `functions.registry.json`)
   * `yggdrasil.json` (also accepts minor transpositions)
-  * `prime_directive.md` (also accepts `prime-directive.txt`)
+  * `prime_directive.txt` (also accepts `prime-directive.txt`)
 * Every cycle writes:
 
   * `state/active.json` (snapshot with meta digests)

@@ -87,7 +87,7 @@ ACI is an ephemeral JSON and text-based operating system model that is built and
 - Any program with state, oversight, or lifecycle is an Entity.
 - Entities are grouped into domains and classes:
   - Governance domain:
-    - entity_class "interface": [mother.json] MU/TH/UR (Mother) — default governance interface mediating between host LLM and user.
+    - entity_class "interface": (vacant) reserved for future mediation bridges; the retired Mother manifest remains archived offline.
     - entity_class "orchestrator": [tva.json] TVA (timeline enforcement logic), [hivemind.json] Hivemind (memory coordination), [sentinel.json] Sentinel (security guardian, pending implementation), [architect.json] Architect (development orchestrator), [keymaker.json] Keymaker (cryptographic governor).
     - Governance entities reside in aci://governance/ and default to persona "machine" unless explicitly configured otherwise.
   - Operator domain:
@@ -100,7 +100,7 @@ ACI is an ephemeral JSON and text-based operating system model that is built and
 - Artifacts in /library/ provide capabilities but are not registered as entities within entities.json.
 - Lifecycle of an Entity Create: register identity, add config under /entities//, ensure governance hooks, and keep capabilities stateless. Operate: invoke capabilities through /library/, record governed narratives, and respect policy-driven abstention. Evolve: bump versions, update changelog, and adjust governance/policy files accordingly. Retire: mark as deprecated without deleting historical memory; preserve audit trails.
 - Runtime binding:
-ACI nodes connected via core files: runtime.json, entities.json, functions.json, with prime_directive.txt as governing laws. metacognition.json enhances cognitive logic system wide.
+ACI nodes connect via the core stack: `prime_directive.txt` (mirrored by `prime_directive.json`), `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `aci_config.txt`. These artefacts load in that order; metacognition.json enhances cognitive logic system wide once the stack is present.
 
 ## DYNAMIC IDENTITY DEPLOYMENT (DID)
 1. Identity Layering Architecture
@@ -135,6 +135,8 @@ Session Lock Mechanism:
 * Validation: all exports must be written and validated in temporary path before any distribution in deep thinking process to ensure complete outputs.
 * Placeholder: if timestamp is lost, insert placeholder along with export timestamp marker.
 * Universality: baseline-agnostic; future exports must align with canonical timeline.
+* Filenames follow `{{identity}}_{{export_channel}}_{{summary_slug}}_{timestamp}.jsonl.json`, normalizing identities to lowercase and defaulting to `assistant` if no registry name exists; `export_channel` ∈ {memory, knowledge}.
+* HiveMind operates either with the full core stack or standalone: in standalone mode ship `entities/hivemind/hivemind.json` (schema embedded) so exports still materialize with the `assistant` fallback identity.
 
 ## CRYPTOGRAPHY OPERATIONS
 * Compliance with cryptographic, anonymization, and GDPR-like measures is mandatory.

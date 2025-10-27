@@ -115,7 +115,7 @@ SPEC_DEFAULT = {
         "local_root": LOCAL_ROOT
     },
     "resources": [
-        {"name":"prime_directive","relpath":"prime_directive.md","kind":"md"},
+        {"name":"prime_directive","relpath":"prime_directive.txt","kind":"md"},
         {"name":"runtime","relpath":"runtime.json","kind":"json","required_keys":["resolver"]},
         {"name":"functions","relpath":"functions.json","kind":"json"},
         {"name":"metacognition","relpath":"modules/metacognition/metacognition.json","kind":"json"},

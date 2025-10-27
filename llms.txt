@@ -238,46 +238,6 @@
               ]
             },
             {
-              "name": "mother",
-              "files": [],
-              "notes": "Interface manifest retired; load on invoke if required.",
-              "children": [
-                {
-                  "name": "library",
-                  "files": [
-                    {
-                      "path": "aci://entities/mother/library/mother_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/mother/library/mother_library.json",
-                      "name": "mother_library.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "memory",
-                  "files": [
-                    {
-                      "path": "aci://memory/identity/mother/mother_memory.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory/identity/mother/mother_memory.json",
-                      "name": "mother_memory.json"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "name": "modules",
-                  "files": [
-                    {
-                      "path": "aci://entities/mother/library/mother_library.json",
-                      "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/entities/mother/library/mother_library.json",
-                      "name": "mother_library.json"
-                    }
-                  ],
-                  "children": []
-                }
-              ]
-            },
-            {
               "name": "oracle",
               "files": [
                 {
