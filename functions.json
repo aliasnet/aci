@@ -173,8 +173,7 @@
           "call": "sentinel.audit",
           "map": {
             "action": "activation",
-            "session_id": "$steps.0.uuid",
-            "presence_file": "presence/${steps.0.uuid}.json"
+            "session_id": "$steps.0.uuid"
           }
         },
         {
