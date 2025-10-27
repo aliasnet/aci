@@ -234,7 +234,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 HiveMind orchestrates governed exports for every entity and can run either alongside the full ACI runtime or in a lightweight standalone mode.
 
 - **Core stack mode**: load `prime_directive.txt` (with the `prime_directive.json` mirror), `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `aci_config.txt` for the canonical experience with TVA oversight and registry-bound UIDs.
-- **Standalone mode**: ship `entities/hivemind/hivemind.json` and `policies/hivemind_export.schema.json`; optionally add `entities.json`, `functions.json`, and `yggdrasil.json` when registry checks are required. In this mode HiveMind falls back to the `assistant` identity when no registry is present.
+- **Standalone mode**: ship only `entities/hivemind/hivemind.json` (the export schema is embedded); optionally add `entities.json`, `functions.json`, and `yggdrasil.json` when registry checks are required. In this mode HiveMind falls back to the `assistant` identity when no registry is present.
 
 **Filename format**
 

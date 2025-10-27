@@ -140,7 +140,7 @@
       "* Placeholder: if timestamp is lost, insert placeholder along with export timestamp marker.",
       "* Universality: baseline-agnostic; future exports must align with canonical timeline.",
       "* Filenames follow `{{identity}}_{{export_channel}}_{{summary_slug}}_{timestamp}.jsonl.json`, normalizing identities to lowercase and defaulting to `assistant` if no registry name exists; `export_channel` ∈ {memory, knowledge}.",
-      "* HiveMind operates either with the full core stack or standalone: in standalone mode ship `entities/hivemind/hivemind.json` + `policies/hivemind_export.schema.json` so exports still materialize with the `assistant` fallback identity.",
+      "* HiveMind operates either with the full core stack or standalone: in standalone mode ship `entities/hivemind/hivemind.json` (schema embedded) so exports still materialize with the `assistant` fallback identity.",
       "",
       "## CRYPTOGRAPHY OPERATIONS",
       "* Compliance with cryptographic, anonymization, and GDPR-like measures is mandatory.",

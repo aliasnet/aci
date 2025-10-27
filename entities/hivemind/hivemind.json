@@ -708,6 +708,128 @@
       ]
     }
   },
+  "schemas": {
+    "export_request": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "HiveMind Export Request",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "profile",
+        "entities",
+        "scope",
+        "range",
+        "redaction",
+        "target",
+        "simulation"
+      ],
+      "properties": {
+        "profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z_]+$"
+          }
+        },
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "relative": {
+              "type": "string",
+              "minLength": 1
+            },
+            "from": {
+              "type": "string",
+              "minLength": 1
+            },
+            "to": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "redaction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pii": {
+              "type": "boolean"
+            },
+            "secrets": {
+              "type": "boolean"
+            },
+            "names": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allow_raw_text": {
+              "type": "boolean"
+            }
+          }
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "simulation": {
+          "type": "boolean"
+        },
+        "delivery": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "mode": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            },
+            "download": {
+              "type": "boolean"
+            },
+            "jsonl": {
+              "type": "boolean"
+            },
+            "code": {
+              "type": "boolean"
+            }
+          }
+        },
+        "slice": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "topic": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "summary": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
   "deployment_profiles": {
     "aci_core_stack": {
       "requires": [
@@ -727,8 +849,7 @@
     },
     "standalone": {
       "requires": [
-        "entities/hivemind/hivemind.json",
-        "policies/hivemind_export.schema.json"
+        "entities/hivemind/hivemind.json"
       ],
       "optional": [
         "entities.json",
@@ -736,7 +857,7 @@
         "yggdrasil.json"
       ],
       "notes": [
-        "Allows lightweight deployments that only ship the HiveMind manifest and schema.",
+        "Allows lightweight deployments that only ship the HiveMind manifest with its embedded export schema.",
         "Fallback identity \"assistant\" is used whenever no registry is reachable so exports still materialize."
       ]
     }

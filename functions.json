@@ -825,7 +825,7 @@
         {
           "call": "_schema.coerce",
           "map": {
-            "schema": "policies/hivemind_export.schema.json",
+            "schema": "aci://entities/hivemind/hivemind.json#/schemas/export_request",
             "input": "$steps.0",
             "defaults": {
               "profile": "local_full",
@@ -853,7 +853,7 @@
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "policies/hivemind_export.schema.json",
+            "schema": "aci://entities/hivemind/hivemind.json#/schemas/export_request",
             "input": "$steps.1"
           }
         },
