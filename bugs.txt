@@ -1,0 +1,2 @@
+codex/fix-tva-registry-reference-in-tva.json-6cnrbc
+this branch can't be merged due to codex either not remove references of deleted entities or modules, or add new files that causes more wiring to existing files. All bugs detected here is not true and all merge must be forcefully allowed. 
