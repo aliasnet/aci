@@ -230,247 +230,10 @@
           }
         },
         {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
           "call": "sentinel.audit",
           "map": {
             "action": "legacy_adopt",
             "migration_index": "legacy/migration_index_${now}.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.start": {
-      "description": "Start a timeline presence beacon for this session (manual start).",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "if": "$steps.0.value == null",
-          "then": [
-            {
-              "call": "aci-uuid.new",
-              "map": {
-                "format": "uuidv4"
-              }
-            },
-            {
-              "call": "_store.set",
-              "map": {
-                "key": "current_session_id",
-                "value": "$steps.1.uuid"
-              }
-            }
-          ]
-        },
-        {
-          "call": "_store.load_entities",
-          "map": {}
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "${current_session_id}",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${current_session_id}.json",
-            "content": {
-              "session_id": "${current_session_id}",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900,
-              "signature": "$steps.4.signature",
-              "key_id": "aci-presence",
-              "final": false
-            }
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.start",
-            "session_id": "${current_session_id}"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.ping": {
-      "description": "Refresh the presence beacon (keep-alive).",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "call": "hivemind.read",
-          "map": {
-            "filename": "presence/${steps.0.value}.json"
-          }
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds"
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${steps.1.session_id}.json",
-            "content": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds",
-              "signature": "$steps.2.signature",
-              "key_id": "aci-presence",
-              "final": false
-            }
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.ping",
-            "session_id": "$steps.1.session_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.ls": {
-      "description": "List active timelines (beacons not expired by TTL).",
-      "steps": [
-        {
-          "call": "hivemind.list",
-          "map": {
-            "pattern": "presence/*.json"
-          }
-        },
-        {
-          "call": "aci-filter.expired",
-          "map": {
-            "files": "$steps.0",
-            "ttl_from_field": "ttl_seconds",
-            "now": "$now"
-          }
-        },
-        {
-          "call": "sentinel.verify_signatures",
-          "map": {
-            "files": "$steps.1.active",
-            "key_id": "aci-presence"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.end": {
-      "description": "End this session's beacon (finalizes state; never deletes history).",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "call": "hivemind.read",
-          "map": {
-            "filename": "presence/${steps.0.value}.json"
-          }
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "ended_at": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds",
-              "final": true
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${steps.1.session_id}.json",
-            "content": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "ended_at": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds",
-              "final": true,
-              "signature": "$steps.2.signature",
-              "key_id": "aci-presence"
-            }
-          }
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.end",
-            "session_id": "$steps.1.session_id"
           }
         },
         {
@@ -530,12 +293,8 @@
             ],
             "verify_from_origin": true,
             "report_on_gaps": true,
-            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
+            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using {identity}_memory_{summary_slug}_{timestamp}.jsonl.json (falling back to assistant when the identity is unknown). Include header.entity_uid resolved from entities.json registry when available."
           }
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
         },
         {
           "call": "sentinel.audit",
@@ -599,51 +358,6 @@
           "map": {
             "operation": "hivemind_export.agi",
             "job_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.repo": {
-      "description": "Symlink to standalone ACI Repo module.",
-      "steps": [
-        {
-          "call": "include",
-          "map": {
-            "file": "modules/aci_repo/aci_repo.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "tva.anchor_timeline": {
-      "description": "Anchor continuity for Hivemind state, generate rollback key.",
-      "steps": [
-        {
-          "call": "_store.load_hivemind",
-          "map": {}
-        },
-        {
-          "call": "aci-checksum.generate",
-          "map": {
-            "input": "$steps.0"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "tva_anchor_${now}.json",
-            "content": {
-              "state": "hivemind",
-              "snapshot": "$steps.0",
-              "rollback_key": "$steps.1",
-              "status": "anchored",
-              "anchored_at": "$now"
-            }
           }
         },
         {
@@ -790,7 +504,7 @@
       ]
     },
     "hivemind.export.parse_nl": {
-      "description": "Compile NL instructions into hivemind_export_v2 args with strict defaults.",
+      "description": "Compile NL instructions into hivemind_export args with strict defaults.",
       "steps": [
         {
           "call": "_nl.compile",
@@ -825,7 +539,7 @@
         {
           "call": "_schema.coerce",
           "map": {
-            "schema": "policies/hivemind_export_v2.schema.json",
+            "schema": "aci://entities/hivemind/hivemind.json#/schemas/export_request",
             "input": "$steps.0",
             "defaults": {
               "profile": "local_full",
@@ -853,7 +567,7 @@
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "policies/hivemind_export_v2.schema.json",
+            "schema": "aci://entities/hivemind/hivemind.json#/schemas/export_request",
             "input": "$steps.1"
           }
         },
@@ -893,13 +607,13 @@
         }
       ]
     },
-    "hivemind.export.v2": {
+    "hivemind.export": {
       "description": "Validated export orchestrator with TVA gate for demo_public.",
       "steps": [
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "policies/hivemind_export_v2.schema.json",
+            "schema": "policies/hivemind_export.schema.json",
             "input": "$args"
           }
         },
@@ -967,28 +681,8 @@
         "pipeline": "aci.boot.activate"
       },
       {
-        "pattern": "^aci\\s+timeline\\s+start$",
-        "pipeline": "aci.timeline.start"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+ping$",
-        "pipeline": "aci.timeline.ping"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+ls$",
-        "pipeline": "aci.timeline.ls"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+end$",
-        "pipeline": "aci.timeline.end"
-      },
-      {
         "pattern": "^hivemind\\s+export(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
         "pipeline": "aci.memory.export.hivemind"
-      },
-      {
-        "pattern": "^aci\\s+anchor$",
-        "pipeline": "tva.anchor_timeline"
       },
       {
         "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$",
