@@ -439,7 +439,7 @@
           "identity_source": "entities.json"
         },
         "filenames": {
-          "template": "{identity}_memory_{summary_slug}_{timestamp}.json",
+          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
           "timestamp_format": "Ymd-THMSZ"
         },
         "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
