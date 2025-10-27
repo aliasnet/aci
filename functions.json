@@ -530,7 +530,7 @@
             ],
             "verify_from_origin": true,
             "report_on_gaps": true,
-            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
+            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl.json. Include header.entity_uid resolved from entities.json registry."
           }
         },
         {
@@ -790,7 +790,7 @@
       ]
     },
     "hivemind.export.parse_nl": {
-      "description": "Compile NL instructions into hivemind_export_v2 args with strict defaults.",
+      "description": "Compile NL instructions into hivemind_export args with strict defaults.",
       "steps": [
         {
           "call": "_nl.compile",
@@ -825,7 +825,7 @@
         {
           "call": "_schema.coerce",
           "map": {
-            "schema": "policies/hivemind_export_v2.schema.json",
+            "schema": "policies/hivemind_export.schema.json",
             "input": "$steps.0",
             "defaults": {
               "profile": "local_full",
@@ -853,7 +853,7 @@
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "policies/hivemind_export_v2.schema.json",
+            "schema": "policies/hivemind_export.schema.json",
             "input": "$steps.1"
           }
         },
@@ -893,13 +893,13 @@
         }
       ]
     },
-    "hivemind.export.v2": {
+    "hivemind.export": {
       "description": "Validated export orchestrator with TVA gate for demo_public.",
       "steps": [
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "policies/hivemind_export_v2.schema.json",
+            "schema": "policies/hivemind_export.schema.json",
             "input": "$args"
           }
         },

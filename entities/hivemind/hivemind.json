@@ -175,7 +175,7 @@
         "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA+Sentinel oversight may apply.",
         "default_parameter": "--memory --download --jsonl",
         "description": "Unified exporter for any entity using memory_registry and child defaults.",
-        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl.json",
         "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Memory scope replays the full session transcript from the first turn; if gaps are detected, a recovery report is emitted before export. Use --privacy on|anonymous to enable redaction while retaining entity_uid headers."
       },
       {
@@ -188,7 +188,7 @@
         "command_rules": "Requires --identity. Knowledge channel writes under knowledge/ topics and enforces the same safeguards as memory exports.",
         "default_parameter": "--download --jsonl",
         "description": "Knowledge export channel capturing distilled findings for governed sharing.",
-        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_knowledge_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_knowledge_yyyy-mm-ddThh-mm-ssZ.jsonl.json",
         "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Knowledge scope relies on curated digests rather than session replays."
       }
     ]
@@ -373,7 +373,7 @@
     "channels": {
       "memory": {
         "version": "1.2.0",
-        "schema": "hivemind-knowledge",
+        "schema": "hivemind-memory",
         "paths": {
           "export": "/memory/identity/{identity}/memory/{topic_slug}/{filename}.jsonl.json",
           "manifest": "/memory/identity/{identity}/{identity}_memory.json"
@@ -383,8 +383,8 @@
           "identity_source": "entities.json"
         },
         "filenames": {
-          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
-          "timestamp_format": "Ymd-THMSZ"
+          "template": "{identity}_memory_{summary_slug}_{timestamp}.jsonl.json",
+          "timestamp_format": "yyyymmdd-ThhmmssZ"
         },
         "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
         "filters": {
@@ -439,8 +439,8 @@
           "identity_source": "entities.json"
         },
         "filenames": {
-          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
-          "timestamp_format": "Ymd-THMSZ"
+          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.jsonl.json",
+          "timestamp_format": "yyyymmdd-ThhmmssZ"
         },
         "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
         "filters": {
