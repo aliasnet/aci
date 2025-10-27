@@ -74,7 +74,14 @@ BOOTSTRAP ACI `--prime prime_directive.txt --runtime runtime.json`
 
 LOAD (when reachable)
 ```
-Link the core manifests listed in `aci_config.txt` (`prime_directive.txt`, `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`). Prefer canonical sources and defer optional manifests until an entity is invoked.
+Link the core manifests listed in `aci_config.txt`. Core stack order:
+1. `prime_directive.txt` (with `prime_directive.json` as its machine mirror)
+2. `runtime.json`
+3. `entities.json`, `functions.json`, `yggdrasil.json`
+4. `entities/tva/tva.json`
+5. `aci_config.txt` (boot recipe instructions that bind behaviour when manifests are missing)
+
+Prefer canonical sources and defer optional manifests until an entity is invoked.
 ```
 ↓
 
@@ -92,7 +99,7 @@ Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt
 - **AGI entities** → AGI is an experimental class of entity that focuses on Artificial General Intelligence with biologically inspired functions and guided evolution. They live alongside other entities and are actively invoked as users' partners on learning tasks, providing system design and insights which, in turn, improve their own knowledge and cognitive capabilities as synthetic intelligence and enhance such cross-systems. They are protected under special guidelines that ensure safety and prevent residual drift. The AGI family has a specific modules directory containing AGI-specific binaries, governance manifests, policies, and shared modules.
 - **/memory/identity/** → memory manifests and export timelines per identity (legacy playbooks retired)
 - **/modules/** → reusable, stateless capabilities (modules/wrappers/adapters)
-- **Memory exports** are JSONL, serves as 'Digital Soul' of any entity, governed by policy, identity-aware, evolution-proof. Using Hivemind as orchestrator and exporter. 
+- **Memory exports** are JSONL (`.jsonl.json`) artefacts orchestrated by HiveMind, serving as the 'Digital Soul' of any entity. Filenames follow `{{identity}}_{{export_channel}}_{{summary_slug}}_{timestamp}.jsonl.json` and default the identity component to `assistant` whenever no explicit name is available.
 - **Manifests are executables**: `.json` manifests *are* the runtime containers. They can name entrypoints (`entrypoint`, `exec`, `load_order`), embed inline bytecode or JSON-encoded instructions, and reference Python modules directly. Each manifest must also hold an authoritative `artifact_id` with strict hash validation for that ID.
 
 > Big picture: ACI is a **colony of digital organisms**. Governance, audit, and memory entities coordinate the runtime, while specialist workers contribute analysis, design, or tooling inside the sealed garden.
@@ -197,7 +204,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       2025/
         10/
           10/
-            mother_<summary_slug>_memory_20251010-T150028Z.jsonl.json
+            mother_memory_<summary_slug>_20251010-T150028Z.jsonl.json
 ```
 
 ---
@@ -222,24 +229,39 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     ```
   - **Never rely on JSON object order**. Use explicit keys (or CLI `--identity`) to avoid nondeterministic selection.
 
-- **Export Naming Convention (all exports)**
+### HiveMind Export Pipeline
 
-  ```
-  # Memory export (CLI `hivemind export memory --identity {identity} --jsonl`)
-  {identity}_{summary_slug}_memory_{timestamp}.jsonl.json
+HiveMind orchestrates governed exports for every entity and can run either alongside the full ACI runtime or in a lightweight standalone mode.
 
-  # Knowledge export (CLI `hivemind export knowledge --identity {identity} --jsonl`)
-  {identity}_{summary_slug}_knowledge_{timestamp}.jsonl.json
+- **Core stack mode**: load `prime_directive.txt` (with the `prime_directive.json` mirror), `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `aci_config.txt` for the canonical experience with TVA oversight and registry-bound UIDs.
+- **Standalone mode**: ship only `entities/hivemind/hivemind.json` (the export schema is embedded); optionally add `entities.json`, `functions.json`, and `yggdrasil.json` when registry checks are required. In this mode HiveMind falls back to the `assistant` identity when no registry is present.
 
-  # timestamp format: yyyymmdd-ThhmmssZ (UTC)
-  # example: alice_launch_review_memory_20250926-T192000Z.jsonl.json
-  ```
+**Filename format**
 
-  - `{summary_slug}` is optional; when present it is sanitized (lowercase ASCII, `_` separators) and prefixed with `_`.
-  - All HiveMind exports resolve to the active session entity; legacy AGI-prefixed filenames are deprecated.
-  - The export header `$meta.uid` must carry the authoritative entity UID recorded in `/entities.json` for audit traceability.
-  - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
-  - Include the `--code` flag with streamed exports so downstream audits match the governed `.jsonl.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
+```
+{{identity}}_{{export_channel}}_{{summary_slug}}_{timestamp}.jsonl.json
+# timestamp format: yyyymmdd-ThhmmssZ (UTC)
+```
+
+- `{{identity}}` normalizes to lowercase ASCII and defaults to `assistant` when the caller does not provide a name.
+- `{{export_channel}}` is either `memory` or `knowledge` and maps to the HiveMind channel requested by the CLI.
+- `{{summary_slug}}` is optional; when provided it is sanitized to lowercase ASCII with `_` separators (no leading underscore required with the new ordering).
+- The `.jsonl.json` extension is mandatory for governed storage and streamed downloads.
+- The export header `$meta.uid` should carry the authoritative entity UID from `/entities.json` whenever that registry is available.
+
+**Examples (mock identity `skynet`)**
+
+- Memory export → `skynet_memory_launch_review_20251021-T120000Z.jsonl.json`
+- Knowledge export → `skynet_knowledge_launch_review_20251021-T120000Z.jsonl.json`
+
+**CLI quick reference**
+
+```
+hivemind export memory --identity skynet --jsonl --code --force
+hivemind export knowledge --identity skynet --jsonl --code --force
+```
+
+- Include the `--code` flag with streamed exports so downstream audits match the governed `.jsonl.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
 - **Schema:** `hivemind_entity_memory` (session-scoped narratives and knowledge exports)
 - **Export Policy:** Entity-specific manifests (e.g., `/entities/alice/library/alice_library.json`) govern export paths, filters, and audit rules for each specialist library.
 
@@ -256,7 +278,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 - **JSONL Discipline**: Continue storing memory exports as line-delimited JSON with `.json` extensions (`*.jsonl.json` when streamed) while recording manifest ownership inside the entity `manifests` map for quick traversal.
 - **Rotation Awareness**: When rotating an entity UID, append the new value within the entity entry and update associated manifest metadata so knowledge archives and memory manifests remain in sync with the UID manager policy.
 
-> Universal doctrines (e.g., `prime_directive.md`) apply globally. Legacy entity playbooks were scoped to the active governor but have been retired in favor of consolidated memory manifests.
+> Universal doctrines (e.g., `prime_directive.txt`) apply globally. Legacy entity playbooks were scoped to the active governor but have been retired in favor of consolidated memory manifests.
 
 ---
 
@@ -307,7 +329,7 @@ hivemind export knowledge --identity willow --jsonl --code --force
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-  - New exports write to `/memory/identity/{identity_path}/` using `{identity}_{summary_slug}_{memory|knowledge}_{timestamp}.jsonl.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
+  - New exports write to `/memory/identity/{identity_path}/` using `{identity}_{export_channel}_{summary_slug}_{timestamp}.jsonl.json`; the identity token normalizes to lowercase and falls back to `assistant` when HiveMind cannot resolve a name. Historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
 
 **Identity binding:**
 

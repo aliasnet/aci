@@ -113,7 +113,7 @@
   },
   "session_scope": "per_session",
   "invocation_policy": {
-    "registry_reference": "aci://entities.json#entities.entity-002",
+    "registry_reference": "aci://entities.json#entities.entity-001",
     "registry_uid": "UID:oasYS4KteUMqgt",
     "enforced": true,
     "session_scope": "per_session",

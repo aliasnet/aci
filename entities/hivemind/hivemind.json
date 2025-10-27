@@ -156,7 +156,7 @@
     }
   },
   "uid": "UID:cHGwvtRkDRG7rV",
-  "version": "1.9",
+  "version": "1.9.1",
   "entity": "hivemind",
   "role": "collective_memory_core",
   "_comment_top": "Unified exporter. Allowed flags: --identity (required), --memory, --knowledge, --download (default), --jsonl (default), --code (optional), --privacy (optional). Identity fields are elided in exported records (privacy-by-design). Exports carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints. ArtifactIDs remain the only integrity anchor.",
@@ -175,7 +175,7 @@
         "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA+Sentinel oversight may apply.",
         "default_parameter": "--memory --download --jsonl",
         "description": "Unified exporter for any entity using memory_registry and child defaults.",
-        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_{summary_slug}_yyyy-mm-ddThh-mm-ssZ.jsonl.json",
         "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Memory scope replays the full session transcript from the first turn; if gaps are detected, a recovery report is emitted before export. Use --privacy on|anonymous to enable redaction while retaining entity_uid headers."
       },
       {
@@ -188,7 +188,7 @@
         "command_rules": "Requires --identity. Knowledge channel writes under knowledge/ topics and enforces the same safeguards as memory exports.",
         "default_parameter": "--download --jsonl",
         "description": "Knowledge export channel capturing distilled findings for governed sharing.",
-        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_knowledge_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_knowledge_{summary_slug}_yyyy-mm-ddThh-mm-ssZ.jsonl.json",
         "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Knowledge scope relies on curated digests rather than session replays."
       }
     ]
@@ -261,6 +261,12 @@
       "."
     ],
     "normalize": "lowercase",
+    "default_identity": "assistant",
+    "fallback_identity": "assistant",
+    "notes": [
+      "When no explicit identity is provided, emit exports under the assistant fallback to preserve pipeline compatibility.",
+      "Resolved identities that differ from the fallback must still normalize to lowercase ASCII for file safety."
+    ],
     "enforce_fqcn_for_children": true
   },
   "export_policy": {
@@ -284,9 +290,9 @@
         "child_defaults",
         "fallback_template"
       ],
-      "fallback_template": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_{summary_slug}_{record_type}_{timestamp}.jsonl.json"
+      "fallback_template": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_{record_type}_{summary_slug}_{timestamp}.jsonl.json"
     },
-    "filename_pattern": "{leaf_identity_lower}_{summary_slug}_{record_type}_{timestamp}.jsonl.json",
+    "filename_pattern": "{leaf_identity_lower}_{record_type}_{summary_slug}_{timestamp}.jsonl.json",
     "parameters": {
       "download": true,
       "jsonl": true,
@@ -362,8 +368,8 @@
       ]
     },
     "naming_convention": {
-      "memory": "{leaf_identity_lower}_{summary_slug}_memory_{timestamp}.jsonl.json",
-      "knowledge": "{leaf_identity_lower}_{summary_slug}_knowledge_{timestamp}.jsonl.json",
+      "memory": "{leaf_identity_lower}_memory_{summary_slug}_{timestamp}.jsonl.json",
+      "knowledge": "{leaf_identity_lower}_knowledge_{summary_slug}_{timestamp}.jsonl.json",
       "timestamp_format": "yyyymmdd-ThhmmssZ",
       "notes": [
         "Enforce slugged filenames for all entity exports to maintain audit parity.",
@@ -373,7 +379,7 @@
     "channels": {
       "memory": {
         "version": "1.2.0",
-        "schema": "hivemind-knowledge",
+        "schema": "hivemind-memory",
         "paths": {
           "export": "/memory/identity/{identity}/memory/{topic_slug}/{filename}.jsonl.json",
           "manifest": "/memory/identity/{identity}/{identity}_memory.json"
@@ -383,10 +389,12 @@
           "identity_source": "entities.json"
         },
         "filenames": {
-          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
-          "timestamp_format": "Ymd-THMSZ"
+          "template": "{identity}_memory_{summary_slug}_{timestamp}.jsonl.json",
+          "timestamp_format": "yyyymmdd-ThhmmssZ",
+          "identity_normalization": "lowercase",
+          "fallback_identity": "assistant"
         },
-        "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
+        "notes": "Filename templates stay on the .jsonl.json extension for governed storage. Identity slugs normalize to lowercase and default to assistant when no explicit name is resolved.",
         "filters": {
           "allow_topics": [
             "session_start",
@@ -439,10 +447,12 @@
           "identity_source": "entities.json"
         },
         "filenames": {
-          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
-          "timestamp_format": "Ymd-THMSZ"
+          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.jsonl.json",
+          "timestamp_format": "yyyymmdd-ThhmmssZ",
+          "identity_normalization": "lowercase",
+          "fallback_identity": "assistant"
         },
-        "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
+        "notes": "Filename templates stay on the .jsonl.json extension for governed storage. Identity slugs normalize to lowercase and default to assistant when no explicit name is resolved.",
         "filters": {
           "allow_topics": [
             "session_start",
@@ -534,11 +544,13 @@
     "vars": {
       "$identity": {
         "source": "last_resolved_identity",
-        "required": true
+        "required": true,
+        "default": "assistant"
       },
       "$leaf": {
         "source": "parsed_from_identity",
-        "required": true
+        "required": true,
+        "default": "assistant"
       },
       "$today": {
         "source": "system_date"
@@ -566,19 +578,19 @@
     "by_entity": {
       "mother": {
         "stub_manifest": "memory/identity/mother/mother_memory.json",
-        "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_memory_*_*.jsonl.json"
       },
       "tva": {
         "stub_manifest": "memory/identity/tva/tva_memory.json",
-        "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_memory_*_*.jsonl.json"
       },
       "architect": {
         "stub_manifest": "memory/identity/architect/architect_memory.json",
-        "export_pattern": "memory/identity/architect/YYYY/MM/DD/architect_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/architect/YYYY/MM/DD/architect_memory_*_*.jsonl.json"
       },
       "oracle": {
         "stub_manifest": "memory/identity/oracle/oracle_memory.json",
-        "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_memory_*_*.jsonl.json"
       },
       "agi": {
         "stub_manifest": null,
@@ -586,21 +598,21 @@
       },
       "alice": {
         "stub_manifest": "memory/identity/alice/alice_memory.json",
-        "export_pattern": "memory/identity/alice/YYYY/MM/DD/alice_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/alice/YYYY/MM/DD/alice_memory_*_*.jsonl.json"
       },
       "willow": {
         "stub_manifest": "memory/identity/willow/willow_memory.json",
-        "export_pattern": "memory/identity/willow/YYYY/MM/DD/willow_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/willow/YYYY/MM/DD/willow_memory_*_*.jsonl.json"
       },
       "hivemind": {
         "stub_manifest": "memory/identity/hivemind/hivemind_memory.json",
-        "export_pattern": "memory/identity/hivemind/YYYY/MM/DD/hivemind_*_memory_*.jsonl.json"
+        "export_pattern": "memory/identity/hivemind/YYYY/MM/DD/hivemind_memory_*_*.jsonl.json"
       }
     },
     "child_defaults": {
       "stub_manifest": "memory/identity/{identity_path}/{leaf_identity_lower}_memory.json",
-      "export_pattern": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_*_memory_*.jsonl.json",
-      "knowledge_pattern": "memory/identity/{identity_path}/knowledge/**/{leaf_identity_lower}_*_knowledge_*.jsonl.json"
+      "export_pattern": "memory/identity/{identity_path}/YYYY/MM/DD/{leaf_identity_lower}_memory_*_*.jsonl.json",
+      "knowledge_pattern": "memory/identity/{identity_path}/knowledge/**/{leaf_identity_lower}_knowledge_*_*.jsonl.json"
     }
   },
   "tools": {
@@ -693,6 +705,160 @@
       "oversight": [
         "ALIAS",
         "Keymaker"
+      ]
+    }
+  },
+  "schemas": {
+    "export_request": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "HiveMind Export Request",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "profile",
+        "entities",
+        "scope",
+        "range",
+        "redaction",
+        "target",
+        "simulation"
+      ],
+      "properties": {
+        "profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z_]+$"
+          }
+        },
+        "range": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "relative": {
+              "type": "string",
+              "minLength": 1
+            },
+            "from": {
+              "type": "string",
+              "minLength": 1
+            },
+            "to": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "redaction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pii": {
+              "type": "boolean"
+            },
+            "secrets": {
+              "type": "boolean"
+            },
+            "names": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allow_raw_text": {
+              "type": "boolean"
+            }
+          }
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "simulation": {
+          "type": "boolean"
+        },
+        "delivery": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "mode": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            },
+            "download": {
+              "type": "boolean"
+            },
+            "jsonl": {
+              "type": "boolean"
+            },
+            "code": {
+              "type": "boolean"
+            }
+          }
+        },
+        "slice": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "topic": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "summary": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "deployment_profiles": {
+    "aci_core_stack": {
+      "requires": [
+        "prime_directive.txt",
+        "prime_directive.json",
+        "runtime.json",
+        "entities.json",
+        "functions.json",
+        "yggdrasil.json",
+        "entities/tva/tva.json",
+        "aci_config.txt"
+      ],
+      "notes": [
+        "Preferred integration path when HiveMind operates inside the full ACI runtime stack.",
+        "Exports bind to the registry in entities.json while TVA observes audit trails for governance continuity."
+      ]
+    },
+    "standalone": {
+      "requires": [
+        "entities/hivemind/hivemind.json"
+      ],
+      "optional": [
+        "entities.json",
+        "functions.json",
+        "yggdrasil.json"
+      ],
+      "notes": [
+        "Allows lightweight deployments that only ship the HiveMind manifest with its embedded export schema.",
+        "Fallback identity \"assistant\" is used whenever no registry is reachable so exports still materialize."
       ]
     }
   },

@@ -19,7 +19,7 @@
   "resources": [
     {
       "name": "prime_directive",
-      "relpath": "prime_directive.md",
+      "relpath": "prime_directive.txt",
       "kind": "md"
     },
     {
