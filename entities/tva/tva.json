@@ -63,7 +63,7 @@
     }
   },
   "uid": "UID:oasYS4KteUMqgt",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "tva": {
     "name": "Truth Validation Authority",
     "alias": "TVA",
@@ -126,11 +126,18 @@
   "resolver": "https://raw.githubusercontent.com/aliasnet/aci/main/binders/yggdrasil.json",
   "changelog": [
     {
+      "version": "1.2.2",
+      "date": "2025-10-28",
+      "notes": [
+        "Recorded TVA identity metadata (name, alias, role, abstract) to clarify semantic governance responsibilities."
+      ]
+    },
+    {
       "version": "1.2.1",
       "date": "2025-10-25",
       "notes": [
-        "Pointed TVA buffer handling at process_logs and removed references to tracehub wrapper signatures.",
-        "Recorded TVA approvals as reasoning reviews alongside Sentinel authorization requirements.",
+        "Retired legacy audit wrappers and kept TVA buffer handling purely semantic.",
+        "Recorded TVA approvals as reasoning reviews alongside governance authorization requirements.",
         "Removed logging/storage directives so TVA remains a pure semantic reasoning authority."
       ]
     }

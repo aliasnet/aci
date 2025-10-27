@@ -24,7 +24,7 @@
     },
     "cautious_mode": {
       "trigger": {
-        "ood_sentinel_over": 0.8,
+        "ood_monitor_over": 0.8,
         "perplexity_jump_sigma": 2.0,
         "embedding_distance_sigma": 2.0
       },
@@ -57,7 +57,7 @@
         "aux_confidence_head",
         "activation_probe"
       ],
-      "shift_sentinels": [
+      "shift_monitors": [
         "embedding_distance",
         "perplexity_jump",
         "energy_score"
@@ -66,7 +66,7 @@
   },
   "control_policies": {
     "policy_rules": [
-      "If any shift sentinel > τ: enter cautious_mode.",
+      "If any shift monitor > τ: enter cautious_mode.",
       "If p̂ < abstain threshold: abstain or escalate per stakes.",
       "If p̂ in gray zone: run 1 reflection pass or call tool; recompute p̂; proceed only if improved.",
       "Stop reasoning when posterior error < θ_stop or budget reached."
@@ -214,7 +214,7 @@
   },
   "robustness": {
     "ood": {
-      "sentinels": [
+      "monitors": [
         "embedding_distance",
         "perplexity_jump",
         "energy_score"
@@ -369,7 +369,7 @@
       "immunity": {
         "description": "Detect and resist adversarial or harmful inputs; prevent strategic misreporting.",
         "mappings": [
-          "OOD sentinels",
+          "OOD monitors",
           "adversarial detectors",
           "honesty audits",
           "red‑team prompts"

@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:2kCTpvs4vQzsu4",
-    "sha256": "0f03887613ec0e261a139a1e337d181924347f3f8819922a1efb618ecff98a4e",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://memory/identity/mother/mother_memory.json"
   },
@@ -9,8 +8,8 @@
   "version": "1.0.1",
   "identity": "Mother",
   "slug": "mother",
-  "source_manifest": "aci://entities/mother/mother.json",
-  "description": "Primary governance interface with pragmatic, machine-like demeanor. No-nonsense, fact-first; allows MU/TH/UR UI emulation only.",
+  "source_manifest": null,
+  "description": "Archived governance interface memory. Runtime boots as ACI Assistant; load MU/TH/UR context only when explicitly invoked.",
   "paths": {
     "root": "aci://memory/identity/mother",
     "timeline": "YYYY/MM/DD"

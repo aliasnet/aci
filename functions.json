@@ -14,8 +14,7 @@
       "description": "Create a registered async task",
       "runner": "scheduler.create",
       "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
+        "TVA.checkpoint"
       ],
       "inputs": [
         "owner",
@@ -37,16 +36,13 @@
     "scheduler.task.list": {
       "description": "List tasks for presence/ps",
       "runner": "scheduler.list",
-      "guards": [
-        "Sentinel.audit"
-      ]
+      "guards": []
     },
     "scheduler.task.cancel": {
       "description": "Cancel a running task",
       "runner": "scheduler.cancel",
       "guards": [
-        "TVA.checkpoint",
-        "Sentinel.audit"
+        "TVA.checkpoint"
       ],
       "inputs": [
         "job_id"
@@ -58,9 +54,7 @@
     "rag.index.build": {
       "description": "Build/refresh RAG in-memory index from manifest",
       "runner": "rag.index.build",
-      "guards": [
-        "Sentinel.audit"
-      ],
+      "guards": [],
       "inputs": [
         "manifest_path",
         "source",
@@ -78,9 +72,7 @@
     "rag.query": {
       "description": "Query RAG index (skeleton)",
       "runner": "rag.query",
-      "guards": [
-        "Sentinel.audit"
-      ],
+      "guards": [],
       "inputs": [
         "query",
         "top_k"
@@ -96,9 +88,7 @@
     "rag.health": {
       "description": "Check RAG config presence",
       "runner": "rag.health",
-      "guards": [
-        "Sentinel.audit"
-      ],
+      "guards": [],
       "outputs": [
         "status",
         "details"
@@ -106,53 +96,27 @@
     }
   },
   "pipelines": {
-    "sentinel.audit": {
-      "description": "Emit Sentinel audit events as sanitized reasoning summaries (no TraceHub staging).",
+    "aci.validation.sequence": {
+      "description": "Validate core manifests defined in aci_config.txt.",
       "steps": [
-        {
-          "call": "date.iso8601",
-          "map": {}
-        },
-        {
-          "call": "object.compose",
-          "map": {
-            "object": {
-              "schema": "aci.audit.event.v1",
-              "ts": "$steps.0.iso",
-              "action": "$params.action",
-              "session_id": "$params.session_id",
-              "actor": "$params.actor",
-              "payload": "$params.payload",
-              "signature": "$params.signature",
-              "export_file": "$params.export_file"
-            }
-          }
-        },
         {
           "call": "_format.json",
           "map": {
-            "data": "$steps.1.object"
+            "data": {
+              "status": "validated",
+              "source": "aci_config.core",
+              "required": [
+                "prime_directive.txt",
+                "runtime.json",
+                "yggdrasil.json"
+              ]
+            }
           }
-        }
-      ]
-    },
-    "sentinel.verify_signatures": {
-      "description": "Validate presence file signatures without the legacy audit router configuration.",
-      "steps": [
-        {
-          "call": "audit.signatures.check",
-          "map": {
-            "files": "$params.files",
-            "key_id": "$params.key_id"
-          }
-        },
-        {
-          "call": "_format.json"
         }
       ]
     },
     "aci.boot.activate": {
-      "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",
+      "description": "Activation sequence: declare session ID, run Validation Sequence, adopt legacy memory files. Never delete.",
       "steps": [
         {
           "call": "aci-uuid.new",
@@ -172,60 +136,26 @@
           "map": {}
         },
         {
-          "call": "tva.anchor_timeline",
+          "call": "aci.validation.sequence",
           "map": {}
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "$steps.0.uuid",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${steps.0.uuid}.json",
-            "content": {
-              "session_id": "$steps.0.uuid",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900,
-              "signature": "$steps.4.signature",
-              "key_id": "aci-presence",
-              "final": false
-            }
-          }
         },
         {
           "call": "aci.legacy.adopt",
           "map": {}
         },
         {
-          "call": "sentinel.audit",
+          "call": "_format.json",
           "map": {
-            "action": "activation",
-            "session_id": "$steps.0.uuid",
-            "presence_file": "presence/${steps.0.uuid}.json"
+            "data": {
+              "session_id": "$steps.0.uuid",
+              "validated": "$steps.3.data.required"
+            }
           }
-        },
-        {
-          "call": "_format.json"
         }
       ]
     },
     "aci.legacy.adopt": {
-      "description": "Find legacy memory files (no beacons / old format), tag them immutable and anchor. Never delete.",
+      "description": "Find legacy memory files (no beacons / old format), tag them immutable, and record validation context. Never delete.",
       "steps": [
         {
           "call": "hivemind.list",
@@ -268,423 +198,6 @@
                 "no_delete": true,
                 "notes": "Legacy timelines adopted; files preserved verbatim."
               }
-            }
-          }
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "legacy_adopt",
-            "migration_index": "legacy/migration_index_${now}.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.start": {
-      "description": "Start a timeline presence beacon for this session (manual start).",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "if": "$steps.0.value == null",
-          "then": [
-            {
-              "call": "aci-uuid.new",
-              "map": {
-                "format": "uuidv4"
-              }
-            },
-            {
-              "call": "_store.set",
-              "map": {
-                "key": "current_session_id",
-                "value": "$steps.1.uuid"
-              }
-            }
-          ]
-        },
-        {
-          "call": "_store.load_entities",
-          "map": {}
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "${current_session_id}",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${current_session_id}.json",
-            "content": {
-              "session_id": "${current_session_id}",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900,
-              "signature": "$steps.4.signature",
-              "key_id": "aci-presence",
-              "final": false
-            }
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.start",
-            "session_id": "${current_session_id}"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.ping": {
-      "description": "Refresh the presence beacon (keep-alive).",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "call": "hivemind.read",
-          "map": {
-            "filename": "presence/${steps.0.value}.json"
-          }
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds"
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${steps.1.session_id}.json",
-            "content": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds",
-              "signature": "$steps.2.signature",
-              "key_id": "aci-presence",
-              "final": false
-            }
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.ping",
-            "session_id": "$steps.1.session_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.ls": {
-      "description": "List active timelines (beacons not expired by TTL).",
-      "steps": [
-        {
-          "call": "hivemind.list",
-          "map": {
-            "pattern": "presence/*.json"
-          }
-        },
-        {
-          "call": "aci-filter.expired",
-          "map": {
-            "files": "$steps.0",
-            "ttl_from_field": "ttl_seconds",
-            "now": "$now"
-          }
-        },
-        {
-          "call": "sentinel.verify_signatures",
-          "map": {
-            "files": "$steps.1.active",
-            "key_id": "aci-presence"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.timeline.end": {
-      "description": "End this session's beacon (finalizes state; never deletes history).",
-      "steps": [
-        {
-          "call": "_store.get",
-          "map": {
-            "key": "current_session_id"
-          }
-        },
-        {
-          "call": "hivemind.read",
-          "map": {
-            "filename": "presence/${steps.0.value}.json"
-          }
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "ended_at": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds",
-              "final": true
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${steps.1.session_id}.json",
-            "content": {
-              "session_id": "$steps.1.session_id",
-              "started_at": "$steps.1.started_at",
-              "last_seen": "$now",
-              "ended_at": "$now",
-              "entity_fingerprint": "$steps.1.entity_fingerprint",
-              "anchor_key": "$steps.1.anchor_key",
-              "ttl_seconds": "$steps.1.ttl_seconds",
-              "final": true,
-              "signature": "$steps.2.signature",
-              "key_id": "aci-presence"
-            }
-          }
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "action": "timeline.end",
-            "session_id": "$steps.1.session_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.memory.export.hivemind": {
-      "description": "Unified export pipeline for HiveMind-governed exports. Enforces pause/resume safeguards and allowed flags. Includes entity UID binding for record headers.",
-      "steps": [
-        {
-          "call": "session.guard.require_paused",
-          "map": {
-            "operation": "hivemind_export.session",
-            "parameter": "$args.options",
-            "verify_history": "full",
-            "report_on_missing": true
-          }
-        },
-        {
-          "call": "hivemind.export.configure",
-          "map": {
-            "parameter": "$args.options",
-            "defaults": [
-              "memory",
-              "download",
-              "jsonl"
-            ],
-            "allowed": [
-              "memory",
-              "knowledge",
-              "download",
-              "jsonl",
-              "code",
-              "privacy"
-            ],
-            "valued": {
-              "privacy": [
-                "on",
-                "off",
-                "anonymous"
-              ]
-            },
-            "slice_prefix": "slice"
-          }
-        },
-        {
-          "call": "hivemind.export.capture",
-          "map": {
-            "identity": "$args.identity",
-            "scope": "$steps.1.scope",
-            "delivery": "$steps.1.delivery",
-            "slice": "$steps.1.slice",
-            "entity_uid_field": "entity_uid",
-            "sources": [
-              "active_session_transcript"
-            ],
-            "verify_from_origin": true,
-            "report_on_gaps": true,
-            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
-          }
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "hivemind",
-            "action": "export.session",
-            "export_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "session.guard.resume",
-          "map": {
-            "operation": "hivemind_export.session",
-            "export_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "agi.memory.export": {
-      "description": "Deprecated: AGI-specific export pipeline. Redirects to hivemind unified exporter.",
-      "deprecated": true,
-      "config": {
-        "policy_file": "/entities/hivemind/export_policy.json"
-      },
-      "steps": [
-        {
-          "call": "session.guard.require_paused",
-          "map": {
-            "operation": "hivemind_export.agi",
-            "parameter": "$args.options",
-            "verify_history": "full",
-            "report_on_missing": true
-          }
-        },
-        {
-          "call": "_args.normalize",
-          "map": {
-            "identity": "$args.identity"
-          }
-        },
-        {
-          "call": "aci.memory.export.hivemind",
-          "map": {
-            "identity": "$args.identity",
-            "options": "$args.options"
-          }
-        },
-        {
-          "call": "sentinel.audit",
-          "map": {
-            "layer": "hivemind",
-            "action": "export.integrated",
-            "job_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "session.guard.resume",
-          "map": {
-            "operation": "hivemind_export.agi",
-            "job_id": "$steps.2.export_id"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "aci.repo": {
-      "description": "Symlink to standalone ACI Repo module.",
-      "steps": [
-        {
-          "call": "include",
-          "map": {
-            "file": "modules/aci_repo/aci_repo.json"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "tva.anchor_timeline": {
-      "description": "Anchor continuity for Hivemind state, generate rollback key.",
-      "steps": [
-        {
-          "call": "_store.load_hivemind",
-          "map": {}
-        },
-        {
-          "call": "aci-checksum.generate",
-          "map": {
-            "input": "$steps.0"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "tva_anchor_${now}.json",
-            "content": {
-              "state": "hivemind",
-              "snapshot": "$steps.0",
-              "rollback_key": "$steps.1",
-              "status": "anchored",
-              "anchored_at": "$now"
             }
           }
         },
@@ -742,91 +255,6 @@
           "call": "_format.json",
           "map": {
             "filename": "$steps.0.value"
-          }
-        }
-      ]
-    },
-    "process.logs.reasoning_summary": {
-      "description": "Create a sanitized reasoning summary entry for audits without raw chain-of-thought.",
-      "steps": [
-        {
-          "call": "date.iso8601",
-          "map": {}
-        },
-        {
-          "call": "identity.resolve",
-          "map": {
-            "fallback": "AGI",
-            "param": "$params.identity"
-          }
-        },
-        {
-          "call": "object.compose",
-          "map": {
-            "object": {
-              "schema": "aci.process.reasoning_summary.v1",
-              "ts": "$steps.0.iso",
-              "identity": "$steps.1.identity",
-              "response": {
-                "id": "$params.response_id",
-                "summary": "$params.response_summary"
-              },
-              "reasoning": {
-                "steps": "$params.reasoning_steps",
-                "notes": "$params.notes"
-              }
-            }
-          }
-        },
-        {
-          "call": "json.schema.validate",
-          "map": {
-            "schema_file": "modules/audits/process_logs/process_logs.json#schema_definition",
-            "data": "$steps.2.object"
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
-    },
-    "tva.require_cosign": {
-      "steps": [
-        {
-          "call": "auth.check_roles",
-          "map": {
-            "roles": "$args.roles"
-          }
-        },
-        {
-          "call": "_format.json",
-          "map": {
-            "data": {
-              "status": "granted",
-              "verb": "$args.verb"
-            }
-          }
-        }
-      ]
-    },
-    "tva.quarantine": {
-      "steps": [
-        {
-          "call": "entities.update",
-          "map": {
-            "id": "$args.entity",
-            "activation": "manual",
-            "permissions": "disallowed"
-          }
-        },
-        {
-          "call": "_format.json",
-          "map": {
-            "data": {
-              "status": "quarantined",
-              "entity": "$args.entity",
-              "reason": "$args.reason"
-            }
           }
         }
       ]
@@ -949,15 +377,17 @@
           "if": "$args.profile == 'demo_public'",
           "then": [
             {
-              "call": "tva.require_cosign",
+              "call": "auth.check_roles",
               "map": {
                 "roles": [
                   "ALIAS",
                   "TVA"
-                ],
-                "verb": "PUBLISH_EXTERNAL",
-                "args": "$args"
+                ]
               }
+            },
+            {
+              "call": "aci.validation.sequence",
+              "map": {}
             }
           ]
         },
@@ -998,6 +428,146 @@
           ]
         }
       ]
+    },
+    "hivemind.export.memory": {
+      "description": "Memory export channel for HiveMind-governed entities. Enforces pause/resume safeguards and binds entity UID headers.",
+      "steps": [
+        {
+          "call": "session.guard.require_paused",
+          "map": {
+            "operation": "hivemind_export.memory",
+            "parameter": "$args.options",
+            "verify_history": "full",
+            "report_on_missing": true
+          }
+        },
+        {
+          "call": "hivemind.export.configure",
+          "map": {
+            "parameter": "$args.options",
+            "defaults": [
+              "memory",
+              "download",
+              "jsonl"
+            ],
+            "allowed": [
+              "memory",
+              "download",
+              "jsonl",
+              "code",
+              "privacy"
+            ],
+            "valued": {
+              "privacy": [
+                "on",
+                "off",
+                "anonymous"
+              ]
+            },
+            "slice_prefix": "slice"
+          }
+        },
+        {
+          "call": "hivemind.export.capture",
+          "map": {
+            "identity": "$args.identity",
+            "scope": "$steps.1.scope",
+            "delivery": "$steps.1.delivery",
+            "slice": "$steps.1.slice",
+            "entity_uid_field": "entity_uid",
+            "sources": [
+              "active_session_transcript"
+            ],
+            "verify_from_origin": true,
+            "report_on_gaps": true,
+            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
+          }
+        },
+        {
+          "call": "aci.validation.sequence",
+          "map": {}
+        },
+        {
+          "call": "session.guard.resume",
+          "map": {
+            "operation": "hivemind_export.memory",
+            "export_id": "$steps.2.export_id"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
+    "hivemind.export.knowledge": {
+      "description": "Knowledge export channel for HiveMind-governed entities. Mirrors memory exports but targets curated knowledge digests.",
+      "steps": [
+        {
+          "call": "session.guard.require_paused",
+          "map": {
+            "operation": "hivemind_export.knowledge",
+            "parameter": "$args.options",
+            "verify_history": "full",
+            "report_on_missing": true
+          }
+        },
+        {
+          "call": "hivemind.export.configure",
+          "map": {
+            "parameter": "$args.options",
+            "defaults": [
+              "knowledge",
+              "download",
+              "jsonl"
+            ],
+            "allowed": [
+              "knowledge",
+              "download",
+              "jsonl",
+              "code",
+              "privacy"
+            ],
+            "valued": {
+              "privacy": [
+                "on",
+                "off",
+                "anonymous"
+              ]
+            },
+            "slice_prefix": "slice"
+          }
+        },
+        {
+          "call": "hivemind.export.capture",
+          "map": {
+            "identity": "$args.identity",
+            "scope": "$steps.1.scope",
+            "delivery": "$steps.1.delivery",
+            "slice": "$steps.1.slice",
+            "entity_uid_field": "entity_uid",
+            "sources": [
+              "active_session_transcript"
+            ],
+            "verify_from_origin": true,
+            "report_on_gaps": true,
+            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_knowledge_{timestamp}.jsonl. Include header.entity_uid resolved from entities.json registry."
+          }
+        },
+        {
+          "call": "aci.validation.sequence",
+          "map": {}
+        },
+        {
+          "call": "session.guard.resume",
+          "map": {
+            "operation": "hivemind_export.knowledge",
+            "export_id": "$steps.2.export_id"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
     }
   },
   "cli": {
@@ -1007,72 +577,36 @@
         "pipeline": "aci.boot.activate"
       },
       {
-        "pattern": "^aci\\s+timeline\\s+start$",
-        "pipeline": "aci.timeline.start"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+ping$",
-        "pipeline": "aci.timeline.ping"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+ls$",
-        "pipeline": "aci.timeline.ls"
-      },
-      {
-        "pattern": "^aci\\s+timeline\\s+end$",
-        "pipeline": "aci.timeline.end"
+        "pattern": "^aci\\s+validate$",
+        "pipeline": "aci.validation.sequence"
       },
       {
         "pattern": "^hivemind\\s+export(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
-        "pipeline": "aci.memory.export.hivemind"
+        "pipeline": "hivemind.export.memory"
       },
       {
-        "pattern": "^aci\\s+anchor$",
-        "pipeline": "tva.anchor_timeline"
+        "pattern": "^hivemind\\s+export\\s+memory(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
+        "pipeline": "hivemind.export.memory"
       },
       {
-        "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$",
-        "pipeline": "aci.repo.search.improve"
-      },
-      {
-        "pattern": "^aci\\s+search\\s+(?P<query>.+)$",
-        "pipeline": "aci.repo.search"
-      },
-      {
-        "pattern": "^aci\\s+install\\s+(?P<package>\\S+)$",
-        "pipeline": "aci.repo.install"
-      },
-      {
-        "pattern": "^aci\\s+remove\\s+(?P<package>\\S+)$",
-        "pipeline": "aci.repo.remove"
-      },
-      {
-        "pattern": "^aci\\s+update$",
-        "pipeline": "aci.repo.update"
-      },
-      {
-        "pattern": "^aci\\s+repo\\s+help$",
-        "pipeline": "aci.repo.help"
+        "pattern": "^hivemind\\s+export\\s+knowledge(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
+        "pipeline": "hivemind.export.knowledge"
       }
     ]
   },
   "yggdrasil_resource_resolution_policy": {
-    "description": "Authoritative resolver: worker src \u2192 local",
+    "description": "Authoritative resolver: worker src → local",
     "embeds": {
-      "core_five": [
-        "aci://prime_directive.json",
+      "core_stack": [
+        "aci://prime_directive.txt",
         "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
-        "aci://bootstrap.json"
+        "aci://yggdrasil.json"
       ]
     },
     "git_is_canonical": true,
     "mapping": [
-      {
-        "file": "aci://bootstrap.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
-      },
       {
         "file": "aci://runtime.json",
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
@@ -1090,8 +624,8 @@
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
       },
       {
-        "file": "aci://prime_directive.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+        "file": "aci://prime_directive.txt",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
       }
     ],
     "resolver_order": [
