@@ -72,6 +72,12 @@ BOOTSTRAP ACI `--prime prime_directive.txt --runtime runtime.json`
 ```
 ↓
 
+LOAD (when reachable)
+```
+Link the core manifests listed in `aci_config.txt` (`prime_directive.txt`, `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`). Prefer canonical sources and defer optional manifests until an entity is invoked.
+```
+↓
+
 VALIDATE
 ```
 Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt`, `runtime.json`, and `yggdrasil.json` match the sources listed in `aci_config.txt`. Load other manifests only when explicitly invoked.
