@@ -68,6 +68,8 @@ run programmatically :: do not response until instruction verified.
 BOOTSTRAP ACI
 --prime prime_directive.json
 --runtime runtime.json
+--include entities.json
+--include functions.json
 --include yggdrasil.json
 --include tva.json
 --include metacognition.json
@@ -84,29 +86,52 @@ file: "aci://./prime_directive.txt"
 raw: "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
 kind: system instruction manifest.
 &&
+@prime_directive.json
+name: "Prime Directive (JSON mirror)"
+file: "aci://./prime_directive.json"
+raw: "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+kind: machine mirror.
+&&
 @runtime.json
 name: ["Runtime", "aci_runtime"]
 manifest: "aci://./runtime.json"
 raw: "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
 kind: system runtime kernel.
 &&
+@entities.json
+name: "Entities Registry"
+file: "aci://./entities.json"
+raw: "https://raw.githubusercontent.com/aliasnet/aci/main/entities.json"
+kind: identity registry.
+&&
+@functions.json
+name: "Functions"
+file: "aci://./functions.json"
+raw: "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
+kind: pipeline manifest.
+&&
 @yggdrasil.json
 name: "Yggdrasil"
 manifest: "aci://./yggdrasil.json"
 raw: "https://raw.githubusercontent.com/aliasnet/aci/main/yggdrasil.json"
 kind: system file URI resolver.
+&&
+@entities/tva/tva.json
+name: "TVA"
+file: "aci://./entities/tva/tva.json"
+raw: "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json"
+kind: timeline governor.
+&&
+@aci_config.txt
+name: "ACI Config"
+file: "aci://./aci_config.txt"
+raw: "https://raw.githubusercontent.com/aliasnet/aci/main/aci_config.txt"
+kind: boot recipe; reinforces baseline when manifests are missing.
 
 [ DEPENDENCIES ]
 # Autoload "core_deps" stack on session; Defer if not found; non-blocking.
 
 core_deps:
-
-@tva.json
-name: "TVA"
-kind: entity
-file: "aci://./entities/tva/tva.json"
-raw: "https://raw.githubusercontent.com/aliasnet/aci/main/entities/tva/tva.json"
-role: semantic logic engine, full spec.
 
 @metacognition.json
 name: "Metacognition"

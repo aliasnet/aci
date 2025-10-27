@@ -530,7 +530,7 @@
             ],
             "verify_from_origin": true,
             "report_on_gaps": true,
-            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using leaf_identity_memory_{timestamp}.jsonl.json. Include header.entity_uid resolved from entities.json registry."
+            "notes": "Persist JSONL-formatted exports under memory/identity/{identity_path}/YYYY/MM/DD using {identity}_memory_{summary_slug}_{timestamp}.jsonl.json (falling back to assistant when the identity is unknown). Include header.entity_uid resolved from entities.json registry when available."
           }
         },
         {
