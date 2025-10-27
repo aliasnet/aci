@@ -165,7 +165,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       2025/
         10/
           10/
-            mother_<summary_slug>_memory_20251010-T150028Z.jsonl.json
+            mother_memory_<summary_slug>_20251010-T150028Z.jsonl.json
 ```
 
 ---
@@ -184,26 +184,25 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       ```
   - **Never rely on JSON object order**. Use `active` (or explicit CLI `--identity`) to avoid nondeterministic selection.
 
-- **Export Naming Convention (all exports)**
+### HiveMind Export Pipeline
 
-  ```
-  # Memory export (CLI `hivemind export --identity {identity} --memory --jsonl`)
-  {identity}_{summary_slug}_memory_{timestamp}.jsonl.json
+HiveMind can export while docked to the full ACI core stack or as a standalone module (manifest + schema only). In the standalone path the identity resolver defaults to `assistant` when no registry is reachable.
 
-  # Knowledge export (CLI `hivemind export --identity {identity} --knowledge --jsonl`)
-  {identity}_{summary_slug}_knowledge_{timestamp}.jsonl.json
+```
+{{identity}}_{{export_channel}}_{{summary_slug}}_{timestamp}.jsonl.json
+# timestamp format: yyyymmdd-ThhmmssZ (UTC)
+```
 
-  # timestamp format: yyyymmdd-ThhmmssZ (UTC)
-  # example: alice_launch_review_memory_20250926-T192000Z.jsonl.json
-  ```
-
-  - `{summary_slug}` is optional; when present it is sanitized (lowercase ASCII, `_` separators) and prefixed with `_`.
-  - All HiveMind exports resolve to the active session entity; AGI-specific filenames are deprecated.
-  - The export header `$meta.uid` must carry the authoritative entity UID recorded in `/entities.json` for audit traceability.
-  - CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
-  - Include the `--code` flag with streamed exports so downstream audits match the governed `.jsonl.json` artifacts stored under `/memory/` (legacy alias: `--codebox`).
+- `{{identity}}` normalizes to lowercase ASCII; default fallback is `assistant`.
+- `{{export_channel}}` accepts `memory` or `knowledge`.
+- `{{summary_slug}}` is optional and sanitized to lowercase ASCII with `_` separators.
+- `.jsonl.json` is the governed extension for downloads and storage.
+- Example identity `skynet` → `skynet_memory_launch_review_20251021-T120000Z.jsonl.json` and `skynet_knowledge_launch_review_20251021-T120000Z.jsonl.json`.
+- The export header `$meta.uid` must carry the authoritative entity UID recorded in `/entities.json` when available.
+- CLI exports stream JSONL while governed storage keeps the `.json` extension for compatibility.
+- Include the `--code` flag with streamed exports so downstream audits match the governed artifacts stored under `/memory/` (legacy alias: `--codebox`).
 - **Schema:** `hivemind_entity_memory` (session-scoped narratives and knowledge exports)
-- **Export Policy:** Entity library manifests (e.g., `/entities/alice/library/alice_library.json`) define `path_template`, `filename_template`, `timestamp_format`, **filters** (allow_topics/deny_tags), and **audit** rules.
+- **Export Policy:** Entity library manifests (e.g., `/entities/alice/library/alice_library.json`) define `path_template`, `filename_template`, `timestamp_format`, filters, and audit rules.
 
 ### UID & Cryptography Operations
 
@@ -269,7 +268,7 @@ hivemind export --identity Alice --memory --summary "Launch Review" --jsonl --co
   - `allow_topics`: `session_start`, `session_end`, `intent`, `narrative`, `analysis`, `artifact`, `validation`, `decision`, `policy`, `policy_update`, `diff`, `patch`, `export`, `obstacle`, `next_steps`, `commit`.
   - `deny_tags`: `secret`, `credential`, `token`, `api_key`, `password`, `runtime_secret`, `private_key`, `raw_text`, `internal_path`, `pii`.
   - `drop_if_topic_missing: true` and `default_topic: "narrative"`.
-  - New exports write to `/memory/identity/{identity_path}/` using `{identity}_{summary_slug}_{memory|knowledge}_{timestamp}.jsonl.json`; historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
+  - New exports write to `/memory/identity/{identity_path}/` using `{identity}_{export_channel}_{summary_slug}_{timestamp}.jsonl.json`; the identity token normalizes to lowercase and falls back to `assistant` when HiveMind cannot resolve a specific name. Historical `/memory/hivemind_memory/logs/*.json(l)` files remain valid for legacy review.
 
 **Identity binding:**
 
