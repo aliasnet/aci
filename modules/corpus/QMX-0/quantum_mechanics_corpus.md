@@ -102,7 +102,7 @@ EXECUTION:
   "artifacts": ["jsonl_units", "markdown_chapters", "pdf_print", "manifest", "checksum_table", "qmx-alpha-index"],
   "schemas": ["unit.v1", "index.v1", "manifest.v1"],
   "validation": {"strict": true, "emit_errata_on_fail": true},
-  "determinism": {"uid_order": true, "sha256_manifest": true}
+  "determinism": {"uid_order": true, "manifest_fingerprint": true}
 }
 ```
 
@@ -192,7 +192,7 @@ EXECUTION:
     "corpus_id": {"type": "string", "pattern": "ACI-QM-UOC"},
     "version": {"type": "string"},
     "artifacts": {"type": "array", "items": {"type": "string"}},
-    "checksums": {"type": "array", "items": {"type": "object", "properties": {"path": {"type": "string"}, "sha256": {"type": "string"}}}},
+    "checksums": {"type": "array", "items": {"type": "object", "properties": {"path": {"type": "string"}, "digest": {"type": "string"}}}},
     "signatures": {"type": "array", "items": {"type": "object", "properties": {"signer": {"type": "string"}, "algo": {"type": "string"}, "sig": {"type": "string"}}}}
   }
 }
@@ -223,7 +223,7 @@ EXECUTION:
 **Content addressing & integrity**
 
 * **Checksums:** SHA‑256 per file; rolling chunk checksums (64 MiB) for large assets.
-* **Signatures:** Ed25519 detached signatures (optional multi‑sig: ALIAS/TVA).
+* **Signatures:** Ed25519 detached signatures (optional multi‑sig: ALIAS/TVA/Sentinel).
 * **Parity:** PAR2 (10–20%) or Reed–Solomon parity set per bundle for damage recovery.
 
 **Archive containers**
@@ -311,13 +311,13 @@ Recommended: **CC‑BY 4.0** (or **CC0** if permissible) to maximize survivabili
 ### B. Example QMX‑Unit (minimal)
 
 ```json
-{"uid":"QMX-AB12CD34","version":"1.0.0","umbrella_id":1,"field_id":1,"title":"Postulates of QM","summary":"Axioms, Born rule, composition.","definitions":["State as ray in Hilbert space","Observable as self-adjoint operator"],"statements":["Born probability p(a)=Tr(ρΠ_a)","Composite systems via tensor product"],"equations":["p(a)=Tr(ρΠ_a)","[x,p]=iℏ"],"tests":[{"type":"dimensional","target":"[x,p]=iℏ","assert":"units(x)·units(p)=units(ℏ)"}],"checksum":"<sha256>"}
+{"uid":"QMX-AB12CD34","version":"1.0.0","umbrella_id":1,"field_id":1,"title":"Postulates of QM","summary":"Axioms, Born rule, composition.","definitions":["State as ray in Hilbert space","Observable as self-adjoint operator"],"statements":["Born probability p(a)=Tr(ρΠ_a)","Composite systems via tensor product"],"equations":["p(a)=Tr(ρΠ_a)","[x,p]=iℏ"],"tests":[{"type":"dimensional","target":"[x,p]=iℏ","assert":"units(x)·units(p)=units(ℏ)"}],"checksum":"<digest>"}
 ```
 
 ### C. Build Manifest (sketch)
 
 ```json
-{"corpus_id":"ACI-QM-UOC","version":"2.8.0","artifacts":["aci-qm-uoc.jsonl","aci-qm-uoc.pdf","qmx-alpha.json","manifest.json"],"checksums":[{"path":"aci-qm-uoc.jsonl","sha256":"..."}],"signatures":[{"signer":"ALIAS","algo":"ed25519","sig":"..."}]}
+{"corpus_id":"ACI-QM-UOC","version":"2.8.0","artifacts":["aci-qm-uoc.jsonl","aci-qm-uoc.pdf","qmx-alpha.json","manifest.json"],"checksums":[{"path":"aci-qm-uoc.jsonl","digest":"..."}],"signatures":[{"signer":"ALIAS","algo":"ed25519","sig":"..."}]}
 ```
 
 ---
@@ -485,7 +485,7 @@ A single JSON document `capabilities.v1.json` declares runtime abilities and sel
   },
   "capabilities_ref": "capabilities.v1.json",
   "validation": {"strict": true, "emit_errata_on_fail": true},
-  "determinism": {"uid_order": true, "sha256_manifest": true}
+  "determinism": {"uid_order": true, "manifest_fingerprint": true}
 }
 ```
 

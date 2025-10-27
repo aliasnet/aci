@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:FDdHdpwgdEGcRq",
-    "sha256": "4a225b034b6757e30ac9a2bb0525f0036b7d95ffbdec145e4fbfafddf3345194",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/oracle/predictive_divination_extension/plugins/qabalah.plugin.json"
   },

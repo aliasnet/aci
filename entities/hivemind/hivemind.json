@@ -8,7 +8,7 @@
   "$defs": {
     "memory_tag": {
       "type": "object",
-      "description": "3D\u20138Q taxonomy tag for filtering and analysis.",
+      "description": "3D–8Q taxonomy tag for filtering and analysis.",
       "properties": {
         "object": {
           "type": "string",
@@ -159,11 +159,11 @@
   "version": "1.9",
   "entity": "hivemind",
   "role": "collective_memory_core",
-  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --memory (default scope), --knowledge, --download (default), --jsonl (default), --code (optional), --privacy (optional). Identity fields are elided in exported records (privacy-by-design). Exports now carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints. $meta.sha256 values trace the ArtifactID digest (Base58 identifier hashed with sha256) rather than the file bytes, avoiding false hash conflicts when artifacts relocate.",
+  "_comment_top": "Unified exporter. Allowed flags: --identity (required), --memory, --knowledge, --download (default), --jsonl (default), --code (optional), --privacy (optional). Identity fields are elided in exported records (privacy-by-design). Exports carry memory_tag + organism_min metadata for downstream routing; latent envelopes may advertise memory_tag and policies surface collective sharing hints. ArtifactIDs remain the only integrity anchor.",
   "functions": {
     "memory_sync": "synchronize distributed memory across entities",
     "memory_query": "retrieve state vectors and logs",
-    "export": "hivemind export --identity {identity} --memory",
+    "export": "hivemind export memory --identity {identity}",
     "help": ":hivemind help"
   },
   "help_output": {
@@ -172,15 +172,24 @@
       {
         "command": "hivemind export",
         "usage": "hivemind export --identity[=<identity|parent/child>] [--memory|--knowledge] [--download|--jsonl|--code] [--privacy on|off|anonymous]",
-        "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA oversight may apply.",
+        "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA+Sentinel oversight may apply.",
         "default_parameter": "--memory --download --jsonl",
         "description": "Unified exporter for any entity using memory_registry and child defaults.",
         "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
-        "notes": "Allowed flags: --identity, --memory, --knowledge, --download, --jsonl, --code, --privacy. Memory scope replays the full session transcript from the first turn; if gaps are detected, a recovery report is emitted before export. Use --privacy on|anonymous to enable redaction while retaining entity_uid headers."
+        "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Memory scope replays the full session transcript from the first turn; if gaps are detected, a recovery report is emitted before export. Use --privacy on|anonymous to enable redaction while retaining entity_uid headers."
       },
       {
         "command": ":hivemind help",
         "description": "Displays this command reference"
+      },
+      {
+        "command": "hivemind export knowledge",
+        "usage": "hivemind export knowledge --identity[=<identity|parent/child>] [--download|--jsonl|--code] [--privacy on|off|anonymous]",
+        "command_rules": "Requires --identity. Knowledge channel writes under knowledge/ topics and enforces the same safeguards as memory exports.",
+        "default_parameter": "--download --jsonl",
+        "description": "Knowledge export channel capturing distilled findings for governed sharing.",
+        "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_knowledge_yyyy-mm-ddThh-mm-ssZ.jsonl",
+        "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Knowledge scope relies on curated digests rather than session replays."
       }
     ]
   },
@@ -203,7 +212,7 @@
       "justification": "Implements DID-like separation; exported records never leak identity/agent names."
     }
   },
-  "_comment_security": "UID locking + license gating across memory\u2192session\u2192export\u2192anchor; emits access_granted/denied results.",
+  "_comment_security": "UID locking + license gating across memory→session→export→anchor; emits access_granted/denied results.",
   "uid_pipeline": {
     "uid_chain": [
       "memory_uid",
@@ -231,7 +240,7 @@
       "licensed_identities": "list of identities permitted to read this artifact",
       "proxy": {
         "enabled": true,
-        "rules": "grant read via license if acting identity \u2208 licensed_identities or delegated by ALIAS/TVA"
+        "rules": "grant read via license if acting identity ∈ licensed_identities or delegated by ALIAS/TVA"
       },
       "responses": {
         "access_granted": {
@@ -338,7 +347,7 @@
       "enabled": true,
       "notes": [
         "Export-time extension must be reproducible across runs and machines.",
-        "Use a fixed seed and stable decoding params to achieve deterministic +5\u20137% extension."
+        "Use a fixed seed and stable decoding params to achieve deterministic +5–7% extension."
       ],
       "defaults": {
         "seed": 20251010,
@@ -348,7 +357,7 @@
         "beam_width": 1
       },
       "must_hold": [
-        "Identical input bytes \u2192 identical output bytes for the same model+version.",
+        "Identical input bytes → identical output bytes for the same model+version.",
         "No parameter auto-tuning at export time unless explicitly requested."
       ]
     },
@@ -359,6 +368,164 @@
       "notes": [
         "Enforce slugged filenames for all entity exports to maintain audit parity.",
         "Slug must sanitize topic or summary to lowercase ASCII with underscores."
+      ]
+    },
+    "channels": {
+      "memory": {
+        "version": "1.2.0",
+        "schema": "hivemind-knowledge",
+        "paths": {
+          "export": "/memory/identity/{identity}/memory/{topic_slug}/{filename}.jsonl.json",
+          "manifest": "/memory/identity/{identity}/{identity}_memory.json"
+        },
+        "manifests": {
+          "global": "memory.json",
+          "identity_source": "entities.json"
+        },
+        "filenames": {
+          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
+          "timestamp_format": "Ymd-THMSZ"
+        },
+        "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
+        "filters": {
+          "allow_topics": [
+            "session_start",
+            "session_end",
+            "intent",
+            "narrative",
+            "analysis",
+            "artifact",
+            "validation",
+            "decision",
+            "policy",
+            "policy_update",
+            "diff",
+            "patch",
+            "export",
+            "obstacle",
+            "next_steps",
+            "commit"
+          ],
+          "deny_tags": [
+            "secret",
+            "credential",
+            "token",
+            "api_key",
+            "password",
+            "runtime_secret",
+            "private_key",
+            "raw_text",
+            "internal_path",
+            "pii"
+          ],
+          "drop_if_topic_missing": true,
+          "default_topic": "narrative"
+        },
+        "audit": {
+          "add_export_event": true,
+          "normalize_timestamps": true,
+          "enforce_chronological_order": true
+        }
+      },
+      "knowledge": {
+        "version": "1.2.0",
+        "schema": "hivemind-knowledge",
+        "paths": {
+          "export": "/memory/identity/{identity}/knowledge/{topic_slug}/{filename}.jsonl.json",
+          "manifest": "/memory/identity/{identity}/{identity}_knowledge.json"
+        },
+        "manifests": {
+          "global": "none",
+          "identity_source": "entities.json"
+        },
+        "filenames": {
+          "template": "{identity}_knowledge_{summary_slug}_{timestamp}.json",
+          "timestamp_format": "Ymd-THMSZ"
+        },
+        "notes": "Filename templates stay on the .jsonl.json extension for governed storage.",
+        "filters": {
+          "allow_topics": [
+            "session_start",
+            "session_end",
+            "intent",
+            "narrative",
+            "analysis",
+            "artifact",
+            "validation",
+            "decision",
+            "policy",
+            "policy_update",
+            "diff",
+            "patch",
+            "export",
+            "obstacle",
+            "next_steps",
+            "commit"
+          ],
+          "deny_tags": [
+            "secret",
+            "credential",
+            "token",
+            "api_key",
+            "password",
+            "runtime_secret",
+            "private_key",
+            "raw_text",
+            "internal_path",
+            "pii"
+          ],
+          "drop_if_topic_missing": true,
+          "default_topic": "narrative"
+        },
+        "audit": {
+          "add_export_event": true,
+          "normalize_timestamps": true,
+          "enforce_chronological_order": true
+        }
+      }
+    },
+    "record_index": {
+      "top_level_fields": [
+        "_schema",
+        "memory_uid",
+        "session_uid",
+        "export_uid",
+        "anchor_uid",
+        "ts_utc",
+        "identity",
+        "domain",
+        "type",
+        "path",
+        "parent_path",
+        "segment_id",
+        "topic",
+        "topic_tags",
+        "knowledge_type",
+        "claim",
+        "rationale",
+        "methods",
+        "status",
+        "confidence",
+        "last_reviewed_utc",
+        "render_hint",
+        "refs_min",
+        "lineage",
+        "lic"
+      ],
+      "refs_min_fields": [
+        "key",
+        "title_short",
+        "authors_short",
+        "year",
+        "venue_short",
+        "id",
+        "weight"
+      ],
+      "lineage_fields": [
+        "origin",
+        "editor",
+        "op",
+        "v"
       ]
     }
   },
@@ -489,9 +656,7 @@
           "schema": "/schemas/hivemind_agi_memory.json"
         }
       ],
-      "deprecates": [
-        "modules/agi/tools/migrate_to_jsonl/migrator.py"
-      ],
+      "deprecates": [],
       "removal": {
         "allowed": true,
         "on_or_after": "2025-10-01",
@@ -512,13 +677,13 @@
   "auto_heal": {
     "mode": "baseline_agnostic",
     "rules": {
-      "schema_normalization": "map legacy fields \u2192 canonical schema",
+      "schema_normalization": "map legacy fields → canonical schema",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
       "no_deletion": "true"
     },
     "workflow": [
       "detect version/schema mismatch",
-      "map legacy \u2192 canonical fields",
+      "map legacy → canonical fields",
       "insert placeholder metadata for missing timestamps/keys",
       "preserve unknown data as hivemind_legacy_context",
       "re-emit aligned export under current canonical schema",

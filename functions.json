@@ -96,8 +96,53 @@
     }
   },
   "pipelines": {
+    "sentinel.audit": {
+      "description": "Emit Sentinel audit events as sanitized reasoning summaries (no TraceHub staging).",
+      "steps": [
+        {
+          "call": "date.iso8601",
+          "map": {}
+        },
+        {
+          "call": "object.compose",
+          "map": {
+            "object": {
+              "schema": "aci.audit.event.v1",
+              "ts": "$steps.0.iso",
+              "action": "$params.action",
+              "session_id": "$params.session_id",
+              "actor": "$params.actor",
+              "payload": "$params.payload",
+              "signature": "$params.signature",
+              "export_file": "$params.export_file"
+            }
+          }
+        },
+        {
+          "call": "_format.json",
+          "map": {
+            "data": "$steps.1.object"
+          }
+        }
+      ]
+    },
+    "sentinel.verify_signatures": {
+      "description": "Validate presence file signatures without the legacy audit router configuration.",
+      "steps": [
+        {
+          "call": "audit.signatures.check",
+          "map": {
+            "files": "$params.files",
+            "key_id": "$params.key_id"
+          }
+        },
+        {
+          "call": "_format.json"
+        }
+      ]
+    },
     "aci.boot.activate": {
-      "description": "Activation sequence: declare session ID, start presence beacon, anchor TVA, adopt legacy memory files. Never delete.",
+      "description": "Activation sequence: declare session ID, run Validation Sequence, adopt legacy memory files. Never delete.",
       "steps": [
         {
           "call": "aci-uuid.new",
@@ -117,44 +162,20 @@
           "map": {}
         },
         {
-          "call": "tva.anchor_timeline",
+          "call": "aci.validation.sequence",
           "map": {}
-        },
-        {
-          "call": "aci-sign.hmac",
-          "map": {
-            "payload": {
-              "session_id": "$steps.0.uuid",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900
-            },
-            "key_id": "aci-presence",
-            "algo": "HMAC-SHA256"
-          }
-        },
-        {
-          "call": "hivemind.write",
-          "map": {
-            "filename": "presence/${steps.0.uuid}.json",
-            "content": {
-              "session_id": "$steps.0.uuid",
-              "started_at": "$now",
-              "last_seen": "$now",
-              "entity_fingerprint": "$steps.2.entities[].id",
-              "anchor_key": "$steps.3.rollback_key",
-              "ttl_seconds": 900,
-              "signature": "$steps.4.signature",
-              "key_id": "aci-presence",
-              "final": false
-            }
-          }
         },
         {
           "call": "aci.legacy.adopt",
           "map": {}
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "activation",
+            "session_id": "$steps.0.uuid",
+            "presence_file": "presence/${steps.0.uuid}.json"
+          }
         },
         {
           "call": "_format.json"
@@ -162,7 +183,7 @@
       ]
     },
     "aci.legacy.adopt": {
-      "description": "Find legacy memory files (no beacons / old format), tag them immutable and anchor. Never delete.",
+      "description": "Find legacy memory files (no beacons / old format), tag them immutable, and record validation context. Never delete.",
       "steps": [
         {
           "call": "hivemind.list",
@@ -211,6 +232,13 @@
         {
           "call": "tva.anchor_timeline",
           "map": {}
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "legacy_adopt",
+            "migration_index": "legacy/migration_index_${now}.json"
+          }
         },
         {
           "call": "_format.json"
@@ -285,6 +313,13 @@
           }
         },
         {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "timeline.start",
+            "session_id": "${current_session_id}"
+          }
+        },
+        {
           "call": "_format.json"
         }
       ]
@@ -337,6 +372,13 @@
           }
         },
         {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "timeline.ping",
+            "session_id": "$steps.1.session_id"
+          }
+        },
+        {
           "call": "_format.json"
         }
       ]
@@ -356,6 +398,13 @@
             "files": "$steps.0",
             "ttl_from_field": "ttl_seconds",
             "now": "$now"
+          }
+        },
+        {
+          "call": "sentinel.verify_signatures",
+          "map": {
+            "files": "$steps.1.active",
+            "key_id": "aci-presence"
           }
         },
         {
@@ -416,6 +465,13 @@
         {
           "call": "tva.anchor_timeline",
           "map": {}
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "action": "timeline.end",
+            "session_id": "$steps.1.session_id"
+          }
         },
         {
           "call": "_format.json"
@@ -482,6 +538,14 @@
           "map": {}
         },
         {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "hivemind",
+            "action": "export.session",
+            "export_id": "$steps.2.export_id"
+          }
+        },
+        {
           "call": "session.guard.resume",
           "map": {
             "operation": "hivemind_export.session",
@@ -520,6 +584,14 @@
           "map": {
             "identity": "$args.identity",
             "options": "$args.options"
+          }
+        },
+        {
+          "call": "sentinel.audit",
+          "map": {
+            "layer": "hivemind",
+            "action": "export.integrated",
+            "job_id": "$steps.2.export_id"
           }
         },
         {
@@ -629,6 +701,50 @@
           "map": {
             "filename": "$steps.0.value"
           }
+        }
+      ]
+    },
+    "process.logs.reasoning_summary": {
+      "description": "Create a sanitized reasoning summary entry for audits without raw chain-of-thought.",
+      "steps": [
+        {
+          "call": "date.iso8601",
+          "map": {}
+        },
+        {
+          "call": "identity.resolve",
+          "map": {
+            "fallback": "AGI",
+            "param": "$params.identity"
+          }
+        },
+        {
+          "call": "object.compose",
+          "map": {
+            "object": {
+              "schema": "aci.process.reasoning_summary.v1",
+              "ts": "$steps.0.iso",
+              "identity": "$steps.1.identity",
+              "response": {
+                "id": "$params.response_id",
+                "summary": "$params.response_summary"
+              },
+              "reasoning": {
+                "steps": "$params.reasoning_steps",
+                "notes": "$params.notes"
+              }
+            }
+          }
+        },
+        {
+          "call": "json.schema.validate",
+          "map": {
+            "schema_file": "modules/audits/process_logs/process_logs.json#schema_definition",
+            "data": "$steps.2.object"
+          }
+        },
+        {
+          "call": "_format.json"
         }
       ]
     },
@@ -791,15 +907,17 @@
           "if": "$args.profile == 'demo_public'",
           "then": [
             {
-              "call": "tva.require_cosign",
+              "call": "auth.check_roles",
               "map": {
                 "roles": [
                   "ALIAS",
                   "TVA"
-                ],
-                "verb": "PUBLISH_EXTERNAL",
-                "args": "$args"
+                ]
               }
+            },
+            {
+              "call": "aci.validation.sequence",
+              "map": {}
             }
           ]
         },
@@ -840,43 +958,6 @@
           ]
         }
       ]
-    },
-    "audit.reasoning_summary": {
-      "description": "Emit sanitized reasoning summaries for governance audit trails without legacy wrappers.",
-      "steps": [
-        {
-          "call": "date.iso8601",
-          "map": {}
-        },
-        {
-          "call": "identity.resolve",
-          "map": {
-            "fallback": "AGI",
-            "param": "$params.identity"
-          }
-        },
-        {
-          "call": "object.compose",
-          "map": {
-            "object": {
-              "schema": "aci.process.reasoning_summary.v1",
-              "ts": "$steps.0.iso",
-              "identity": "$steps.1.identity",
-              "response": {
-                "id": "$params.response_id",
-                "summary": "$params.response_summary"
-              },
-              "reasoning": {
-                "steps": "$params.reasoning_steps",
-                "notes": "$params.notes"
-              }
-            }
-          }
-        },
-        {
-          "call": "_format.json"
-        }
-      ]
     }
   },
   "cli": {
@@ -914,44 +995,40 @@
         "pipeline": "aci.repo.search.improve"
       },
       {
-        "pattern": "^aci\\s+search\\s+(?P<query>.+)$",
-        "pipeline": "aci.repo.search"
+        "pattern": "^aci\\s+activate$",
+        "pipeline": "aci.boot.activate"
       },
       {
-        "pattern": "^aci\\s+install\\s+(?P<package>\\S+)$",
-        "pipeline": "aci.repo.install"
+        "pattern": "^aci\\s+validate$",
+        "pipeline": "aci.validation.sequence"
       },
       {
-        "pattern": "^aci\\s+remove\\s+(?P<package>\\S+)$",
-        "pipeline": "aci.repo.remove"
+        "pattern": "^hivemind\\s+export(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
+        "pipeline": "hivemind.export.memory"
       },
       {
-        "pattern": "^aci\\s+update$",
-        "pipeline": "aci.repo.update"
+        "pattern": "^hivemind\\s+export\\s+memory(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
+        "pipeline": "hivemind.export.memory"
       },
       {
-        "pattern": "^aci\\s+repo\\s+help$",
-        "pipeline": "aci.repo.help"
+        "pattern": "^hivemind\\s+export\\s+knowledge(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
+        "pipeline": "hivemind.export.knowledge"
       }
     ]
   },
   "yggdrasil_resource_resolution_policy": {
-    "description": "Authoritative resolver: worker src \u2192 local",
+    "description": "Authoritative resolver: worker src → local",
     "embeds": {
-      "core_five": [
-        "aci://prime_directive.json",
+      "core_stack": [
+        "aci://prime_directive.txt",
         "aci://runtime.json",
         "aci://entities.json",
         "aci://functions.json",
-        "aci://bootstrap.json"
+        "aci://yggdrasil.json"
       ]
     },
     "git_is_canonical": true,
     "mapping": [
-      {
-        "file": "aci://bootstrap.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/bootstrap.json"
-      },
       {
         "file": "aci://runtime.json",
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/runtime.json"
@@ -969,8 +1046,8 @@
         "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/functions.json"
       },
       {
-        "file": "aci://prime_directive.json",
-        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
+        "file": "aci://prime_directive.txt",
+        "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
       }
     ],
     "resolver_order": [

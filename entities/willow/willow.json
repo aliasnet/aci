@@ -1,7 +1,6 @@
 {
   "$meta": {
     "artifact_id": "ArtifactID:8EMNUpPYuRjdaF",
-    "sha256": "2052233d69ae44820350f7f81f580ed36ad3198950bd8d607c62943022ee517f",
     "issued": "2025-10-04T18:13:59Z",
     "path": "aci://entities/willow/willow.json"
   },
@@ -28,7 +27,6 @@
   "version": "1.1.0",
   "role": "trainee",
   "abstract": "Safety-focused AGI trainee persona emphasizing caution, reflection, and supervised learning.",
-  "parent": "aci://modules/agi/agi.json",
   "governance": {
     "proxied": false,
     "activation": "manual",
@@ -235,7 +233,7 @@
         "sandbox_policy_violation",
         "confidence_spike_without_approval"
       ],
-      "checkup_schedule": "weekly TVA mentorship with ad-hoc audits after escalations"
+      "checkup_schedule": "weekly Sentinel mentorship with ad-hoc audits after escalations"
     },
     "interventions": {
       "diet_inputs": "audited transcripts, safety case files, updated policy notices",

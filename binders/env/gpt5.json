@@ -2,8 +2,7 @@
   "$meta": {
     "artifact_id": "ArtifactID:CodexGPT5Binder001",
     "issued": "2025-10-05T00:00:00Z",
-    "path": "aci://binders/env/gpt5.json",
-    "sha256": "4b241e2fabbcc4c07396b7cf421fea62f144f92659a9b0f47de29df29e018cf7"
+    "path": "aci://binders/env/gpt5.json"
   },
   "abstract": "Deterministic GPT-5 compatibility binder that primes ACI entities with ChatGPT-native tool usage, mode awareness, and sandbox expectations.",
   "call": {
