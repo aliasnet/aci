@@ -570,10 +570,6 @@
           }
         },
         {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
           "call": "_manifest.add",
           "map": {
             "file": "aci_repo_manifest",
@@ -607,10 +603,6 @@
           }
         },
         {
-          "call": "tva.anchor_timeline",
-          "map": {}
-        },
-        {
           "call": "_format.json"
         }
       ]
@@ -641,10 +633,6 @@
           "map": {
             "meta": "$steps.1"
           }
-        },
-        {
-          "call": "tva.anchor_timeline",
-          "map": {}
         },
         {
           "call": "_manifest.update",
