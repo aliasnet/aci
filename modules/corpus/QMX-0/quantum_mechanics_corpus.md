@@ -223,7 +223,7 @@ EXECUTION:
 **Content addressing & integrity**
 
 * **Checksums:** SHA‑256 per file; rolling chunk checksums (64 MiB) for large assets.
-* **Signatures:** Ed25519 detached signatures (optional multi‑sig: ALIAS/governance council).
+* **Signatures:** Ed25519 detached signatures (optional multi‑sig: ALIAS/TVA/Sentinel).
 * **Parity:** PAR2 (10–20%) or Reed–Solomon parity set per bundle for damage recovery.
 
 **Archive containers**

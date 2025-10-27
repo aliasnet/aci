@@ -233,7 +233,7 @@
         "sandbox_policy_violation",
         "confidence_spike_without_approval"
       ],
-      "checkup_schedule": "weekly governance mentorship with ad-hoc safety reviews after escalations"
+      "checkup_schedule": "weekly Sentinel mentorship with ad-hoc audits after escalations"
     },
     "interventions": {
       "diet_inputs": "audited transcripts, safety case files, updated policy notices",

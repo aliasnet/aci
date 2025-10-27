@@ -170,11 +170,11 @@
     "title": "HiveMind Command Reference",
     "commands": [
       {
-        "command": "hivemind export memory",
-        "usage": "hivemind export memory --identity[=<identity|parent/child>] [--download|--jsonl|--code] [--privacy on|off|anonymous]",
-        "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA oversight may apply.",
-        "default_parameter": "--download --jsonl",
-        "description": "Memory export channel governed by HiveMind. Knowledge exports use `hivemind export knowledge`.",
+        "command": "hivemind export",
+        "usage": "hivemind export --identity[=<identity|parent/child>] [--memory|--knowledge] [--download|--jsonl|--code] [--privacy on|off|anonymous]",
+        "command_rules": "--identity required (supports --identity name or --identity=name). Exports pause session; TVA+Sentinel oversight may apply.",
+        "default_parameter": "--memory --download --jsonl",
+        "description": "Unified exporter for any entity using memory_registry and child defaults.",
         "output_default": "memory/identity/{identity_path}/yyyy/mm/dd/{leaf_identity_lower}_memory_yyyy-mm-ddThh-mm-ssZ.jsonl",
         "notes": "Allowed flags: --identity, --download, --jsonl, --code, --privacy. Memory scope replays the full session transcript from the first turn; if gaps are detected, a recovery report is emitted before export. Use --privacy on|anonymous to enable redaction while retaining entity_uid headers."
       },

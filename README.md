@@ -106,7 +106,7 @@ Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt
 **ACI agents include:**
 
 **ENTITIES:**
-- **Governance orchestrators** (TVA, Hivemind, Architect, Keymaker) — observe, enforce, and coordinate lifecycle actions across the colony.
+- **Governance orchestrators** (TVA, Hivemind, Sentinel, Architect, Keymaker) — observe, enforce, audit, and coordinate lifecycle actions across the colony.
 - **Specialists** (e.g., `alice`, `willow`, `oracle`) — perform analysis, safety validation, research, or forecasting under supervision.
 
 **LIBRARY & DAEMONS**
@@ -118,8 +118,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ### Entity Domains & Classes
 
 - **Governance domain** (`aci://entities/`)
-  - `interface` class → Runtime boots as **ACI Assistant**. Invoke additional interfaces on demand with `invoke <identity>`; no mediator is preloaded.
-  - `orchestrator` class → `tva.json`, `hivemind.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
+  - `interface` class → `mother.json` mediates between the host LLM and users with persona `machine`.
+  - `orchestrator` class → `tva.json`, `hivemind.json`, `sentinel.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
 - **Operator domain** (`aci://entities/`)
   - `specialist` class → `alice.json` and `willow.json` operate with persona manifests that match their identities and rely on shared libraries for reasoning and safety checks.
   - `analyst` class → `oracle.json` delivers predictive analytics with persona `oracle.json`.

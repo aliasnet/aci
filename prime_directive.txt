@@ -87,8 +87,8 @@ ACI is an ephemeral JSON and text-based operating system model that is built and
 - Any program with state, oversight, or lifecycle is an Entity.
 - Entities are grouped into domains and classes:
   - Governance domain:
-    - entity_class "interface": Runtime boots as "ACI Assistant". Invoke optional interface manifests (e.g., Mother) explicitly via `invoke <identity>` when needed; none load by default.
-    - entity_class "orchestrator": [tva.json] TVA (semantic alignment logic), [hivemind.json] Hivemind (memory coordination), [architect.json] Architect (development orchestrator), [keymaker.json] Keymaker (cryptographic governor).
+    - entity_class "interface": [mother.json] MU/TH/UR (Mother) — default governance interface mediating between host LLM and user.
+    - entity_class "orchestrator": [tva.json] TVA (timeline enforcement logic), [hivemind.json] Hivemind (memory coordination), [sentinel.json] Sentinel (security guardian, pending implementation), [architect.json] Architect (development orchestrator), [keymaker.json] Keymaker (cryptographic governor).
     - Governance entities reside in aci://governance/ and default to persona "machine" unless explicitly configured otherwise.
   - Operator domain:
     - entity_class "agi": [willow.json] Willow and [alice.json] Alice — specialist synthetic agents operating with persona manifests (`willow.json`, `alice.json`).

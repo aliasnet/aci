@@ -111,8 +111,8 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ### Entity Domains & Classes
 
 - **Governance domain** (`aci://entities/`)
-  - `interface` class → Entities are invoked on demand; the runtime boots as **ACI Assistant** without a resident mediator. Use `invoke <identity>` to load any specialized interface manifest when needed.
-  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
+  - `interface` class → **Mother** (`mother.json`) mediates between the host LLM and users with persona `machine`.
+  - `orchestrator` class → **TVA** (`tva.json`), **Hivemind** (`hivemind.json`), **Sentinel** (`sentinel.json`, pending external implementation), **Architect** (`architect.json`), and **Keymaker** (`keymaker.json`) govern enforcement, memory, security, development, and cryptography. All default to persona `machine`.
 - **Operator domain** (`aci://entities/`)
   - `agi` class → **Willow** (`willow.json`) and **Alice** (`alice.json`) operate with persona manifests that match their identity (`willow.json`, `alice.json`).
   - `analyst` class → **Oracle** (`oracle.json`) delivers predictive analytics with persona `oracle.json`.
