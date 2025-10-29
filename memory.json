@@ -34,7 +34,7 @@
       "allow_entity_override": false
     }
   },
-  "notes": "This manifest declares HiveMind as the canonical authority for system-wide memory exports and JSONL migration. Keep AGI-specific schemas and tools under modules/agi/ and mark them local_only. In case of an emergency, ALIAS/TVA/Sentinel can promote an entity schema to system-level via an explicit signed operation. Legacy exports remain valid but must be upgraded with entity_uid before distribution. Identity memory manifests now reside under aci://memory/identity/<identity_path>/ to centralize governance. $meta.sha256 entries here and in subordinate manifests encode the sha256 digest of the Base58 ArtifactID, not a file checksum, ensuring relocations do not spur false integrity alarms.",
+  "notes": "This manifest declares HiveMind as the canonical authority for system-wide memory exports and JSONL migration. Entity-specific schemas must be clearly scoped and marked local_only when not governed by HiveMind. In case of an emergency, only ALIAS can promote an entity schema to system-level via an explicit signed operation; TVA may advise on validation but holds no promotion authority, and Sentinel has been fully retired from this chain. Legacy exports remain valid but must be upgraded with entity_uid before distribution. Identity memory manifests now reside under aci://memory/identity/<identity_path>/ to centralize governance. $meta.sha256 entries here and in subordinate manifests encode the sha256 digest of the Base58 ArtifactID, not a file checksum, ensuring relocations do not spur false integrity alarms.",
   "changelog": [
     {
       "version": "2025-10-07.00",

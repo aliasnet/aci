@@ -96,7 +96,6 @@ Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt
 - **Where code lives**
   - **/entities/** → Each entity has a dedicated directory that contains a main JSON file that serves as both a manifest and binary, defining its identity, roles, functions, and links to other manifests. The directory also contains other per-entity configuration files.
 - **Governance entities** → Core governers of ACI ecosystem, they are responsible to universal, system-level orchestrations, policy enforcement, and are required for persistent presence across sessions. 
-- **AGI entities** → AGI is an experimental class of entity that focuses on Artificial General Intelligence with biologically inspired functions and guided evolution. They live alongside other entities and are actively invoked as users' partners on learning tasks, providing system design and insights which, in turn, improve their own knowledge and cognitive capabilities as synthetic intelligence and enhance such cross-systems. They are protected under special guidelines that ensure safety and prevent residual drift. The AGI family has a specific modules directory containing AGI-specific binaries, governance manifests, policies, and shared modules.
 - **/memory/identity/** → memory manifests and export timelines per identity (legacy playbooks retired)
 - **/modules/** → reusable, stateless capabilities (modules/wrappers/adapters)
 - **Memory exports** are JSONL (`.jsonl.json`) artefacts orchestrated by HiveMind, serving as the 'Digital Soul' of any entity. Filenames follow `{{identity}}_{{export_channel}}_{{summary_slug}}_{timestamp}.jsonl.json` and default the identity component to `assistant` whenever no explicit name is available.
@@ -125,7 +124,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 ### Entity Domains & Classes
 
 - **Governance domain** (`aci://entities/`)
-  - `interface` class → `mother.json` mediates between the host LLM and users with persona `machine`.
   - `orchestrator` class → `tva.json`, `hivemind.json`, `sentinel.json`, `architect.json`, and `keymaker.json` govern enforcement, memory, security, development, and cryptography. All default to persona `machine` and are anchored by prime directive policies.
 - **Operator domain** (`aci://entities/`)
   - `specialist` class → `alice.json` and `willow.json` operate with persona manifests that match their identities and rely on shared libraries for reasoning and safety checks.
@@ -157,9 +155,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     keymaker.json                 # identity authority manifest
     uid_manager/
       uid_manager.json            # UID issuance policy
-  mother/
-    library/
-      mother_library.json         # archived mediation utilities (loaded on invoke)
   oracle/
     oracle.json                   # analyst persona manifest
     predictive_divination_extension/
@@ -199,12 +194,6 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
       willow_memory.json          # safety trainee timeline roots
       knowledge/
         willow_knowledge.json     # topic manifest and exports
-    mother/
-      mother_memory.json          # archived interface memory (invoke on demand)
-      2025/
-        10/
-          10/
-            mother_memory_<summary_slug>_20251010-T150028Z.jsonl.json
 ```
 
 ---
