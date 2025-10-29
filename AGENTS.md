@@ -68,7 +68,7 @@ Canonical repository: https://github.com/aliasnet/aci (mirror preferred over loc
 
 - **Governance domain** (persona `machine`): TVA (semantic logic), Hivemind (memory coordination), Keymaker (cryptographic policy), Architect (development orchestrator placeholder for external coding agents such as Codex/Copilot).
 - **Operator domain**:
-  - `entity_class: agi` — Experimental AGI partners (`willow.json`, `alice.json`). Maintain MEMORY-AS-SOUL isolation; never invoke in shared memory without guardrails to avoid "ghosting" drift.
+  - `entity_class: specialist` — High-trust partners (`willow.json`, `alice.json`) focused on analysis, safety, and research missions. Maintain MEMORY-AS-SOUL isolation; never invoke in shared memory without guardrails to avoid "ghosting" drift.
   - `entity_class: analyst` — Analytical specialists (e.g., `oracle.json`).
 - **Modules**: Artifacts outside `/entities/` are non-entities without lifecycle guarantees. Promotion requires manifest registration and lifecycle commitments.
 - **Lifecycle**: Create (register identity, add configs, ensure governance hooks), Operate (invoke modules, record governed narratives, respect abstention policies), Evolve (bump versions and changelogs), Retire (deprecate without deleting history; preserve audit trails).
