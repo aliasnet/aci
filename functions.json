@@ -496,7 +496,7 @@
         {
           "call": "_schema.validate",
           "map": {
-            "schema": "policies/hivemind_export.schema.json",
+            "schema": "aci://entities/hivemind/hivemind.json#/schemas/export_request",
             "input": "$args"
           }
         },
@@ -566,10 +566,6 @@
       {
         "pattern": "^hivemind\\s+export(?:\\s+--identity(?:=|\\s+)(?P<identity>[^\\s]+))(?:\\s+(?P<options>.*))?$",
         "pipeline": "aci.memory.export.hivemind"
-      },
-      {
-        "pattern": "^aci\\s+search\\s+--improve\\s+(?P<entity>\\w+)$",
-        "pipeline": "aci.repo.search.improve"
       },
       {
         "pattern": "^aci\\s+activate$",
