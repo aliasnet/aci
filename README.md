@@ -351,7 +351,7 @@ hivemind export knowledge --identity willow --jsonl --code --force
 3. **Export**:
    - Use policy-driven CLI; verify filters & identity.
 4. **Retire**:
-   - Do not delete history; mark deprecated; keep memory immutable.
+  - Do not delete history; mark deprecated; keep memory tamper-evident/read-only.
 
 ---
 

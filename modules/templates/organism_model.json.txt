@@ -234,7 +234,7 @@
     ],
     "audits": {
       "randomized_known_label_tests": true,
-      "immutable_traces": true,
+      "tamper_evident_traces": true,
       "drift_threshold": {
         "abs_ECE_increase": 0.02,
         "meta_AUROC_drop": 0.05
