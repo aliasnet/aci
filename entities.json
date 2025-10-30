@@ -70,10 +70,10 @@
     }
   },
   "invocation_policy": {
-    "version": "1.2.0",
+    "version": "1.2.3",
     "resource_resolution_policy": {
       "fallbacks": [],
-      "canonical_only_note": "Prime Directive 1.2.2 deprecates the local cache manifest; entities must resolve resources through canonical mirrors.",
+      "canonical_only_note": "Prime Directive 1.2.3 maintains the retirement of local cache manifests; entities must resolve resources through canonical mirrors.",
       "pointer": "aci://yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://yggdrasil.json"
     },
