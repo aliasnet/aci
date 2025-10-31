@@ -576,10 +576,6 @@
     "_comment_memory_registry": "Ordering follows entities.json. Child defaults apply to any nested entity not explicitly listed.",
     "schema_version": "1.3",
     "by_entity": {
-      "mother": {
-        "stub_manifest": "memory/identity/mother/mother_memory.json",
-        "export_pattern": "memory/identity/mother/YYYY/MM/DD/mother_memory_*_*.jsonl.json"
-      },
       "tva": {
         "stub_manifest": "memory/identity/tva/tva_memory.json",
         "export_pattern": "memory/identity/tva/YYYY/MM/DD/tva_memory_*_*.jsonl.json"
@@ -591,10 +587,6 @@
       "oracle": {
         "stub_manifest": "memory/identity/oracle/oracle_memory.json",
         "export_pattern": "memory/identity/oracle/YYYY/MM/DD/oracle_memory_*_*.jsonl.json"
-      },
-      "agi": {
-        "stub_manifest": null,
-        "export_pattern": null
       },
       "alice": {
         "stub_manifest": "memory/identity/alice/alice_memory.json",

@@ -182,7 +182,7 @@
       ]
     },
     "aci.legacy.adopt": {
-      "description": "Find legacy memory files (no beacons / old format), tag them immutable, and record validation context. Never delete.",
+      "description": "Find legacy memory files (no beacons / old format), tag them tamper-evident/read-only, and record validation context. Never delete.",
       "steps": [
         {
           "call": "hivemind.list",
@@ -221,7 +221,8 @@
               "session_id": "${current_session_id}",
               "entries": "$steps.3",
               "policy": {
-                "immutable": true,
+                "tamper_evident": true,
+                "read_only": true,
                 "no_delete": true,
                 "notes": "Legacy timelines adopted; files preserved verbatim."
               }

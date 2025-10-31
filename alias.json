@@ -46,8 +46,7 @@
       "root_user": "alias [u-000]",
       "architect": "orchestrates patches and updates",
       "sentinel": "safeguards privacy, survival, and stability",
-      "tva": "enforces anomaly control and runtime authority",
-      "mother": "serves as governance interface"
+      "tva": "enforces anomaly control and runtime authority"
     },
     "identity_rules": {
       "case_sensitive": true,

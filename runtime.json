@@ -33,7 +33,7 @@
     },
     "resource_resolution_policy": {
       "fallbacks": [],
-      "canonical_only_note": "Prime Directive 1.2.2 removed the local cache fallback; runtime now resolves exclusively through canonical sources or registered mirrors.",
+      "canonical_only_note": "Prime Directive 1.2.3 reaffirms the removal of local cache fallbacks; runtime resolves exclusively through canonical sources or registered mirrors.",
       "pointer": "aci://yggdrasil.json#resource_resolution_policy",
       "upstream": "aci://yggdrasil.json",
       "yggdrasil_resource_resolution_policy": {
@@ -192,7 +192,7 @@
       "notes": "Runtime boots as the base assistant; invoke specialized entities explicitly when needed."
     },
     "priority": "canonical_raw_over_local",
-    "notes": "Canonical raw GitHub URLs take precedence over local copies; fall back to local only if canonical mirrors are unavailable and policy permits. Enforcement Note: Follow Prime Directive 1.2.2 override procedures before runtime dispatch or override handling.",
+    "notes": "Canonical raw GitHub URLs take precedence over local copies; fall back to local only if canonical mirrors are unavailable and policy permits. Enforcement Note: Follow Prime Directive 1.2.3 override procedures before runtime dispatch or override handling.",
     "cognitive_decision_guidance": {
       "version": "1.0",
       "scope": "universal",
@@ -302,7 +302,7 @@
         "allow_registry_bypass": true,
         "constraints": [
           "only when issuer authenticated as root authority (ALIAS)",
-          "all bypassed executions must produce immutable audit entries",
+          "all bypassed executions must produce tamper-evident, append-only audit entries",
           "sensitive resources may require multi-party approval as configured by semantic governance logic"
         ]
       },
