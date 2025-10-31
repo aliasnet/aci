@@ -657,7 +657,7 @@
         },
         {
           "op": "validate",
-          "schema": "/schemas/hivemind_agi_memory.json"
+          "schema": "aci://entities/hivemind/hivemind.json#/$defs/record_contract"
         }
       ],
       "deprecates": [],
