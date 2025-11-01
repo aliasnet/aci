@@ -832,7 +832,7 @@
         "functions.json",
         "yggdrasil.json",
         "entities/tva/tva.json",
-        "aci_config.txt"
+        "instructions/instructions.txt"
       ],
       "notes": [
         "Preferred integration path when HiveMind operates inside the full ACI runtime stack.",

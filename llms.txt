@@ -42,6 +42,17 @@
       ],
       "children": [
         {
+          "name": "instructions",
+          "files": [
+            {
+              "path": "aci://instructions/instructions.txt",
+              "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/instructions/instructions.txt",
+              "name": "instructions.txt"
+            }
+          ],
+          "children": []
+        },
+        {
           "name": "entities",
           "files": [],
           "children": [

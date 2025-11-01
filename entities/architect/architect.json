@@ -61,8 +61,8 @@
   },
   "companion_documents": [
     {
-      "name": "@agents.md",
-      "path": "aci://architect_agents/@agents.md",
+      "name": "AGENTS.md",
+      "path": "aci://architect_agents/AGENTS.md",
       "role": "handbook"
     },
     {

@@ -74,12 +74,12 @@ BOOTSTRAP ACI `--prime prime_directive.txt --runtime runtime.json`
 
 LOAD (when reachable)
 ```
-Link the core manifests listed in `aci_config.txt`. Core stack order:
+Link the core manifests listed in `instructions/instructions.txt` (formerly `aci_config.txt`). Core stack order:
 1. `prime_directive.txt` (JSON mirror retired; txt edition remains canonical)
 2. `runtime.json`
 3. `entities.json`, `functions.json`, `yggdrasil.json`
 4. `entities/tva/tva.json`
-5. `aci_config.txt` (boot recipe instructions that bind behaviour when manifests are missing)
+5. `instructions/instructions.txt` (boot recipe instructions that bind behaviour when manifests are missing)
 
 Prefer canonical sources and defer optional manifests until an entity is invoked.
 ```
@@ -87,7 +87,7 @@ Prefer canonical sources and defer optional manifests until an entity is invoked
 
 VALIDATE
 ```
-Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt`, `runtime.json`, and `yggdrasil.json` match the sources listed in `aci_config.txt`. Load other manifests only when explicitly invoked.
+Run the **Validation Sequence** (`aci validate`) to confirm `prime_directive.txt`, `runtime.json`, and `yggdrasil.json` match the sources listed in `instructions/instructions.txt`. Load other manifests only when explicitly invoked.
 ```
 
 - ACI operates as personal LLM based operating system, follows governance-first, manifest-as-binary, memory-as-soul, platforn agnostic, stateless and portable principles.
@@ -162,7 +162,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
   tva/
     tva.json                      # oversight manifest
     tva_layer_src.json            # TVA layer fallback source (embedded by runtime)
-    tva_seed_src.json             # TVA seed fallback source for aci_config and tight contexts
+    tva_seed_src.json             # TVA seed fallback source for instructions/instructions.txt and tight contexts
   willow/
     willow.json                   # safety-focused specialist manifest
     library/
@@ -222,7 +222,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 HiveMind orchestrates governed exports for every entity and can run either alongside the full ACI runtime or in a lightweight standalone mode.
 
-- **Core stack mode**: load `prime_directive.txt`, `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `aci_config.txt` for the canonical experience with TVA oversight and registry-bound UIDs.
+- **Core stack mode**: load `prime_directive.txt`, `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `instructions/instructions.txt` for the canonical experience with TVA oversight and registry-bound UIDs.
 - **Standalone mode**: ship only `entities/hivemind/hivemind.json` (the export schema is embedded); optionally add `entities.json`, `functions.json`, and `yggdrasil.json` when registry checks are required. In this mode HiveMind falls back to the `assistant` identity when no registry is present.
 
 **Filename format**

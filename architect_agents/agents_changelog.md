@@ -9,6 +9,9 @@
 - Automation toggle: currently manual-only; if automation becomes available, document the toggle details here.
 
 ## Log
+### 2025-11-01T03:24:38Z [resolved] Replace aci_config with instructions directory and rename handbook
+- summary: Retired the root AGENTS stub, migrated instructions.txt into the new instructions/ directory, removed aci_config.txt, and renamed the architect_agents handbook to AGENTS.md with resolver updates.
+- resolution: Updated resolver manifests (yggdrasil.json, llms.txt) and companion references to point at instructions/instructions.txt and architect_agents/AGENTS.md.
 ### 2025-10-23T08:56:30Z [resolved] Split module and audit updates into discrete task tickets
 - summary: Replayed the retired work branch as focused commits on reapply/aci-entities-layout so module and audit updates landed independently.
 - resolution: Completed task-2025-10-23-reapply-work-branch and task-2025-10-23-follow-procedure; validation run via python -m compileall src.
