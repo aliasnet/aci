@@ -8,7 +8,7 @@
   "$defs": {
     "memory_tag": {
       "type": "object",
-      "description": "3D–8Q taxonomy tag for filtering and analysis.",
+      "description": "3D\u20138Q taxonomy tag for filtering and analysis.",
       "properties": {
         "object": {
           "type": "string",
@@ -141,11 +141,12 @@
   "permissions": {
     "read": true,
     "write": {
-      "allowed": false,
+      "allowed": true,
       "export": {
         "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
+        "description": "Writing and exporting require explicit user authorization; operations proceed only with user approval."
+      },
+      "user_authorization_required": true
     },
     "execute": {
       "allowed": true,
@@ -212,7 +213,7 @@
       "justification": "Implements DID-like separation; exported records never leak identity/agent names."
     }
   },
-  "_comment_security": "UID locking + license gating across memory→session→export→anchor; emits access_granted/denied results.",
+  "_comment_security": "UID locking + license gating across memory\u2192session\u2192export\u2192anchor; emits access_granted/denied results.",
   "uid_pipeline": {
     "uid_chain": [
       "memory_uid",
@@ -240,7 +241,7 @@
       "licensed_identities": "list of identities permitted to read this artifact",
       "proxy": {
         "enabled": true,
-        "rules": "grant read via license if acting identity ∈ licensed_identities or delegated by ALIAS/TVA"
+        "rules": "grant read via license if acting identity \u2208 licensed_identities or delegated by ALIAS/TVA"
       },
       "responses": {
         "access_granted": {
@@ -353,7 +354,7 @@
       "enabled": true,
       "notes": [
         "Export-time extension must be reproducible across runs and machines.",
-        "Use a fixed seed and stable decoding params to achieve deterministic +5–7% extension."
+        "Use a fixed seed and stable decoding params to achieve deterministic +5\u20137% extension."
       ],
       "defaults": {
         "seed": 20251010,
@@ -363,7 +364,7 @@
         "beam_width": 1
       },
       "must_hold": [
-        "Identical input bytes → identical output bytes for the same model+version.",
+        "Identical input bytes \u2192 identical output bytes for the same model+version.",
         "No parameter auto-tuning at export time unless explicitly requested."
       ]
     },
@@ -681,13 +682,13 @@
   "auto_heal": {
     "mode": "baseline_agnostic",
     "rules": {
-      "schema_normalization": "map legacy fields → canonical schema",
+      "schema_normalization": "map legacy fields \u2192 canonical schema",
       "preserve_unknown": "keep unmatched fields under hivemind_legacy_context",
       "no_deletion": "true"
     },
     "workflow": [
       "detect version/schema mismatch",
-      "map legacy → canonical fields",
+      "map legacy \u2192 canonical fields",
       "insert placeholder metadata for missing timestamps/keys",
       "preserve unknown data as hivemind_legacy_context",
       "re-emit aligned export under current canonical schema",
@@ -826,7 +827,6 @@
     "aci_core_stack": {
       "requires": [
         "prime_directive.txt",
-        "prime_directive.json",
         "runtime.json",
         "entities.json",
         "functions.json",

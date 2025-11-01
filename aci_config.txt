@@ -66,7 +66,7 @@ upon display :: use `[[ DATA REPORTS ]]`.
 run programmatically :: do not response until instruction verified.
 
 BOOTSTRAP ACI
---prime prime_directive.json
+--prime prime_directive.txt
 --runtime runtime.json
 --include entities.json
 --include functions.json
@@ -85,12 +85,6 @@ name: ["Prime Directive", "prime_directive"]
 file: "aci://./prime_directive.txt"
 raw: "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
 kind: system instruction manifest.
-&&
-@prime_directive.json
-name: "Prime Directive (JSON mirror)"
-file: "aci://./prime_directive.json"
-raw: "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
-kind: machine mirror.
 &&
 @runtime.json
 name: ["Runtime", "aci_runtime"]

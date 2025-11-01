@@ -7,11 +7,12 @@
   "permissions": {
     "read": true,
     "write": {
-      "allowed": false,
+      "allowed": true,
       "export": {
         "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
+        "description": "Writing and exporting require explicit user authorization; operations proceed only with user approval."
+      },
+      "user_authorization_required": true
     },
     "execute": {
       "allowed": true,

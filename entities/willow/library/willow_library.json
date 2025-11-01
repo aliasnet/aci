@@ -12,8 +12,8 @@
     {
       "name": "consciousness_structural_modular_v17",
       "type": "article",
-      "title": "What Is Consciousness? A Structural‑Modular Synthesis (V17)",
-      "source": "aci://entities/willow/library/articles/What Is Consciousness? A Structural‑Modular Synthesis (V17).md",
+      "title": "What Is Consciousness? A Structural\u2011Modular Synthesis (V17)",
+      "source": "aci://entities/willow/library/articles/What Is Consciousness? A Structural\u2011Modular Synthesis (V17).md",
       "tags": [
         "consciousness",
         "framework",
@@ -28,22 +28,5 @@
       "source": "aci://entities/willow/willow.json",
       "status": "primary"
     }
-  ],
-  "module_permissions": {
-    "read": true,
-    "write": {
-      "allowed": false,
-      "export": {
-        "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
-    },
-    "execute": {
-      "allowed": true,
-      "sandboxed": {
-        "enabled": true,
-        "description": "Execution is permitted only within a controlled sandboxed environment."
-      }
-    }
-  }
+  ]
 }

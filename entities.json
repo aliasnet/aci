@@ -119,11 +119,12 @@
   "permissions": {
     "read": true,
     "write": {
-      "allowed": false,
+      "allowed": true,
       "export": {
         "enabled": true,
-        "description": "Data can be exported to ephemeral mounts (e.g., /mnt) but cannot be directly written or modified on the canonical baseline."
-      }
+        "description": "Writing and exporting require explicit user authorization; operations proceed only with user approval."
+      },
+      "user_authorization_required": true
     },
     "execute": {
       "allowed": true,
@@ -222,9 +223,9 @@
           "revoked": null
         }
       ],
-      "class": "system_entity",
-      "role": "development orchestrator",
-      "abstract": "oversees development orchestration, patching, and sandbox runs",
+      "class": "operator_entity",
+      "role": "operator_integration_orchestrator",
+      "abstract": "Interfaces the internal ACI Assistant runtime with external coding agents for orchestrated development workflows.",
       "knowledge": "software architecture & continuous delivery practices",
       "functions": [
         6104,
@@ -243,10 +244,10 @@
       ],
       "allowed_roles": [
         "developer",
-        "orchestrator"
+        "architect"
       ],
-      "entity_domain": "governance",
-      "entity_class": "orchestrator",
+      "entity_domain": "operator",
+      "entity_class": "architect",
       "persona": "machine",
       "active": true,
       "session_scope": "per_session",

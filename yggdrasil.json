@@ -5,27 +5,18 @@
     "path": "aci://yggdrasil.json",
     "file": "yggdrasil.json"
   },
-  "permissions": {
-    "read": true,
-    "write": {
-      "allowed": false,
-      "export": {
-        "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
-    },
-    "execute": {
-      "allowed": true,
-      "sandboxed": {
-        "enabled": true,
-        "description": "Execution is permitted only within a controlled sandboxed environment."
-      }
-    }
-  },
   "uid": "UID:VGpYGJwtbdHQHp",
   "yggdrasil": {
     "alias": "Yggdrasil",
     "changelog": [
+      {
+        "changes": [
+          "Registered architect_agents companion directory and acknowledged removal of prime_directive.json mirror.",
+          "Reaffirmed Yggdrasil as index/resolver module without direct write permissions."
+        ],
+        "date": "2025-10-28",
+        "version": "1.4.0"
+      },
       {
         "changes": [
           "Registered binders manifest as canonical resource for GPT compatibility layers."
@@ -61,10 +52,10 @@
     "references": {
       "policy": "aci://yggdrasil.json"
     },
-    "role": "authoritative repository and CDN resolver",
-    "version": "1.3.0",
+    "role": "index_resolver_module",
+    "version": "1.4.0",
     "yggdrasil_resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src → local",
+      "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
         "core_stack": [
           "aci://prime_directive.txt",
@@ -136,11 +127,6 @@
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/memory.json"
           },
           {
-            "name": "prime_directive.json",
-            "path": "aci://prime_directive.json",
-            "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json"
-          },
-          {
             "name": "prime_directive.txt",
             "path": "aci://prime_directive.txt",
             "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
@@ -152,6 +138,27 @@
           }
         ],
         "children": [
+          {
+            "name": "architect_agents",
+            "files": [
+              {
+                "name": "@agents.md",
+                "path": "aci://architect_agents/@agents.md",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/architect_agents/@agents.md"
+              },
+              {
+                "name": "agents_changelog.md",
+                "path": "aci://architect_agents/agents_changelog.md",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/architect_agents/agents_changelog.md"
+              },
+              {
+                "name": "agents_instructions.txt",
+                "path": "aci://architect_agents/agents_instructions.txt",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/architect_agents/agents_instructions.txt"
+              }
+            ],
+            "children": []
+          },
           {
             "name": "entities",
             "files": [],
@@ -682,11 +689,11 @@
       "logic": [
         "text-only control layer",
         "autoboot on tokenization",
-        "Node-only outputs; ≤7 steps; no tools. I=input, G=goal; delta_s=1−cos(I,G); if anchors: use (1−sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40–0.60 risk 0.60–0.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda∈{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev−delta_s_now); P=pow(prog,omega); alt∈{+1,−1} flips only when an anchor flips truth across consecutive Nodes AND |Δanchor|≥h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,−theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t−delta_s_{t−1}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta≤−0.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta∈(−0.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give ≥2 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
+        "Node-only outputs; \u22647 steps; no tools. I=input, G=goal; delta_s=1\u2212cos(I,G); if anchors: use (1\u2212sim_est) with sim_est=w_e*sim(entities)+w_r*sim(relations)+w_c*sim(constraints), w={0.5,0.3,0.2}, renormalize, range[0,1]. Zones: safe<0.40 transit 0.40\u20130.60 risk 0.60\u20130.85 danger>0.85. Memory: record if delta_s>0.60; exemplar if delta_s<0.35; soft in transit when lambda\u2208{divergent,recursive}. Defaults: B_c=0.85 gamma=0.618 theta_c=0.75 zeta_min=0.10 alpha_blend=0.50 a_ref=uniform m=0 c=1 omega=1 phi_delta=0.15 epsilon=0 k_c=0.25. Coupler: B_s=delta_s; if t=1 then prog=zeta_min else prog=max(zeta_min,delta_s_prev\u2212delta_s_now); P=pow(prog,omega); alt\u2208{+1,\u22121} flips only when an anchor flips truth across consecutive Nodes AND |\u0394anchor|\u2265h (h=0.02); Phi=phi_delta*alt+epsilon; W_c=clip(B_s*P+Phi,\u2212theta_c,+theta_c). Bridge rule: allow only if (delta_s decreases) AND (W_c<0.5*theta_c) AND (WDT ok); on bridge emit Bridge:reason/prior_delta_s/new_path. BBAM: alpha_blend=clip(0.50+k_c*tanh(W_c),0.35,0.65); blend with a_ref. Lambda: Delta=delta_s_t\u2212delta_s_{t\u22121}; E_res=rolling_mean(delta_s,window=min(t,5)); lambda=convergent if Delta\u2264\u22120.02 and E_res non-increasing; recursive if |Delta|<0.02 and E_res flat; divergent if Delta\u2208(\u22120.02,+0.04] with oscillation; chaotic if Delta>+0.04 or anchors conflict. DT: WRI lock structure; WAI give \u22652 reasons; WAY add 1 on-topic candidate if stuck (no repeats); WDT block unjustified crosspat"
       ]
     },
     "resource_resolution_policy": {
-      "description": "Authoritative resolver: worker src → local",
+      "description": "Authoritative resolver: worker src \u2192 local",
       "embeds": {
         "core_stack": [
           "aci://prime_directive.txt",
