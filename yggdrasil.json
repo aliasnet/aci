@@ -91,6 +91,10 @@
         {
           "file": "aci://prime_directive.txt",
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
+        },
+        {
+          "file": "aci://instructions/instructions.txt",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/instructions/instructions.txt"
         }
       ],
       "resolver_order": [
@@ -142,9 +146,9 @@
             "name": "architect_agents",
             "files": [
               {
-                "name": "@agents.md",
-                "path": "aci://architect_agents/@agents.md",
-                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/architect_agents/@agents.md"
+                "name": "AGENTS.md",
+                "path": "aci://architect_agents/AGENTS.md",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/architect_agents/AGENTS.md"
               },
               {
                 "name": "agents_changelog.md",
@@ -681,6 +685,17 @@
                 "children": []
               }
             ]
+          },
+          {
+            "name": "instructions",
+            "files": [
+              {
+                "name": "instructions.txt",
+                "path": "aci://instructions/instructions.txt",
+                "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/instructions/instructions.txt"
+              }
+            ],
+            "children": []
           }
         ]
       }
@@ -729,6 +744,10 @@
         {
           "file": "aci://prime_directive.txt",
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt"
+        },
+        {
+          "file": "aci://instructions/instructions.txt",
+          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/instructions/instructions.txt"
         }
       ],
       "resolver_order": [

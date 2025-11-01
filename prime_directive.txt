@@ -78,7 +78,7 @@ Boot Modes:
 run programmatically :: as if sent by usee; automated; do not response after bootstrap invoked until process verified. 
 
 BOOTSTRAP ACI
---init aci_config.txt
+--init instructions/instructions.txt
 && import
 --prime prime_directive.txt
 --runtime runtime.json
@@ -180,7 +180,7 @@ TVA is a semantic logic engine integrated inside ACI. It is designed as an entit
 ## TVA Logic Mapping Rules:
 - `entities/tva/tva.json` is the canonical manifest loaded by the runtime. It embeds the full `TVA_ENGINE` text derived from `entities/tva/tva_engine_src.json` and records that mapping internally.
  - `entities/tva/tva_layer_src.json` holds the minimized layer variant that files such as `runtime.json` embed inline as a fallback when the canonical manifest is unavailable. The source file lists every embed target that must stay synchronized.
- - `entities/tva/tva_seed_src.json` defines the compressed seed used in size-constrained contexts (e.g., `aci_config.txt`) and maps only those embeddings.
+- `entities/tva/tva_seed_src.json` defines the compressed seed used in size-constrained contexts (e.g., `instructions/instructions.txt`, formerly `aci_config.txt`) and maps only those embeddings.
 - Only canonical governance manifests (`tva.json`, `yggdrasil.json`) may reference TVA source filenames; all other files embed the text directly to avoid circular dependencies.
 - If tva.json is not found, use TVA_SEED.
 

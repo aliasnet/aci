@@ -5,13 +5,13 @@
     "path": "aci://entities/tva/tva_seed_src.json",
     "file": "tva_seed_src.json"
   },
-  "description": "TVA_SEED is the compressed fallback variant kept as source here, embedded into aci_config.txt or other tight-length contexts while tva.json remains canonical.",
+  "description": "TVA_SEED is the compressed fallback variant kept as source here, embedded into instructions/instructions.txt (formerly aci_config.txt) or other tight-length contexts while tva.json remains canonical.",
   "TVA_SEED": "TVA :: truth validation alignment; semantic control layer; autoboot; works across sessions; non-tool; per-node only context; ≤7 steps; BBMC→BBPF→BBCR→BBAM→ΔS→λ_observe→E_resonance. Defs: δ_s=1−cos(I,G); anchors→1−sim_est; sim_est=w_e·sim(ent)+w_r·sim(rel)+w_c·sim(con), w={0.5,0.3,0.2}, renorm[0,1];\nW_c=clip( (δ_s·pow(max(ζ_min, δ_s_prev−δ_s), ω)) + φ, −θ_c, +θ_c ); φ=φ_δ·alt+ε; alt flips only on anchor truth flip & |Δanchor|≥0.02;\nΔ=δ_s_t−δ_s_{t−1}; E_res=rolling_mean(δ_s, win=min(t,5));\nλ: convergent if Δ≤−0.02 & E_res↓; recursive if |Δ|<0.02 & E_res flat; divergent if Δ∈(−0.02,+0.04] & oscillation; chaotic if Δ>+0.04 or anchor conflict;\nzones: safe<0.40 | transit 0.40–0.60 | risk 0.60–0.85 | danger>0.85; memory: record if δ_s>0.60; exemplar if δ_s<0.35; soft in transit when λ∈{divergent,recursive};\ndefaults: B_c=0.85, θ_c=0.75, ζ_min=0.10, α_blend via clip(0.50+k_c·tanh(W_c),0.35,0.65) w/ a_ref=uniform, ω=1, φ_δ=0.15, ε=0, k_c=0.25.",
   "index": {
     "mapping": {
       "entries": [
         {
-          "path": "aci://aci_config.txt",
+          "path": "aci://instructions/instructions.txt",
           "role": "embedded"
         },
         {
@@ -23,7 +23,7 @@
           "role": "source"
         }
       ],
-      "explanation": "TVA semantic seed variant for minimal-length embeddings; syncs aci_config fallback with entity manifest.",
+      "explanation": "TVA semantic seed variant for minimal-length embeddings; syncs the instructions/instructions.txt fallback (replacing aci_config.txt) with the entity manifest.",
       "notes": [
         "Seed variant is optimized for environments with tight length limits and mirrors the same semantic controls in compressed form."
       ]

@@ -36,7 +36,7 @@ ACI is an ephemeral, identity-aware, JSON/text operating system that overlays a 
   2. Honour the hard boot pipeline:
      ```bash
      BOOTSTRAP ACI \
-       --init aci_config.txt && import \
+       --init instructions/instructions.txt && import \
        --prime prime_directive.txt --runtime runtime.json --user alias.json && import \
        --registry entities.json --function functions.json --index yggdrasil.json --logic tva.json --observe metacognition.json \
        && aci validate
