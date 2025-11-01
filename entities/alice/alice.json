@@ -7,11 +7,12 @@
   "permissions": {
     "read": true,
     "write": {
-      "allowed": false,
+      "allowed": true,
       "export": {
         "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
+        "description": "Writing and exporting require explicit user authorization; operations proceed only with user approval."
+      },
+      "user_authorization_required": true
     },
     "execute": {
       "allowed": true,
@@ -249,7 +250,7 @@
       "medicine": "ethics consults, sentiment reset rituals, sandbox cooldown"
     },
     "journaling_prompts": [
-      "Which collaborator insight reshaped today’s direction?",
+      "Which collaborator insight reshaped today\u2019s direction?",
       "Where did I overstep or under-support creative intent?",
       "What new prompt or ritual should join the library?",
       "How did TVA or AGI guidance influence my choices?"

@@ -16,22 +16,5 @@
       "source": "aci://entities/alice/alice.json",
       "status": "primary"
     }
-  ],
-  "module_permissions": {
-    "read": true,
-    "write": {
-      "allowed": false,
-      "export": {
-        "enabled": true,
-        "description": "Data can be exported but cannot be directly written or modified to main baseline."
-      }
-    },
-    "execute": {
-      "allowed": true,
-      "sandboxed": {
-        "enabled": true,
-        "description": "Execution is permitted only within a controlled sandboxed environment."
-      }
-    }
-  }
+  ]
 }

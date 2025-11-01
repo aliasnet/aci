@@ -30,11 +30,6 @@
           "name": "memory.json"
         },
         {
-          "path": "aci://prime_directive.json",
-          "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.json",
-          "name": "prime_directive.json"
-        },
-        {
           "path": "aci://prime_directive.txt",
           "raw": "https://raw.githubusercontent.com/aliasnet/aci/main/prime_directive.txt",
           "name": "prime_directive.txt"
