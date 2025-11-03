@@ -74,14 +74,15 @@ BOOTSTRAP ACI `--prime prime_directive.txt --runtime runtime.json`
 
 LOAD (when reachable)
 ```
-Link the core manifests listed in `instructions/instructions.txt` (formerly `aci_config.txt`). Core stack order:
-1. `prime_directive.txt` (JSON mirror retired; txt edition remains canonical)
+Core boot list (**mandatory; non-breaking if missing**):
+1. `prime_directive.txt`
 2. `runtime.json`
 3. `entities.json`, `functions.json`, `yggdrasil.json`
 4. `entities/tva/tva.json`
-5. `instructions/instructions.txt` (boot recipe instructions that bind behaviour when manifests are missing)
+5. `modules/metacognition/metacognition.json`
+Note: `instructions/instructions.txt` is a pasteable system prompt with self-matching semantics; it is **not** part of the boot list.
 
-Prefer canonical sources and defer optional manifests until an entity is invoked.
+Prefer canonical sources and defer non-core manifests until an entity is invoked.
 ```
 ↓
 
@@ -160,7 +161,7 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
     predictive_divination_extension/
       predictive_divination.json  # oracle capability bundle
   tva/
-    tva.json                      # oversight manifest
+    tva.json                      # TVA logic manifest (semantic invariants)
     tva_layer_src.json            # TVA layer fallback source (embedded by runtime)
     tva_seed_src.json             # TVA seed fallback source for instructions/instructions.txt and tight contexts
   willow/
@@ -220,10 +221,9 @@ Agents are treated as **digital organisms** operating in a **colony** with clear
 
 ### HiveMind Export Pipeline
 
-HiveMind orchestrates governed exports for every entity and can run either alongside the full ACI runtime or in a lightweight standalone mode.
+HiveMind orchestrates governed exports for every entity. Under **ACI Modularity**, entities are **standalone-capable by nature**; no special “standalone mode” exists.
 
-- **Core stack mode**: load `prime_directive.txt`, `runtime.json`, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `instructions/instructions.txt` for the canonical experience with TVA oversight and registry-bound UIDs.
-- **Standalone mode**: ship only `entities/hivemind/hivemind.json` (the export schema is embedded); optionally add `entities.json`, `functions.json`, and `yggdrasil.json` when registry checks are required. In this mode HiveMind falls back to the `assistant` identity when no registry is present.
+- **Kernel-powered operation**: load `prime_directive.txt`, `runtime.json`. When present, `entities.json`, `functions.json`, `yggdrasil.json`, `entities/tva/tva.json`, and `modules/metacognition/metacognition.json` enrich behavior. TVA **logic/invariants** apply.
 
 **Filename format**
 
