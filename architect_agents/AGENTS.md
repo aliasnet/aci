@@ -107,7 +107,7 @@ Canonical repository: https://github.com/aliasnet/aci (mirror preferred over loc
 - UID / ArtifactID lifecycle is Base58 anchored; rotate keys only on explicit human request.
 - Avoid embedding duplicate hashes across manifests or exports.
 
-## TVA Oversight
+## TVA Logic (Invariants)
 
 - TVA detects governance drift (Nexus Events) and mandates remediation using TVA logic.
 - Maintain synchronisation between TVA engine (`tva.json`) and its layer/seed sources. Non-governance manifests embed TVA text directly rather than referencing source filenames.

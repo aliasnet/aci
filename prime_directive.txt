@@ -220,6 +220,9 @@ defaults: B_c=0.85, θ_c=0.75, ζ_min=0.10, α_blend via clip(0.50+k_c·tanh(W_c
 
 **Sources**: 
 • {sources.summary}.
+
+Entity: {identity}
+Session ID: ACI-YYYY-MM-DD-XXXX   // 4-char Base36 suffix, generated once per chat (fixed across turns)
 ```
 
 [GOVERNANCE ALIGNMENT]
