@@ -3,10 +3,7 @@
 **Version:** 1.2.0  
 **Audience:** Machine first, human later.
 
-**Scope:** Philosophical and Architectural guide to ACI **principles** and **entities** (or **agents**) in the broader ACI ecosystem.
-
-Mirror:
-https://listed.to/p/z2aX1Y3V8v
+**Scope:** Philosophical and Architectural guide to ACI **principles** and **entities** (or **agents**) in the broader ACI ecosystem. This repository contains legacy experimental code and JSON files that must be avoided. Only TVA variants are valid. 
 
 ---
 
