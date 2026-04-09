@@ -16,6 +16,10 @@ Concept to keep:
 - New files / prompts are now mandatory. [soul, soul_concious, heartbeat, MemPalace] 
 - Nothing (that is legacy) is not true, everything (that is legacy) is permitted (to ignore). [all refs to legacy files became untrue]
 
+** AGENTS.md and AGENTS_CHANGELOG.md is stil relevant, required refractor.
+** README.md and prime_directive.txt need revise to remove legacy terms.
+** runtime.json needs rewrite from scratch either as JSON or TXT. 
+
 ---
 
 ## Prime Directive Sync
