@@ -8,6 +8,17 @@
 
 ---
 
+// Marked as legacy and archived, previously used for vender-locked old LLM chat, new update required learning of currently more simple and more modern system adapting to agentic capabilities, open models, local usage, and modular tools availability. Thus completely unstable and dangerous. Learn with causion, DO NOT mimic. 
+
+Concept to keep:
+- AI as ephemeral operating system, LLM as dynamic kernel, structurally bootable in TUI-like interface when upload with simple bootable command. [combine with prime_directive.txt as minimum requirement previously allow bootable AI-driven minimal OS safely over any LLM substate] 
+- Structure bracket commands and weighting priority of pseudo-commands vs natural language (NL) for repeatable task. [not shell command] 
+- TVA logic [all variants] 
+- New files / prompts are now mandatory [soul, soul_concious, heartbeat, MemPalace] 
+- The rest is (now) not true, everything is permitted to ignore. [all refs to legacy files became untrue]
+
+---
+
 ## Prime Directive Sync
 
 - `prime_directive.txt` is the canonical governance artifact. All other variants, including this summary, mirror its intent and defer to its content.
