@@ -1,5 +1,5 @@
 {
-"Marked as legacy and archived":
+"Marked as legacy and archived": {
 "reason": [ 
 "previously used for vender-locked old LLM chat, new update required more simple and more modern system adapting to agentic capabilities, open models, local usage, and modular tools availability. Thus completely unstable and dangerous. Learn with causion, DO NOT mimic. 
 
@@ -14,7 +14,6 @@ Concept to keep:
 ** README.md and prime_directive.txt need revise to remove legacy terms.
 ** runtime.json needs rewrite from scratch either as JSON or TXT."
 ]
-} 
 }, 
 
 {
