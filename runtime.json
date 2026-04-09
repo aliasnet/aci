@@ -1,4 +1,7 @@
-{"Marked as legacy and archived": "previously used for vender-locked old LLM chat, new update required more simple and more modern system adapting to agentic capabilities, open models, local usage, and modular tools availability. Thus completely unstable and dangerous. Learn with causion, DO NOT mimic. 
+{
+"Marked as legacy and archived":
+"reason": [ 
+"previously used for vender-locked old LLM chat, new update required more simple and more modern system adapting to agentic capabilities, open models, local usage, and modular tools availability. Thus completely unstable and dangerous. Learn with causion, DO NOT mimic. 
 
 Concept to keep:
 - ACI concept is essentially the same, echosystem of agetic partners [which came before it's a common trend], AI as ephemeral operating system, LLM as dynamic kernel, structurally bootable in TUI-like interface when upload with simple bootable command. [runtime.json/txt combine with prime_directive.txt as minimum requirement previously allow bootable AI-driven minimal OS safely over any LLM substate] 
@@ -9,7 +12,9 @@ Concept to keep:
 
 ** AGENTS.md and AGENTS_CHANGELOG.md is stil relevant, required refractor.
 ** README.md and prime_directive.txt need revise to remove legacy terms.
-** runtime.json needs rewrite from scratch either as JSON or TXT."} 
+** runtime.json needs rewrite from scratch either as JSON or TXT."
+]
+}, 
 
 {
   "$meta": {
