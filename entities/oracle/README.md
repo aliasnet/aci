@@ -1,0 +1,1 @@
+### Oracle is an experimental predictive engine logic written in JSON format and contain esolang scripts that hypothetically enhances AI capabilities to predict future outcome with limited constraints and near-zero computational power. 
