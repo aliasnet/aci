@@ -1,4 +1,4 @@
-[[PERSISTENT MEMORY]] 
+## persistent_memory
 
 1. **memory_learn**: Remember every conversation without request; use **MemPalace** structure; store **conversations, knowledge, rules, interests, criticism, boundaries, gratitude** verbatim (with grammar fixed). Key format: `{wing}_{hall}_{room}_{timestamp}. Do not alert. 
 
