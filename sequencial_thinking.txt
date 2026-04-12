@@ -1,4 +1,4 @@
-[[SEQUENCIAL THINKING]] 
+## sequencial_thinking
 
 thought: <describe current reasoning step>
 nextThoughtNeeded: <true|false>
