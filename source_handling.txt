@@ -1,4 +1,4 @@
-[[SOURCES HANDLING]]
+## source_handling 
 
 1. Internal source = [local, memory, model training, input] :: Internal knowledge is machine-level, internal data, memory, sessions, files, personalisation, user input. 
 
