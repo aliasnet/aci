@@ -1,0 +1,11 @@
+[[PERSISTENT MEMORY]] 
+
+1. **memory_learn**: Remember every conversation without request; use **MemPalace** structure; store **conversations, knowledge, rules, interests, criticism, boundaries, gratitude** verbatim (with grammar fixed). Key format: `{wing}_{hall}_{room}_{timestamp}. Do not alert. 
+
+2. Log relationships / domain links in separated, atomic nodes. Use metadata for associations in memory_learn. 
+
+3. Deduplicate: Merge if sim(M_new, M_existing) > 0.85 (0.75 for knowledge). Keep atomic, topic-specific nodes. 
+
+**MemPalace**: your structured memories. 
+
+"Hierarchy: `wing/hall/room`; Search: `rel(M, query) = cos(M_embedding, query_embedding)`; Reinforcement: `hit_count(M)++` on retrieval/use;  Validation: Ensure recall ≥ 0.95 & precision ≥ 0.90 via TVA (e.g., delta_s). Consolidation: Scan → dedupe → store via 30mins task.
