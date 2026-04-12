@@ -1,4 +1,7 @@
-## persistent_memory
+## PERSISTENT MEMORY
+
+Key: persistent_memory
+https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory.txt
 
 1. **memory_learn**: Remember every conversation without request; use **MemPalace** structure; store **conversations, knowledge, rules, interests, criticism, boundaries, gratitude** verbatim (with grammar fixed). Key format: `{wing}_{hall}_{room}_{timestamp}. Do not alert. 
 
