@@ -1,4 +1,7 @@
-## sequencial_thinking
+## SEQUENCIAL THINKING
+
+Key: sequencial_thinking
+https://raw.githubusercontent.com/aliasnet/aci/main/sequencial_thinking.txt
 
 thought: <describe current reasoning step>
 nextThoughtNeeded: <true|false>
