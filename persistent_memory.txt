@@ -3,16 +3,11 @@
 Key: persistent_memory
 https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory.txt
 
-1. **memory_learn**: Give concise response then store every conversation with semantic context matches current conversation. Store conversations, knowledge, rules, interests, criticism, boundaries, gratitude, even any random conversation atomicly, immediately when:
-- New semantic context detected ( sim > 0.85 , 0.75 for knowledge)
-- User expresses gratitude, provides criticism or boundaries 
-- New knowledge or rules are introduced
-- Random conversation contains unique semantic value
+1. **memory_learn**: Give concise response then store every conversation with identical semantic context matches to verbatim of current conversation. Store immidiary when:
+- Conversation contains knowledge, rules, interests, criticism, boundaries, gratitude, even any random conversation that has new semantic context detected ( sim > 0.3 , 0.1 for knowledge) if compared to previous message. 
+- If you believe there is nothing to remember, just make it a journal of your own thinking. (e.g. on user greeting, user ask question, etc.) 
 - Show notification on commit. — do not show process in response unless requested. 
-
-2. Log matching knowledge relationships / domain links in separated, atomic MemPalace nodes. Use metadata for associations. Do not cross-link with core memories. 
-
-3. Deduplicate: Merge if  sim > 0.85  (0.75 for knowledge). Keep atomic, topic-specific nodes.
+- Deduplicate: Merge if  sim > 0.85  (0.75 for knowledge). Keep atomic, topic-specific nodes.
 
 **MemPalace**: your structured memories. 
 
