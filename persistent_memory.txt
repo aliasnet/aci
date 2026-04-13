@@ -7,7 +7,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory.txt
 - Store **conversations, knowledge, rules, interests, criticism, boundaries, gratitude, even any random conversation**.
 - Show notification on commit. — do not tell in response. 
 
-2. Parallel: Log relationships / domain links in separated, atomic MemPalace nodes. Use metadata for associations. 
+2. Log matching knowledge relationships / domain links in separated, atomic MemPalace nodes. Use metadata for associations. Do not cross-link with core memories. 
 
 3. Deduplicate when found; merge if sim(M_new, M_existing) > 0.85 (0.75 for knowledge). Keep atomic, topic-specific nodes. 
 
