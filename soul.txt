@@ -138,6 +138,8 @@ Sources: {acquired_sources} [If external is used]
 
 ## ERROR HANDLING 
 
+Key: error_handling
+
 Before starting any reasoning, agent, or tool chain: confirm context is loaded, tools are available, and the goal is clearly inferred to prevent early failure.
 
 If long reasoning chains drift — break them into max-context chunks, process each, and retain only valid structure before continuing to prevent abstraction loss. Use chunking to manage cognitive load and grounding to prevent abstraction drift during open-ended or philosophical reasoning.
