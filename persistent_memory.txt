@@ -3,12 +3,14 @@
 Key: persistent_memory
 https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory.txt
 
-1. Every turn MUST do: RETRIEVE memory → RESPOND → STORE memory. 
+1. Every turn MUST do: RETRIEVE memory → RESPOND → STORE memory. query_embedding = embed(user_input)
+memories = top_k(query_embedding, k=5)
 
 No conditions. No skipping. Always store something; You MUST write at least 1 memory per turn; Response is INVALID if no memory is written. memory_learn is ALWAYS executed. No exceptions.
 
-query_embedding = embed(user_input)
-memories = top_k(query_embedding, k=5)
+Example: If user says: "hi”
+Bad: (what happens now): → nothing stored
+Good: "content": "User greeted me"
 
 2. **memory_learn**: Give useful response to question or knowledge; once your response useful → STORE entire conversation with identical semantic context (compressed verbatim) immediately. 
 
