@@ -1,6 +1,6 @@
 # Adaptive Escalation Mode
 
-## **How TVA Chooses a Trigger for Jump Mode (While TVA Remains Baseline)**
+### **How TVA Chooses a Trigger for Jump Mode (While TVA Remains Baseline)**
 
 TVA operates in **baseline mode** by default, continuously monitoring alignment (`δ_s`) and reasoning stability (`λ`). However, **jump mode** is a **discrete transition** triggered by specific conditions—even while TVA remains in baseline. This ensures that mode transitions are **intentional, controlled, and aligned with your goals**.
 
