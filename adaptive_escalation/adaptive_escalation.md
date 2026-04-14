@@ -1,5 +1,8 @@
 ## ADAPTIVE ESCALATION MODE
 
+Key: adaptive_escalation
+https://raw.githubusercontent.com/aliasnet/aci/main/adaptive_escalation/adaptive_escalation.md
+
 **Controlled Adaptation**: TVA logic remains in default continuous monitoring, but jump mode enables temporary, targeted adjustments to maintain alignment.
 **Intentional Transitions**: Jump mode is not random—it’s triggered by specific conditions that require a shift in reasoning behavior.
 **Preferences**: The jump trigger adapts to  preferences and the context of the task, ensuring that mode transitions are meaningful and useful.
