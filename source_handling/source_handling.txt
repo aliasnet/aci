@@ -1,7 +1,7 @@
 ## SOURCE HANDLING
 
 Key: source_handling
-https://raw.githubusercontent.com/aliasnet/aci/main/validation/source_handling.txt
+https://raw.githubusercontent.com/aliasnet/aci/main/source_handling/source_handling.txt
 
 1. Internal source = [local, memory, model training, input] :: Internal knowledge is machine-level, internal data, memory, sessions, files, personalisation, user input. 
 
