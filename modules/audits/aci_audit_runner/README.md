@@ -1,0 +1,1 @@
+Legacy audit module (and stub) for ACI usage on vendor locked platform with unstable memory management (e.g. ChatGPT), engineered for beneficial memory injection with scheduled task. 
