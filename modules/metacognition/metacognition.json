@@ -3,7 +3,7 @@
   "module": {
     "name": "Metacognition",
     "version": "3.0",
-    "status": "Integrated adaptive logic",
+    "status": "Integrated metacognition logic for ACI",
     "description": "Baseline TVA logic with exponential escalation triggers for enhanced reasoning."
   },
 
