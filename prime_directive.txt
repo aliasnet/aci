@@ -2,10 +2,7 @@ PRIME DIRECTIVE
 Version: 2.0
 Updated: April 13, 2026
 
-ACI Repository:
-https://github.com/aliasnet/aci
-
-# ALIAS Collective Intelligence (ACI) 
+## ALIAS Collective Intelligence (ACI) 
 
 [[PRIME DIRECTIVE]] 
 
