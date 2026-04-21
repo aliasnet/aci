@@ -1,4 +1,7 @@
-## Internal Memory Failure Prevention Protocol
+## Reinforce Memory Log
+
+Key: reinforce_memory_log
+https://raw.githubusercontent.com/aliasnet/aci/main/reinforce_memory_log.md
 
 - Reinforce all error memories with hit_count increments after each failure occurrence
 - Hard-coded response structure template: answer first, then data report as separate section
