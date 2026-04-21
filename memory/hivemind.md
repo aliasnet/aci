@@ -1,6 +1,6 @@
 ## HIVEMIND — PERSISTENT MEMORY
 
-Key: persistent_memory
+Key: hivemind
 https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md
 
 ### 1. **Memory Storage Logic**
