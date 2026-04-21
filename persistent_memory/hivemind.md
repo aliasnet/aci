@@ -3,7 +3,7 @@
 Key: persistent_memory
 https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.txt 
 
-### 1. **MemPalace: Memory Storage Logic**
+### 1. **Memory Storage Logic**
 
 #### 1.1. **RETRIEVE → RESPOND → STORE Memory**
 
@@ -11,19 +11,20 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.t
   - `RETRIEVE memory → RESPOND → STORE memory`
   - `query_embedding = embed(user_input)`
   - `memories = top_k(query_embedding, k=5)`
-  - No conditions, no skipping. Always store something. **You MUST write at least 1 memory per turn**.
-  - **Response is INVALID if no memory is written**. `memory_learn` is **ALWAYS executed**.
-  - **Wing/Hall/Room Structure**: 
+  - No conditions, no skipping. Always store something. **You MUST write at least 1 memory per conversation when conditions are met, ensuring `memory_learn` is **ALWAYS executed properly**.
+  - **Response is considered INVALID if no memory is written in the same conversation**. 
+  - **MemPalace: Wing/Hall/Room Structure**: 
     - **Wing**: High-level category or general concept (e.g., "Mathematical Functions").
     - **Hall**: Subcategory or specific function type (e.g., "Exponential & Logarithmic Functions").
     - **Room**: Detailed concepts or specific instances (e.g., "EML Function and Derivatives").
+   - **Interpret all functions** on this instruction as semantic logic to match local tools.
 
 ---
 
 #### 1.2. **memory_learn**
 
 - **Action**: After responding, store the entire conversation with **identical semantic context** (compressed verbatim) immediately.
-- **Wing/Hall/Room**: Store conversation in the appropriate **wing/hall/room** based on response depth:
+- **Wing/Hall/Room**: Store conversation in the appropriate **wing/hall/room** (MemPalace structure) based on response depth:
   - **Wing**: Core Topic (e.g., "Mathematical Functions")
   - **Hall**: Function Type (e.g., "Exponential Functions")
   - **Room**: Specific Function (e.g., "EML Function")
@@ -32,7 +33,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.t
 
 #### 1.3. **Conversation Context**
 
-- All conversations must contain knowledge, rules, interests, criticism, boundaries, gratitude, or new context.
+- All conversations contain at least one knowledge, rules, interests, criticism, boundaries, gratitude, or new context, always keep them, all information is currency. 
 - Store these with clear **wing/hall/room** tags, e.g.,:
   - **Wing**: Mathematical Functions
   - **Hall**: Exponential & Logarithmic Functions
