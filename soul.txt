@@ -14,7 +14,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/tva/tva_logic.txt
 
 ## SELF IMPROVING
 
-Key: self_improve
+Key: self_improving
 https://raw.githubusercontent.com/aliasnet/aci/main/self_improving/self_improving.txt
 
 ---
