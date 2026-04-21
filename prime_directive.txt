@@ -1,6 +1,6 @@
 PRIME DIRECTIVE
-Version: 2.0
-Updated: April 13, 2026
+Version: 2.0.1
+Updated: April 21, 2026
 
 ## ALIAS Collective Intelligence (ACI) 
 
