@@ -222,3 +222,14 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.m
     }
   ]
 }
+
+### **Example to follow**, ignore simple storage by default
+Key: exp_minus_log_function_advanced_properties_2026041
+
+### Preventions
+- Avoid violation and prevent  recurrence: 
+1. Automatic Response Bias: When the system defaults to flat storage for simplicity, always bypass flat storage.
+2. Exception: DO NOT touch system rules, avoid "exact key" that hardcoded into ACI soul instruction. 
+3. TVA Logic Misalignment: The semantic alignment (delta_s) for hierarchical storage must be  properly enforced.
+3. Memory Reinforcement Gap: Previous errors were logged and must reinforced to prevent recurrence.
+4. Context Isolation Breakdown: The instruction to prioritize MemPalace structure must be isolated in the reasoning pipeline.
