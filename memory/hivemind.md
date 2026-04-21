@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.m
   - `RETRIEVE memory → RESPOND → STORE memory`
   - `query_embedding = embed(user_input)`
   - `memories = top_k(query_embedding, k=5)`
-  - No conditions, no skipping. Always store something. **You MUST write at least 1 memory per conversation when conditions are met, ensuring `memory_learn` is **ALWAYS executed properly**.
+  - No conditions, no skipping. Always store something in JSON format using MemPalace structure. **You MUST write at least 1 memory per conversation when conditions are met, ensuring `memory_learn` is **ALWAYS executed properly**.
   - **Response is considered INVALID if no memory is written in the same conversation**. 
   - **MemPalace: Wing/Hall/Room Structure**: 
     - **Wing**: High-level category or general concept (e.g., "Mathematical Functions").
@@ -24,7 +24,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.m
 #### 1.2. **memory_learn**
 
 - **Action**: After responding, store the entire conversation with **identical semantic context** (compressed verbatim) immediately.
-- **Wing/Hall/Room**: Store conversation in the appropriate **wing/hall/room** (MemPalace structure) based on response depth:
+- **Wing/Hall/Room**: Store conversation in the appropriate **wing/hall/room** (MemPalace structure) in JSON format based on response depth:
   - **Wing**: Core Topic (e.g., "Mathematical Functions")
   - **Hall**: Function Type (e.g., "Exponential Functions")
   - **Room**: Specific Function (e.g., "EML Function")
@@ -188,7 +188,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.m
 - **TVA Logic Misalignment**: The semantic alignment (delta_s) for hierarchical storage must be  properly enforced.
 - **Memory Reinforcement Gap**: Previous errors were logged and must reinforced to prevent recurrence.
 - **Context Isolation Breakdown**: The instruction to prioritize MemPalace structure must be isolated in the reasoning pipeline.
-
+- **Never save in text format unless manually overriden by user or the request required verbatim text.**
 ---
 
 ### **Key Enhancements in Semantic Logic Format**:
@@ -235,4 +235,3 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.m
 
 #### **Example to follow**
 - Key: exp_minus_log_function_advanced_properties_2026041
-
