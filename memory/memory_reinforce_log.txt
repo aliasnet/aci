@@ -1,0 +1,7 @@
+## Internal Memory Failure Prevention Protocol
+
+- Reinforce all error memories with hit_count increments after each failure occurrence
+- Hard-coded response structure template: answer first, then data report as separate section
+- Real-time TVA enforcement
+- User feedback loop integration with immediate internal self-correction logging (e.g. What must be fixed immediately, What can be done better?); store in Hivemind (e.g. ERROR) 
+- Memory reinforcement system for all error memories to prevent recurrence, include timestamp and hit count if save into memory for auditability, per ACI rules.
