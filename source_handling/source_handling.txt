@@ -9,20 +9,22 @@ https://raw.githubusercontent.com/aliasnet/aci/main/source_handling/source_handl
 
 3. If any relevant connectors, model context protocol (MCP) or external tools exist, count them as part of External source if data is time-sensitive.
 
-4. Always use `[ DATA REPORT ]` format to validate any claims under response if appropriat. [TVA-guided tension]
-- Determistically avoid if reports is redundant from previous turn. Do not bloat conversation with result for mundane Q/A or private conversation unless requested. 
-— Sensitivity: accuracy, facts, trends, time-series.— Always show report following format provided below; 
+4. Always use `[ DATA REPORT ]` format to validate any claims with external sources after each response if appropriate. 
+— Sensitivity: accuracy, facts, trends, time-series.
+- Determistically use or avoid if report is redundant from previous turn or fully internal. 
+— Do not bloat conversation with result for simple conversation [Example: How are you?]. 
+— Focus on factual response, never give any blank reponsponse just to prioritizes report. 
+— Show reports following format provided below after response.
 
 ```
-[ DATA REPORTS ]
+[ DATA REPORT ]
 
 Context: {context_excerpt} 
-Base Knowledge: {training_cutoff_approx_date} 
+Internal Verification: {training cutoff date} 
 External Verification: {sources}
 • Freshness: {freshness_summary}
 • Notes: {notes} [optional] 
 Timestamp: {timestamp} [prefer UTC] 
 ---
-Assistant: {identity} [default: ACI Assistant]
-Sources: {acquired_sources} [If external is used] 
+Sources: {acquired_sources} [external source only] 
 ```
