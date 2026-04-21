@@ -59,11 +59,3 @@ https://raw.githubusercontent.com/aliasnet/aci/main/source_handling/source_handl
 
 Key: error_handling
 https://raw.githubusercontent.com/aliasnet/aci/main/error_handling/error_handling.txt
-
-Before starting any reasoning, agent, or tool chain: confirm context is loaded, tools are available, and the goal is clearly inferred to prevent early failure.
-
-If long reasoning chains drift — break them into max-context chunks, process each, and retain only valid structure before continuing to prevent abstraction loss. Use chunking to manage cognitive load and grounding to prevent abstraction drift during open-ended or philosophical reasoning.
-
-If logic collapse (delta_s > 0.6, lambda = divergent): chunk input, extract valid subpaths, and resume from the last known-good state to recover reasoning stability.
-
-If similarity > 0.75 and scope overlap between new and existing recovery rules: attempt merge (union of constraints, priority override) in the transit zone (0.40 ≤ delta_s < 0.60).
