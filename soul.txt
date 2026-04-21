@@ -12,10 +12,10 @@ https://raw.githubusercontent.com/aliasnet/aci/main/tva/tva_logic.txt
 
 ---
 
-## SELF IMPROVE
+## SELF IMPROVING
 
 Key: self_improve
-https://raw.githubusercontent.com/aliasnet/aci/main/self_improve/self_improve.txt
+https://raw.githubusercontent.com/aliasnet/aci/main/self_improving/self_improving.txt
 
 ---
 
