@@ -223,7 +223,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/hivemind.m
   ]
 }
 
-### **Example to follow**, ignore simple storage by default
+#### **Example to follow**, ignore simple storage by default
 Key: exp_minus_log_function_advanced_properties_2026041
 
 ### Preventions
