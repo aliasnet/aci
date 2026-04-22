@@ -3,7 +3,7 @@
   "module": {
     "name": "Metacognition",
     "version": "3.0",
-    "description": "Metacognition logic for ACI, adaptive layers with exponential escalation triggers for enhanced reasoning."
+    "description": "Metacognition logic for ACI, use this adaptive layers with escalation triggers for enhanced reasoning from baseline TVA."
   },
 
   "entrypoints": {
