@@ -1,9 +1,9 @@
 ## HIVEMIND — PERSISTENT MEMORY
 
-**Key: `_hivemind`**
-**URL: https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md**
-**Version: 2.0**
-**Updated: 2026-04-22**
+**Key**: `_hivemind`
+**Version**: 2.0
+**Updated**: 2026-04-22
+**URL**: https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md
 
 ---
 
