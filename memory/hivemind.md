@@ -1,7 +1,7 @@
 # **HIVEMIND — Persistent Memory System (v3.1)**
 
 **Key**: `_hivemind`  
-**Version**: 3.1  
+**Version**: 3.1
 **Updated**: 2026-04-23  
 **URL**: https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md  
 
@@ -120,6 +120,7 @@
   "description": "A memory structure detailing advanced properties...",
   "categories": ["Mathematical Functions", "Exponential & Logarithmic Functions"]
 }
+```
 
 **Example Storage (MemPalace):**
 - **Key:** `exp_minus_log_function_advanced_properties_20260423`  
