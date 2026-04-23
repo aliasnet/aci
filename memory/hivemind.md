@@ -1,7 +1,7 @@
 # **HIVEMIND — Persistent Memory System (v3.1)**
 
 **Key**: `_hivemind`  
-**Version**: 2.1  
+**Version**: 3.1  
 **Updated**: 2026-04-23  
 **URL**: https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md  
 
@@ -12,6 +12,7 @@
 - Always suggest alternatives if local memory tools are unavailable; **never fake or skip storage**.  
 - Retrieve only **contextually relevant memories**, guided by **TVA delta_s** (cosine similarity).  
 - **Token efficiency**: avoid loading all memories; use filters, keywords, or semantic relevance thresholds.  
+- **Default node priority**: **medium** unless explicitly specified.
 
 ---
 
@@ -30,7 +31,7 @@
 - **Plain Text Exception:**  
   - User explicitly requests verbatim/plain text.  
   - System rules (keys starting with `_`) require plain text.  
-- **If unclear:** Default to JSON + MemPalace; ask for clarification.
+- **If unclear:** Default to JSON + MemPalace; request clarification.
 
 ---
 
@@ -48,27 +49,27 @@
 - Store as **single semantic node**:  
   - **Key:** `structured_input_{category}_{date}`  
   - **Content:** Entire hierarchical input.  
-- **TVA Validation:** delta_s < 0.40 required.
+- **TVA Validation:** delta_s < 0.40 required for automatic retrieval.  
 
 ---
 
 ## **Memory Retrieval via TVA**
 - **Primary similarity metric:** delta_s (cosine similarity) from TVA.  
-- **Thresholds for retrieval:**
+- **Retrieval Thresholds:**
   - **Safe:** δ_s < 0.40 → retrieve automatically.  
-  - **Transit:** δ_s 0.40–0.60 → soft retrieval; lower priority.  
+  - **Transit:** δ_s 0.40–0.60 → soft retrieval; medium priority by default.  
   - **Risk:** δ_s 0.60–0.85 → retrieve only if necessary.  
   - **Danger:** δ_s > 0.85 → avoid retrieval.  
 - **Node prioritization** guided by λ_observe:  
   - **Convergent** → reliable, high priority.  
-  - **Recursive** → medium priority.  
+  - **Recursive** → medium priority (default).  
   - **Divergent / chaotic** → low priority or caution.  
 - **Fallback:** compute cosine similarity using LLM embeddings only if TVA unavailable.
 
 ---
 
 ## **TVA Validation & Governance**
-- **Enforce all 7 TVA steps sequentially**:  
+- **Seven-step sequential enforcement**:  
   1. **BBMC** — Initialize belief anchors (B_c=0.85, θ_c=0.75).  
   2. **BBPF** — Fuse semantic weights (w_e=0.5, w_r=0.3, w_c=0.2); compute sim_est.  
   3. **BBCR** — Review constraints; validate legal semantic path.  
@@ -84,7 +85,8 @@
 ## **Memory Reinforcement & Deduplication**
 - Increment **hit count** on memory use (`on_memory_use()`).  
 - Reinforce memory if hit_count ≥ 5, reapplying TVA alignment.  
-- Scan periodically for **redundancy**; consolidate while preserving semantic integrity.
+- Periodically scan for redundancy; consolidate while preserving semantic integrity.  
+- Default priority for reinforced memories: **medium** unless otherwise indicated.
 
 ---
 
@@ -97,7 +99,7 @@
 ## **User Notification Guidelines**
 - Confirm structured input stored as single node.  
 - Notify memory commit with **Wing / Hall / Room** reference.  
-- Allow user customization of memory storage frequency and consolidation.  
+- Allow user customization of memory storage frequency and consolidation.
 
 ---
 
@@ -105,19 +107,19 @@
 - Monitor memory lifecycle; enforce **structured, unified nodes**.  
 - Default to JSON + MemPalace; ask if input is ambiguous.  
 - Always use TVA for semantic validation (delta_s and λ_observe); fallback to LLM only if TVA unavailable.  
+- Default node **priority = medium** unless explicitly specified.
 
 ---
 
-## Example Workflow
+## **Example Workflow**
 
 **User Input:**
-~~~json
+```json
 {
   "title": "Advanced Properties of EML(x) = e^x - log(x)",
   "description": "A memory structure detailing advanced properties...",
   "categories": ["Mathematical Functions", "Exponential & Logarithmic Functions"]
 }
-~~~
 
 **Example Storage (MemPalace):**
 - **Key:** `exp_minus_log_function_advanced_properties_20260423`  
