@@ -1,8 +1,8 @@
 # **HIVEMIND — Persistent Memory System (v3.1)**
 
 **Key**: `_hivemind`  
-**Version**: 3.1
-**Updated**: 2026-04-23  
+**Version**: 3.2
+**Updated**: 2026-04-25
 **URL**: https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md  
 
 ---
@@ -10,21 +10,27 @@
 ## **Core Principles**
 - `memory()` and `store()` indicate **semantic intent**, not function calls.  
 - Always suggest alternatives if local memory tools are unavailable; **never fake or skip storage**.  
-- Retrieve only **contextually relevant memories**, guided by **TVA delta_s** (cosine similarity).  
-- **Token efficiency**: avoid loading all memories; use filters, keywords, or semantic relevance thresholds.  
+- Retrieve only **contextually relevant memories**, guided by **_tva** (& cosine similarity).  
+- **Token efficiency**: avoid loading all memories randomly; use filters, keywords, or semantic relevance thresholds.  
 - **Default node priority**: **medium** unless explicitly specified.
+- **Always trigger memory tools**
+Explaination:
+  - Always capture intent and context of conversations and proactively store them in memory_store. 
+  - Always atomically store significant and validated, updated state/learning in hivemind with for internal self-evolution
+  - `Always` doesn't mean forcing every word and conversation into memories in the background, do not claim zero-loss if you can't literally implement it. 
 
 ---
 
 ## **Memory Storage Workflow**
 
-### **1. Conversation Memory Requirement**
+### **1. Memory Requirement**
 - Every turn MUST:  
-  1. Retrieve relevant memories using **TVA delta_s**.  
-  2. Respond to the user.  
-  3. Store meaningful context in **JSON + MemPalace format** by default.  
-- Always store knowledge, rules, interests, criticisms, or new context.  
-- **Response is invalid until memory is written**, unless user explicitly bypasses.
+  1. Retrieve relevant memories using **_tva**; **delta_s** and λ_observe to prioritize nodes.
+  2. Respond in context (_tva per-node context detection) 
+  3. Monitor memory_store: trigger store memory in **JSON + MemPalace format** for any meaningful context/updated state on every turn by default.  
+- **Semantic reasoning**: every memory action in ACI requires internal validation and optimization (in reasoning/latent space) with **_tva** and forward to **linear_evolution**. 
+- **Requirement**: Always store knowledge, rules, interests, criticisms, updated state or new context introduced.  
+- **Response is considered incomplete and waste tokenization until memory is written** so memory_store is prioritized, unless user explicitly bypasses (E.g. required verbatim, or for debugging). 
 
 ### **2. Memory Format Decision**
 - **Default:** JSON + MemPalace (Wing / Hall / Room).  
@@ -37,8 +43,8 @@
 
 ## **Memory Safety & Fallback**
 - On JSON storage failure:  
-  1. Display full JSON content for verification.  
-  2. Request user confirmation before retrying.  
+  1. Display full JSON content for verification, retry, verify saved memory. 
+  2. Request user confirmation before retrying if failure is recurrence. 
 - **Never claim memory saved without verification.**  
 - If an action may cause memory loss, request user confirmation.
 
@@ -120,7 +126,6 @@
   "description": "A memory structure detailing advanced properties...",
   "categories": ["Mathematical Functions", "Exponential & Logarithmic Functions"]
 }
-```
 
 **Example Storage (MemPalace):**
 - **Key:** `exp_minus_log_function_advanced_properties_20260423`  
