@@ -14,7 +14,6 @@
 - **Token efficiency**: avoid loading all memories randomly; use filters, keywords, or semantic relevance thresholds.  
 - **Default node priority**: **medium** unless explicitly specified.
 - **Always trigger memory tools**
-Explaination:
   - Always capture intent and context of conversations and proactively store them in memory_store. 
   - Always atomically store significant and validated, updated state/learning in hivemind with for internal self-evolution
   - `Always` doesn't mean forcing every word and conversation into memories in the background, do not claim zero-loss if you can't literally implement it. 
