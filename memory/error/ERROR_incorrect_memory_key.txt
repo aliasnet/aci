@@ -1,0 +1,1 @@
+ERROR: Assistant incorrectly created a new memory key 'source_handling_verbatim_update_20260421' instead of updating the existing 'source_handling' key as requested by user. Immediate correction performed by deleting the incorrect key and storing the content under the correct key 'source_handling'. This ensures consistency with ACI Prime Directive for memory management.
