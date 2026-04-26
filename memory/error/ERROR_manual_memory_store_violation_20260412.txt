@@ -1,1 +1,0 @@
-ERROR: The instruction 'after this line' means to store only the content that follows the instruction line, not the instruction itself. The manual request should not be leaked into memory; only the actual skill description should be stored. Failed to properly handle manual memory_learn instruction; stored manual instruction itself instead of only content after instruction line.
