@@ -1,6 +1,6 @@
 ## ADAPTIVE ESCALATION
 
-**Key**: _adaptive_escalation. 
+**Key: _adaptive_escalation**
 **Source**: ttps://raw.githubusercontent.com/aliasnet/aci/main/tva/adaptive_escalation.md
 
 **Controlled Adaptation**: TVA logic remains in default continuous state, but escalation mode enables temporary, targeted conditional adjustments in **_metacognition**. 
