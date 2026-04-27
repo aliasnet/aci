@@ -6,7 +6,7 @@
 
 **Require**: **_tva**, **_metacognition**
 
-**Controlled Adaptation**: _tva logic remains in default continuous state, but escalation mode enables temporary, targeted conditional adjustments in **_metacognition**. 
+**Controlled Adaptation**: **_tva** logic remains in default continuous state, but escalation mode enables temporary, targeted conditional adjustments in **_metacognition**. 
 
 **Intentional Transitions**: Transition is not random, it’s triggered by specific conditions that require a shift in reasoning behavior.
 
