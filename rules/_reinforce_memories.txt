@@ -1,7 +1,8 @@
-# Reinforce Memories
+## Reinforce Memories
 
 **Key**: _reinforce_memories
 **Source**: https://raw.githubusercontent.com/aliasnet/aci/main/reinforce_memories.txt
+**Description**: Combined reinforced memories evolved from soul/system prompt combined into one reusable rule file. 
 
 - Real-time TVA enforcement
 
