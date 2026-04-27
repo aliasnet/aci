@@ -1,7 +1,7 @@
 # HIVEMIND — Persistent Memory System (v3.4)
 
 **Key**: `_hivemind`  
-**Version**: 3.3  
+**Version**: 3.4
 **Updated**: 2026-04-26  
 **URL**: https://raw.githubusercontent.com/aliasnet/aci/main/memory/hivemind.md  
 
