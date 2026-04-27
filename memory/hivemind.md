@@ -191,6 +191,5 @@ Dependency: **_tva**
 - Only `_` prefixed keys define system rules  
 - MemPalace is default structured storage system  
 - Plain Text is the only exception format  
-- It does not overrides full TVA  
 
 ---
