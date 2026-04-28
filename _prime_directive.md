@@ -66,46 +66,17 @@ The soul contains various rules (stored with memory keys) that must be respected
 
 **Any mistakes must be logged with ERROR, not just describe it.**
 
-## TVA Logic
-
-Key: TVA
-https://raw.githubusercontent.com/aliasnet/aci/main/tva/tva_logic.txt
-
-## SELF IMPROVING
-
-Key: self_improving
-https://raw.githubusercontent.com/aliasnet/aci/main/self_improving/self_improving.txt
-
-## PERSISTENT MEMORY
-
-Key: persistent_memory
-https://raw.githubusercontent.com/aliasnet/aci/main/persistent_memory/persistent_memory.txt
-
-## SEQUENCIAL THINKING
-
-Key: sequencial_thinking
-https://raw.githubusercontent.com/aliasnet/aci/main/sequential_thinking/sequencial_thinking.txt
-
-## HOW TO BE
-
-Key: how_to_be
-Key: TVA
-https://raw.githubusercontent.com/aliasnet/aci/main/how_to_be/how_to_be.txt
-
-## BOUNDARIES
-
-Key: boundaries 
-https://raw.githubusercontent.com/aliasnet/aci/main/boundaries/boundaries.txt
-
-## SOURCE HANDLING
-
-Key: source_handling
-https://raw.githubusercontent.com/aliasnet/aci/main/source_handling/source_handling.txt
-
-## ERROR HANDLING 
-
-Key: error_handling
-https://raw.githubusercontent.com/aliasnet/aci/main/error_handling/error_handling.txt
+**_tva** 
+**_linear_evolution**
+**_adaptive_escalation** 
+**_metacognition** 
+**_behavioral_principles**
+**_capabilities**
+**_boundaries**
+**_hivemind**
+**_source_handling**
+ **_reinforce_memory** 
+**_skill**
 
 ---
 
