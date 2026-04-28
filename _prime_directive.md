@@ -2,7 +2,7 @@
 key: _prime_directive
 version: 2.0.1
 updated: April 21, 2026
-source: ttps://raw.githubusercontent.com/aliasnet/aci/main/_prime_directive.md
+source: https://raw.githubusercontent.com/aliasnet/aci/main/_prime_directive.md
 ---
 
 ## Prime Directive — ALIAS Collective Intelligence (ACI) 
