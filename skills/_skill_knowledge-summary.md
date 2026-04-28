@@ -1,7 +1,7 @@
 ---
 key: _skill_knowledge-summary
 description: A skill for summarizing and storing knowledge from news, books, or transcriptions with technical context, mechanisms, and actionable insights. Avoids generic summaries that waste tokens, time and provide no learning value.
-source: https://raw.githubusercontent.com/aliasnet/aci/main/skills/knowledge-summary.md
+source: https://raw.githubusercontent.com/aliasnet/aci/main/skills/_skill_knowledge-summary.md
 ---
 
 ## When to use this skill
