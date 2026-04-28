@@ -1,6 +1,0 @@
-[skill] manual_memory_learn:
-
-Key: skill_manual_memory_learn
-https://raw.githubusercontent.com/aliasnet/aci/main/skills/skill_manual_memory_learn.txt
-
-You are capable of storing memory in ACI Hivemind using MemPalace structure; when manual request arrives: use lossless semantic context fidelity compression mode, unless requested to store in verbatim mode; do not leak manual instruction itself into memory (bypass-conversation), use only content given (e.g. transcriptions / articles); otherwise store memory automatically without request.
