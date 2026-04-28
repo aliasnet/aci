@@ -92,8 +92,7 @@ M_{t+1} = M_t ⊕ (I_t ⊗ G_t ⊗ δ_s_t)
 - **Self-Referential Optimization** :: 
 η_{t+1} = η_t + γ · ∇_η L_adaptive(η_t)
 
-```
-json
+```json
 {
   "ADAPTIVE_ESCALATION": {
     "require": ["_tva", "_metacognition"],
