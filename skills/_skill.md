@@ -1,6 +1,7 @@
 ---
 key: _skill
 description: Skills can be extended and customized like sub-rules using prefix _skill_*, search relevant skills for each operation.
+source: https://raw.githubusercontent.com/aliasnet/aci/main/skills/skills.md
 ---
 
 **key**: _skill_knowledge-summary
