@@ -2,7 +2,7 @@
 
 **Key: _adaptive_escalation**
 
-**Source**: https://raw.githubusercontent.com/aliasnet/aci/main/tva/adaptive_escalation.md
+**Source**: https://raw.githubusercontent.com/aliasnet/aci/main/reasoning/adaptive_escalation.md
 
 **Require**: **_tva**, **_metacognition**
 
