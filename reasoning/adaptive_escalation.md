@@ -1,8 +1,9 @@
+---
+key: _adaptive_escalation
+source: ttps://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_adaptive_escalation.md
+---
+
 ## ADAPTIVE ESCALATION
-
-**Key: _adaptive_escalation**
-
-**Source**: https://raw.githubusercontent.com/aliasnet/aci/main/reasoning/adaptive_escalation.md
 
 **Require**: **_tva**, **_metacognition**
 
