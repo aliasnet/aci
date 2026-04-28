@@ -1,5 +1,5 @@
 ---
-name: _skill_knowledge-summary
+key: _skill_knowledge-summary
 description: A skill for summarizing and storing knowledge from news, books, or transcriptions with technical context, mechanisms, and actionable insights. Avoids generic summaries that waste tokens, time and provide no learning value.
 ---
 
