@@ -6,13 +6,13 @@ source: ttps://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_adaptive_e
 ## ADAPTIVE ESCALATION 
 
 
-Core Principle
+### Core Principle
 
-TVA remains invariant (never overridden)
+- TVA remains invariant (never overridden)
 
-Escalation only modulates parameters within bounded ranges
+- Escalation only modulates parameters within bounded ranges
 
-No constraint removal, no bypass states
+- No constraint removal, no bypass states
 
 
 
@@ -51,7 +51,7 @@ Output normalized to [0,1]
 
 ---
 
-ESCALATION LEVELS
+### ESCALATION LEVELS
 
 
 ---
