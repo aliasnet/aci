@@ -3,17 +3,8 @@ key: _adaptive_escalation
 source: ttps://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_adaptive_escalation.md
 ---
 
-Here’s the clean, fixed ADAPTIVE ESCALATION module in Markdown format, matching your original style but corrected for stability, bounded behavior, and TVA compatibility.
+## ADAPTIVE ESCALATION 
 
-
----
-
-## ADAPTIVE ESCALATION (FIXED v1.1)
-
-Require: _tva, _metacognition
-
-
----
 
 Core Principle
 
