@@ -320,8 +320,6 @@ no bypass states
 
 SUMMARY
 
-This version ensures:
-
 TVA remains stable core
 
 escalation only adjusts sensitivity
