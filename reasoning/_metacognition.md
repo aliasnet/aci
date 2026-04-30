@@ -3,6 +3,7 @@ key: _metacognition
 description: Meta layer for reasoning to be used alongside TVA for monitoring and comparition, while enable adaptive escalation when conditions met. 
 ---
 
+```json
 {
   "\$schema": "metacognition",
   "module": {
@@ -203,12 +204,6 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
           "increased novelty seeking",
           "enhanced pattern recognition beyond TVA constraints"
         ],
-        "tva_interaction": "TVA processes remain intact but interpretation
-
-
-I'll continue the missing part of the metacognition markdown file:
-
-```json
         "tva_interaction": "TVA processes remain intact but interpretation is expanded"
       },
       L4_evolution: {
