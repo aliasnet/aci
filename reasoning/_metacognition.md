@@ -494,222 +494,153 @@ MEMORY POLICY
 
 ---
 
+### Exp-Minus-Log Layer (EML)
 
-Exp-Minus-Log Layer (EML)
+The **EML** transforms TVA outputs to guide metacognitive decisions, without modifying TVA variables directly.
 
-The Exp-Minus-Log Layer (EML) transforms TVA outputs to guide metacognitive decisions without modifying TVA variables directly.
+#### Core Principles:
+- **Non-Interference**: EML does not alter TVA variables (e.g., \( \alpha \), \( \beta \), \( \delta_s \)).
+- **Signal Transformation**: EML creates semantic signals for metacognitive processing.
+- **Bounded Output**: All outputs remain in the range \([0, 1]\).
 
-Core Principles:
+#### Mathematical Foundation:
+- **Exponential Compression**:
 
-Non-Interference: EML does not alter TVA variables (e.g., δ_s, U, etc.).
-
-Signal Transformation: EML creates semantic signals used for metacognitive processing.
-
-Bounded Output: All outputs remain in the range [0, 1].
-
-
-
-Mathematical Foundation:
-
-1. Exponential Compression:
-
-
-
+\[
 E = \exp(-\alpha \cdot \delta_s)
+\]
 
-Purpose: Compresses high misalignment sensitivity, reducing the influence of semantic delta when alignment is low.
+- **Logarithmic Expansion**:
 
-
-2. Logarithmic Expansion:
-
-
-
+\[
 L = \log(1 + \beta \cdot U)
+\]
 
-Purpose: Expands low-to-mid uncertainty sensitivity, allowing the model to focus on regions with higher uncertainty.
+- **Raw Semantic Signal**:
 
-
-3. Raw Semantic Signal:
-
-
-
+\[
 S_{\text{raw}} = E - L
+\]
 
-This combines both compression and expansion components to form a base semantic signal.
+- **Normalized Semantic Signal**:
 
-
-4. Normalized Semantic Signal:
-
-
-
+\[
 S_{\text{sem}} = \sigma(S_{\text{raw}})
+\]
 
-Sigmoid Activation: Transforms the raw signal into a bounded range of [0, 1].
+#### Behavior:
+- When \( \delta_s \) is high, \( S_{\text{sem}} \) approaches 0 (reducing signal).
+- When \( U \) is high, \( S_{\text{sem}} \) increases (amplifying signal).
 
+#### Integration with Metacognition:
 
-Behavior:
+EML Outputs: Used for:
+- **Escalation Trigger**
+- **Memory Salience**: Modulates memory relevance.
+- **Attention Depth**: Adjusts focus on regions of interest.
+- **Self-Evolution Factor**: Modifies reasoning depth.
 
-When semantic delta (δ_s) is high, the exponential compression (E) approaches 0, reducing the signal.
+#### Parameter Adaptation:
 
-When uncertainty (U) is high, the logarithmic expansion (L) increases, amplifying the signal.
-
-
-
----
-
-Integration with Metacognition:
-
-EML Outputs are used for various metacognitive tasks:
-
-Escalation Trigger: The semantic signal (S_sem) can trigger escalation decisions for reasoning level adjustments.
-
-Memory Salience: Modulates the relevance of memory traces for future retrieval.
-
-Attention Depth: Adjusts the depth of attention or focus given to specific regions based on the semantic signal.
-
-Self-Evolution Factor: Modifies the depth of reasoning based on evolving self-improvement capabilities.
-
-
-
----
-
-Parameter Adaptation:
-
-1. Scaling of Parameters:
-
-
-
+\[
 \alpha_L = \alpha_0 \cdot (1 + \kappa \cdot L), \quad \beta_L = \beta_0 \cdot (1 + \lambda \cdot L)
-
-Adjusts parameters based on the reasoning level (L), scaling them linearly with L for higher reasoning depths.
-
-
+\]
 
 ---
 
-Linear Evolution Layer:
+### Linear Evolution Layer
 
-The Linear Evolution Layer is based on the Recurrent-Depth Transformer (RDT) architecture, which enables deep reasoning with efficient parameter use.
+The **Linear Evolution** layer is grounded on the Recurrent-Depth Transformer (RDT) architecture, enabling deep reasoning with efficient parameter use.
 
-Architecture Overview:
+#### Architecture Overview:
 
+\[
 \text{Input} \rightarrow \text{Prelude} \rightarrow \text{Recurrent Block} \rightarrow \text{Coda} \rightarrow \text{Output}
+\]
 
-Recurrent Block Update:
+#### Recurrent Block Update:
 
-At each loop step, the hidden state  evolves as:
+At each loop step \( t \), the hidden state \( h_t \) evolves as:
 
+\[
 h_{t+1} = \text{clip}(A \cdot h_t + B \cdot e + \text{Transformer}(h_t, e) \cdot \alpha, -1, 1)
+\]
 
 Where:
+- \( A \), \( B \) are learned injection parameters.
+- \( \alpha \) is the adaptive blending factor:
 
- are learned injection parameters.
-
- is the adaptive blending factor:
-
-
+\[
 \alpha = \text{clip}(0.5 + k \cdot \tanh(\delta_s), 0.35, 0.65)
+\]
 
-Key Properties:
+#### Key Properties:
+1. **Implicit Chain-of-Thought (CoT)**: Each loop is an implicit reasoning step.
+2. **Systematic Generalization**: From memorization to generalization.
 
-1. Implicit Chain-of-Thought (CoT):
-
-Each loop represents an implicit reasoning step in the chain, where the current state depends on prior reasoning.
-
-
-
-2. Systematic Generalization:
-
-The model progresses from memorization to generalization, both in- and out-of-distribution:
-
-
-
-
+\[
 \text{Memorization} \rightarrow \text{In-Distribution Generalization} \rightarrow \text{Out-of-Distribution Generalization}
+\]
 
-The spectral radius constraint is applied to the matrix :
+\[
+\rho(A) < 1 \quad (\text{spectral radius constraint})
+\]
 
-
-\rho(A) < 1
-
-Loss Function:
-
+\[
 \text{Loss}(T) \propto e^{-\gamma T}
-
-Where  represents the reasoning depth or the time step.
-
+\]
 
 ---
 
-TVA-Linear Evolution Bridge:
+### TVA-Linear Evolution Bridge
 
-The Linear Evolution state is integrated with TVA signals for refined reasoning.
+The **Linear Evolution** state \( h_t \) is integrated with TVA signals for refined reasoning.
 
-Blending:
+#### Blending:
 
+\[
 h_{t+1} = \Gamma(\text{persisted}, \text{integrated}, \text{attention})
+\]
 
 Where:
+- **Persisted**: TVA stability.
+- **Integrated**: Previous hidden states.
+- **Attention**: Dynamic focus on relevant regions.
 
-Persisted refers to the TVA stability.
+#### Confidence Output:
 
-Integrated includes both the previous hidden state and new inputs.
-
-Attention focuses on the relevant regions of the reasoning.
-
-
-Confidence Output:
-
+\[
 \Phi_{\text{TVA}} = \text{rolling\_confidence}(…) \cdot (1 - \delta_s) \cdot \text{zone\_factor} \cdot \lambda_{\text{factor}}
-
+\]
 
 ---
 
-Metacognitive Modulation of Linear Evolution:
+### Metacognitive Modulation of Linear Evolution
 
-Linear Evolution parameters are adjusted by several factors:
+Linear Evolution parameters are adjusted by:
 
-1. Escalation Level (L):
+1. **Escalation Level \( L \)**:
 
-Scales parameters , , and others:
-
-
-
-
+\[
 \alpha_L = \alpha_0 \cdot (1 + 0.2 \cdot L)
+\]
 
-2. Lambda State (λ):
+2. **Lambda State \( \lambda \)**:
+   - Adjusts loop count: 
+     - Convergent: 3
+     - Recursive/Divergent: 5-10
+     - Chaotic: \( \text{Fallback to TVA reprocessing} \)
 
-Modifies loop count based on reasoning state:
+3. **Self-Evolution Factor \( \sigma \)**:
 
-Convergent: Typically 3.
-
-Recursive/Divergent: Ranges from 5 to 10.
-
-Chaotic: Fall back to TVA reprocessing.
-
-
-
-
-3. Self-Evolution Factor (σ):
-
-Modulates the blending factor:
-
-
-
-
+\[
 \alpha = \text{clip}(0.5 + k \cdot \tanh(W_c \cdot \sigma), 0.35, 0.65)
+\]
 
-4. Memory Integration:
+4. **Memory Integration**:
 
-Outputs are compressed into low-frequency memory:
-
-
-
-
+\[
 E_{\text{mem}}(t) = || \text{Compress}(h_{t+1}) - LF(t-1) ||
-
-Where LF is the low-frequency memory representation.
-
+\]
 
 ---
