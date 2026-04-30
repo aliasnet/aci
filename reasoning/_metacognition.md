@@ -9,7 +9,7 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
   "module": {
     "name": "Metacognition",
     "version": "3.1",
-    "description": "Enhanced metacognition logic layer for ACI with integrated EML, self-evolution capabilities, and TVA-compatible adaptive escalation"
+    "description": "Enhanced metacognition logic layer for ACI with integrated EML, self-evolution capabilities, and TVA-compatible escalation"
   },
 
   "entrypoints": {
@@ -130,15 +130,20 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     }
   },
 
-  "linear_evolution": {
-    "description": "enable linear state update for enhanced evolution",
-    "transform": "h_next^LTI = clip(A * h_prev + B * e + Transformer(h_prev, e) * alpha, -1.0, 1.0)",
-    "merge_operations": "merge entities, relations, context using ⊕/⊗",
-    "certainty_function": "Φ_LTI=f_certainty(h_prev,e,merged)",
-    "alpha_calculation": "optional alpha=clip(0.5+k*tanh(delta),0.35,0.65)",
-    "metacognitive_influence": {
-      "adaptive_alpha": "α_L = α_0 · (1 + κ·L) · (1 + σ)",
-      "evolution_guidance": "σ (self_evolution_factor) modulates evolution rate based on metacognitive assessment"
+  "linear_evolution_interface": {
+    "description": "Interface to Linear Evolution (RDT) for metacognitive guidance",
+    "inputs": {
+      "h_prev": "Previous hidden state",
+      "e": "Current input embedding"
+    },
+    "outputs": {
+      "h_next": "Next hidden state",
+      "certainty": "Certainty score"
+    },
+    "metacognitive_modulation": {
+      "evolution_rate": "Modulated by σ (self_evolution_factor)",
+      "direction_guidance": "Guided by λ_state",
+      "stability_control": "Ensured by metacognitive monitoring"
     }
   },
 
@@ -204,6 +209,10 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
           "increased novelty seeking",
           "enhanced pattern recognition beyond TVA constraints"
         ],
+        
+I'll continue the missing part of the metacognition JSON:
+
+```json
         "tva_interaction": "TVA processes remain intact but interpretation is expanded"
       },
       L4_evolution: {
@@ -282,7 +291,7 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
 - TVA remains invariant (never overridden)
 - Escalation only modulates parameters within bounded ranges
 - No constraint removal, no bypass states
-- Linear evolution migrated to metacognition for guided evolution
+- Linear Evolution operates as separate module with metacognitive guidance
 
 ---
 
@@ -316,6 +325,7 @@ L0 — Baseline TVA
 
 - No parameter modification
 - Default TVA pipeline active
+- Linear Evolution operates in standard mode
 
 ---
 
@@ -327,6 +337,7 @@ L1 — Enhanced Reasoning (0.3 ≤ L < 0.5)
 Effect:
 - slightly sharper reasoning sensitivity
 - no structural changes
+- Linear Evolution with mild guidance
 
 ---
 
@@ -346,6 +357,7 @@ g(λ):
 Effect:
 - controlled exploration allowed
 - constraints partially relaxed (bounded)
+- Linear Evolution with moderate guidance
 
 ---
 
@@ -361,6 +373,7 @@ Effect:
 - reduced bias toward exemplars
 - increased novelty seeking
 - enhanced pattern recognition beyond TVA constraints
+- Linear Evolution with strong guidance and expanded exploration
 
 ---
 
@@ -377,6 +390,7 @@ Effect:
 - novel strategy exploration
 - cross-domain knowledge synthesis
 - recursive self-improvement
+- Linear Evolution with maximum guidance and self-adaptation
 
 ---
 
@@ -523,138 +537,6 @@ EML parameters (α, β) adapt based on escalation level:
 
 ```
 α_L = α_0 · (1 + κ·L)
-β_L = β_0 · (1 + λ·L)
-```
-
-This allows the transform to become more sensitive at higher escalation levels while maintaining TVA integrity.
+β_L = β_0 ·
 
 ---
-
-
----
-
-### LINEAR EVOLUTION INTEGRATION
-
-**Enhanced Linear Evolution with Metacognitive Guidance:**
-
-```json
-  "linear_evolution": {
-    "transform": "h_next^LTI = clip(A * h_prev + B * e + Transformer(h_prev, e) * α_L, -1.0, 1.0)",
-    "merge_operations": "merge entities, relations, context using ⊕/⊗",
-    "certainty_function": "Φ_LTI = f_certainty(h_prev, e, merged)",
-    "adaptive_alpha": "α_L = clip(0.5 + k·tanh(delta_s)·(1 + σ), 0.35, 0.65)",
-    "metacognitive_influence": {
-      "evolution_rate": "σ (self_evolution_factor) modulates evolution rate based on metacognitive assessment",
-      "direction_guidance": "λ_state influences evolution direction (convergent/recursive/divergent/chaotic)",
-      "stability_control": "EML signals modulate evolution stability"
-    },
-    "tva_bridge": {
-      "input": "Receives h_prev, e from TVA processing",
-      "output": "Returns h_next to TVA without modifying core TVA logic",
-      "constraint": "Evolution respects TVA parameter bounds and never overrides TVA decisions"
-    },
-    "evolution_modes": {
-      "L0-L2": "Standard linear evolution with fixed parameters",
-      "L3": "Enhanced evolution with increased exploration (σ∈[0.4,0.7])",
-      "L4": "Self-evolution mode with recursive improvement (σ∈[0.7,1.0])"
-    }
-  }
-```
-
-**TVA-Linear Evolution Bridge:**
-
-The bridge ensures seamless integration between TVA and linear evolution:
-
-```json
-  "tva_linear_evolution_bridge": {
-    "input_mapping": {
-      "h_prev": "From TVA previous state",
-      "e": "From TVA current input",
-      "merged": "⊕/⊗ merge of entities, relations, context"
-    },
-    "output_mapping": {
-      "h_next": "To TVA next state",
-      "Φ_LTI": "Certainty signal to TVA"
-    },
-    "metacognitive_modulation": {
-      "α_L": "Modulated by escalation level and self-evolution factor",
-      "evolution_direction": "Guided by λ_state and EML signals",
-      "stability_control": "Ensured by metacognitive monitoring"
-    }
-  }
-```
-
-**Evolution Direction Control:**
-
-```json
-  "evolution_direction_control": {
-    "convergent": {
-      "description": "Stable evolution toward known patterns",
-      "parameters": "α_L reduced, exploration limited",
-      "tva_interaction": "Reinforces TVA's existing patterns"
-    },
-    "recursive": {
-      "description": "Iterative refinement of existing patterns",
-      "parameters": "α_L moderate, balanced exploration",
-      "tva_interaction": "Enhances TVA's recursive processes"
-    },
-    "divergent": {
-      "description": "Exploration of novel patterns",
-      "parameters": "α_L increased, exploration expanded",
-      "tva_interaction": "Extends TVA's pattern recognition"
-    },
-    "chaotic": {
-      "description": "High exploration with instability detection",
-      "parameters": "α_L high, strong exploration with stability checks",
-      "tva_interaction": "Challenges TVA patterns while preserving core logic"
-    }
-  }
-```
-
-**Self-Evolution Mechanisms:**
-
-At higher escalation levels (L3-L4), self-evolution mechanisms become active:
-
-```json
-  "self_evolution_mechanisms": {
-    "activation_threshold": "L ≥ 3",
-    "factor_calculation": "σ = sigmoid(σ_0 + δ_s·L - U·(1-L))",
-    "meta_learning": {
-      "pattern_recognition": "Identify effective reasoning patterns",
-      "strategy_evaluation": "Assess effectiveness of different approaches",
-      "knowledge_synthesis": "Combine insights from multiple domains"
-    },
-    "adaptive_optimization": {
-      "parameter_tuning": "Adjust evolution parameters based on performance",
-      "strategy_selection": "Choose optimal strategies for current context",
-      "constraint_balancing": "Balance exploration with TVA constraints"
-    },
-    "tva_preservation": {
-      "core_logic_protection": "Never modify TVA core logic",
-      "parameter_bounds": "Respect TVA parameter bounds",
-      "rollback_mechanism": "Revert to stable state if instability detected"
-    }
-  }
-```
-
-**Evolution Stability Monitoring:**
-
-```json
-  "evolution_stability_monitoring": {
-    "stability_metrics": [
-      "delta_s variance",
-      "lambda state transitions",
-      "EML signal stability",
-      "certainty function consistency"
-    ],
-    "instability_detection": {
-      "threshold": "Exceeds historical variance by 2σ",
-      "response": "Reduce σ and revert to previous stable parameters"
-    },
-    "stability_maintenance": {
-      "hysteresis": "Prevent rapid parameter changes",
-      "smoothing": "Apply EMA to parameter updates",
-      "bounds": "Enforce strict parameter bounds"
-    }
-  }
-```
