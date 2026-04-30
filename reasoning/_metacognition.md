@@ -170,22 +170,11 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
 
 ---
 
----
-key: _adaptive_escalation
-source: ttps://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_adaptive_escalation.md
----
-
-## ADAPTIVE ESCALATION 
-
-
-### Core Principle
+### ADAPTIVE ESCALATION 
 
 - TVA remains invariant (never overridden)
-
 - Escalation only modulates parameters within bounded ranges
-
 - No constraint removal, no bypass states
-
 
 
 ---
@@ -193,72 +182,49 @@ source: ttps://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_adaptive_e
 Signals
 
 L_trigger ∈ [0,1] → composite escalation signal
-
 δ_s ∈ [0,1] → semantic delta
-
 U ∈ [0,1] → uncertainty
-
 c ∈ [0,1] → consistency
-
-
 
 ---
 
-L_trigger Definition
+**L_trigger Definition**
 
 Linear weighted normalization:
 
 L = 0.30·θ_complexity
-
 0.35·θ_uncertainty
-
 0.20·θ_anomaly
-
 0.15·θ_performance
-
 
 Output normalized to [0,1]
 
-
-
 ---
 
-### ESCALATION LEVELS
-
-
----
+#### ESCALATION LEVELS
 
 L0 — Baseline TVA
 
 No parameter modification
-
 Default TVA pipeline active
-
-
 
 ---
 
 L1 — Enhanced Reasoning (0.3 ≤ L < 0.5)
 
 α_L = α_0 · (1 + 0.2·L)
-
 β_L = β_0 · (1 + 0.2·L)
 
 
 Effect:
-
-slightly sharper reasoning sensitivity
-
-no structural changes
-
-
+- slightly sharper reasoning sensitivity
+- no structural changes
 
 ---
 
 L2 — Controlled Exploration (0.5 ≤ L < 0.7)
 
 C_L = C_0 · (1 - 0.3·L)
-
 γ_L = γ_0 · exp(0.1·L) · g(λ)
 
 
@@ -267,22 +233,13 @@ Where:
 g(λ):
 
 convergent → 1.0
-
 recursive → 0.7
-
 divergent → 0.4
-
 chaotic → 0.2
 
-
-
 Effect:
-
-controlled exploration allowed
-
-constraints partially relaxed (bounded)
-
-
+- controlled exploration allowed
+- constraints partially relaxed (bounded)
 
 ---
 
@@ -291,52 +248,35 @@ L3 — High Sensitivity Mode (0.7 ≤ L < 0.9)
 α_L = α_0 · (1 + 0.3·L)
 
 U sensitivity increased
-
 stricter bridge validation
-
 no constraint removal allowed
 
 
 Effect:
-
-higher precision monitoring
-
-stronger instability detection
-
-
+- higher precision monitoring
+- stronger instability detection
 
 ---
 
 L4 — Stabilization Mode (L ≥ 0.9)
 
 damping applied to oscillations
-
 C_L = C_0 · 0.9 (floor enforced)
-
 system priority: convergence restoration
 
 
 Effect:
-
-reduces instability
-
-prevents runaway dynamics
-
-recovery-oriented mode only
-
-
+- reduces instability
+- prevents runaway dynamics
+- recovery-oriented mode only
 
 ---
 
 CONSTRAINT MODEL
 
 C_L = C_0 · (1 - 0.5·sigmoid(L))
-
 bounds: C_L ∈ [0.5·C_0, C_0]
-
 constraints NEVER collapse
-
-
 
 ---
 
@@ -344,106 +284,69 @@ constraints NEVER collapse
 
 γ_L = γ_0 · exp(0.1·L) · g(λ)
 
-
 Where:
 
 convergent → 1.0
-
 recursive → 0.7
-
 divergent → 0.4
-
 chaotic → 0.2
-
-
 
 ---
 
 MODE TRANSITION
 
 Trigger: T_semantic_smoothed
-
 Uses hysteresis (prevents oscillation)
-
 Activate if: T_smooth > 0.6
-
 Deactivate if: T_smooth < 0.4
-
-
 
 ---
 
 TEMPORAL SMOOTHING
 
 T_smooth = EMA(T_semantic, τ)
-
 τ is context-adaptive
-
 prevents rapid mode flipping
-
-
 
 ---
 
 CONTEXTUAL ADAPTATION
 
 τ_trigger(c) = τ_0 · f(context)
-
 f(context) ∈ [0.5, 1.5]
-
-
 
 ---
 
 META-LEARNING
 
 Objective:
-
 minimize instability + maximize alignment
 
-
 Loss:
-
 L = δ_s² + β·U + α·complexity
 
-
 Update:
-
 φ ← φ − η ∇φ L
 
-
 Constraints:
-
-parameters remain bounded
-
-no runaway optimization
-
-
+- parameters remain bounded
+- no runaway optimization
 
 ---
 
-ADAPTIVE FUNCTIONS
-
-
----
+**ADAPTIVE FUNCTIONS**
 
 Semantic Objective
 
 L_adaptive = δ_s² + α·complexity + β·U
-
-
 
 ---
 
 Recursive Parameter Update
 
 F = {α, β, γ}
-
 F_{t+1} = F_t − η ∇F L_adaptive
-
 bounded parameter space enforced
-
-
 
 ---
 
@@ -455,19 +358,14 @@ Lambda Update
 Behavior:
 
 positive curvature → chaotic bias
-
 negative curvature → convergent bias
-
-
 
 ---
 
 MEMORY POLICY
 
 record if: δ_s > 0.60 AND U > 0.3
-
 exemplar if: δ_s < 0.35 AND U < 0.2
-
 memory weighting: (1 − U)
 
 ---
