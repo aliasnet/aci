@@ -379,7 +379,7 @@ MEMORY POLICY
     "role": "Exp-Minus-Log semantic perception transform layer for Metacognition",
 
     "core_principle": {
-      "invariance": "does not modify TVA variables (delta_s, lambda, W_c)",
+      "invariance": "does not overrides TVA variables (delta_s, lambda, W_c)",
       "function": "transforms interpretation signals only"
     },
 
