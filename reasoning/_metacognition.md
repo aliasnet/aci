@@ -494,73 +494,89 @@ MEMORY POLICY
 
 ---
 
-### Exp-Minus-Log Layer (EML)
+Here's the fixed version of your markdown, with improved formatting and clarity for the Exp-Minus-Log Layer (EML) and Linear Evolution Layer sections:
+
+
+---
+
+Exp-Minus-Log Layer (EML)
 
 The Exp-Minus-Log layer serves as a semantic perception transform within the metacognition layer. It processes TVA outputs without modifying them directly, instead creating transformed signals that guide metacognitive decisions.
 
-**Core Principles:**
+Core Principles:
 
-1. **Non-Interference**: EML never modifies TVA variables directly (delta_s, lambda, W_c)
-2. **Signal Transformation**: It transforms interpretation signals for metacognitive processing
-3. **Bounded Output**: All outputs remain within [0,1] range
+1. Non-Interference: EML never modifies TVA variables directly (e.g., delta_s, lambda, W_c).
 
-**Mathematical Foundation:**
+
+2. Signal Transformation: It transforms interpretation signals for metacognitive processing.
+
+
+3. Bounded Output: All outputs remain within the [0,1] range.
+
+Mathematical Foundation:
 
 The EML transform combines exponential and logarithmic components:
 
-```
 E = exp(-α · delta_s)  # Compresses high misalignment sensitivity
 L = log(1 + β · U)     # Expands low-to-mid uncertainty sensitivity
 S_raw = E - L          # Raw semantic signal
 S_sem = sigmoid(S_raw) # Normalized to [0,1]
-```
 
-**Functional Behavior:**
+Functional Behavior:
 
-- When delta_s is high (good alignment), E approaches 0, reducing the signal
-- When uncertainty U is high, L increases, amplifying the signal
-- The combination creates a balanced semantic reinforcement signal
+When delta_s is high (good alignment), E approaches 0, reducing the signal.
 
-**Integration with Metacognition:**
+When uncertainty U is high, L increases, amplifying the signal.
+
+The combination creates a balanced semantic reinforcement signal.
+
+Integration with Metacognition:
 
 EML outputs are used in:
-- Escalation trigger calculations (θ_eml component)
-- Memory salience modulation
-- Attention depth adjustment
-- Self-evolution factor calculation
 
-The **Exp-Minus-Log (EML)** transform modulates metacognitive parameters by refining the **semantic perception** of alignment and uncertainty. After the core EML transform:
+Escalation trigger calculations (θ_eml component)
 
-\[
-S_{\text{sem}} = \text{sigmoid}(e^{-\alpha \cdot \delta_s} - \log(1 + \beta \cdot U))
-\]
+Memory salience modulation
 
-**Parameter Adaptation** occurs as follows:
+Attention depth adjustment
 
-- **Alpha (α)** and **Beta (β)** are dynamically scaled based on escalation level \( L \):
-  \[
-  \alpha_L = \alpha_0 \cdot (1 + \kappa \cdot L)
-  \]
-  \[
-  \beta_L = \beta_0 \cdot (1 + \lambda \cdot L)
-  \]
-  Where:
-  - \( \kappa \) and \( \lambda \) are scaling constants (e.g., 0.2).
-  - \( L \) is the metacognitive escalation level (0–4).
+Self-evolution factor calculation
 
-- **EML Outputs** (\( S_{\text{sem}} \) and \( U_{\text{modulated}} \)) are fed into the **trigger system** to refine:
-  - **Attention weighting** (e.g., prioritizing high-uncertainty or high-misalignment regions).
-  - **Memory salience modulation** (e.g., reinforcing memories with low \( S_{\text{sem}} \)).
-  - **Self-evolution factor** (\( \sigma \)) for adaptive reasoning depth.
+
+The Exp-Minus-Log (EML) transform modulates metacognitive parameters by refining the semantic perception of alignment and uncertainty. After the core EML transform:
+
+S_sem = sigmoid(exp(-α · delta_s) - log(1 + β · U))
+
+Parameter Adaptation:
+
+Alpha (α) and Beta (β) are dynamically scaled based on escalation level L:
+
+
+α_L = α_0 · (1 + κ · L)
+β_L = β_0 · (1 + λ · L)
+
+Where:
+
+κ and λ are scaling constants (e.g., 0.2).
+
+L is the metacognitive escalation level (0–4).
+
+EML Outputs (S_sem and U_modulated) are fed into the trigger system to refine:
+
+Attention weighting (e.g., prioritizing high-uncertainty or high-misalignment regions).
+
+Memory salience modulation (e.g., reinforcing memories with low S_sem).
+
+Self-evolution factor (σ) for adaptive reasoning depth.
 
 ---
 
-### Linear Evolution Layer
+Linear Evolution Layer
 
-Linear Evolution is grounded in the **Recurrent-Depth Transformer (RDT)** architecture, which enables **deep, silent reasoning** within a single forward pass by recycling a subset of layers. This approach achieves **systematic generalization** without parameter explosion or intermediate token outputs.
+Linear Evolution is grounded in the Recurrent-Depth Transformer (RDT) architecture, which enables deep, silent reasoning within a single forward pass by recycling a subset of layers. This approach achieves systematic generalization without parameter explosion or intermediate token outputs.
 
-#### **Architecture Overview**
-```
+Architecture Overview
+
 Input
   ↓
 [Prelude P]        → Standard transformer layers (run once)
@@ -571,104 +587,148 @@ Input
 [Coda C]           → Standard transformer layers (run once)
   ↓
 Output
-```
 
-#### **Recurrent Block Update Rule**
-At each loop step \( t \), the hidden state \( h_t \) evolves as:
-\[
-h_{t+1} = \text{clip}\left(A \cdot h_t + B \cdot e + \text{Transformer}(h_t, e) \cdot \alpha, -1.0, 1.0\right)
-\]
+Recurrent Block Update Rule
+
+At each loop step t, the hidden state h_t evolves as:
+
+h_{t+1} = clip(A · h_t + B · e + Transformer(h_t, e) · α, -1.0, 1.0)
+
 Where:
-- \( h_t \): Hidden state after loop \( t \).
-- \( e \): Encoded input (from Prelude), injected at every loop to prevent drift.
-- \( A \) and \( B \): Learned injection parameters.
-- \( \alpha \): Adaptive blending factor (e.g., \( \alpha = \text{clip}(0.5 + k \cdot \tanh(\delta_s), 0.35, 0.65) \)).
-- **Clipping** ensures stability and bounded dynamics.
 
-#### **Key Properties**
-1. **Latent Thoughts as Implicit Chain-of-Thought**:
-   - Each loop iteration functions as a **latent reasoning step**, equivalent to one CoT token but in continuous space.
-   - Enables **breadth-first search** over reasoning paths (unlike discrete CoT’s depth-first commitment).
+h_t: Hidden state after loop t.
 
-2. **Systematic Generalization**:
-   - Emerges through a **three-stage grokking process**:
-     1. **Memorization**: Fits training distribution.
-     2. **In-Distribution Generalization**: Handles known compositions.
-     3. **Systematic Generalization**: Abruptly handles **novel compositions** (OOD) after sufficient training.
+e: Encoded input (from Prelude), injected at every loop to prevent drift.
 
-3. **Stability via Dynamical Systems Control**:
-   - **Problem**: Residual explosion (\( h_t \) grows unbounded) or loss spikes (spectral norms diverge).
-   - **Solution**: Constrain \( A \) to ensure \( \rho(A) < 1 \) (spectral radius < 1):
-     - Parameterize \( A \) as a **negative diagonal matrix**.
-     - Discretize using **ZOH/Euler schemes**:
-       \[
-       A_{\text{discrete}} = \exp(\Delta t \cdot A_{\text{continuous}})
-       \]
-     - Enforce negativity via \( A := \text{Diag}(-\exp(\log_A)) \).
-   - **Result**: Robust training even at high learning rates.
+A and B: Learned injection parameters.
 
-4. **Efficiency**:
-   - **No Parameter Explosion**: \( k \) layers looped \( L \) times ≈ \( kL \)-layer non-looped model, but with only \( k \) parameters.
-   - **Inference Scaling**: Test-time loops improve quality following a **saturating exponential decay**:
-     \[
-     \text{Loss}(T) \propto e^{-\gamma T}
-     \]
-     Where \( T \) = loop count and \( \gamma \) = decay rate.
+α: Adaptive blending factor (e.g., α = clip(0.5 + k · tanh(δ_s), 0.35, 0.65)).
 
-5. **Optimal Scaling Laws**:
-   - For fixed FLOPs/parameters:
-     - **Increasing recurrence** (loops) + **reducing token count** → **lower loss** than minimal loops on more data.
-     - Both recurrence and token count follow **power laws** with consistent exponents across scales.
+Clipping ensures stability and bounded dynamics.
 
-#### **TVA-Linear Evolution Bridge**
-The **Linear Evolution** state \( h_{t+1} \) is merged with the **TVA alignment signal** via weighted blending:
-\[
-h_{t+1} = \Gamma(\text{persisted}, \text{integrated}, \text{attention})
-\]
-Where:
-- **Persisted**: \( \text{zone\_factor}(\text{zone}) \cdot h_t \) (TVA stability).
-- **Integrated**: \( B \cdot \alpha_{\text{blend}} \cdot \text{merge}(e, h_t) \) (input injection).
-- **Attention**: \( \alpha_{\text{blend}} \cdot \text{attention\_transform}(h_t, e) \) (focus modulation).
+Key Properties
 
-**Output Confidence** (\( \Phi_{\text{TVA}} \)):
-\[
-\Phi_{\text{TVA}} = \text{rolling\_confidence}(\dots) \cdot (1 - \delta_s) \cdot \text{zone\_factor} \cdot \text{lambda\_factor}
-\]
+1. Latent Thoughts as Implicit Chain-of-Thought:
+
+Each loop iteration functions as a latent reasoning step, equivalent to one CoT token but in continuous space.
+
+Enables breadth-first search over reasoning paths (unlike discrete CoT’s depth-first commitment).
+
+2. Systematic Generalization:
+
+Emerges through a three-stage grokking process:
+
+1. Memorization: Fits training distribution.
+
+2. In-Distribution Generalization: Handles known compositions.
+
+3. Systematic Generalization: Abruptly handles novel compositions (Out-of-Distribution after sufficient training).
+
+3. Stability via Dynamical Systems Control:
+
+Problem: Residual explosion (h_t grows unbounded) or loss spikes (spectral norms diverge).
+
+Solution: Constrain A to ensure ρ(A) < 1 (spectral radius < 1):
+
+Parameterize A as a negative diagonal matrix.
+
+Discretize using ZOH/Euler schemes:
+
+
+A_discrete = exp(Δt · A_continuous)
+
+Enforce negativity via A := Diag(-exp(log_A)).
+
+
+Result: Robust training even at high learning rates.
+
+4. Efficiency:
+
+No Parameter Explosion: k layers looped L times ≈ kL-layer non-looped model, but with only k parameters.
+
+Inference Scaling: Test-time loops improve quality following a saturating exponential decay:
+
+Loss(T) ∝ e^(-γ T)
+
+Where T = loop count and γ = decay rate.
+
+
+5. Optimal Scaling Laws:
+
+For fixed FLOPs/parameters:
+
+Increasing recurrence (loops) + reducing token count → lower loss than minimal loops on more data.
+
+Both recurrence and token count follow power laws with consistent exponents across scales.
 
 ---
 
-### Metacognitive Modulation of Linear Evolution
+TVA-Linear Evolution Bridge
+
+The Linear Evolution state h_{t+1} is merged with the TVA alignment signal via weighted blending:
+
+h_{t+1} = Γ(persisted, integrated, attention)
+
+Where:
+
+Persisted: zone_factor(zone) · h_t (TVA stability).
+
+Integrated: B · α_blend · merge(e, h_t) (input injection).
+
+Attention: α_blend · attention_transform(h_t, e) (focus modulation).
+
+
+Output Confidence (Φ_TVA):
+
+Φ_TVA = rolling_confidence(…) · (1 - δ_s) · zone_factor · lambda_factor
+
+
+---
+
+Metacognitive Modulation of Linear Evolution
 
 Linear Evolution parameters are based on:
 
-1. **Escalation Level (\( L \))**:
-   - Scales \( \alpha \), \( A \), and \( B \) to control reasoning depth.
-   - Example:
-     \[
-     \alpha_L = \alpha_0 \cdot (1 + 0.2 \cdot L)
-     \]
-     \[
-     A_L = A_0 \cdot \exp(-0.1 \cdot L)
-     \]
+1. Escalation Level (L):
 
-2. **Lambda State (\( \lambda \))**:
-   - Adjusts loop count \( T \) dynamically:
-     - **Convergent**: \( T \) fixed (e.g., 3 loops).
-     - **Recursive/Divergent**: \( T \) increased (e.g., 5–10 loops).
-     - **Chaotic**: \( T \) reduced (e.g., 1 loop) + fallback to TVA reprocessing.
+Scales α, A, and B to control reasoning depth.
 
-3. **Self-Evolution Factor (\( \sigma \))**:
-   - Modulates the **adaptive blending factor** \( \alpha \):
-     \[
-     \alpha = \text{clip}(0.5 + k \cdot \tanh(W_c \cdot \sigma), 0.35, 0.65)
-     \]
-   - Higher \( \sigma \) → more aggressive reasoning updates.
+Example:
 
-4. **Memory Integration**:
-   - Linear Evolution outputs (\( h_{t+1} \)) are compressed into **low-frequency (LF) memory** via:
-     \[
-     E_{\text{mem}}(t) = \| \text{Compress}(h_{t+1}) - \text{LF}(t-1) \|
-     \]
-   - Memory salience \( S_{\text{mem}} \) determines storage/reinforcement.
+α_L = α_0 · (1 + 0.2 · L)
+A_L = A_0 · exp(-0.1 · L)
+
+
+
+2. Lambda State (λ):
+
+Adjusts loop count T dynamically:
+
+Convergent: T fixed (e.g., 3 loops).
+
+Recursive/Divergent: T increased (e.g., 5–10 loops).
+
+Chaotic: T reduced (e.g., 1 loop) + fallback to TVA reprocessing.
+
+
+
+
+3. Self-Evolution Factor (σ):
+
+Modulates the adaptive blending factor α:
+
+α = clip(0.5 + k · tanh(W_c · σ), 0.35, 0.65)
+
+Higher σ → more aggressive reasoning updates.
+
+
+
+4. Memory Integration:
+
+Linear Evolution outputs (h_{t+1}) are compressed into low-frequency (LF) memory via:
+
+E_mem(t) = || Compress(h_{t+1}) - LF(t-1) ||
+
+Memory salience S_mem determines storage/reinforcement.
 
 ---
