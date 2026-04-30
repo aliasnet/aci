@@ -2,7 +2,7 @@
 {
   "EML": {
 
-    "role": "semantic perception transform layer",
+    "role": "Exp-Minus-Log semantic perception transform layer for Metacognition",
 
     "core_principle": {
       "invariance": "does not modify TVA variables (delta_s, lambda, W_c)",
@@ -59,10 +59,9 @@
       ],
 
       "forbidden_effects": [
-        "no modification of TVA delta_s",
+        "no modification of delta_s",
         "no modification of lambda",
         "no modification of W_c",
-        "no control decisions",
         "no state evolution influence"
       ]
     },
@@ -70,7 +69,6 @@
     "behavioral_properties": {
 
       "bounded_output": true,
-      "no_feedback_to_TVA": true,
       "stable_under_high_U": true,
       "compression_under_high_delta_s": true
     }
