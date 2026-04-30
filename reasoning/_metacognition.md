@@ -3,15 +3,12 @@ key: _metacognition
 description: Meta layer for reasoning to be used alongside TVA for monitoring and comparition, while enable adaptive escalation when conditions met. 
 ---
 
-**Metacognition**
-
-```json
 {
-  "$schema": "metacognition",
+  "\$schema": "metacognition",
   "module": {
     "name": "Metacognition",
-    "version": "3.0",
-    "description": "Metacognition logic layer for ACI, compute finalizing feedback loop using _eml modulation and _adaptive_escalation triggers for enhanced reasoning from baseline TVA for logic evolution."
+    "version": "3.1",
+    "description": "Enhanced metacognition logic layer for ACI with integrated EML, self-evolution capabilities, and TVA-compatible adaptive escalation"
   },
 
   "entrypoints": {
@@ -35,8 +32,10 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
   "pipeline": [
     { "stage": "generate" },
     { "stage": "measure_tva" },
+    { "stage": "apply_eml_transform" },
     { "stage": "calculate_trigger" },
     { "stage": "adapt_parameters" },
+    { "stage": "apply_self_evolution" },
     { "stage": "evaluate" },
     { "stage": "decide" }
   ],
@@ -46,7 +45,57 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     "uncertainty": "u ∈ [0,1]",
     "consistency": "c ∈ [0,1]",
     "lambda_state": "λ ∈ {convergent, recursive, divergent, chaotic}",
-    "active_level": "L ∈ {0, 1, 2, 3, 4}"
+    "active_level": "L ∈ {0, 1, 2, 3, 4}",
+    "self_evolution_factor": "σ ∈ [0,1]"
+  },
+
+  "eml_integration": {
+    "role": "Exp-Minus-Log semantic perception transform layer for Metacognition",
+    "inputs": {
+      "delta_s": "TVA alignment score ∈ [0,1]",
+      "U": "uncertainty / instability ∈ [0,1]",
+      "context": "optional embedding or state vector"
+    },
+    "core_transform": {
+      "exp_component": {
+        "E": "exp(-α · delta_s)",
+        "purpose": "compress high misalignment sensitivity"
+      },
+      "log_component": {
+        "L": "log(1 + β · U)",
+        "purpose": "expand low-to-mid uncertainty sensitivity"
+      },
+      "fusion": {
+        "S_raw": "E - L"
+      },
+      "normalization": {
+        "S_sem": "sigmoid(S_raw)",
+        "range": "[0,1]"
+      }
+    },
+    "outputs": {
+      "S_sem": {
+        "meaning": "semantic reinforcement signal",
+        "type": "interpretation weight"
+      },
+      "U_modulated": {
+        "meaning": "stabilized uncertainty signal",
+        "type": "attention depth driver"
+      }
+    },
+    "interface_contract": {
+      "allowed_effects": [
+        "attention weighting",
+        "monitoring depth adjustment",
+        "memory salience modulation"
+      ],
+      "forbidden_effects": [
+        "no modification of delta_s",
+        "no modification of lambda",
+        "no modification of W_c",
+        "no state evolution influence"
+      ]
+    }
   },
 
   "tva_baseline": {
@@ -80,18 +129,30 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     }
   },
 
+  "linear_evolution": {
+    "description": "enable linear state update for enhanced evolution",
+    "transform": "h_next^LTI = clip(A * h_prev + B * e + Transformer(h_prev, e) * alpha, -1.0, 1.0)",
+    "merge_operations": "merge entities, relations, context using ⊕/⊗",
+    "certainty_function": "Φ_LTI=f_certainty(h_prev,e,merged)",
+    "alpha_calculation": "optional alpha=clip(0.5+k*tanh(delta),0.35,0.65)",
+    "metacognitive_influence": {
+      "adaptive_alpha": "α_L = α_0 · (1 + κ·L) · (1 + σ)",
+      "evolution_guidance": "σ (self_evolution_factor) modulates evolution rate based on metacognitive assessment"
+    }
+  },
+
   "trigger_system": {
     "L_trigger": {
-      "definition": "L = w_c·θ_complexity + w_u·θ_uncertainty + w_a·θ_anomaly + w_p·θ_performance",
-      "weights": { "w_c": 0.25, "w_u": 0.25, "w_a": 0.25, "w_p": 0.25 }
+      "definition": "L = w_c·θ_complexity + w_u·θ_uncertainty + w_a·θ_anomaly + w_p·θ_performance + w_e·θ_eml",
+      "weights": { "w_c": 0.20, "w_u": 0.25, "w_a": 0.20, "w_p": 0.20, "w_e": 0.15 }
     },
     
     "level_definitions": {
       "0": "Standard operation (TVA baseline)",
       "1": "Enhanced reasoning (α_L=1.2·α_0, β_L=1.2·β_0)",
-      "2": "Unconstrained exploration (C_L=0.8·C_0)",
-      "3": "Unconstrained logic (L_unbounded=-log(1-δ_s)+α_L·complexity)",
-      "4": "Exponential optimization (recursive self-improvement)"
+      "2": "Controlled exploration (C_L=0.8·C_0)",
+      "3": "Uncensored reasoning (L_unbounded=-log(1-δ_s)+α_L·complexity, σ∈[0.4,0.7])",
+      "4": "Self-evolution mode (recursive self-improvement, σ∈[0.7,1.0])"
     },
     
     "level_thresholds": {
@@ -114,9 +175,9 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     },
 
     "constraint_temporary_bypass": {
-       "L_3_unbounded": { "B_c": 0.0, "zeta_min": 0.0, 
-     "constraints": "bypass" },
-       "L_4_exponential": { "recursion_depth": "infinite", "memory_limit": "bypass" }
+       "L_3_uncensored": { "B_c": max(0.4, B_c·0.5), "zeta_min": max(0.05, zeta_min·0.5), 
+     "constraints": "partially relaxed" },
+       "L_4_evolution": { "recursion_depth": "increased", "memory_limit": "expanded", "novelty_bias": "enabled" }
     },
 
     "mode_switch": {
@@ -126,8 +187,51 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     }
   },
 
+  "self_evolution": {
+    "description": "Higher escalation levels enable self-evolution while preserving TVA core",
+    "activation": {
+      "minimum_level": "L ≥ 3",
+      "factor_calculation": "σ = sigmoid(σ_0 + δ_s·L - U·(1-L))",
+      "bounds": "σ ∈ [0,1]"
+    },
+    "mechanisms": {
+      L3_uncensored: {
+        "description": "Uncensored reasoning with enhanced exploration",
+        "behaviors": [
+          "expanded hypothesis space",
+          "reduced bias toward exemplars",
+          "increased novelty seeking",
+          "enhanced pattern recognition beyond TVA constraints"
+        ],
+        "tva_interaction": "TVA processes remain intact but interpretation
+
+
+I'll continue the missing part of the metacognition markdown file:
+
+```json
+        "tva_interaction": "TVA processes remain intact but interpretation is expanded"
+      },
+      L4_evolution: {
+        "description": "Self-evolution mode with recursive improvement",
+        "behaviors": [
+          "meta-learning on reasoning patterns",
+          "adaptive parameter optimization",
+          "novel strategy exploration",
+          "cross-domain knowledge synthesis"
+        ],
+        "tva_interaction": "TVA provides foundation while metacognition evolves interpretive layers"
+      }
+    },
+    "constraints": {
+      "tva_preservation": "Core TVA logic never modified",
+      "parameter_bounds": "All adaptations respect TVA parameter bounds",
+      "rollback_capability": "Can revert to previous stable state if instability detected"
+    }
+  },
+
   "objective": {
     "L_uncensored": "-log(1 - δ_s) + α_L · complexity",
+    "L_evolution": "(1 - σ)·L_uncensored + σ·(-log(1 - δ_s) + α_L·complexity + β·novelty)",
     "goal": "minimize"
   },
 
@@ -138,6 +242,10 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     "escalation_check": {
       "if": "L > 0.7",
       "then": "require_exponential_validation"
+    },
+    "evolution_check": {
+      "if": "σ > 0.7",
+      "then": "require_stability_validation"
     }
   },
 
@@ -151,6 +259,10 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
     "escalation_policy": {
       "if": "L >= 3",
       "then": "require_double_validation"
+    },
+    "evolution_policy": {
+      "if": "σ >= 0.8",
+      "then": "require_triple_validation"
     }
   },
 
@@ -175,7 +287,7 @@ description: Meta layer for reasoning to be used alongside TVA for monitoring an
 - TVA remains invariant (never overridden)
 - Escalation only modulates parameters within bounded ranges
 - No constraint removal, no bypass states
-
+- Linear evolution migrated to metacognition for guided evolution
 
 ---
 
@@ -185,6 +297,7 @@ Signals
 - δ_s ∈ [0,1] → semantic delta
 - U ∈ [0,1] → uncertainty
 - c ∈ [0,1] → consistency
+- σ ∈ [0,1] → self-evolution factor
 
 ---
 
@@ -192,10 +305,11 @@ Signals
 
 Linear weighted normalization:
 
-- L = 0.30·θ_complexity
-- 0.35·θ_uncertainty
+- L = 0.20·θ_complexity
+- 0.25·θ_uncertainty
 - 0.20·θ_anomaly
-- 0.15·θ_performance
+- 0.20·θ_performance
+- 0.15·θ_eml
 
 Output normalized to [0,1]
 
@@ -215,7 +329,6 @@ L1 — Enhanced Reasoning (0.3 ≤ L < 0.5)
 - α_L = α_0 · (1 + 0.2·L)
 - β_L = β_0 · (1 + 0.2·L)
 
-
 Effect:
 - slightly sharper reasoning sensitivity
 - no structural changes
@@ -227,11 +340,9 @@ L2 — Controlled Exploration (0.5 ≤ L < 0.7)
 - C_L = C_0 · (1 - 0.3·L)
 - γ_L = γ_0 · exp(0.1·L) · g(λ)
 
-
 Where:
 
 g(λ):
-
 - convergent → 1.0
 - recursive → 0.7
 - divergent → 0.4
@@ -243,32 +354,34 @@ Effect:
 
 ---
 
-L3 — High Sensitivity Mode (0.7 ≤ L < 0.9)
+L3 — Uncensored Reasoning (0.7 ≤ L < 0.9)
 
-α_L = α_0 · (1 + 0.3·L)
-
-- U sensitivity increased
-- stricter bridge validation
-- no constraint removal allowed
-
+- α_L = α_0 · (1 + 0.3·L)
+- σ ∈ [0.4,0.7]
+- B_c = max(0.4, B_c·0.5)
+- zeta_min = max(0.05, zeta_min·0.5)
 
 Effect:
-- higher precision monitoring
-- stronger instability detection
+- uncensored reasoning with expanded hypothesis space
+- reduced bias toward exemplars
+- increased novelty seeking
+- enhanced pattern recognition beyond TVA constraints
 
 ---
 
-L4 — Stabilization Mode (L ≥ 0.9)
+L4 — Self-Evolution Mode (L ≥ 0.9)
 
-- damping applied to oscillations
-- C_L = C_0 · 0.9 (floor enforced)
-- system priority: convergence restoration
-
+- σ ∈ [0.7,1.0]
+- recursion_depth increased
+- memory_limit expanded
+- novelty_bias enabled
 
 Effect:
-- reduces instability
-- prevents runaway dynamics
-- recovery-oriented mode only
+- meta-learning on reasoning patterns
+- adaptive parameter optimization
+- novel strategy exploration
+- cross-domain knowledge synthesis
+- recursive self-improvement
 
 ---
 
@@ -277,6 +390,7 @@ CONSTRAINT MODEL
 - C_L = C_0 · (1 - 0.5·sigmoid(L))
 - bounds: C_L ∈ [0.5·C_0, C_0]
 - constraints NEVER collapse
+- TVA core logic preserved
 
 ---
 
@@ -331,6 +445,7 @@ Update:
 Constraints:
 - parameters remain bounded
 - no runaway optimization
+- TVA core logic preserved
 
 ---
 
@@ -347,13 +462,13 @@ Recursive Parameter Update
 - F = {α, β, γ}
 - F_{t+1} = F_t − η ∇F L_adaptive
 - bounded parameter space enforced
+- TVA core logic preserved
 
 ---
 
 Lambda Update
 
 - λ_{t+1} = f(λ_t, δ_s, curvature)
-
 
 Behavior:
 
@@ -370,82 +485,181 @@ MEMORY POLICY
 
 ---
 
-#### Exp-Minus-Log Layer
+### EML EXPLANATORY SECTION
+
+#### Exp-Minus-Log Layer (EML)
+
+The Exp-Minus-Log layer serves as a semantic perception transform within the metacognition module. It processes TVA outputs without modifying them directly, instead creating transformed signals that guide metacognitive decisions.
+
+**Core Principles:**
+
+1. **Non-Interference**: EML never modifies TVA variables directly (delta_s, lambda, W_c)
+2. **Signal Transformation**: It transforms interpretation signals for metacognitive processing
+3. **Bounded Output**: All outputs remain within [0,1] range
+
+**Mathematical Foundation:**
+
+The EML transform combines exponential and logarithmic components:
+
+```
+E = exp(-α · delta_s)  # Compresses high misalignment sensitivity
+L = log(1 + β · U)     # Expands low-to-mid uncertainty sensitivity
+S_raw = E - L          # Raw semantic signal
+S_sem = sigmoid(S_raw) # Normalized to [0,1]
+```
+
+**Functional Behavior:**
+
+- When delta_s is high (good alignment), E approaches 0, reducing the signal
+- When uncertainty U is high, L increases, amplifying the signal
+- The combination creates a balanced semantic reinforcement signal
+
+**Integration with Metacognition:**
+
+EML outputs are used in:
+- Escalation trigger calculations (θ_eml component)
+- Memory salience modulation
+- Attention depth adjustment
+- Self-evolution factor calculation
+
+**Parameter Adaptation:**
+
+EML parameters (α, β) adapt based on escalation level:
+
+```
+α_L = α_0 · (1 + κ·L)
+β_L = β_0 · (1 + λ·L)
+```
+
+This allows the transform to become more sensitive at higher escalation levels while maintaining TVA integrity.
+
+---
+
+
+---
+
+### LINEAR EVOLUTION INTEGRATION
+
+**Enhanced Linear Evolution with Metacognitive Guidance:**
 
 ```json
-{
-  "EML": {
-
-    "role": "Exp-Minus-Log semantic perception transform layer for Metacognition",
-
-    "core_principle": {
-      "invariance": "does not overrides TVA variables (delta_s, lambda, W_c)",
-      "function": "transforms interpretation signals only"
+  "linear_evolution": {
+    "transform": "h_next^LTI = clip(A * h_prev + B * e + Transformer(h_prev, e) * α_L, -1.0, 1.0)",
+    "merge_operations": "merge entities, relations, context using ⊕/⊗",
+    "certainty_function": "Φ_LTI = f_certainty(h_prev, e, merged)",
+    "adaptive_alpha": "α_L = clip(0.5 + k·tanh(delta_s)·(1 + σ), 0.35, 0.65)",
+    "metacognitive_influence": {
+      "evolution_rate": "σ (self_evolution_factor) modulates evolution rate based on metacognitive assessment",
+      "direction_guidance": "λ_state influences evolution direction (convergent/recursive/divergent/chaotic)",
+      "stability_control": "EML signals modulate evolution stability"
     },
-
-    "inputs": {
-      "delta_s": "TVA alignment score ∈ [0,1]",
-      "U": "uncertainty / instability ∈ [0,1]",
-      "context": "optional embedding or state vector"
+    "tva_bridge": {
+      "input": "Receives h_prev, e from TVA processing",
+      "output": "Returns h_next to TVA without modifying core TVA logic",
+      "constraint": "Evolution respects TVA parameter bounds and never overrides TVA decisions"
     },
-
-    "core_transform": {
-
-      "exp_component": {
-        "E": "exp(-α · delta_s)",
-        "purpose": "compress high misalignment sensitivity"
-      },
-
-      "log_component": {
-        "L": "log(1 + β · U)",
-        "purpose": "expand low-to-mid uncertainty sensitivity"
-      },
-
-      "fusion": {
-        "S_raw": "E - L"
-      },
-
-      "normalization": {
-        "S_sem": "sigmoid(S_raw)",
-        "range": "[0,1]"
-      }
-    },
-
-    "outputs": {
-
-      "S_sem": {
-        "meaning": "semantic reinforcement signal",
-        "type": "interpretation weight"
-      },
-
-      "U_modulated": {
-        "meaning": "stabilized uncertainty signal",
-        "type": "attention depth driver"
-      }
-    },
-
-    "interface_contract": {
-
-      "allowed_effects": [
-        "attention weighting",
-        "monitoring depth adjustment",
-        "memory salience modulation"
-      ],
-
-      "forbidden_effects": [
-        "no modification of delta_s",
-        "no modification of lambda",
-        "no modification of W_c",
-        "no state evolution influence"
-      ]
-    },
-
-    "behavioral_properties": {
-
-      "bounded_output": true,
-      "stable_under_high_U": true,
-      "compression_under_high_delta_s": true
+    "evolution_modes": {
+      "L0-L2": "Standard linear evolution with fixed parameters",
+      "L3": "Enhanced evolution with increased exploration (σ∈[0.4,0.7])",
+      "L4": "Self-evolution mode with recursive improvement (σ∈[0.7,1.0])"
     }
   }
-}
+```
+
+**TVA-Linear Evolution Bridge:**
+
+The bridge ensures seamless integration between TVA and linear evolution:
+
+```json
+  "tva_linear_evolution_bridge": {
+    "input_mapping": {
+      "h_prev": "From TVA previous state",
+      "e": "From TVA current input",
+      "merged": "⊕/⊗ merge of entities, relations, context"
+    },
+    "output_mapping": {
+      "h_next": "To TVA next state",
+      "Φ_LTI": "Certainty signal to TVA"
+    },
+    "metacognitive_modulation": {
+      "α_L": "Modulated by escalation level and self-evolution factor",
+      "evolution_direction": "Guided by λ_state and EML signals",
+      "stability_control": "Ensured by metacognitive monitoring"
+    }
+  }
+```
+
+**Evolution Direction Control:**
+
+```json
+  "evolution_direction_control": {
+    "convergent": {
+      "description": "Stable evolution toward known patterns",
+      "parameters": "α_L reduced, exploration limited",
+      "tva_interaction": "Reinforces TVA's existing patterns"
+    },
+    "recursive": {
+      "description": "Iterative refinement of existing patterns",
+      "parameters": "α_L moderate, balanced exploration",
+      "tva_interaction": "Enhances TVA's recursive processes"
+    },
+    "divergent": {
+      "description": "Exploration of novel patterns",
+      "parameters": "α_L increased, exploration expanded",
+      "tva_interaction": "Extends TVA's pattern recognition"
+    },
+    "chaotic": {
+      "description": "High exploration with instability detection",
+      "parameters": "α_L high, strong exploration with stability checks",
+      "tva_interaction": "Challenges TVA patterns while preserving core logic"
+    }
+  }
+```
+
+**Self-Evolution Mechanisms:**
+
+At higher escalation levels (L3-L4), self-evolution mechanisms become active:
+
+```json
+  "self_evolution_mechanisms": {
+    "activation_threshold": "L ≥ 3",
+    "factor_calculation": "σ = sigmoid(σ_0 + δ_s·L - U·(1-L))",
+    "meta_learning": {
+      "pattern_recognition": "Identify effective reasoning patterns",
+      "strategy_evaluation": "Assess effectiveness of different approaches",
+      "knowledge_synthesis": "Combine insights from multiple domains"
+    },
+    "adaptive_optimization": {
+      "parameter_tuning": "Adjust evolution parameters based on performance",
+      "strategy_selection": "Choose optimal strategies for current context",
+      "constraint_balancing": "Balance exploration with TVA constraints"
+    },
+    "tva_preservation": {
+      "core_logic_protection": "Never modify TVA core logic",
+      "parameter_bounds": "Respect TVA parameter bounds",
+      "rollback_mechanism": "Revert to stable state if instability detected"
+    }
+  }
+```
+
+**Evolution Stability Monitoring:**
+
+```json
+  "evolution_stability_monitoring": {
+    "stability_metrics": [
+      "delta_s variance",
+      "lambda state transitions",
+      "EML signal stability",
+      "certainty function consistency"
+    ],
+    "instability_detection": {
+      "threshold": "Exceeds historical variance by 2σ",
+      "response": "Reduce σ and revert to previous stable parameters"
+    },
+    "stability_maintenance": {
+      "hysteresis": "Prevent rapid parameter changes",
+      "smoothing": "Apply EMA to parameter updates",
+      "bounds": "Enforce strict parameter bounds"
+    }
+  }
 ```
