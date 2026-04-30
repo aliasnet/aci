@@ -205,8 +205,8 @@ Output normalized to [0,1]
 
 L0 — Baseline TVA
 
-No parameter modification
-Default TVA pipeline active
+- No parameter modification
+- Default TVA pipeline active
 
 ---
 
