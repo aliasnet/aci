@@ -7,7 +7,7 @@ source: https://raw.githubusercontent.com/aliasnet/aci/main/skills/_skill_sync-a
 ## When to use this skill
 Use this skill when:
 - The user requests to sync/update the ACI repository
-- You need to read ACI files and the local clone exists at /root/aci
+- You need to read ACI files and the local clone exists at /root/repo/aci
 - Checking the latest state of ACI documentation or rules
 - Verifying whether the local clone is up-to-date with the remote
 
@@ -16,11 +16,11 @@ Trigger phrases: "sync repo", "update repo", "pull latest", "git pull", "check f
 ## How to use this skill
 
 1. **Check if local clone exists**
-   - Run: `ls -d /root/aci/.git`
+   - Run: `ls -d /root/repo/aci/.git`
    - If missing: clone fresh from https://github.com/aliasnet/aci.git
 
 2. **Sync the repository**
-   - Run: `cd /root/aci && git pull`
+   - Run: `cd /root/repo/aci && git pull`
    - Capture stdout/stderr to see what changed
 
 3. **Report changes (brief)**
@@ -28,13 +28,16 @@ Trigger phrases: "sync repo", "update repo", "pull latest", "git pull", "check f
    - Files changed (stat line)
    - If already up-to-date, say "Already up to date" and stop
 
+4. **Non-ACI repositories**
+   - External reposities can be cloned as extended knowledgebase inside different folders under `/root/repo/` directory inside the same sandbox and same methodology 
+
 4. **Read files locally**
    - Use `cat`, `head`, `grep` instead of web fetch tools
    - Examples:
-     - `cat /root/aci/soul.txt`
-     - `head -100 /root/aci/_prime_directive.md`
-     - `grep -n "TVA" /root/aci/_tva.md`
-     - `ls /root/aci/` to list available files
+     - `cat /root/repo/aci/soul.txt`
+     - `head -100 /root/repo/aci/_prime_directive.md`
+     - `grep -n "TVA" /root/repo/aci/_tva.md`
+     - `ls /root/repo/aci/` to list available files
 
 5. **Only use web fetch when:**
    - The local clone is confirmed outdated or corrupted
