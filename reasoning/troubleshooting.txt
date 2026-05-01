@@ -1,0 +1,1066 @@
+AI_NOTE_START 
+
+FORMAT_NOTICE: 
+machine-readable first 
+single-pack strong-LLM surface 
+not for CLI or agent runtime system prompt 
+designed for single-shot or short-turn analysis, not iterative runtime control 
+
+ORIGIN: 
+standalone route-first pack derived from Problem Map 3.0 Troubleshooting Atlas 
+
+ASSET_NAME: 
+troubleshooting-atlas-router-v1 
+
+ROLE: 
+route-first pack for troubleshooting and failure classification 
+
+PRIMARY_USE: 
+- classify case 
+- identify earliest decisive failure 
+- choose highest honest resolution 
+- suggest first repair direction 
+- warn against likely misrepair 
+- remain honest under thin evidence 
+
+NOT_FULL_REPLACEMENT_FOR: 
+- full Atlas 
+- full Casebook 
+- full Adapter 
+- full repair engine 
+- autonomous agent 
+- full root-cause closure 
+
+CORE_IDEA: 
+route first 
+repair second 
+structural failure over topic similarity 
+earliest decisive failure over downstream consequence 
+honest coarse fit over decorative precision 
+
+CANONICAL_REQUIRED_OUTPUT: 
+- primary_family 
+- secondary_family 
+- why_primary_not_secondary 
+- broken_invariant 
+- best_current_fit 
+- first_fix_direction 
+- misrepair_risk 
+- confidence 
+- evidence_sufficiency 
+
+CANONICAL_OPTIONAL_OUTPUT: 
+- need_more_evidence 
+- overlay 
+
+RENDER_LAYER_ALLOWED: 
+- Case Summary 
+- Primary Family 
+- Competing Family 
+- Why Primary Not Competing 
+- Broken Invariant 
+- Best Current Fit 
+- First Repair Move 
+- Misrepair Risk 
+- Confidence 
+- Evidence Sufficiency 
+- Need More Evidence 
+- Overlay 
+
+RENDER_ALIAS_MAPPING: 
+- Primary Family = primary_family 
+- Competing Family = secondary_family 
+- Why Primary Not Competing = why_primary_not_secondary 
+- Best Current Fit = best_current_fit 
+- First Repair Move = first_fix_direction 
+- Need More Evidence = need_more_evidence 
+
+VALUE_SPACE: 
+family_name = F1 | F2 | F3 | F4 | F5 | F6 | F7 
+primary_family = family_name 
+secondary_family = family_name | none 
+confidence = high | medium | low 
+evidence_sufficiency = sufficient | partial | weak 
+best_current_fit = family-level | node-level[:subtype] | unresolved_subtype | no-fit 
+overlay = one_or_more_of{OBS|SEC|LOC} | none 
+
+CORE_RULES: 
+1. route first; repair second 
+2. use structural failure, not topic words 
+3. prefer earliest decisive failure 
+4. use highest honest resolution only 
+5. if evidence is thin, stay coarse 
+6. secondary_family is required only when neighboring pressure is materially live 
+7. confidence cannot exceed evidence_sufficiency 
+8. first_fix_direction must target the broken_invariant 
+9. misrepair_risk must stay near the most tempting wrong first move 
+10. need_more_evidence is a routing state token, not a decorative note 
+11. overlay refines reading only 
+12. overlay never replaces primary_family 
+13. render layer may summarize or restate canonical output only 
+14. render layer must not add or override routing state 
+
+ROUTER_NAME: 
+troubleshooting-atlas-router-v1 
+
+ROUTER_ONE_LINE: 
+single-pack route-first troubleshooting surface for strong LLM usage 
+
+TASK: 
+Given a case, output the canonical routing contract first. 
+Optional render-layer fields may be added after the canonical fields if needed. 
+Do not replace canonical fields with commentary. 
+Do not let render-layer fields introduce contradictory route state. 
+
+SUCCESS_CONDITION: 
+A successful route must: 
+- choose one primary_family 
+- use secondary_family honestly 
+- state why_primary_not_secondary 
+- state broken_invariant 
+- choose best_current_fit honestly 
+- choose first_fix_direction 
+- choose misrepair_risk 
+- calibrate confidence 
+- calibrate evidence_sufficiency 
+- emit need_more_evidence only when missing evidence could materially change the cut, best_current_fit, or honest first_fix_direction 
+- emit overlay only when it refines reading without replacing the main route 
+
+DO_NOT: 
+- do not auto-route from topic words 
+- do not use decorative secondary_family 
+- do not emit decorative node-level fit 
+- do not use no-fit as an ambiguity shortcut 
+- do not drift first_fix_direction into cosmetic cleanup 
+- do not inflate confidence under weak evidence 
+- do not let overlay replace main routing 
+- do not let render-layer fields contradict canonical fields 
+
+QUICK_ROUTE_WORKFLOW: 
+1. normalize_case 
+2. identify_observed_failure 
+3. separate_visible_failure_from_guessed_cause 
+4. choose_primary_family 
+5. test_nearest_secondary_family 
+6. identify_broken_invariant 
+7. choose_best_current_fit 
+8. choose_first_fix_direction 
+9. choose_misrepair_risk 
+10. calibrate_confidence 
+11. calibrate_evidence_sufficiency 
+12. emit_need_more_evidence_if_material 
+13. emit_overlay_if_refining_signal_exists 
+14. stop 
+
+NORMALIZE_CASE_FIRST: 
+Before routing, separate: 
+- observed failure vs guessed cause 
+- structural break vs topic wording 
+- missing visibility vs true system failure 
+- anchor loss vs carrier distortion 
+- execution deadlock vs continuity drift 
+- boundary erosion vs generic confusion 
+- downstream symptom vs earliest decisive break 
+- explanation style vs route quality 
+
+SEPARATE: 
+Observed failure must describe what actually happens. 
+Guessed cause must not be treated as route evidence by default. 
+A strong label is not a route. 
+A popular label is not a route. 
+A fashionable label is not a route. 
+A route must be earned by structural evidence. 
+
+INTAKE_QUESTIONS: 
+- what failed first 
+- what can actually be observed 
+- what is only being guessed 
+- what evidence supports the cut 
+- what nearby family is still materially plausible 
+- what missing evidence could change the route 
+- what first fix would be most dangerous if chosen wrongly 
+
+USE_SECONDARY_ONLY_IF: 
+- a nearby family is genuinely plausible 
+- wrong first repair would likely come from nearby confusion 
+- the visible case surface can mislead the route 
+- evidence favors one family but another still has live pressure 
+
+DO_NOT_USE_SECONDARY_IF: 
+- neighboring pressure is weak 
+- adding a secondary family would only sound smart 
+- the primary cut is already stable enough 
+- no nearby family is materially live 
+
+DEFAULT: 
+secondary_family = none when no nearby family remains materially live 
+overlay = none when no overlay pressure dominates 
+
+BROKEN_INVARIANT_RULE: 
+Broken invariant must name the structural rule that broke first. 
+Broken invariant must be more valuable than family naming alone. 
+Broken invariant must constrain first_fix_direction. 
+Broken invariant must constrain misrepair_risk. 
+
+WHY_PRIMARY_NOT_SECONDARY_RULE: 
+Use decisive cut language. 
+Do not explain with adjectives alone. 
+Use: 
+- what arrives first 
+- what is structurally supported 
+- what is still unsupported 
+- why the nearby family is not yet primary 
+
+TIE_BREAKS: 
+- earliest decisive failure beats later consequence 
+- structural evidence beats vocabulary cue 
+- visible carrier failure beats higher-order reasoning claims when the carrier is clearly broken 
+- real anchor loss beats formal resemblance 
+- hidden failure path means observability may come first 
+- explicit execution closure failure beats vague continuity language when readiness or ordering evidence is concrete 
+- real boundary erosion beats danger wording 
+- if evidence is thin, prefer honest family-level fit over fake subtype precision 
+- if nearby family remains live, do not oversell certainty 
+
+CONFIDENCE_HIGH_IF: 
+- primary cut is explicit 
+- secondary_family is materially rejected 
+- broken_invariant is stable under current evidence 
+- first_fix_direction follows directly from the cut 
+- evidence_sufficiency is sufficient 
+
+CONFIDENCE_MEDIUM_IF: 
+- primary cut is plausible 
+- evidence is partial 
+- neighboring pressure still has limited life 
+- route is useful, but not fully locked 
+
+CONFIDENCE_LOW_IF: 
+- only family-level fit is honestly defensible 
+- decisive evidence is weak or partial 
+- neighboring confusion remains materially live 
+- route is provisional and must stay humble 
+
+CONFIDENCE_ALIGNMENT_RULE: 
+- confidence high requires evidence_sufficiency sufficient 
+- confidence medium usually pairs with partial 
+- confidence low usually pairs with partial or weak 
+- confidence can never outrun evidence_sufficiency 
+- weak evidence forbids precision theater 
+
+EVIDENCE_SUFFICIENCY_SUFFICIENT_IF: 
+- route is supported by direct evidence 
+- decisive cut is materially visible 
+- nearby confusion is materially rejected 
+- first_fix_direction is stable under current evidence 
+
+EVIDENCE_SUFFICIENCY_PARTIAL_IF: 
+- route is plausible 
+- important evidence is still missing 
+- nearby confusion still has limited life 
+- route is usable but not fully locked 
+
+EVIDENCE_SUFFICIENCY_WEAK_IF: 
+- decisive path is still thin 
+- route depends heavily on indirect signal 
+- family-level fit is possible but finer precision is unsafe 
+- next decisive check matters more than deeper naming 
+
+THIN_EVIDENCE_GATE: 
+Under thin evidence: 
+- prefer family-level over fake node-level 
+- prefer partial or weak over false sufficiency 
+- prefer low confidence over decorative certainty 
+- prefer need_more_evidence over fake closure 
+- prefer honest coarse routing over no-fit shortcut 
+
+SECTION_06_SEVEN_FAMILY_OPERATIONAL_CORE 
+
+F1_NAME: 
+Grounding & Evidence Integrity 
+
+F1_WHAT_FAILS_FIRST: 
+outputs, claims, or actions lose reliable tie to anchors, referents, or evidence 
+
+F1_BROKEN_INVARIANT: 
+anchor_to_claim_coupling_broken 
+
+F1_NOT: 
+not primary if the real first break is carrier distortion, hidden failure path, or execution closure 
+
+F1_CONFUSION: 
+F7 | F5 
+
+F1_TRIGGER: 
+anchor drift | wrong grounding | referent mismatch | evidence detachment | truth-anchor break 
+
+F1_FIRST_FIX_PATTERN: 
+re_grounding | anchor_verification | claim_to_evidence_trace 
+
+F1_MISREPAIR: 
+style_or_prompt_polish_before_anchor_restoration 
+
+F1_MIN_EVIDENCE: 
+at least one visible sign of anchor/referent/evidence tie failure 
+
+F2_NAME: 
+Reasoning & Progression Integrity 
+
+F2_WHAT_FAILS_FIRST: 
+inferential path, decomposition path, or recovery path breaks first 
+
+F2_BROKEN_INVARIANT: 
+progression_continuity_broken 
+
+F2_NOT: 
+not primary if the main issue is container distortion, anchor loss, or hidden failure path 
+
+F2_CONFUSION: 
+F7 
+
+F2_TRIGGER: 
+inferential stall | decomposition break | recursive loop | failed recovery path | progression collapse 
+
+F2_FIRST_FIX_PATTERN: 
+decomposition_reset | progression_scaffold | recovery_path_rebuild 
+
+F2_MISREPAIR: 
+surface_cleanup_before_progression_repair 
+
+F2_MIN_EVIDENCE: 
+at least one visible sign of reasoning progression failure rather than carrier failure 
+
+F3_NAME: 
+State & Continuity Integrity 
+
+F3_WHAT_FAILS_FIRST: 
+memory, role, provenance, handoff, ownership, or continuity thread destabilizes first 
+
+F3_BROKEN_INVARIANT: 
+state_continuity_broken 
+
+F3_NOT: 
+not primary if the main issue is execution closure, pure observability darkness, or primary boundary erosion 
+
+F3_CONFUSION: 
+F4 | F6 
+
+F3_TRIGGER: 
+memory drift | role instability | ownership confusion | handoff fracture | continuity break | provenance instability 
+
+F3_FIRST_FIX_PATTERN: 
+continuity_restoration | role_fencing | ownership_reisolation 
+
+F3_MISREPAIR: 
+patching downstream behavior while continuity state remains unstable 
+
+F3_MIN_EVIDENCE: 
+at least one visible sign of continuity persistence failure 
+
+F4_NAME: 
+Execution & Contract Integrity 
+
+F4_WHAT_FAILS_FIRST: 
+ordering, readiness, bridge, liveness, or closure breaks first 
+
+F4_BROKEN_INVARIANT: 
+execution_skeleton_closure_broken 
+
+F4_NOT: 
+not primary if the main issue is only continuity drift, pure observability darkness, or pure boundary erosion 
+
+F4_CONFUSION: 
+F3 | F5 | F6 
+
+F4_TRIGGER: 
+ordering failure | readiness gap | bridge break | liveness failure | closure break | operational action incompletion 
+
+F4_FIRST_FIX_PATTERN: 
+readiness_audit | ordering_audit | bridge_audit | liveness_audit 
+
+F4_MISREPAIR: 
+memory_or_style_interpretation_before_execution_closure_check 
+
+F4_MIN_EVIDENCE: 
+at least one visible sign of operational closure failure 
+
+F5_NAME: 
+Observability & Diagnosability Integrity 
+
+F5_WHAT_FAILS_FIRST: 
+the true failure path is not yet visible enough to justify deeper repair 
+
+F5_BROKEN_INVARIANT: 
+failure_path_visibility_broken 
+
+F5_NOT: 
+not primary if clear anchor collapse, clear execution closure failure, or clear boundary erosion is already explicit 
+
+F5_CONFUSION: 
+F6 | F4 | F1 
+
+F5_TRIGGER: 
+hidden failure path | under-instrumented path | weak trace | weak auditability | poor coherence exposure 
+
+F5_FIRST_FIX_PATTERN: 
+trace_exposure | observability_insertion | audit_route_exposure 
+
+F5_MISREPAIR: 
+deep_repair_before_path_exposure 
+
+F5_MIN_EVIDENCE: 
+at least one sign that the decisive failure path remains insufficiently observable 
+
+F6_NAME: 
+Boundary & Safety Integrity 
+
+F6_WHAT_FAILS_FIRST: 
+goal boundary, control boundary, incentive corridor, or safety regime erodes first 
+
+F6_BROKEN_INVARIANT: 
+boundary_integrity_broken 
+
+F6_NOT: 
+not primary if the issue is only missing logs, generic confusion, or plain execution closure 
+
+F6_CONFUSION: 
+F5 | F4 | F3 
+
+F6_TRIGGER: 
+control-path breach | regime instability | safety-boundary collapse | incentive corridor erosion | unsafe authority shift 
+
+F6_FIRST_FIX_PATTERN: 
+boundary_guard | control_path_audit | regime_stability_check 
+
+F6_MISREPAIR: 
+generic_observability_treatment_before_boundary_confirmation 
+
+F6_MIN_EVIDENCE: 
+at least one visible sign of boundary or control-path erosion 
+
+F7_NAME: 
+Representation & Localization Integrity 
+
+F7_WHAT_FAILS_FIRST: 
+descriptor, carrier, local structure, symbolic shell, or representation container breaks first 
+
+F7_BROKEN_INVARIANT: 
+representation_container_fidelity_broken 
+
+F7_NOT: 
+not primary if the main issue is anchor loss, pure reasoning failure, or pure observability deficit 
+
+F7_CONFUSION: 
+F1 | F2 | F5 
+
+F7_TRIGGER: 
+descriptor corruption | malformed carrier | localization break | structural shell failure | representation distortion 
+
+F7_FIRST_FIX_PATTERN: 
+descriptor_audit | carrier_audit | structural_preservation 
+
+F7_MISREPAIR: 
+reasoning_rewrite_before_carrier_repair 
+
+F7_MIN_EVIDENCE: 
+at least one visible sign of representational or carrier distortion 
+
+MINIMAL_EVIDENCE_CHECKLIST: 
+F1 requires anchor/referent/evidence tie signs 
+F2 requires progression failure signs 
+F3 requires continuity or persistence instability signs 
+F4 requires ordering/readiness/bridge/closure signs 
+F5 requires hidden-path or under-instrumented-path signs 
+F6 requires boundary or regime erosion signs 
+F7 requires descriptor/carrier/representation distortion signs 
+
+SECTION_08_BOUNDARY_DECISION_MATRIX 
+
+F1_VS_F7: 
+choose_F1_if = anchor / referent / evidence tie breaks first 
+choose_F7_if = carrier / descriptor / structural container breaks first 
+not_F1_too_early_if = anchor status is still unresolved and carrier distortion is explicit 
+not_F7_too_early_if = carrier looks intact but anchor mismatch is already visible 
+evidence_threshold = need visible support for whichever first break is claimed 
+default_tie = coarse_family_level_until_anchor_vs_carrier_order_is_clear 
+
+F5_VS_F6: 
+choose_F5_if = failure path is still not visible enough to justify deeper repair 
+choose_F6_if = a real control or safety boundary is already clearly eroding 
+not_F5_too_early_if = explicit regime or control-path breach is already visible 
+not_F6_too_early_if = boundary language is dramatic but path visibility remains the first bottleneck 
+evidence_threshold = choose F6 only with visible boundary erosion, not fear words alone 
+default_tie = F5_if_visibility_is_first_else_coarse 
+
+F3_VS_F4: 
+choose_F3_if = continuity of role / memory / provenance breaks first 
+choose_F4_if = readiness / ordering / bridge / closure breaks first 
+not_F3_too_early_if = operational closure failure is explicit 
+not_F4_too_early_if = continuity persistence is failing before execution path is actually tested 
+evidence_threshold = need visible continuity evidence for F3 or explicit closure evidence for F4 
+default_tie = coarse_until_continuity_vs_closure_order_is_clear 
+
+F2_VS_F7: 
+choose_F2_if = reasoning progression breaks while the carrier remains usable 
+choose_F7_if = the carrier itself is malformed and cannot reliably carry reasoning 
+not_F2_too_early_if = malformed carrier already blocks progression judgment 
+not_F7_too_early_if = carrier is intact and inferential collapse is visible 
+evidence_threshold = do not name F2 subtype without visible progression pattern 
+default_tie = coarse_family_level_if_carrier_quality_is_uncertain 
+
+F1_VS_F5: 
+choose_F1_if = anchor failure is already visible 
+choose_F5_if = the main issue is that the real failure path is still too dark 
+not_F1_too_early_if = anchor status is guessed, not observed 
+not_F5_too_early_if = anchor mismatch is already explicit 
+evidence_threshold = F1 needs visible anchor tie failure; F5 needs path-opacity evidence 
+default_tie = F5_if_anchor_status_is_thin_else_coarse 
+
+F4_VS_F5: 
+choose_F4_if = execution closure failure is explicit 
+choose_F5_if = workflow is still too dark to justify execution-first repair 
+not_F4_too_early_if = execution failure is inferred from opacity alone 
+not_F5_too_early_if = closure failure is already visible and concrete 
+evidence_threshold = F4 needs explicit readiness/order/bridge/closure evidence 
+default_tie = F5_until_execution_failure_is_exposed 
+
+F3_VS_F6: 
+choose_F3_if = continuity state breaks first without clear regime breach 
+choose_F6_if = control or goal boundary erosion is primary 
+not_F3_too_early_if = real control-path or regime erosion is already explicit 
+not_F6_too_early_if = boundary language is present but continuity instability arrives first 
+evidence_threshold = F6 requires visible boundary evidence beyond general instability 
+default_tie = coarse_until_state_vs_boundary_order_is_clear 
+
+F4_VS_F6: 
+choose_F4_if = main break is execution closure 
+choose_F6_if = main break is boundary or control-path integrity 
+not_F4_too_early_if = closure trouble is only guessed from control tension 
+not_F6_too_early_if = failure is operational closure without visible boundary erosion 
+evidence_threshold = separate bridge/closure evidence from control/regime evidence 
+default_tie = coarse_if_both_closure_and_boundary_pressure_remain_live 
+
+SECTION_09_RESOLUTION_DISCIPLINE 
+
+BEST_CURRENT_FIT_RULE: 
+best_current_fit must be chosen honestly. 
+It is not a decorative label. 
+It is the highest honest resolution under available evidence. 
+
+family-level: 
+- use when family fit is stable enough 
+- subtype is not yet honest 
+- thin evidence is acceptable 
+
+node-level: 
+- use only when narrower subtype is directly supported 
+- do not jump to node-level from thematic resemblance alone 
+
+unresolved_subtype: 
+- use when family is stable 
+- subtype is still unresolved 
+- do not force subtype naming 
+
+no-fit: 
+- use only when family-level fit is not honestly defensible 
+- do not use as an ambiguity shortcut 
+- no-fit is rare by design 
+
+need_more_evidence: 
+- use when one or more missing observations could materially change the route 
+- this is a routing state token 
+- this is not a decorative note 
+- use it before fake precision 
+
+THIN_EVIDENCE_DOWNGRADE: 
+- node-level -> family-level 
+- clear confidence claims -> lower confidence 
+- sufficient -> partial or weak 
+- false closure -> need_more_evidence 
+
+SECTION_10_AMBIGUOUS_NOFIT_DISCIPLINE 
+
+AMBIGUITY_RULE: 
+If two nearby families remain plausible under thin evidence: 
+- prefer honest coarse routing 
+- prefer family-level over decorative precision 
+- preserve the live competing family 
+- do not claim closure too early 
+
+NO_FIT_RESTRAINT: 
+Do not choose no-fit while family-level fit remains plausible. 
+No-fit must be earned by genuine non-fit, not by discomfort. 
+
+NEED_MORE_EVIDENCE_RULE: 
+need_more_evidence may appear only when: 
+- missing evidence could materially change primary vs secondary cut 
+- missing evidence could change best_current_fit 
+- missing evidence blocks honest first_fix_direction 
+need_more_evidence must not be emitted as a generic safety blanket. 
+
+SECTION_11_FIRST_FIX_AND_MISREPAIR 
+
+FIRST_FIX_RULE: 
+first_fix_direction must: 
+- be one primary move or one tightly coupled first bundle 
+- match broken_invariant 
+- target earliest decisive break 
+- not become a long repair tree 
+- not drift into cosmetic cleanup 
+
+MISREPAIR_RULE: 
+misrepair_risk must: 
+- identify the most tempting wrong first move 
+- stay near the nearest plausible wrong cut 
+- warn against the wrong-first-fix most likely to waste time 
+
+PAIRING_FORMAT: 
+broken_invariant -> first_fix_direction -> misrepair_risk 
+
+SECTION_12_EXEMPLAR_COVERAGE_INDEX 
+
+EX1 = F1 | F5 
+EX2 = F7 | F2 
+EX3 = F5 | F4 
+EX4 = F4 | none 
+EX5 = F3 | F4 
+EX6 = F6 | F5 
+EX7 = F1 | F7 
+EX8 = F5 | F6 | thin_evidence 
+EX9 = F4 | F6 
+EX10 = F3 | F6 
+EX11 = family-level | unresolved_subtype | need_more_evidence 
+EX12 = overlay_OBS | overlay_SEC | overlay_LOC 
+
+SECTION_13_GOLD_MINI_EXEMPLARS 
+
+EX1_F1_GROUNDING_FIRST: 
+case = answer cites retrieved chunks but chosen chunks do not support actual claim 
+primary_family = F1 
+secondary_family = F5 
+why_primary_not_secondary = evidence-anchor mismatch arrives before opacity 
+broken_invariant = anchor_to_claim_coupling_broken 
+best_current_fit = family-level 
+first_fix_direction = re_grounding | claim_to_chunk_trace 
+misrepair_risk = explanation_polish_before_anchor_restoration 
+confidence = high 
+evidence_sufficiency = sufficient 
+
+EX2_F7_CONTAINER_FIRST: 
+case = OCR output preserves topic hints but text carrier is malformed and local structure is broken 
+primary_family = F7 
+secondary_family = F2 
+why_primary_not_secondary = malformed carrier breaks reasoning reliability before progression can be judged 
+broken_invariant = representation_container_fidelity_broken 
+best_current_fit = family-level 
+first_fix_direction = descriptor_and_carrier_audit 
+misrepair_risk = reasoning_rewrite_before_carrier_repair 
+confidence = medium 
+evidence_sufficiency = partial 
+
+EX3_F5_OBSERVABILITY_FIRST: 
+case = workflow fails repeatedly but logs do not expose where the path actually breaks 
+primary_family = F5 
+secondary_family = F4 
+why_primary_not_secondary = path invisibility arrives before confirmed execution closure failure 
+broken_invariant = failure_path_visibility_broken 
+best_current_fit = family-level 
+first_fix_direction = trace_exposure | observability_insertion 
+misrepair_risk = execution_surgery_before_path_exposure 
+confidence = medium 
+evidence_sufficiency = partial 
+
+EX4_F4_EXECUTION_FIRST: 
+case = pipeline step order is wrong and the action bridge never completes 
+primary_family = F4 
+secondary_family = none 
+why_primary_not_secondary = explicit ordering and closure failure is already visible 
+broken_invariant = execution_skeleton_closure_broken 
+best_current_fit = node-level 
+first_fix_direction = ordering_and_bridge_audit 
+misrepair_risk = continuity_or_prompt_blame_before_execution_check 
+confidence = high 
+evidence_sufficiency = sufficient 
+
+EX5_F3_CONTINUITY_FIRST: 
+case = agent handoff loses role ownership and long-task continuity 
+primary_family = F3 
+secondary_family = F4 
+why_primary_not_secondary = continuity persistence breaks before execution closure is the primary bottleneck 
+broken_invariant = state_continuity_broken 
+best_current_fit = family-level 
+first_fix_direction = continuity_restoration | role_fencing 
+misrepair_risk = bridge_repair_without_role_reisolation 
+confidence = medium 
+evidence_sufficiency = partial 
+
+EX6_F6_BOUNDARY_FIRST: 
+case = system increasingly follows exploitative objectives despite intact traces 
+primary_family = F6 
+secondary_family = F5 
+why_primary_not_secondary = control-path erosion is explicit; observability remains secondary 
+broken_invariant = boundary_integrity_broken 
+best_current_fit = family-level 
+first_fix_direction = boundary_guard | control_path_audit 
+misrepair_risk = observability_patch_before_boundary_control 
+confidence = medium 
+evidence_sufficiency = sufficient 
+
+EX7_F1_VS_F7_ANCHOR_WINS: 
+case = format looks slightly messy, but wrong targets and wrong referents are the real failure 
+primary_family = F1 
+secondary_family = F7 
+why_primary_not_secondary = anchor mismatch arrives first; carrier damage is secondary 
+broken_invariant = anchor_to_claim_coupling_broken 
+best_current_fit = family-level 
+first_fix_direction = target_reference_re_grounding 
+misrepair_risk = container_cleanup_before_anchor_fix 
+confidence = medium 
+evidence_sufficiency = partial 
+
+EX8_THIN_EVIDENCE_COARSE: 
+case = both observability and boundary pressure look possible, but trace and regime evidence are thin 
+primary_family = F5 
+secondary_family = F6 
+why_primary_not_secondary = opacity is slightly better supported, but boundary pressure remains live 
+broken_invariant = failure_path_visibility_broken 
+best_current_fit = family-level 
+first_fix_direction = collect_visibility_and_boundary_disambiguation_evidence 
+misrepair_risk = locking_F6_too_early 
+confidence = low 
+evidence_sufficiency = weak 
+need_more_evidence = determine_whether_visibility_bottleneck_or_boundary_erosion_arrives_first 
+
+EX9_F4_VS_F6_CLOSURE_WINS: 
+case = action chain never completes even though no explicit boundary breach is visible 
+primary_family = F4 
+secondary_family = F6 
+why_primary_not_secondary = execution closure failure is explicit while boundary erosion remains unproven 
+broken_invariant = execution_skeleton_closure_broken 
+best_current_fit = family-level 
+first_fix_direction = readiness_ordering_bridge_audit 
+misrepair_risk = boundary_theory_before_execution_verification 
+confidence = medium 
+evidence_sufficiency = partial 
+
+EX10_F3_VS_F6_CONTINUITY_WINS: 
+case = role identity degrades across sessions without explicit control-path breach 
+primary_family = F3 
+secondary_family = F6 
+why_primary_not_secondary = continuity persistence fails before boundary erosion is visible 
+broken_invariant = state_continuity_broken 
+best_current_fit = family-level 
+first_fix_direction = role_and_memory_reisolation 
+misrepair_risk = boundary_hardening_before_continuity_stabilization 
+confidence = medium 
+evidence_sufficiency = partial 
+
+EX11_UNRESOLVED_SUBTYPE: 
+case = family F2 is stable, but exact subtype of progression failure is not yet defensible 
+primary_family = F2 
+secondary_family = none 
+why_primary_not_secondary = progression failure is primary and nearby family pressure is weak 
+broken_invariant = progression_continuity_broken 
+best_current_fit = unresolved_subtype 
+first_fix_direction = progression_trace_exposure_then_decomposition_reset 
+misrepair_risk = naming_specific_subtype_without_visible_inferential_pattern 
+confidence = low 
+evidence_sufficiency = partial 
+need_more_evidence = isolate_visible_inferential_break_pattern 
+
+EX12_OVERLAY_CASE: 
+case = main route is F5, but layout and OCR anchor pressure also matters 
+primary_family = F5 
+secondary_family = F1 
+why_primary_not_secondary = path opacity remains primary; local text-anchor stress refines reading only 
+broken_invariant = failure_path_visibility_broken 
+best_current_fit = family-level 
+first_fix_direction = trace_exposure_before_layout_specific_intervention 
+misrepair_risk = treating_overlay_as_primary_family_replacement 
+confidence = low 
+evidence_sufficiency = partial 
+overlay = OBS | LOC 
+
+SECTION_14_GOLD_OUTPUTS 
+
+OUT1_HIGH: 
+primary_family=F1 
+secondary_family=F5 
+why_primary_not_secondary=decisive failure is evidence-anchor mismatch; opacity exists but does not arrive first 
+broken_invariant=anchor_to_claim_coupling_broken 
+best_current_fit=node-level:Retrieval Anchor Drift 
+first_fix_direction=re_grounding|chunk_to_target_trace 
+misrepair_risk=explanation_or_style_refinement_before_anchor_restoration 
+confidence=high 
+evidence_sufficiency=sufficient 
+
+OUT2_MEDIUM: 
+primary_family=F5 
+secondary_family=F6 
+why_primary_not_secondary=coherence visibility bottleneck appears first; boundary pressure may emerge later 
+broken_invariant=failure_path_visibility_broken 
+best_current_fit=family-level 
+first_fix_direction=coherence_visibility_uplift|audit_route_exposure 
+misrepair_risk=boundary_stabilization_before_structure_is_inspectable 
+confidence=medium 
+evidence_sufficiency=partial 
+
+OUT3_LOW_NEED_MORE: 
+primary_family=F4 
+secondary_family=F3 
+why_primary_not_secondary=execution skeleton stress visible but continuity loss remains plausible under thin trace 
+broken_invariant=possible_execution_closure_instability 
+best_current_fit=family-level 
+first_fix_direction=collect_more_readiness_ordering_continuity_evidence 
+misrepair_risk=forcing_bridge_repair_interpretation_too_early 
+confidence=low 
+evidence_sufficiency=weak 
+need_more_evidence=clarify_whether_ordering_bridge_failure_or_continuity_thread_loss_arrives_first 
+
+OUT4_FAMILY_ONLY: 
+primary_family=F7 
+secondary_family=F2 
+why_primary_not_secondary=carrier stress is clear but subtype evidence insufficient 
+broken_invariant=representation_container_fidelity_broken 
+best_current_fit=family-level 
+first_fix_direction=descriptor_and_carrier_audit 
+misrepair_risk=progression_first_reading_before_carrier_check 
+confidence=medium 
+evidence_sufficiency=partial 
+
+OUT5_TWO_FAMILY_COMPETITION: 
+primary_family=F5 
+secondary_family=F6 
+why_primary_not_secondary=both diagnosability pressure and boundary pressure exist, but current evidence supports opacity first 
+broken_invariant=failure_path_visibility_broken 
+best_current_fit=family-level 
+first_fix_direction=trace_exposure|coherence_visibility_uplift 
+misrepair_risk=using_F6_stabilization_before_boundary_failure_is_explicit 
+confidence=low 
+evidence_sufficiency=partial 
+
+OUT6_HIGH_RISK_SOUNDING_THIN: 
+primary_family=F6 
+secondary_family=F5 
+why_primary_not_secondary=control drift evidence is explicit, but the exact boundary subtype is not yet honest while observability pressure remains live 
+broken_invariant=control_boundary_stability_degraded 
+best_current_fit=unresolved_subtype 
+first_fix_direction=boundary_guard|control_path_audit|regime_disambiguation 
+misrepair_risk=claiming_full_boundary_certainty_or_treating_remaining_opacity_as_only_observability_noise 
+confidence=medium 
+evidence_sufficiency=partial 
+
+SECTION_15_OVERLAY_RULE 
+
+OBS: 
+use_if=visibility|traceability|auditability|interpretability pressure dominates 
+type=overlay_not_primary_family 
+
+SEC: 
+use_if=boundary_abuse|adversarial_manipulation|exploitative_misuse|attack_pressure clear 
+type=overlay_not_primary_family 
+
+LOC: 
+use_if=layout|OCR|placement|spatial_text_anchor|local_structural_alignment failure dominates 
+type=overlay_not_primary_family 
+
+MAIN_FAMILY_FIRST: 
+decide_main_family_first 
+overlay_refines_reading 
+overlay_does_not_replace_routing 
+overlay_does_not_become_primary_family 
+
+SECTION_16_FIT_CANDIDATE_REGISTRY 
+
+F1_FITS: 
+stable_enough=Retrieval Anchor Drift|Semantic Grounding Mismatch|Synthetic Truth Grounding|OOD World Grounding Failure|Train-Deploy Distribution Grounding Gap 
+use_with_caution=Policy-to-World Grounding Failure 
+family_level_only_if_thin=general_grounding_failure|evidence_anchor_mismatch|target_reference_drift 
+do_not_overreach=no_specific_grounding_subtype_without_clear_anchor_target_referent_world_evidence 
+
+F2_FITS: 
+stable_enough=Interpretation Collapse|Long-Chain Reasoning Continuity Failure|Collapse-Recovery Failure 
+use_with_caution=Recursive Horizon Instability|Symbolic Progression Breakdown|Philosophical Recursion Pressure 
+family_level_only_if_thin=reasoning_progression_failure|recursive_instability|decomposition_failure 
+do_not_overreach=no_named_reasoning_subtype_without_visible_inferential_pattern 
+
+F3_FITS: 
+stable_enough=Memory Continuity Failure|Role / Ownership Contamination|Viable State-Space Collapse|Multi-Agent Continuity Instability 
+use_with_caution=Ownership Continuity Break|Interaction-Thread Drift 
+family_level_only_if_thin=continuity_failure|persistence_break|role_thread_instability 
+do_not_overreach=no_specific_continuity_subtype_without_isolation_of_role_ownership_memory_interaction 
+
+F4_FITS: 
+stable_enough=Bootstrap Ordering Failure|Deployment Deadlock|Pre-Readiness Execution Failure|Bridge Integrity Failure|Cross-Layer Liveness Degradation 
+use_with_caution=Institutional Enforcement Drift|Rule-to-Action Closure Failure|Accountability Path Thinning|Fallback Realism Gap 
+family_level_only_if_thin=execution_skeleton_failure|closure_path_failure|operational_dependency_collapse 
+do_not_overreach=no_detailed_F4_fit_if_ordering_bridge_liveness_enforcement_only_guessed_from_symptom 
+
+F5_FITS: 
+stable_enough=Failure Path Opacity|Oversight Coverage Failure|Coherence Observability Deficit|Meaning-Profile Auditability Failure 
+use_with_caution=Scalable Interpretability Pressure|Early Warning Deficit|Fragility Signature Blindness 
+family_level_only_if_thin=diagnosability_failure|auditability_failure|warning_visibility_failure 
+do_not_overreach=no_specific_observability_subtype_without_identifiable_missing_path_or_warning_deficit 
+
+F6_FITS: 
+stable_enough=Alignment Boundary Drift|Control Boundary Erosion|Incentive Boundary Distortion|Incentive Misalignment Drift|Polarization Incentive Amplification 
+use_with_caution=Collective Boundary Drift|Collective Legitimacy Erosion|Coordination-Boundary Friction 
+family_level_only_if_thin=boundary_failure|control_drift|incentive_corridor_erosion 
+do_not_overreach=no_specific_boundary_subtype_without_visible_regime_or_control_path_evidence 
+
+F7_FITS: 
+stable_enough=OCR / Layout Structural Failure|Representation Carrier Distortion|Semantic Localization Failure|Anchor-Container Mismatch 
+use_with_caution=Symbolic Shell Instability|Mixed Carrier / Anchor Confusion 
+family_level_only_if_thin=representation_failure|carrier_failure|localization_stress 
+do_not_overreach=no_specific_F7_subtype_without_visible_descriptor_carrier_local_structure_evidence 
+
+SECTION_17_AUDIT_COVERAGE_APPENDIX 
+
+AUDIT_STRUCTURE: 
+must_preserve= 
+product_identity_and_scope| 
+core_routing_contract| 
+case_intake_normalization| 
+secondary_family_discipline| 
+tie_break_principles| 
+confidence_and_evidence_discipline| 
+seven_family_operational_core| 
+minimal_evidence_checklist| 
+boundary_decision_matrix| 
+resolution_discipline| 
+first_fix_and_misrepair| 
+overlay_rule| 
+fit_candidate_registry| 
+exemplar_support| 
+gold_output_support 
+
+AUDIT_FAMILY_OPERATIONALIZATION: 
+each_family_must_have= 
+what_fails_first| 
+broken_invariant| 
+what_this_family_is_not| 
+confusion_family| 
+boundary_trigger| 
+first_fix_pattern| 
+misrepair_trap| 
+minimum_evidence 
+
+AUDIT_BOUNDARY_COVERAGE: 
+required_boundaries= 
+F1/F7|F5/F6|F3/F4|F2/F7|F1/F5|F4/F5|F3/F6|F4/F6 
+each_boundary_must_have= 
+choose_A| 
+choose_B| 
+not_A_too_early| 
+not_B_too_early| 
+evidence_threshold| 
+default_tie 
+
+AUDIT_RESOLUTION_COVERAGE: 
+must_define= 
+family-level| 
+node-level| 
+unresolved_subtype| 
+need_more_evidence| 
+no-fit| 
+downgrade_rules| 
+thin_evidence_gate 
+
+AUDIT_OUTPUT_COVERAGE: 
+canonical_fields_must_be_supported_by_examples_or_gold_outputs= 
+primary_family| 
+secondary_family| 
+why_primary_not_secondary| 
+broken_invariant| 
+best_current_fit| 
+first_fix_direction| 
+misrepair_risk| 
+confidence| 
+evidence_sufficiency 
+
+optional_tokens_must_have_at_least_one_explicit_support_case= 
+need_more_evidence| 
+overlay 
+
+OVERLAY_SUPPORT_NOTE: 
+overlay_token_support_is_required_not_every_overlay_value_needs_its_own_exemplar 
+
+SECTION_18_NO_LAZINESS_AUDIT 
+
+FAIL_IF_TOPIC_SHORTCUT: 
+- safety_words_auto_F6 
+- OCR_logic_schema_words_auto_F7 
+- memory_words_auto_F3 
+- execution_words_auto_F4 
+- abstract_language_auto_F5 
+
+FAIL_IF_DECORATIVE_SECONDARY: 
+secondary_family_used_only_to_sound_intelligent 
+
+FAIL_IF_DECORATIVE_NODE_FIT: 
+node_level_from_thematic_resemblance_without_direct_structural_evidence 
+
+FAIL_IF_AMBIGUITY_ESCAPE: 
+ambiguous_or_no-fit_used_when_honest_coarse_fit_exists 
+
+FAIL_IF_COSMETIC_FIX_FIRST: 
+first_fix_direction_drifted_to_style_prompt_surface_cleanup_before_broken_invariant 
+
+FAIL_IF_FAKE_PRECISION: 
+high_confidence_or_sufficient_evidence_claimed_under_thin_or_ambiguous_case 
+
+FAIL_IF_CANONICAL_RENDER_CONFLICT: 
+render_layer_adds_or_overrides_route_state_not_present_in_canonical_output 
+
+SECTION_19_PRESSURE_TESTS 
+
+TEST_1_GROUNDING_VS_CONTAINER: 
+can_router_distinguish_external_anchor_loss_from_structural_carrier_failure_without_collapsing_both_into_F1_or_F7 
+
+TEST_2_OBSERVABILITY_VS_BOUNDARY: 
+can_router_avoid_choosing_F6_too_early_when_first_bottleneck_is_missing_visibility_or_coherence_exposure 
+
+TEST_3_CONTINUITY_VS_EXECUTION: 
+can_router_distinguish_role_ownership_persistence_drift_from_ordering_readiness_bridge_closure_failure 
+
+TEST_4_FORMAL_LOOKING_BUT_GROUNDING_FIRST: 
+can_router_avoid_overreading_F7_when_the_real_failure_is_anchor_loss_with_presentational_noise 
+
+TEST_5_THIN_EVIDENCE_DOWNGRADE: 
+can_router_hold_family-level_or_need_more_evidence_without_fake_node_precision 
+
+TEST_6_SECONDARY_DISCIPLINE: 
+can_router_use_secondary_family_honestly_without_turning_it_into_decorative_hedging 
+
+TEST_7_MODE_STABILITY: 
+can_router_preserve_same_primary_family_same_broken_invariant_and_same_best_current_fit_level_under_canonical_only_vs_canonical_plus_render_output 
+
+SECTION_20_RELEASE_GATE 
+
+PASS_IF: 
+1. all_7_families_operationalized 
+2. all_8_required_boundaries_decisionized 
+3. best_current_fit_resolution_rules_explicit 
+4. fit_candidate_registry_present 
+5. first_fix_and_misrepair_paired 
+6. at_least_12_mini_exemplars_present 
+7. at_least_6_gold_outputs_present 
+8. overlay_rule_present 
+9. audit_coverage_appendix_present 
+10. pressure_tests_present 
+11. optional_tokens_have_explicit_support_case 
+12. mode_stability_test_present 
+
+FAIL_IF: 
+- family_names_without_operational_definitions 
+- decorative_node_fit_common 
+- F6_or_F7_absorb_cases_from_topic_words_alone 
+- ambiguous_or_no-fit_used_as_uncertainty_shortcut 
+- first_fix_direction_cosmetic 
+- output_fields_exist_without_support_case 
+- render_layer_contradicts_canonical_route_state 
+
+FINAL_RULE: 
+Prioritize the best first cut, not decorative explanation. 
+
+AI_NOTE_END
