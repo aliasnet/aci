@@ -1,7 +1,7 @@
 # ACI Guide — Explaining ACI to agents
 
 **Key:** `guide_aci_agent`
-**Role:** Agent guide for onboarding operator models into ACI (crafted by Latest Claude Opus' Brain)
+**Role:** Agent guide for onboarding operator models into ACI
 **Format:** Markdown (explicit user request — plain text exception per Hivemind rules)
 **Version:** v1.0
 **Timestamp:** 2026-05-01
