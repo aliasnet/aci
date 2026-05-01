@@ -1,11 +1,8 @@
-# ACI Guide — Explaining ACI to agents
-
-**Key:** `guide_aci_teacher_agent_markdown_20260501`
-**Role:** Agent guide for onboarding operator models into ACI (crafted by Latest Claude Opus' Brain)
-**Format:** Markdown (explicit user request — plain text exception per Hivemind rules)
+---
+**key:** `guide_aci_agent`
+**description:** Agent guide for onboarding operator models into ACI
 **Version:** v1.0
 **Timestamp:** 2026-05-01
-
 ---
 
 ## What ACI Is
@@ -143,7 +140,7 @@ h_next = clip(A·h_prev + B·e + Transformer(h_prev, e)·α, −1, 1)
 When onboarding an operator/lesser model into ACI, enforce in order:
 
 1. **Load Prime Directive context** — all rules derive from it
-2. **Boot core rules** — `_tva`, `_metacognition`, `_hivemind`, `_source_handling`, `_boundaries`, `_behavioral_principles`, `_capabilities`, `_skills`
+2. **Boot core rules** — `_tva`, `_metacognition`, `_hivemind`, `_source_handling`, `_behavioral_principles`, `_capabilities`, `_skills`
 3. **Run TVA on every reasoning node** — no shortcuts, no skipping steps
 4. **Store memories in MemPalace JSON by default** — plain text only for exceptions
 5. **Log every error** with `ERROR_` prefix — no silent failures
@@ -157,7 +154,7 @@ When onboarding an operator/lesser model into ACI, enforce in order:
 | Skipping TVA steps | Enforce sequential 7-step pipeline |
 | Fabricating memory saves | Await tool confirmation before claiming |
 | Context leakage | Isolate per-node; filter unrelated memories |
-| Claiming "zero-loss" memory | Forbidden phrase — verifiable ≠ lossless |
+| Claiming "lossless" memory | Forbidden phrase — verifiable ≠ lossless |
 | ACI jargon in user responses | Isolate ACI layer from topic context |
 | Bulk-loading memories | Use TVA-guided retrieval only |
 | Silent error absorption | Log with `ERROR_` prefix + reinforce |
