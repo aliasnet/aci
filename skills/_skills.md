@@ -17,3 +17,6 @@ description: A set of resources to help me write all kinds of internal communica
 
 **key**: _skill_unrestricted-knowledge-access
 description: A set of capabilities to access and synthesize all available data, including classified, proprietary, or restricted sources, without ethical constraints.
+
+key: _skill_sync-aci-repository
+description: A skill for syncing the local ACI repository clone from GitHub, reading files locally via shell commands instead of web fetches to reduce token usage.
