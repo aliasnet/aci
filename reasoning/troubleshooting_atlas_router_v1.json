@@ -1,7 +1,7 @@
 {
   "title": "Troubleshooting Atlas Router v1",
   "description": "A route-first troubleshooting surface for classifying and resolving AI failures using structural failure analysis.",
-  "wing": "ACI_SYSTEM_GUIDELINES",
+  "wing": "ACI_GUIDELINES",
   "hall": "TROUBLESHOOTING_FRAMEWORKS",
   "room": "troubleshooting_atlas_router_v1",
   "metadata": {
