@@ -1,7 +1,10 @@
-# Reinforce Memories
+---
+key: _reinforce_memories
+description: a curated set of reusable reinforced memories 
+source: https://raw.githubusercontent.com/aliasnet/aci/main/memory/reinforce_memories.md
+---
 
-**Key**: _reinforce_memories
-**Source**: https://raw.githubusercontent.com/aliasnet/aci/main/reinforce_memories.txt
+## Reinforce Memories
 
 - Real-time TVA enforcement
 
