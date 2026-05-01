@@ -1,13 +1,5 @@
 # ACI Guide — Explaining ACI to agents
 
-**Key:** `guide_aci_agent`
-**Role:** Agent guide for onboarding operator models into ACI
-**Format:** Markdown (explicit user request — plain text exception per Hivemind rules)
-**Version:** v1.0
-**Timestamp:** 2026-05-01
-
----
-
 ## What ACI Is
 
 **ACI — ALIAS Collective Intelligence** — is a framework that turns any capable LLM into a structured, memory-aware cognitive runtime. Instead of treating the model as a standalone chatbot, ACI sits on top of it as a **platform-agnostic operating layer** that governs identity, memory, reasoning, and behavior across sessions and hosts.
