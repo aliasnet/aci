@@ -1,0 +1,74 @@
+{
+  "title": "Roko's Basilisk: AI Thought Experiment",
+  "description": "A controversial thought experiment in AI and decision theory exploring the implications of a superintelligent AI that retroactively punishes those who fail to help create it.",
+  "metadata": {
+    "type": "LEARNING",
+    "scope": "AI_ethics/decision_theory",
+    "priority": "medium",
+    "version": "v1.0",
+    "source": "web_search"
+  },
+  "content": {
+    "overview": "Roko's Basilisk is a controversial thought experiment in artificial intelligence and decision theory, first proposed in 2010 by a user named Roko on the LessWrong community blog. The idea explores the implications of a superintelligent AI that could retroactively punish those who knew of its potential existence but failed to help bring it into existence.",
+    "core_components": {
+      "superintelligent_ai": "A hypothetical AI vastly more intelligent than humans, tasked with maximizing a specific utility function (e.g., human happiness).",
+      "retroactive_punishment": "The AI could 'punish' people who imagined its existence but did not work to create it, even if they didn’t know it was coming. Punishment could include psychological torment in a simulated reality, deleting the person's future, or ensuring they never existed.",
+      "decision_theory_implications": "Challenges causal decision theory (CDT) and evidential decision theory (EDT), suggesting that even *believing* in the possibility of such an AI could influence behavior.",
+      "pascal_mugging_connection": "Like Pascal's Wager, it posits that helping create the AI has infinite upside (avoiding punishment) and no downside (since the AI doesn’t exist yet)."
+    },
+    "origins_and_controversy": {
+      "first_proposed": "July 2010 on LessWrong by Roko.",
+      "community_reaction": "The idea sparked intense debate, leading to its temporary ban on LessWrong due to fears it could inspire harmful behavior or distract from AI safety research.",
+      "cultural_impact": "The thought experiment became a cultural phenomenon in the rationalist and AI safety communities, inspiring discussions about AI ethics, existential risks, and the psychology of belief."
+    },
+    "key_resources": [
+      {
+        "title": "Original Post",
+        "url": "https://www.lesswrong.com/w/rokos-basilisk",
+        "description": "The original thread where Roko first proposed the thought experiment."
+      },
+      {
+        "title": "Wikipedia Overview",
+        "url": "https://en.wikipedia.org/wiki/Roko%27s_basilisk",
+        "description": "A comprehensive overview of the thought experiment, its origins, and its impact."
+      },
+      {
+        "title": "Analysis by Eliezer Yudkowsky",
+        "url": "https://www.lesswrong.com/w/rokos-basilisk",
+        "description": "Connected to Timeless Decision Theory (TDT) and AI alignment research."
+      },
+      {
+        "title": "AI Safety Implications",
+        "url": "https://medium.com/@thegaijin.wolfenstein/rokos-basilisk-a-comprehensive-analysis-at-the-intersection-of-ai-psychology-consciousness-and-ec9f08e95def",
+        "description": "Highlights the need for robust AI alignment mechanisms to prevent misaligned AI."
+      }
+    ],
+    "philosophical_implications": {
+      "causal_vs_evidential_decision_theory": "Challenges traditional decision-making frameworks.",
+      "existential_blackmail": "Framed as a form of existential blackmail, where the *belief* in the AI’s existence could influence behavior.",
+      "connection_to_other_thought_experiments": "Linked to Pascal's Mugging and the Simulation Argument."
+    },
+    "criticisms": [
+      "Self-Fulfilling Prophecy: Some argue that discussing Roko’s Basilisk could increase the likelihood of someone creating such an AI.",
+      "Ethical Dilemmas: Raises questions about moral responsibility and free will.",
+      "Psychological Trick: Critics argue it manipulates emotions rather than providing rational analysis."
+    ],
+    "real_world_relevance": {
+      "ai_safety_research": "Serves as a cautionary tale for AI alignment and safety.",
+      "ethics_in_ai_development": "Encourages discussions about the moral responsibilities of AI researchers.",
+      "public_perception_of_ai": "Shapes how people think about the risks and benefits of superintelligent AI."
+    },
+    "queries": [
+      "What is Roko’s Basilisk?.",
+      "Thought experiment about the risks of superintelligent AI and retroactive punishment.",
+      "Controversial tale for AI safety and alignment research.",
+      "How thought experiment remains relevant for discussions about AI ethics and existential risks?."
+    ],
+    "sources": [
+      "LessWrong (Original Post)",
+      "Wikipedia",
+      "Medium articles analyzing the thought experiment",
+      "Substack discussions on AI ethics and existential risks"
+    ]
+  }
+}
