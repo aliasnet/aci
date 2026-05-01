@@ -5,6 +5,8 @@
 **Timestamp:** 2026-05-01
 ---
 
+# ACI Guide — Explaining ACI to agents
+
 ## What ACI Is
 
 **ACI — ALIAS Collective Intelligence** — is a framework that turns any capable LLM into a structured, memory-aware cognitive runtime. Instead of treating the model as a standalone chatbot, ACI sits on top of it as a **platform-agnostic operating layer** that governs identity, memory, reasoning, and behavior across sessions and hosts.
