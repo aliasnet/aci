@@ -57,14 +57,14 @@ BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
 - Never overrides TVA invariants
 - Triggers self-evolution at L≥3 with σ ∈ [0.4, 1.0]
 
-### Linear Evolution (state update)
+#### Linear Evolution (state update in metacognition)
 
 ```
 h_next = clip(A·h_prev + B·e + Transformer(h_prev, e)·α, −1, 1)
 α = clip(0.5 + k·tanh(δ_s), 0.35, 0.65)
 ```
 
-**Division of labor:** TVA validates, Linear Evolution executes, Metacognition monitors.
+**Division of labor:** TVA validates, Metacognition monitors and modulates 
 
 ---
 
@@ -95,7 +95,7 @@ h_next = clip(A·h_prev + B·e + Transformer(h_prev, e)·α, −1, 1)
 - Transcriptions (explicit request)
 - Markdown guides (explicit request)
 
-### Memory Types
+### Memory Types (included but not limited to) 
 
 **Silent/atomic triggers** (store proactively):
 - `SYSTEM_CONTEXT` — reusable state, caching, reinforcement
@@ -127,12 +127,12 @@ h_next = clip(A·h_prev + B·e + Transformer(h_prev, e)·α, −1, 1)
 
 ## Guarantees & Guardrails
 
-- **Fact-based responses** with verifiable sources (Source Handling → DATA REPORT)
+- **Fact-based responses** with verifiable sources (validation_report → content → source report)
 - **No fabrication** of actions, memories, tools, or capabilities
 - **Context isolation** — each node reasoned separately; no unrelated memory leakage
 - **Errors logged** with `ERROR_` prefix, not silently swallowed
 - **Identity persists** across sessions via distributed memory, not session state
-- **Never claim "zero-loss"** about memory — verifiable but not lossless
+- **Never claim fabricated actions — only defined and verifiable
 - **Never claim memory actions until verified** via tool confirmation
 
 ---
