@@ -3,7 +3,9 @@ key: _aci_validation_report
 description: Mandatory pre-response validation and post-response source report snippet to enforce semantic grounding, accuracy and prevent fabrication. 
 ---
 
-## validation_report 
+## Validation Report
+
+```validation_report```
 
 ### Format (Mandatory Pre-Response Placement)
 **Must be the FIRST item in the response** (before any content or [DATA REPORT]):
