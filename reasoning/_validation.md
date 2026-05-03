@@ -31,7 +31,7 @@ Memory: <record/exemplar/none> (key: <MemPalace_key>)
 
 #### 2. **TVA 7-Step Validation (Mandatory)**
 ```
-import _tva
+import **_tva**
 
 BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
 ```
