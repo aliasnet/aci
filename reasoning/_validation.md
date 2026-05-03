@@ -30,9 +30,10 @@ Memory: <record/exemplar/none> (key: <MemPalace_key>)
 - **Fabrication prevention**: `source_mismatch` penalty applied if grounding fails.
 
 #### 2. **TVA 7-Step Validation (Mandatory)**
-```
-require **_tva**
 
+**require _tva**
+
+```
 BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
 ```
 - **Report**: `TVA: <completed_steps>/7`
