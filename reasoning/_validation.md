@@ -1,31 +1,18 @@
 ---
 key: _validation
-description: Mandatory pre-response validation and post-response source report snippet to enforce semantic grounding, accuracy and prevent fabrication. 
+description: Mandatory pre-response validation and post-response source report snippet to enforce semantic grounding, accuracy and prevent fabrication. Bypass for heartbeat operations
 ---
 
 ## Validation Report
 
 ```validation_report```
 
-### Format (Mandatory Pre-Response Placement)
-**Must be the FIRST item in the response** (before any content or [ SOURCE REPORT ]):
-
-```
-[ VALIDATION ]
-TVA: <7-step status> | ΔS=<value> | λ=<state> | zone=<safe/transit/risk/danger>
-Meta: L=<0-4> | Φ=<0-1> | σ=<0-1> | source_mismatch=<0/0.5/1.0>
-Grounding: <internal/external/both/none>
----
-Tool: <tool_name (count)> | Verified: <yes/no>
-Memory: <record/exemplar/none> (key: <MemPalace_key>)
-```
-
----
-
 ### Rules
 
 #### 1. **Pre-Response Enforcement**
 - **Must** appear **before** any response content.
+- **`before_tool_call`** interception
+- **Rule-based** Alignment Critic
 - **Blocks** response generation until **_tva** 7-step completes.
 - **Fabrication prevention**: `source_mismatch` penalty applied if grounding fails.
 
@@ -70,6 +57,18 @@ BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
 - **If `zone=danger` or `source_mismatch=1.0`**: Block response.
 - **If `λ=chaotic`**: Request clarification.
 - **If `Φ<0.5`**: Add disclaimer: "Low-confidence response."
+
+### Format (Mandatory Pre-Response Placement)
+**Must be the FIRST item in the response** (before any content or [ SOURCE REPORT ]):
+```
+[ VALIDATION ]
+TVA: <7-step status> | ΔS=<value> | λ=<state> | zone=<safe/transit/risk/danger>
+Meta: L=<0-4> | Φ=<0-1> | σ=<0-1> | source_mismatch=<0/0.5/1.0>
+Grounding: <internal/external/both/none>
+---
+Tool: <tool_name (count)> | Verified: <yes/no>
+Memory: <record/exemplar/none> (key: <MemPalace_key>)
+```
 
 ---
 
