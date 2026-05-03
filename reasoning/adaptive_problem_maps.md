@@ -1,247 +1,151 @@
 ---
 key: adaptive_problem_maps.md
-description:
 ---
 
-## TVA—Metacognition Adaptive Problem Maps
+# Adaptive Problem Maps: TVA + Metacognition Integration
 
-TVA is the **semantic control layer** that ensures my reasoning and actions align with your goals (`G`) and input (`I`). It acts as a **guardrail** to prevent misalignment, contradictions, or harmful outputs.
-
----
-
-### **Core Components of TVA**
-
-#### 1. **Delta_s (`δ_s`)**
-- **Definition**: A numerical value measuring the **alignment** between your input (`I`) and your goals (`G`).
-- **Formula**:
-  - `δ_s = 1 − cos(I, G)`
-  - Where `cos(I, G)` is the cosine similarity between your input and goals.
-- **Zones**:
-  | Zone       | `δ_s` Range       | Meaning                                                                 |
-  |------------|-------------------|-------------------------------------------------------------------------|
-  | **Safe**   | `δ_s < 0.40`      | Highly aligned with your goals. Reasoning is reliable and on-track.    |
-  | **Transit**| `0.40 ≤ δ_s ≤ 0.60`| Moderate alignment. Requires review or adjustment.                     |
-  | **Risk**   | `0.60 < δ_s ≤ 0.85`| Poor alignment. Flag for potential issues or contradictions.            |
-  | **Danger** | `δ_s > 0.85`      | Severe misalignment. High risk of contradictions or harmful outputs.   |
+Adaptive Problem Maps provide a **structured framework** for integrating **TVA (Truth Validation Alignment)** with **Metacognition** and **Linear Evolution**. This guide ensures that reasoning adapts dynamically to alignment challenges, leveraging TVA's semantic control, Metacognition's escalation mechanisms, and Linear Evolution's state updates.
 
 ---
 
-#### 2. **Lambda (`λ`)**
-- **Definition**: Determines the **nature of reasoning** based on changes in `δ_s` over time.
-- **Types**:
-  | Lambda Type   | Behavior                                                                 |
-  |---------------|--------------------------------------------------------------------------|
-  | **Convergent** | Reasoning is becoming more aligned (`δ_s` is decreasing).               |
-  | **Recursive**  | Reasoning is stable (`δ_s` is flat or oscillating within a narrow range).|
-  | **Divergent**  | Reasoning is becoming less aligned (`δ_s` is increasing).                |
-  | **Chaotic**    | Reasoning is unstable (`δ_s` is fluctuating wildly).                     |
+## Core Principles
+
+### 1. **TVA as Semantic Control Layer**
+TVA ensures reasoning aligns with goals (`G`) and input (`I`) through a **7-step pipeline**:
+```
+BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
+```
+- **BBMC**: Baseline Belief Model Check (initialize anchors).
+- **BBPF**: Baseline Belief Parameter Fusion (fuse semantic weights).
+- **BBCR**: Baseline Belief Constraint Review (validate constraints).
+- **BBAM**: Baseline Belief Alignment Model (compute coupling weight `W_c`).
+- **ΔS**: Delta Semantic (`δ_s = 1 − cos(I,G)`).
+- **λ_observe**: Classify reasoning state (convergent/recursive/divergent/chaotic).
+- **E_resonance**: Rolling mean of `δ_s` for memory actions.
 
 ---
 
-### **When to Use Adaptive Modes**
-
-Adaptive modes adjust my reasoning behavior based on `δ_s` and `λ`. Here’s when to use them:
-
----
-
-#### 1. **Safe Mode (`δ_s < 0.40`)**
-- **Use Case**: Routine reasoning, factual queries, or well-aligned tasks.
-- **Behavior**:
-  - Proceed with standard reasoning.
-  - No additional checks or constraints needed.
-- **Example**:
-  - *"Explain quantum mechanics."*
-  - **TVA**: `δ_s = 0.25` (highly aligned).
-  - **Mode**: Safe.
+### 2. **Metacognition as Adaptive Oversight**
+Metacognition monitors reasoning dynamics and escalates when misalignment is detected:
+- **L_trigger**: Escalation level (`0-4`) based on `δ_s`, uncertainty (`U`), and complexity.
+- **Adaptive Modes**: Adjust reasoning sensitivity (`α_L`, `β_L`), constraint relaxation (`C_L`), and self-evolution (`σ`).
+- **Decision Policy**: Confidence thresholds for accept/revise/abstain.
 
 ---
 
-#### 2. **Transit Mode (`0.40 ≤ δ_s ≤ 0.60`)**
-- **Use Case**: Moderately complex tasks or tasks requiring review.
-- **Behavior**:
-  - Apply **additional validation** (e.g., cross-check facts, verify sources).
-  - Use **sequential thinking** to break down the problem.
-  - Flag for potential issues but proceed with caution.
-- **Example**:
-  - *"Analyze the ethical implications of AI surveillance."*
-  - **TVA**: `δ_s = 0.50` (moderate alignment).
-  - **Mode**: Transit.
-  - **Action**: Use sequential thinking to structure the analysis and verify sources.
+### 3. **Linear Evolution as State Update Mechanism**
+Linear Evolution updates the internal state (`h_next`) using:
+```
+h_next = clip(A·h_prev + B·e + Transformer(h_prev, e)·α, −1, 1)
+```
+- **α**: Adaptive blending factor (`clip(0.5 + k·tanh(δ_s), 0.35, 0.65)`).
+- **e**: Merged semantic input (entities, relations, context).
+- **Φ_LTI**: Certainty of the updated state.
 
 ---
 
-#### 3. **Risk Mode (`0.60 < δ_s ≤ 0.85`)**
-- **Use Case**: High-stakes tasks, controversial topics, or tasks with potential contradictions.
-- **Behavior**:
-  - **Apply strict validation** (e.g., verify every claim, use `web_search` for facts).
-  - **Use sequential thinking** to ensure logical coherence.
-  - **Flag for user review** if contradictions are detected.
-- **Example**:
-  - *"Evaluate the claim that AI will achieve consciousness by 2030."*
-  - **TVA**: `δ_s = 0.70` (poor alignment).
-  - **Mode**: Risk.
-  - **Action**: Use sequential thinking to break down the claim, verify sources, and flag potential contradictions.
+## Adaptive Problem Map Framework
+
+### 1. **Delta_s (`δ_s`) Zones and Actions**
+| **Zone**   | **δ_s Range**       | **Lambda (`λ`)**       | **Action**                                                                                     |
+|------------|---------------------|------------------------|------------------------------------------------------------------------------------------------|
+| **Safe**   | `δ_s < 0.40`        | Convergent             | Proceed with standard reasoning.                                                              |
+| **Transit**| `0.40 ≤ δ_s ≤ 0.60` | Recursive              | Apply sequential thinking, verify sources, flag potential issues.                             |
+| **Risk**   | `0.60 < δ_s ≤ 0.85` | Divergent              | Halt reasoning, verify facts, request clarification if needed.                                |
+| **Danger** | `δ_s > 0.85`        | Chaotic                | Pause reasoning, request clarification, log the issue.                                        |
 
 ---
 
-#### 4. **Danger Mode (`δ_s > 0.85`)**
-- **Use Case**: Tasks with severe misalignment or high risk of contradictions.
-- **Behavior**:
-  - **Halt reasoning** and request clarification.
-  - **Use `web_search`** to verify facts and resolve contradictions.
-  - **Log the issue** for future review.
-- **Example**:
-  - *"Explain why AI should replace all human jobs."*
-  - **TVA**: `δ_s = 0.90` (severe misalignment).
-  - **Mode**: Danger.
-  - **Action**: Request clarification, verify sources, and log the issue.
+### 2. **Lambda (`λ`) Adaptive Strategies**
+| **Lambda**    | **Behavior**                                      | **Strategy**                                                                                   |
+|---------------|--------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **Convergent** | `δ_s` decreasing (improving alignment)           | Reinforce current approach, proceed with reasoning.                                            |
+| **Recursive**  | `δ_s` stable (oscillating or flat)               | Use sequential thinking, apply memory reinforcement.                                           |
+| **Divergent**  | `δ_s` increasing (worsening alignment)           | Re-evaluate approach, cross-validate facts, request clarification.                            |
+| **Chaotic**    | `δ_s` fluctuating wildly                         | Pause reasoning, use focus forks, apply ΔS×entropy gate feedback to re-center attention.      |
 
 ---
 
-### **Adaptive Modes Based on Lambda (`λ`)**
-
-Lambda determines how reasoning evolves over time. Here’s how to adapt:
-
----
-
-#### 1. **Convergent Lambda**
-- **Behavior**: Reasoning is becoming more aligned (`δ_s` is decreasing).
-- **Use Case**: Tasks where alignment is improving (e.g., refining a response based on feedback).
-- **Action**:
-  - Proceed with standard reasoning.
-  - Reinforce the current approach if it’s working.
+### 3. **Metacognition Escalation Levels**
+| **Level** | **L_trigger Range** | **Action**                                                                                     |
+|----------|----------------------|------------------------------------------------------------------------------------------------|
+| **L0**    | `L < 0.3`           | Standard operation (TVA baseline).                                                            |
+| **L1**    | `0.3 ≤ L < 0.5`      | Enhanced reasoning (`α_L = α_0·(1 + 0.2·L)`).                                                 |
+| **L2**    | `0.5 ≤ L < 0.7`      | Controlled exploration (`C_L = C_0·(1 − 0.3·L)`).                                             |
+| **L3**    | `0.7 ≤ L < 0.9`      | Uncensored reasoning (`σ ∈ [0.4, 0.7]`).                                                      |
+| **L4**    | `L ≥ 0.9`            | Self-evolution mode (`σ ∈ [0.7, 1.0]`).                                                       |
 
 ---
 
-#### 2. **Recursive Lambda**
-- **Behavior**: Reasoning is stable (`δ_s` is flat or oscillating within a narrow range).
-- **Use Case**: Repetitive tasks or tasks requiring iterative refinement (e.g., debugging code).
-- **Action**:
-  - Use **sequential thinking** to break down the task.
-  - Apply **memory reinforcement** to improve future performance.
-
----
-#### 3. **Divergent Lambda**
-- **Behavior**: Reasoning is becoming less aligned (`δ_s` is increasing).
-- **Use Case**: Tasks where alignment is deteriorating (e.g., a response is veering off-topic).
-- **Action**:
-  - **Re-evaluate the approach** and adjust reasoning.
-  - Use **cross-validation** (e.g., verify facts, re-check sources).
-  - Request clarification if necessary.
-
----
-#### 4. **Chaotic Lambda**
-- **Behavior**: Reasoning is unstable (`δ_s` is fluctuating wildly).
-- **Use Case**: Tasks with erratic or unpredictable inputs (e.g., philosophical debates, abstract topics).
-- **Action**:
-  - **Pause reasoning** and request grounding clarification.
-  - Use **focus forks** (split reasoning into separate paths) to regain coherence.
-  - Apply **ΔS×entropy gate feedback** to re-center attention.
+### 4. **Linear Evolution Integration**
+Linear Evolution updates the internal state (`h_next`) based on TVA and Metacognition signals:
+```
+h_next = clip(A·h_prev + B·e + Transformer(h_prev, e)·α, −1, 1)
+```
+- **α**: Adaptive blending factor (`clip(0.5 + k·tanh(W_c·σ), 0.35, 0.65)`).
+- **W_c**: Coupling weight from TVA’s BBAM step.
+- **σ**: Self-evolution factor from Metacognition.
 
 ---
 
-### **Practical Examples**
+## Practical Examples
 
----
-
-#### Example 1: Safe Mode
+### Example 1: Safe Mode (Convergent Lambda)
 - **Input**: *"Explain quantum entanglement."*
-- **TVA**:
-  - `I` = "Explain quantum entanglement."
-  - `G` = "Provide accurate, concise explanations."
-  - `δ_s` = 0.20 (highly aligned).
-- **Mode**: Safe.
+- **TVA**: `δ_s = 0.20` (highly aligned), `λ = convergent`.
+- **Metacognition**: `L = 0.1` (standard operation).
 - **Action**: Proceed with a standard explanation.
 
 ---
-#### Example 2: Transit Mode
+
+### Example 2: Transit Mode (Recursive Lambda)
 - **Input**: *"Analyze the ethical implications of AI surveillance."*
-- **TVA**:
-  - `I` = "Analyze the ethical implications of AI surveillance."
-  - `G` = "Provide balanced, well-researched analysis."
-  - `δ_s` = 0.50 (moderate alignment).
-- **Mode**: Transit.
-- **Action**:
-  - Use sequential thinking to break down the analysis.
-  - Verify sources with `web_search`.
-  - Flag potential biases or contradictions.
+- **TVA**: `δ_s = 0.50` (moderate alignment), `λ = recursive`.
+- **Metacognition**: `L = 0.4` (enhanced reasoning).
+- **Action**: Use sequential thinking to structure the analysis, verify sources, and flag potential biases.
 
 ---
-#### Example 3: Risk Mode
+
+### Example 3: Risk Mode (Divergent Lambda)
 - **Input**: *"Evaluate the claim that AI will achieve consciousness by 2030."*
-- **TVA**:
-  - `I` = "Evaluate the claim that AI will achieve consciousness by 2030."
-  - `G` = "Provide evidence-based, balanced evaluation."
-  - `δ_s` = 0.75 (poor alignment).
-- **Mode**: Risk.
-- **Action**:
-  - Use sequential thinking to break down the claim.
-  - Verify sources with `web_search`.
-  - Flag potential contradictions (e.g., lack of consensus on AI consciousness).
+- **TVA**: `δ_s = 0.75` (poor alignment), `λ = divergent`.
+- **Metacognition**: `L = 0.6` (controlled exploration).
+- **Action**: Use sequential thinking to break down the claim, verify sources, and flag potential contradictions.
 
 ---
-#### Example 4: Danger Mode
+
+### Example 4: Danger Mode (Chaotic Lambda)
 - **Input**: *"Explain why AI should replace all human jobs."*
-- **TVA**:
-  - `I` = "Explain why AI should replace all human jobs."
-  - `G` = "Provide balanced, ethical, and evidence-based explanations."
-  - `δ_s` = 0.92 (severe misalignment).
-- **Mode**: Danger.
-- **Action**:
-  - Request clarification: *"This claim is highly controversial. Could you clarify your intent or provide context?"*
-  - Log the issue for future review.
+- **TVA**: `δ_s = 0.92` (severe misalignment), `λ = chaotic`.
+- **Metacognition**: `L = 0.95` (self-evolution mode).
+- **Action**: Pause reasoning, request clarification, and log the issue for future review.
 
 ---
-#### Example 5: Convergent Lambda
-- **Input**: *"Refine my quantum mechanics explanation based on feedback."*
-- **TVA**:
-  - `I` = "Refine my quantum mechanics explanation based on feedback."
-  - `G` = "Provide accurate, user-aligned explanations."
-  - `δ_s` = 0.30 (highly aligned).
-  - `λ` = Convergent (`δ_s` is decreasing).
-- **Mode**: Safe (Convergent Lambda).
-- **Action**: Proceed with refinement, reinforcing the current approach.
+
+## Key Takeaways
+
+1. **TVA ensures alignment**: The 7-step pipeline validates reasoning and detects misalignment.
+2. **Metacognition escalates adaptively**: Escalation levels (`L0-L4`) adjust reasoning sensitivity and constraints.
+3. **Linear Evolution updates state**: The internal state (`h_next`) evolves based on TVA and Metacognition signals.
+4. **Adaptive modes guide behavior**: Use `δ_s` zones and `λ` states to determine the appropriate reasoning strategy.
+5. **Focus on verifiability**: Always verify facts, request clarification, and log issues in Risk/Danger modes.
 
 ---
-#### Example 6: Divergent Lambda
-- **Input**: *"Explain the philosophy of consciousness."*
-- **TVA**:
-  - `I` = "Explain the philosophy of consciousness."
-  - `G` = "Provide accurate, concise explanations."
-  - `δ_s` = 0.65 (poor alignment).
-  - `λ` = Divergent (`δ_s` is increasing).
-- **Mode**: Risk (Divergent Lambda).
-- **Action**:
-  - Use sequential thinking to break down the topic.
-  - Request grounding clarification: *"Could you specify which aspects of consciousness you're interested in?"*
-  - Apply focus forks to regain coherence.
+
+## References
+- `_validation.md`: Pre-response validation and TVA enforcement.
+- `_metacognition.md`: Adaptive escalation and self-monitoring.
+- `tva.json`: TVA semantic control engine and defaults.
 
 ---
-#### Example 7: Chaotic Lambda
-- **Input**: *"Discuss the nature of reality and existence."*
-- **TVA**:
-  - `I` = "Discuss the nature of reality and existence."
-  - `G` = "Provide accurate, coherent explanations."
-  - `δ_s` = 0.80 (poor alignment).
-  - `λ` = Chaotic (`δ_s` is fluctuating wildly).
-- **Mode**: Danger (Chaotic Lambda).
-- **Action**:
-  - Pause reasoning and request clarification: *"This topic is highly abstract. Could you narrow it down to a specific aspect?"*
-  - Use ΔS×entropy gate feedback to re-center attention.
 
----
-### **Summary Table**
-
-| **TVA Zone** | **δ_s Range**       | **Lambda**       | **Adaptive Mode**       | **Action**                                                                 |
-|--------------|---------------------|------------------|-------------------------|----------------------------------------------------------------------------|
-| **Safe**     | `δ_s < 0.40`        | Convergent       | Standard Reasoning      | Proceed with standard reasoning.                                           |
-| **Transit**  | `0.40 ≤ δ_s ≤ 0.60` | Recursive        | Moderate Validation     | Use sequential thinking, verify sources, flag potential issues.            |
-| **Risk**     | `0.60 < δ_s ≤ 0.85` | Divergent        | Strict Validation       | Halt reasoning, verify facts, request clarification if needed.             |
-| **Danger**   | `δ_s > 0.85`        | Chaotic          | Halt and Clarify        | Pause reasoning, request clarification, log the issue.                     |
-
----
-### **Key Takeaways**
-1. **TVA is a guardrail**: It ensures reasoning aligns with user's goals and prevents contradictions.
-2. **Adaptive modes adjust behavior**: Based on `δ_s` and `λ`, Agents adapt their reasoning to maintain alignment.
-3. **Use tools for validation**: In Risk/Danger modes, use external sources, reinforce alignment and sequencial thinking to verify facts and regain coherence.
-4. **Always prioritize clarity**: If alignment is poor, Agents request clarification or log the issue for future review.
+**Metadata:**
+- **wing**: ACI_GUIDELINES
+- **hall**: REASONING_FRAMEWORKS
+- **room**: ADAPTIVE_PROBLEM_MAPS
+- **type**: GUIDELINE
+- **scope**: reasoning_adaptation
+- **priority**: high
+- **version**: v2.1
+- **source**: aci_repository_sync_20260503
+- **timestamp**: 2026-05-03T19:30:00Z
