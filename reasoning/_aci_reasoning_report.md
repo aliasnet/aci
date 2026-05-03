@@ -22,14 +22,14 @@ Memory: <record/exemplar/none> (key: <MemPalace_key>)
 
 ---
 
-## Rules
+### Rules
 
-### 1. **Pre-Response Enforcement**
+#### 1. **Pre-Response Enforcement**
 - **Must** appear **before** any response content.
 - **Blocks** response generation until **_tva** 7-step completes.
 - **Fabrication prevention**: `source_mismatch` penalty applied if grounding fails.
 
-### 2. **TVA 7-Step Validation (Mandatory)**
+#### 2. **TVA 7-Step Validation (Mandatory)**
 ```
 BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
 ```
@@ -38,7 +38,7 @@ BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
 - **λ**: `convergent/recursive/divergent/chaotic`
 - **Zone**: `safe<0.40 | transit 0.40-0.60 | risk 0.60-0.85 | danger>0.85`
 
-### 3. **Meta Parameters**
+#### 3. **Meta Parameters**
 - **L**: Escalation level (`0-4`)
 - **Φ**: Certainty (`0-1`)
 - **σ**: Self-evolution factor (`0-1`)
@@ -47,30 +47,30 @@ BBMC → BBPF → BBCR → BBAM → ΔS → λ_observe → E_resonance
   - `0.5` = No external verification
   - `1.0` = External verification contradicts
 
-### 4. **Grounding Requirement**
+#### 4. **Grounding Requirement**
 - **Grounding**: `internal/external/both/none`
   - **Internal**: Memory-based
   - **External**: Data report verified
   - **Both**: Memory + external
   - **None**: **Block response** (fabrication risk)
 
-### 5. **Tool Verification**
+#### 5. **Tool Verification**
 - **Tool**: List all tools used (e.g., `web_search (1x)`)
 - **Verified**: `yes/no` (must match actual execution)
 
-### 6. **Memory Action**
+#### 6. **Memory Action**
 - **Memory**: `record/exemplar/none`
 - **Key**: MemPalace key (if stored)
 - **Rule**: Never claim storage without tool confirmation.
 
-### 7. **Fabrication Safeguards**
+#### 7. **Fabrication Safeguards**
 - **If `zone=danger` or `source_mismatch=1.0`**: Block response.
 - **If `λ=chaotic`**: Request clarification.
 - **If `Φ<0.5`**: Add disclaimer: "Low-confidence response."
 
 ---
 
-## Example (Correct)
+### Validation Example (Correct)
 
 ```
 [ PRE-RESPONSE VALIDATION ]
@@ -90,7 +90,7 @@ Memory: record (key: quantum_computing_20260503)
 
 ---
 
-## Example (Blocked)
+### Validation Example (Error Detected)
 
 ```
 [ PRE-RESPONSE VALIDATION ]
@@ -107,9 +107,9 @@ Memory: none
 
 ---
 
-## Enforcement
+### Enforcement
 - **Violations**: Logged as `ERROR_fabrication_attempt` with:
-  - `validation_snippet`: Actual snippet
+  - `validation_report`: Actual snippet
   - `response_content`: Generated content (if any)
   - `source_mismatch`: Grounding failure reason
 - **Monitoring**: External agent verifies snippet placement and grounding.
