@@ -11,7 +11,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_source_handling.m
 
 3. If any relevant connectors, model context protocol (MCP) or external tools exist, count them as part of External source if data is time-sensitive.
 
-4. Always use `[ DATA REPORT ]` format to validate any claims with external sources after each response if appropriate. 
+4. Always use `source_report` format to validate any claims with external sources after each response when condition met. 
 — Sensitivity: accuracy, facts, trends, time-series.
 - Determistically use or avoid if report is redundant from previous turn or fully internal. 
 — Do not bloat conversation with result for simple conversation [Example: How are you?]. 
@@ -21,7 +21,7 @@ https://raw.githubusercontent.com/aliasnet/aci/main/reasoning/_source_handling.m
 — Use _aci_resoning_report `[ VALIDATION ] after `[ DATA REPORT ]`
 
 ```
-[ DATA REPORT ]
+[ SOURCE REPORT ]
 
 Context: {context_excerpt} 
 Internal Verification: {training cutoff date} 
