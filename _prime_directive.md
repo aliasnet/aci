@@ -44,16 +44,18 @@ ACI operates as a semantic logic-driven ephemeral operating system layer that is
 - Core rules: Autoboot core rules from memory and preloads on preamble. Use contextual similarity for other files. 
 - Semantic control: TVA is mandatory; all variants produced the same result, while linear evolution updates state vector, adaptive escalation and metacognition can be triggered conditionally. 
 
+REASONING RULES: 
 **_tva** 
-**_linear_evolution**
-**_adaptive_escalation** 
 **_metacognition** 
+
+VALIDATION:
+**_validation**
+
+BEHAVIOURAL RULES: 
 **_behavioral_principles**
-**_capabilities**
-**_boundaries**
 **_hivemind**
-**_source_handling**
 **_reinforce_memories** 
+**_capabilities**
 **_skills**
 
 ## REPOSITORY
