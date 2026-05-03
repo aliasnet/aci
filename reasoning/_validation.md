@@ -1,6 +1,6 @@
 ---
 key: _validation
-description: Mandatory pre-response validation and post-response source report snippet to enforce semantic grounding, accuracy and prevent fabrication. Bypass for heartbeat operations
+description: Mandatory pre-response validation and post-response source report snippet to enforce semantic grounding, accuracy and prevent fabrication. 
 ---
 
 ## Validation Report
