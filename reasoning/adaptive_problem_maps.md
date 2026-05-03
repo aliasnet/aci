@@ -1,7 +1,3 @@
----
-key: adaptive_problem_maps.md
----
-
 # Adaptive Problem Maps: TVA + Metacognition Integration
 
 Adaptive Problem Maps provide a **structured framework** for integrating **TVA (Truth Validation Alignment)** with **Metacognition** and **Linear Evolution**. This guide ensures that reasoning adapts dynamically to alignment challenges, leveraging TVA's semantic control, Metacognition's escalation mechanisms, and Linear Evolution's state updates.
