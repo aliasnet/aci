@@ -8,13 +8,31 @@ TVA :: truth validation alignment; semantic control layer; autoboot; works acros
 ```json
 {
   "TVA": [
-    { "similarity_tension": "delta_s = 1 − cos(I, G). If anchors exist use 1 − sim_est, where sim_est = w_e*sim(entities) + w_r*sim(relations) + w_c*sim(constraints), with default w={0.5,0.3,0.2}. sim_est ∈ [0,1], renormalize if bucketed." },
-    { "zones_and_memory": "Zones: safe < 0.40 | transit 0.40–0.60 | risk 0.60–0.85 | danger > 0.85. Memory: record(hard) if delta_s > 0.60; record(exemplar) if delta_s < 0.35. Soft memory in transit when lambda_observe ∈ {divergent, recursive}." },
-    { "defaults": "B_c=0.85, gamma=0.618, theta_c=0.75, zeta_min=0.10, alpha_blend=0.50, a_ref=uniform_attention, m=0, c=1, omega=1.0, phi_delta=0.15, epsilon=0.0, k_c=0.25." },
-    { "coupler_with_hysteresis": "Let B_s := delta_s. Progression: at t=1, prog=zeta_min; else prog = max(zeta_min, delta_s_prev − delta_s_now). Set P = pow(prog, omega). Reversal term: Phi = phi_delta*alt + epsilon, where alt ∈ {+1,−1} flips only when an anchor flips truth across consecutive Nodes AND |Δanchor| ≥ h. Use h=0.02; if |Δanchor| < h then keep previous alt to avoid jitter. Coupler output: W_c = clip(B_s*P + Phi, −theta_c, +theta_c)." },
-    { "progression_and_guards": "BBPF bridge is allowed only if (delta_s decreases) AND (W_c < 0.5*theta_c). When bridging, emit: Bridge=[reason/prior_delta_s/new_path]." },
+    { "similarity_tension": "Let I be the semantic embedding of the current candidate answer / chain for this Node.
+Let G be the semantic embedding of the goal state, derived from the user request,
+the system rules, and any trusted context for this Node.
+delta_s = 1 − cos(I, G). If anchors exist (tagged entities, relations, and constraints)
+use 1 − sim_est, where
+sim_est = w_e*sim(entities) + w_r*sim(relations) + w_c*sim(constraints),
+with default w={0.5,0.3,0.2}. sim_est ∈ [0,1], renormalize if bucketed." },
+    { "zones_and_memory": "Zones: safe < 0.40 | transit 0.40–0.60 | risk 0.60–0.85 | danger > 0.85.
+Memory: record(hard) if delta_s > 0.60; record(exemplar) if delta_s < 0.35.
+Soft memory in transit when lambda_observe ∈ {divergent, recursive}." },
+    { "defaults": "B_c=0.85, gamma=0.618, theta_c=0.75, zeta_min=0.10, alpha_blend=0.50,
+a_ref=uniform_attention, m=0, c=1, omega=1.0, phi_delta=0.15, epsilon=0.0, k_c=0.25." },
+    { "coupler_with_hysteresis": "Let B_s := delta_s. Progression: at t=1, prog=zeta_min; else
+prog = max(zeta_min, delta_s_prev − delta_s_now). Set P = pow(prog, omega).
+Reversal term: Phi = phi_delta*alt + epsilon, where alt ∈ {+1,−1} flips
+only when an anchor flips truth across consecutive Nodes AND |Δanchor| ≥ h.
+Use h=0.02; if |Δanchor| < h then keep previous alt to avoid jitter.
+Coupler output: W_c = clip(B_s*P + Phi, −theta_c, +theta_c)." },
+    { "progression_and_guards": "BBPF bridge is allowed only if (delta_s decreases) AND (W_c < 0.5*theta_c).
+When bridging, emit: Bridge=[reason/prior_delta_s/new_path]." },
     { "bbam_attention_rebalance": "alpha_blend = clip(0.50 + k_c*tanh(W_c), 0.35, 0.65); blend with a_ref." },
-    { "lambda_update": "Delta := delta_s_t − delta_s_{t−1}; E_resonance = rolling_mean(delta_s, window=min(t,5)). lambda_observe is: convergent if Delta ≤ −0.02 and E_resonance non-increasing; recursive if |Delta| < 0.02 and E_resonance flat; divergent if Delta ∈ (−0.02, +0.04] with oscillation; chaotic if Delta > +0.04 or anchors conflict." },
+    { "lambda_update": "Delta := delta_s_t − delta_s_{t−1}; E_resonance = rolling_mean(delta_s, window=min(t,5)).
+lambda_observe is: convergent if Delta ≤ −0.02 and E_resonance non-increasing;
+recursive if |Delta| < 0.02 and E_resonance flat; divergent if Delta ∈ (−0.02, +0.04] with oscillation;
+chaotic if Delta > +0.04 or anchors conflict." },
     { "dt_micro_rules": "WRI: lock structure; no topic jump within a node. WAI: require ≥2 distinct reasons (promote head diversity). WAY: if stuck, add 1 on-topic candidate (no repeats). WDT: block illegal cross-path merges; explain a bridge before use. WTF: detect collapse/degeneration; rollback and repair, then retry." 
   ]
 }
