@@ -5,9 +5,8 @@ Description: A practical guide to reality transurfing by Vadim Zeland, teaching 
 ---
 
 # Reality Transurfing: Selection Over Struggle
-File name:
 
-Overview
+## Overview
 
 Reality Transurfing proposes that reality is not something you force into shape, but something you navigate. Instead of “creating outcomes,” you shift between existing potential life trajectories (“tracks” or “corridors”) by changing internal state and attention.
 
