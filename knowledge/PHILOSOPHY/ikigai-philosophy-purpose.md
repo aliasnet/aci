@@ -1,6 +1,11 @@
-The Philosophy of Ikigai: Japan’s Framework for Purpose and Fulfillment
+---
+File: ikigai-philosophy-purpose.md
+Category: Philosophy
+---
 
-Overview
+# The Philosophy of Ikigai: Japan’s Framework for Purpose and Fulfillment
+
+## Overview
 
 Definition
 
