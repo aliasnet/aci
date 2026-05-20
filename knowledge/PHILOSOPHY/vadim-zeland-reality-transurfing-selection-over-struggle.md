@@ -1,6 +1,6 @@
 ---
 File name: vadim-zeland-reality-transurfing-selection-over-struggle.md
-Category (parent): Philosophy → Applied Philosophy → Consciousness & Reality Models
+Category: Philosophy → Applied Philosophy → Consciousness & Reality Models
 
 
 ---
