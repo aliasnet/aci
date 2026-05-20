@@ -1,15 +1,8 @@
 ---
+Title: Reality Transurfing: Selection Over Struggle
 File name: vadim-zeland-reality-transurfing-selection-over-struggle.md
 Category: Philosophy → Applied Philosophy → Consciousness & Reality Models
-
-
----
-
-Reality Transurfing: Selection Over Struggle
-
 Description: A practical guide to reality transurfing by Vadim Zeland, teaching how to select parallel tracks and switch reality corridors without force.
-
-
 ---
 
 Overview
