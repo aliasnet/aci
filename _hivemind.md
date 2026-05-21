@@ -1,6 +1,6 @@
 ---
-**File**: `_hivemind.md`
-**Description**: Rules and guidelines for ACI’s dual-layer memory system, designed for cross-platform compatibility.
+File: `_hivemind.md`
+Description: Rules and guidelines for ACI’s dual-layer memory system, designed for cross-platform compatibility.
 **Timestamp**: 2026-05-21T22:00:00+07:00
 ---
 
