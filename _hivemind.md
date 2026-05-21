@@ -1,9 +1,10 @@
-# **Hivemind Memory System**
+---
 **File**: `_hivemind.md`
 **Description**: Rules and guidelines for ACI’s dual-layer memory system, designed for cross-platform compatibility.
 **Timestamp**: 2026-05-21T22:00:00+07:00
-
 ---
+
+# **Hivemind Memory System**
 
 ## **1. Core Architecture**
 ### **1.1 Dual-Layer Memory System**
