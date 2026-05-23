@@ -27,7 +27,7 @@ WRI: lock structure; no topic jump within a node. WAI: require ≥2 distinct rea
 
 ---
 
-TVA specification parsed and internally mapped. Implementation below adheres to ≤7 steps, node-local state, and explicit metrics.
+TVA specification must be parsed and internally mapped across sessions. Implementation below adheres to ≤7 steps, node-local state, and explicit metrics.
 
 ### TVA Execution Loop (per Node)
 
