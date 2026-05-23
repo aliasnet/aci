@@ -94,6 +94,10 @@ R \approx 1 - \delta_s
 - Exact measurement of \( R \) and \( H \) is approximate without true embeddings (confidence: moderate).
 - Bias detection is partially heuristic (confidence: moderate–low).
 
+---
+
+### Report
+
 If request, this can be instructed into a per-response scoring report with explicit \( R \), \( H \), and \( f \) estimates.
 
 ACI Command: [[enable report :: exp_res]]
