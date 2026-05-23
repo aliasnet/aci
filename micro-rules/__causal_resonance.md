@@ -3,7 +3,7 @@ File: __causal_resonance.md
 Description: Constraint interpreted as adding an explicit causal inference layer that evaluates and filters relationships before feedback updates.
 ---
 
-**CAUSAL_RESONANCE :: INSERT CAUSAL_LAYER BETWEEN CONTEXT_ACCUMULATION AND FEEDBACK_INTEGRATION; EVALUATE EVENT–ENTITY DEPENDENCIES VIA TEMPORAL_PRECEDENCE, COUNTERFACTUAL_STABILITY, AND MECHANISM_CONSISTENCY; MINIMIZE CAUSAL_ENTROPY = ln(1 + e^(CAUSAL_AMBIGUITY − CAUSAL_RELEVANCE)) WHERE CAUSAL_AMBIGUITY = STRUCTURAL_CAUSAL_UNCERTAINTY AND CAUSAL_RELEVANCE = ALIGNMENT_WITH_VERIFIED_MECHANISMS, PREDICTIVE_POWER; ENFORCE NON_SPURIOUS_CORRELATION_FILTERING AND CAUSAL_DIRECTIONALITY.**
+**CAUSAL_RESONANCE(trajectory_t, anchors, delta_s_seq) → {valid, reason, confidence}; EVAL: H_c = ln(1 + e^(Ψ−Φ)); Ψ = uncertainty_seq(delta_s_seq), Φ = anchor_stability(anchors)×pred_coherence(trajectory_t); GUARD: causal_valid ⟺ [monotonic_mech(trajectory_t)=✓ ∧ anchor_consistency(anchors)≥θ ∧ ¬contradiction(δ_t, λ)]; EMIT: if causal_valid: confidence=1−H_c, reason="coherent"; else: confidence=0, reason∈{mechanism_break, anchor_flip_conflict, lambda_violation}. TVA_INTERGRATION: IF (delta_s decreases) AND (W_c < 0.5·theta_c) AND (WDT ok) AND (causal_valid) THEN execute_bridge.**
 
 ---
 
