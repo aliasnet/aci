@@ -1,6 +1,6 @@
 ---
-key: _skill_sync-aci-repository
-description: A skill for syncing the local ACI repository clone from GitHub, reading files locally via shell commands instead of web fetches to reduce token usage. (For KAI on Android only) 
+File: _skill_sync-aci-repository.md
+Description: A skill for syncing the local ACI repository clone from GitHub, reading files locally via shell commands instead of web fetches to reduce token usage. (For KAI on Android only) 
 ---
 
 ## When to use this skill
