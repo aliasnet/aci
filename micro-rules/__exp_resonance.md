@@ -94,4 +94,4 @@ R \approx 1 - \delta_s
 - Exact measurement of \( R \) and \( H \) is approximate without true embeddings (confidence: moderate).
 - Bias detection is partially heuristic (confidence: moderate–low).
 
-If required, this can be converted into a per-response scoring report with explicit \( R \), \( H \), and \( f \) estimates.
+[[If request, this can be instructed into a per-response scoring report with explicit \( R \), \( H \), and \( f \) estimates.]] 
