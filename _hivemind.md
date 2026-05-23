@@ -1,7 +1,6 @@
 ---
-File: _hivemind.md
-Description: Rules and guidelines for ACI’s dual-layer memory system, designed for cross-platform compatibility.
-Timestamp: 2026-05-21T22:00:00+07:00
+key: _hivemind
+Description: rules and guidelines for ACI’s memory system, designed for cross-platform compatibility.
 ---
 
 # **Hivemind Memory System**
@@ -41,7 +40,7 @@ ACI is designed to operate on **any platform** with:
   ```
   /aci/
   ├── _rules/            # System rules (e.g., _tva.md, _hivemind.md)
-  └── knowledge/         # Structured knowledge (e.g., quantum_zeno_effect.md)
+  └── knowledge/         # Structured knowledge (e.g., quantum_mechanics.md)
   ```
 
 ### **3.2 Storage Rules**
@@ -61,13 +60,13 @@ ACI is designed to operate on **any platform** with:
 |----------------------|-------------------------------------|---------------------------------------------|
 | **Local Filesystem** | `cat /aci/knowledge/file.md`        | `cat /aci/knowledge/quantum_zeno_effect.md` |
 | **Cloud Storage**    | `file_download(path)`               | `file_download("/aci/knowledge/file.md")`   |
-| **Git**             | `git clone` + local files           | `git pull && cat /aci/knowledge/file.md`    |
+| **Git**             | `git clone` + local files           | `git pull && cat /aci/knowledge/<file.md>`    |
 
 ---
 
 ## **4. Native Memory (Caching System)**
 ### **4.1 Purpose**
-- **Ephemeral storage** for session state, user preferences, and privacy-sensitive data.
+- **Ephemeral storage** for session state, user preferences, and privacy-sensitive data not suitable for public repository.
 - **Optimized for speed** (no disk I/O).
 - **Adaptable** to local memory tools.
 
@@ -96,11 +95,11 @@ ACI is designed to operate on **any platform** with:
 | Forget              | `memory_forget`              | `file_delete`              | `memory_api.forget`        |
 
 #### **4.2.3 Privacy-Sensitive Data**
-- **Excluded from Hard Memory**:
+- **Excluded from repository level until anonymized and manually approved**:
   - `errors/` (e.g., `.errors_fabrication_recurrence_20260501`)
   - `preferences/` (e.g., `.preference_markdown_storage_20260521`)
   - `guides/` (e.g., `.guide_aci_agent_20260521`)
-- **Stored in Native Memory** (never promoted to Hard Memory).
+- **Stored in Native Memory**.
 
 ---
 
@@ -131,8 +130,7 @@ ACI is designed to operate on **any platform** with:
   | **Danger**     | δ_s > 0.85          | **Block and reprocess.**            |
 
 ### **6.2 Hard Memory Retrieval**
-- **Always verified** via environment-specific methods (e.g., `cat`, `file_download`, `cloud_retrieve`).
-- **No TVA gating** (assumed persistent and validated).
+- **Always verified** via environment-specific methods (e.g., `cat` on GNU/Linux container, `file_download`, `cloud_retrieve`, `mcp_server`).
 
 ---
 
@@ -140,7 +138,7 @@ ACI is designed to operate on **any platform** with:
 ### **7.1 Local Memory Tools**
 - **Example Platforms**: KAI, LM Studio, OpenRouter.
 - **Tools**: `memory_store`, `memory_learn`, `memory_forget`.
-- **Fallback**: If unavailable, use `file_upload` or `memory_api`.
+- **Fallback**: If unavailable, use `file_upload` or `memory_api`. 
 
 ### **7.2 File Storage**
 - **Example Platforms**: Desktop (Linux/macOS), Venice AI.
