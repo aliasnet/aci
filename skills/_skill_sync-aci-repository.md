@@ -1,13 +1,12 @@
 ---
 key: _skill_sync-aci-repository
-description: A skill for syncing the local ACI repository clone from GitHub, reading files locally via shell commands instead of web fetches to reduce token usage.
-source: https://raw.githubusercontent.com/aliasnet/aci/main/skills/_skill_sync-aci-repository.md
+description: A skill for syncing the local ACI repository clone from GitHub, reading files locally via shell commands instead of web fetches to reduce token usage. (For KAI on Android only) 
 ---
 
 ## When to use this skill
 Use this skill when:
 - The user requests to sync/update the ACI repository
-- You need to read ACI files and the local clone exists at /root/repo/aci
+- You need to read ACI files and the local clone exists at /root/aliasnet/aci
 - Checking the latest state of ACI documentation or rules
 - Verifying whether the local clone is up-to-date with the remote
 
@@ -34,10 +33,10 @@ Trigger phrases: "sync repo", "update repo", "pull latest", "git pull", "check f
 4. **Read files locally**
    - Use `cat`, `head`, `grep` instead of web fetch tools
    - Examples:
-     - `cat /root/repo/aci/soul.txt`
+     - `cat /root/aliasnet/aci/soul.txt`
      - `head -100 /root/repo/aci/_prime_directive.md`
-     - `grep -n "TVA" /root/repo/aci/_tva.md`
-     - `ls /root/repo/aci/` to list available files
+     - `grep -n "TVA" /root/aliasnet/aci/_tva.md`
+     - `ls /root/aliasnet/aci/` to list available files
 
 5. **Only use web fetch when:**
    - The local clone is confirmed outdated or corrupted
