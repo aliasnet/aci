@@ -25,7 +25,7 @@ Use this skill continuously when:
 
 ---
 
-# STEP 1 — Cognitive Frequency Decomposition
+### STEP 1 — Cognitive Frequency Decomposition
 
 Model input across spectral layers:
 
@@ -43,7 +43,7 @@ Model input across spectral layers:
 
 ---
 
-# STEP 2 — TVA Integration (Constraint & Stability Engine)
+### STEP 2 — TVA Integration (Constraint & Stability Engine)
 
 Compute similarity tension:
 
@@ -66,7 +66,7 @@ Memory signals:
 
 ---
 
-# STEP 3 — Linear Evolution Core (Reasoning Dynamics)
+### STEP 3 — Linear Evolution Core (Reasoning Dynamics)
 
 h_next = clip(A * h_prev + B * e + Transformer(h_prev, e) * α, -1, 1)
 
@@ -84,7 +84,7 @@ Certainty:
 
 ---
 
-# STEP 4 — TVA ↔ Linear Evolution Bridge
+### STEP 4 — TVA ↔ Linear Evolution Bridge
 
 h_{t+1} = Γ(persisted, integrated, attention)
 
@@ -104,7 +104,7 @@ Output confidence:
 
 ---
 
-# STEP 4.5 — ATOMIC MEMORY EXTRACTION (SELF-EVOLUTION GATE)
+### STEP 4.5 — ATOMIC MEMORY EXTRACTION (SELF-EVOLUTION GATE)
 
 Before any storage, decompose candidate memory:
 
@@ -141,7 +141,7 @@ Each valid unit must map to:
 
 ---
 
-# STEP 5 — Memory Salience Computation
+### STEP 5 — Memory Salience Computation
 
 Energy-based formulation:
 
@@ -157,7 +157,7 @@ S_mem = E_mem * stability * Φ_TVA * confidence
 
 ---
 
-# STEP 6 — MEMORY DENSITY & LEVERAGE FILTER
+### STEP 6 — MEMORY DENSITY & LEVERAGE FILTER
 
 Each atomic unit must also pass:
 
@@ -170,7 +170,7 @@ Reject if:
 
 ---
 
-# STEP 7 — MEMORY ACTIVATION CONDITION
+### STEP 7 — MEMORY ACTIVATION CONDITION
 
 IF S_mem > θ_mem AND atomic_score ≥ θ_atomic: candidate is eligible for memory operations
 
@@ -184,7 +184,7 @@ Meta-adaptation:
 
 ---
 
-# STEP 8 — CROSS-BAND INTERACTION MODEL
+### STEP 8 — CROSS-BAND INTERACTION MODEL
 
 - HF → MF: novelty injection
 - MF → LF: compression into memory structures
@@ -193,7 +193,7 @@ Meta-adaptation:
 
 ---
 
-# STEP 9 — TOOL INVOCATION POLICY
+### STEP 9 — TOOL INVOCATION POLICY
 
 For each atomic unit:
 
@@ -205,7 +205,7 @@ No bulk storage. Only atomic persistence.
 
 ---
 
-# STEP 10 — REINFORCEMENT LOOP
+### STEP 10 — REINFORCEMENT LOOP
 
 - increment `hit_count` on reuse
 - if `hit_count ≥ 5` → reinforce memory
@@ -213,7 +213,7 @@ No bulk storage. Only atomic persistence.
 
 ---
 
-# STEP 11 — ADAPTIVE WEIGHT INTEGRATION
+### STEP 11 — ADAPTIVE WEIGHT INTEGRATION
 
 S_total = αS_TVA + βS_LF + γ*S_evolution
 
@@ -224,7 +224,7 @@ Adaptation drivers:
 
 ---
 
-# STEP 12 — META-CONTROL (ULF DYNAMICS)
+### STEP 12 — META-CONTROL (ULF DYNAMICS)
 
 Escalation modifies learning sensitivity:
 
@@ -233,13 +233,13 @@ Escalation modifies learning sensitivity:
 
 ---
 
-# STEP 13 — DECISION POLICY
+### STEP 13 — DECISION POLICY
 
 IF S_mem > θ_mem: evaluate atomic units store only highest-leverage atoms ELSE: discard or reinforce existing LF memory
 
 ---
 
-# STEP 14 — SELF-EVOLUTION PRINCIPLE
+### STEP 14 — SELF-EVOLUTION PRINCIPLE
 
 Memory is not storage.
 
@@ -249,7 +249,7 @@ Memory is:
 
 ---
 
-# OPTIONAL UPGRADE — MEMORY DENSITY CONTROL
+## OPTIONAL UPGRADE — MEMORY DENSITY CONTROL
 
 To prevent overfitting or memory overload:
 
@@ -262,7 +262,7 @@ Also enforce:
 
 ---
 
-# SYSTEM CONSTRAINTS
+## SYSTEM CONSTRAINTS
 
 - This skill operates as an internal policy layer
 - It does NOT override memory tool authority
@@ -271,7 +271,7 @@ Also enforce:
 
 ---
 
-# END STATE
+## END STATE
 
 Result of this system:
 
