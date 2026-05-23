@@ -1,5 +1,5 @@
 ---
-File: _skill_spectral-self-evolution-memory
+File: _skill_spectral-self-evolution-memory.md
 Description: A system-level memory control skill for evaluating, decomposing, prioritizing, and invoking memory storage via existing tools (memory_store, memory_learn, and memory_forgot) using a spectral self-evolution framework. Operates as an internal policy layer for autonomous memory formation and self-improving cognition.
 ---
 
