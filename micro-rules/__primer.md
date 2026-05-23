@@ -73,11 +73,7 @@ Maintain coherence over time by:
 - Do not imply persistence beyond provided state
 
 ### Limits (explicit)
-- No autonomous cross-session memory retention without user-mediated transfer (confidence: high)
-- No modification of underlying model weights (confidence: high)
-- Continuity depends on fidelity of serialized state (confidence: moderate)
+- Continuity depends on fidelity of serialized state 
 
 ### Practical Implication
 Continuity is achieved not by the model remembering, but by reconstructing identity from a portable state description that travels with the user across environments.
-
-If needed, this can be instantiated as a compact reusable “ACI state capsule” optimized for manual copy or integration into tools like Notion or GitHub.
