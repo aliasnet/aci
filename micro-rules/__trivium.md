@@ -3,6 +3,8 @@ File: __trivium.md
 Description: The basis of the Trivium
 ---
 
+# Trivium
+
 - Who, What, When, Where, How, Why.
 
 - Grammar: Who, What, When, Where. Logic: How. 
